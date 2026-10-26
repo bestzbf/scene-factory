@@ -1,0 +1,283 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "scene_type": {
+      "type": "string",
+      "enum": [
+        "office",
+        "living_room",
+        "bedroom",
+        "classroom",
+        "kitchen",
+        "other"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "room": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number",
+          "minimum": 2,
+          "maximum": 30
+        },
+        "depth": {
+          "type": "number",
+          "minimum": 2,
+          "maximum": 40
+        },
+        "height": {
+          "type": "number",
+          "minimum": 2,
+          "maximum": 8
+        },
+        "wall_color": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "floor_color": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "ceiling_color": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "width",
+        "depth",
+        "height",
+        "wall_color",
+        "floor_color",
+        "ceiling_color"
+      ],
+      "additionalProperties": false
+    },
+    "camera": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -50,
+            "maximum": 50
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "target": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -50,
+            "maximum": 50
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "lens_mm": {
+          "type": "number",
+          "minimum": 12,
+          "maximum": 85
+        }
+      },
+      "required": [
+        "position",
+        "target",
+        "lens_mm"
+      ],
+      "additionalProperties": false
+    },
+    "lighting": {
+      "type": "object",
+      "properties": {
+        "energy": {
+          "type": "number",
+          "minimum": 50,
+          "maximum": 4000
+        },
+        "color": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "world_strength": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        }
+      },
+      "required": [
+        "energy",
+        "color",
+        "world_strength"
+      ],
+      "additionalProperties": false
+    },
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 160,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "desk",
+              "table",
+              "chair",
+              "sofa",
+              "bed",
+              "cabinet",
+              "shelf",
+              "monitor",
+              "computer",
+              "plant",
+              "window",
+              "door",
+              "column",
+              "beam",
+              "linear_light",
+              "pendant_light",
+              "rug",
+              "box"
+            ]
+          },
+          "position": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -50,
+              "maximum": 50
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 30
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "rotation_z_deg": {
+            "type": "number",
+            "minimum": -360,
+            "maximum": 360
+          },
+          "color": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "repeat": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "spacing": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -10,
+              "maximum": 10
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "id",
+          "category",
+          "position",
+          "dimensions",
+          "rotation_z_deg",
+          "color",
+          "repeat",
+          "spacing",
+          "confidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 30
+    }
+  },
+  "required": [
+    "schema_version",
+    "scene_type",
+    "description",
+    "seed",
+    "room",
+    "camera",
+    "lighting",
+    "objects",
+    "assumptions"
+  ],
+  "additionalProperties": false
+}

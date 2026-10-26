@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "scene_type": "living_room",
+  "description": "手写合成示例，仅用于验证通用建模器，非自动读图结果",
+  "seed": 23,
+  "room": {
+    "width": 6,
+    "depth": 7,
+    "height": 3,
+    "wall_color": [
+      0.66,
+      0.65,
+      0.61
+    ],
+    "floor_color": [
+      0.3,
+      0.27,
+      0.23
+    ],
+    "ceiling_color": [
+      0.8,
+      0.8,
+      0.76
+    ]
+  },
+  "camera": {
+    "position": [
+      0,
+      0.35,
+      1.6
+    ],
+    "target": [
+      0,
+      4.2,
+      1.25
+    ],
+    "lens_mm": 20
+  },
+  "lighting": {
+    "energy": 650,
+    "color": [
+      1,
+      0.93,
+      0.82
+    ],
+    "world_strength": 0.2
+  },
+  "objects": [
+    {
+      "id": "sofa",
+      "category": "sofa",
+      "position": [
+        0,
+        4.8,
+        0
+      ],
+      "dimensions": [
+        2.5,
+        1.0,
+        1.0
+      ],
+      "color": [
+        0.18,
+        0.27,
+        0.32
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "coffee",
+      "category": "table",
+      "position": [
+        0,
+        3.1,
+        0
+      ],
+      "dimensions": [
+        1.5,
+        0.7,
+        0.44
+      ],
+      "color": [
+        0.48,
+        0.3,
+        0.15
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "rug",
+      "category": "rug",
+      "position": [
+        0,
+        3.5,
+        0
+      ],
+      "dimensions": [
+        3.3,
+        2.9,
+        0.015
+      ],
+      "color": [
+        0.45,
+        0.42,
+        0.34
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "bookcase",
+      "category": "shelf",
+      "position": [
+        -2.35,
+        5.4,
+        0
+      ],
+      "dimensions": [
+        1.0,
+        0.4,
+        2.1
+      ],
+      "color": [
+        0.48,
+        0.3,
+        0.15
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "plant",
+      "category": "plant",
+      "position": [
+        2.25,
+        5.8,
+        0
+      ],
+      "dimensions": [
+        0.8,
+        0.8,
+        1.8
+      ],
+      "color": [
+        0.08,
+        0.23,
+        0.06
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "window",
+      "category": "window",
+      "position": [
+        2.96,
+        3.5,
+        0.8
+      ],
+      "dimensions": [
+        2.5,
+        0.1,
+        1.8
+      ],
+      "color": [
+        0.8,
+        0.8,
+        0.76
+      ],
+      "rotation_z_deg": 90,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "pendant",
+      "category": "pendant_light",
+      "position": [
+        0,
+        3.3,
+        2.5
+      ],
+      "dimensions": [
+        0.45,
+        0.45,
+        0.4
+      ],
+      "color": [
+        0.8,
+        0.8,
+        0.76
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    }
+  ],
+  "assumptions": [
+    "此为人工编写的合成布局，不能用于评价照片重建准确性。"
+  ]
+}

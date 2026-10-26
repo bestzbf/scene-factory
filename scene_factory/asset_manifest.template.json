@@ -1,0 +1,166 @@
+{
+  "schema_version": "asset_manifest_v1",
+  "asset_id": "office_chair_geo_003",
+  "family_id": "office_chair",
+  "geometry_variant_id": "office_chair_geo_003",
+  "status": "draft",
+  "model": {
+    "format": "glb",
+    "path": "model.glb",
+    "sha256": "...",
+    "dimensions_import_units": [
+      0.52,
+      0.55,
+      0.86
+    ],
+    "dimensions_m": [
+      0.52,
+      0.55,
+      0.86
+    ],
+    "meters_per_import_unit": 1.0,
+    "scale_source": "unknown",
+    "scale_confidence": 0,
+    "canonical_up_axis": "+Z",
+    "canonical_front_axis": "-Y",
+    "triangle_count": 42000,
+    "object_count": 1,
+    "transform": {
+      "location": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "placement": {
+    "support_type": "floor",
+    "anchor_type": "bottom_center",
+    "anchor_point_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "contact_points_m": [
+      [
+        -0.2,
+        -0.2,
+        0.0
+      ],
+      [
+        0.2,
+        -0.2,
+        0.0
+      ]
+    ],
+    "mount_points": [],
+    "clearance_m": 0.0,
+    "can_rotate_z": true,
+    "collision_path": "collision.glb",
+    "collision_sha256": "...",
+    "allow_uniform_scale": true,
+    "allow_non_uniform_scale": false
+  },
+  "semantics": {
+    "category": "chair",
+    "description": "带靠背的深色织物办公椅",
+    "tags": [
+      "office",
+      "fabric",
+      "dark_gray"
+    ],
+    "scope": "single_prop",
+    "completeness": "complete",
+    "confidence": 0,
+    "source": "unverified_template"
+  },
+  "uv": {
+    "layout_id": "office_chair_uv_003",
+    "channels": 1,
+    "normal_convention": "OpenGL_Y+",
+    "texel_density_policy": "family_normalized"
+  },
+  "material_variant_ids": [
+    "office_chair_geo_003__mat_dark_fabric"
+  ],
+  "materials": {
+    "office_chair_geo_003__mat_dark_fabric": {
+      "material_variant_id": "office_chair_geo_003__mat_dark_fabric",
+      "compatible_geometry_ids": [
+        "office_chair_geo_003"
+      ],
+      "uv_layout_id": "office_chair_uv_003",
+      "normal_convention": "OpenGL_Y+",
+      "maps": {
+        "base_color": {
+          "path": "textures/seat_base_color.png",
+          "color_space": "sRGB",
+          "sha256": "..."
+        },
+        "normal": {
+          "path": "textures/seat_normal.png",
+          "color_space": "Non-Color",
+          "sha256": "..."
+        },
+        "roughness": {
+          "path": "textures/seat_roughness.png",
+          "color_space": "Non-Color",
+          "sha256": "..."
+        }
+      }
+    }
+  },
+  "previews": {
+    "front": {
+      "path": "previews/front.png",
+      "sha256": "..."
+    },
+    "side": {
+      "path": "previews/side.png",
+      "sha256": "..."
+    },
+    "back": {
+      "path": "previews/back.png",
+      "sha256": "..."
+    },
+    "three_quarter": {
+      "path": "previews/three_quarter.png",
+      "sha256": "..."
+    },
+    "placement_test": {
+      "path": "previews/placement_test.png",
+      "sha256": "..."
+    }
+  },
+  "quality": {
+    "file_integrity": false,
+    "import": false,
+    "geometry": false,
+    "uv": false,
+    "materials": false,
+    "previews": false,
+    "placement_test": false,
+    "production_ready": false
+  },
+  "provenance": {
+    "source_images": [
+      "reference/front.png",
+      "reference/side.png"
+    ],
+    "generator": "hunyuan3d",
+    "generator_version": "recorded_version",
+    "generation_parameters_sha256": "...",
+    "license": "internal",
+    "created_at": "2026-10-21T00:00:00Z"
+  }
+}

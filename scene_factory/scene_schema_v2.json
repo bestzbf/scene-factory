@@ -1,0 +1,933 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [
+        2
+      ]
+    },
+    "scene_type": {
+      "type": "string",
+      "enum": [
+        "office",
+        "living_room",
+        "bedroom",
+        "classroom",
+        "kitchen",
+        "shop",
+        "other"
+      ]
+    },
+    "base_scene": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "enum": [
+            1
+          ]
+        },
+        "scene_type": {
+          "type": "string",
+          "enum": [
+            "office",
+            "living_room",
+            "bedroom",
+            "classroom",
+            "kitchen",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "room": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 30
+            },
+            "depth": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 40
+            },
+            "height": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 8
+            },
+            "wall_color": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "floor_color": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "ceiling_color": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          },
+          "required": [
+            "width",
+            "depth",
+            "height",
+            "wall_color",
+            "floor_color",
+            "ceiling_color"
+          ],
+          "additionalProperties": false
+        },
+        "camera": {
+          "type": "object",
+          "properties": {
+            "position": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": -50,
+                "maximum": 50
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "target": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": -50,
+                "maximum": 50
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "lens_mm": {
+              "type": "number",
+              "minimum": 12,
+              "maximum": 85
+            }
+          },
+          "required": [
+            "position",
+            "target",
+            "lens_mm"
+          ],
+          "additionalProperties": false
+        },
+        "lighting": {
+          "type": "object",
+          "properties": {
+            "energy": {
+              "type": "number",
+              "minimum": 50,
+              "maximum": 4000
+            },
+            "color": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "world_strength": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2
+            }
+          },
+          "required": [
+            "energy",
+            "color",
+            "world_strength"
+          ],
+          "additionalProperties": false
+        },
+        "objects": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 160,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "desk",
+                  "table",
+                  "chair",
+                  "sofa",
+                  "bed",
+                  "cabinet",
+                  "shelf",
+                  "monitor",
+                  "computer",
+                  "plant",
+                  "window",
+                  "door",
+                  "column",
+                  "beam",
+                  "linear_light",
+                  "pendant_light",
+                  "rug",
+                  "box"
+                ]
+              },
+              "position": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": -50,
+                  "maximum": 50
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "dimensions": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0.01,
+                  "maximum": 30
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "rotation_z_deg": {
+                "type": "number",
+                "minimum": -360,
+                "maximum": 360
+              },
+              "color": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "repeat": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "spacing": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": -10,
+                  "maximum": 10
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "id",
+              "category",
+              "position",
+              "dimensions",
+              "rotation_z_deg",
+              "color",
+              "repeat",
+              "spacing",
+              "confidence"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30
+        }
+      },
+      "required": [
+        "schema_version",
+        "scene_type",
+        "description",
+        "seed",
+        "room",
+        "camera",
+        "lighting",
+        "objects",
+        "assumptions"
+      ],
+      "additionalProperties": false
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "source_id": {
+          "type": "string",
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "width",
+        "height",
+        "source_id"
+      ],
+      "additionalProperties": false
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "color": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "roughness": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "metallic": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "transmission": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "noise_scale": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "bump_strength": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "bump_distance": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.1
+          },
+          "texture_id": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "id",
+          "color",
+          "roughness",
+          "metallic",
+          "transmission",
+          "noise_scale",
+          "bump_strength",
+          "bump_distance",
+          "texture_id"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 128
+    },
+    "base_material_overrides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "material_id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "",
+                  "body",
+                  "metal",
+                  "fabric",
+                  "glass",
+                  "all"
+                ]
+              },
+              "material_name": {
+                "type": "string",
+                "maxLength": 128
+              },
+              "slot_index": {
+                "type": "integer",
+                "minimum": -1,
+                "maximum": 63
+              }
+            },
+            "required": [
+              "role",
+              "material_name",
+              "slot_index"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "object_id",
+          "material_id",
+          "selector"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 256
+    },
+    "exterior_contexts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "texture_id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "depth_m": {
+            "type": "number",
+            "minimum": 0.2,
+            "maximum": 20
+          },
+          "brightness_ev": {
+            "type": "number",
+            "minimum": -3,
+            "maximum": 6
+          }
+        },
+        "required": [
+          "window_id",
+          "texture_id",
+          "depth_m",
+          "brightness_ev"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 32
+    },
+    "textures": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "quad": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minItems": 4,
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "id",
+          "quad"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "surface_overrides": {
+      "type": "object",
+      "properties": {
+        "floor": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "ceiling": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "left": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "right": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "back": {
+          "type": "string",
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "floor",
+        "ceiling",
+        "left",
+        "right",
+        "back"
+      ],
+      "additionalProperties": false
+    },
+    "custom_objects": {
+      "type": "array",
+      "maxItems": 80,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "position": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -50,
+              "maximum": 50
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "rotation_degrees": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -360,
+              "maximum": 360
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "material_id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "observed": {
+            "type": "boolean"
+          },
+          "support_id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "box",
+                    "cylinder",
+                    "sphere",
+                    "curve",
+                    "mesh",
+                    "image_plane",
+                    "curtain"
+                  ]
+                },
+                "position": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "minimum": -50,
+                    "maximum": 50
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "size": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 30
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "rotation_degrees": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "minimum": -360,
+                    "maximum": 360
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "radius": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": -50,
+                      "maximum": 50
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "maxItems": 256
+                },
+                "vertices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": -50,
+                      "maximum": 50
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "maxItems": 2048
+                },
+                "faces": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 2047
+                    },
+                    "minItems": 3,
+                    "maxItems": 16
+                  },
+                  "maxItems": 4096
+                },
+                "material_id": {
+                  "type": "string",
+                  "maxLength": 128
+                },
+                "cloth": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fold_count": {
+                        "type": "integer",
+                        "minimum": 2,
+                        "maximum": 32
+                      },
+                      "fold_depth": {
+                        "type": "number",
+                        "minimum": 0.002,
+                        "maximum": 1
+                      },
+                      "sag": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "thickness": {
+                        "type": "number",
+                        "minimum": 0.0005,
+                        "maximum": 0.05
+                      },
+                      "segments_x": {
+                        "type": "integer",
+                        "minimum": 8,
+                        "maximum": 128
+                      },
+                      "segments_z": {
+                        "type": "integer",
+                        "minimum": 4,
+                        "maximum": 64
+                      },
+                      "seed": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      }
+                    },
+                    "required": [
+                      "fold_count",
+                      "fold_depth",
+                      "sag",
+                      "thickness",
+                      "segments_x",
+                      "segments_z",
+                      "seed"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "maxItems": 1
+                }
+              },
+              "required": [
+                "type",
+                "position",
+                "size",
+                "rotation_degrees",
+                "radius",
+                "points",
+                "vertices",
+                "faces",
+                "material_id",
+                "cloth"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "id",
+          "position",
+          "rotation_degrees",
+          "material_id",
+          "confidence",
+          "observed",
+          "support_id",
+          "parts"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "lights": {
+      "type": "array",
+      "maxItems": 80,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "AREA",
+              "POINT"
+            ]
+          },
+          "position": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -50,
+              "maximum": 50
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -50,
+              "maximum": 50
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "color": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "energy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "size": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 20
+          },
+          "size_y": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 20
+          },
+          "shape": {
+            "type": "string",
+            "enum": [
+              "RECTANGLE",
+              "DISK"
+            ]
+          },
+          "spread_degrees": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 180
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "position",
+          "target",
+          "color",
+          "energy",
+          "size",
+          "size_y",
+          "shape",
+          "spread_degrees"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "camera": {
+      "type": "object",
+      "properties": {
+        "roll_degrees": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      },
+      "required": [
+        "roll_degrees"
+      ],
+      "additionalProperties": false
+    },
+    "render": {
+      "type": "object",
+      "properties": {
+        "exposure": {
+          "type": "number",
+          "minimum": -5,
+          "maximum": 5
+        },
+        "world_color": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "replace_base_lights": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "exposure",
+        "world_color",
+        "replace_base_lights"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "scene_type",
+    "base_scene",
+    "image",
+    "materials",
+    "base_material_overrides",
+    "exterior_contexts",
+    "textures",
+    "surface_overrides",
+    "custom_objects",
+    "lights",
+    "camera",
+    "render"
+  ],
+  "additionalProperties": false
+}

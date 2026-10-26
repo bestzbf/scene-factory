@@ -1,0 +1,5232 @@
+{
+  "schema_version": 2,
+  "scene_type": "shop",
+  "base_scene": {
+    "schema_version": 1,
+    "scene_type": "other",
+    "description": "人工编写的多类型场景测试样例，非自动读图结果",
+    "seed": 23,
+    "room": {
+      "width": 7,
+      "depth": 8,
+      "height": 3.2,
+      "wall_color": [
+        0.68,
+        0.66,
+        0.61
+      ],
+      "floor_color": [
+        0.3,
+        0.27,
+        0.23
+      ],
+      "ceiling_color": [
+        0.8,
+        0.8,
+        0.76
+      ]
+    },
+    "camera": {
+      "position": [
+        0,
+        0.4,
+        1.65
+      ],
+      "target": [
+        0,
+        4.96,
+        1.15
+      ],
+      "lens_mm": 24
+    },
+    "lighting": {
+      "energy": 600,
+      "color": [
+        1,
+        0.93,
+        0.82
+      ],
+      "world_strength": 0.12
+    },
+    "objects": [
+      {
+        "id": "rear_shelves",
+        "category": "shelf",
+        "position": [
+          -2.0,
+          7.35,
+          0
+        ],
+        "dimensions": [
+          1.8,
+          0.45,
+          2.35
+        ],
+        "color": [
+          0.45,
+          0.31,
+          0.18
+        ],
+        "rotation_z_deg": 0,
+        "repeat": [
+          3,
+          1
+        ],
+        "spacing": [
+          2,
+          0
+        ],
+        "confidence": 0.6
+      },
+      {
+        "id": "island_table",
+        "category": "table",
+        "position": [
+          0,
+          4.0,
+          0
+        ],
+        "dimensions": [
+          2.0,
+          1.0,
+          0.85
+        ],
+        "color": [
+          0.43,
+          0.3,
+          0.18
+        ],
+        "rotation_z_deg": 0,
+        "repeat": [
+          1,
+          1
+        ],
+        "spacing": [
+          0,
+          0
+        ],
+        "confidence": 0.6
+      },
+      {
+        "id": "counter",
+        "category": "cabinet",
+        "position": [
+          -2.2,
+          2.0,
+          0
+        ],
+        "dimensions": [
+          1.4,
+          0.65,
+          1.0
+        ],
+        "color": [
+          0.55,
+          0.5,
+          0.42
+        ],
+        "rotation_z_deg": 0,
+        "repeat": [
+          1,
+          1
+        ],
+        "spacing": [
+          0,
+          0
+        ],
+        "confidence": 0.6
+      },
+      {
+        "id": "display_rug",
+        "category": "rug",
+        "position": [
+          0,
+          4.0,
+          0
+        ],
+        "dimensions": [
+          3.0,
+          2.0,
+          0.012
+        ],
+        "color": [
+          0.4,
+          0.38,
+          0.32
+        ],
+        "rotation_z_deg": 0,
+        "repeat": [
+          1,
+          1
+        ],
+        "spacing": [
+          0,
+          0
+        ],
+        "confidence": 0.6
+      }
+    ],
+    "assumptions": [
+      "所有尺寸、材质和光照均为人工测试设定，不能用于评价照片重建准确性。"
+    ]
+  },
+  "image": {
+    "width": 1600,
+    "height": 1200,
+    "source_id": ""
+  },
+  "materials": [
+    {
+      "id": "oak",
+      "color": [
+        0.39,
+        0.24,
+        0.12
+      ],
+      "roughness": 0.48,
+      "metallic": 0,
+      "transmission": 0,
+      "noise_scale": 5,
+      "bump_strength": 0.14,
+      "bump_distance": 0.001,
+      "texture_id": ""
+    },
+    {
+      "id": "fabric",
+      "color": [
+        0.42,
+        0.48,
+        0.44
+      ],
+      "roughness": 0.87,
+      "metallic": 0,
+      "transmission": 0,
+      "noise_scale": 300,
+      "bump_strength": 0.22,
+      "bump_distance": 0.0005,
+      "texture_id": ""
+    },
+    {
+      "id": "cream_fabric",
+      "color": [
+        0.72,
+        0.68,
+        0.57
+      ],
+      "roughness": 0.9,
+      "metallic": 0,
+      "transmission": 0,
+      "noise_scale": 350,
+      "bump_strength": 0.18,
+      "bump_distance": 0.0005,
+      "texture_id": ""
+    },
+    {
+      "id": "metal",
+      "color": [
+        0.035,
+        0.04,
+        0.045
+      ],
+      "roughness": 0.31,
+      "metallic": 0.8,
+      "transmission": 0,
+      "noise_scale": 0,
+      "bump_strength": 0,
+      "bump_distance": 0,
+      "texture_id": ""
+    },
+    {
+      "id": "warm_white",
+      "color": [
+        0.77,
+        0.74,
+        0.67
+      ],
+      "roughness": 0.67,
+      "metallic": 0,
+      "transmission": 0,
+      "noise_scale": 35,
+      "bump_strength": 0.12,
+      "bump_distance": 0.0004,
+      "texture_id": ""
+    },
+    {
+      "id": "bottle_green",
+      "color": [
+        0.07,
+        0.23,
+        0.14
+      ],
+      "roughness": 0.22,
+      "metallic": 0.05,
+      "transmission": 0,
+      "noise_scale": 0,
+      "bump_strength": 0,
+      "bump_distance": 0,
+      "texture_id": ""
+    },
+    {
+      "id": "packaging",
+      "color": [
+        0.65,
+        0.35,
+        0.14
+      ],
+      "roughness": 0.58,
+      "metallic": 0,
+      "transmission": 0,
+      "noise_scale": 0,
+      "bump_strength": 0,
+      "bump_distance": 0,
+      "texture_id": ""
+    },
+    {
+      "id": "glass",
+      "color": [
+        0.85,
+        0.91,
+        0.92
+      ],
+      "roughness": 0.08,
+      "metallic": 0,
+      "transmission": 0.88,
+      "noise_scale": 0,
+      "bump_strength": 0,
+      "bump_distance": 0,
+      "texture_id": ""
+    }
+  ],
+  "textures": [],
+  "surface_overrides": {
+    "floor": "oak",
+    "ceiling": "",
+    "left": "",
+    "right": "",
+    "back": "warm_white"
+  },
+  "custom_objects": [
+    {
+      "id": "shelf_products_0",
+      "position": [
+        -2,
+        7.3,
+        0
+      ],
+      "rotation_degrees": [
+        0,
+        0,
+        0
+      ],
+      "material_id": "",
+      "confidence": 0.6,
+      "observed": false,
+      "support_id": "",
+      "parts": [
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        }
+      ]
+    },
+    {
+      "id": "shelf_products_1",
+      "position": [
+        0,
+        7.3,
+        0
+      ],
+      "rotation_degrees": [
+        0,
+        0,
+        0
+      ],
+      "material_id": "",
+      "confidence": 0.6,
+      "observed": false,
+      "support_id": "",
+      "parts": [
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        }
+      ]
+    },
+    {
+      "id": "shelf_products_2",
+      "position": [
+        2,
+        7.3,
+        0
+      ],
+      "rotation_degrees": [
+        0,
+        0,
+        0
+      ],
+      "material_id": "",
+      "confidence": 0.6,
+      "observed": false,
+      "support_id": "",
+      "parts": [
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.135
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.26
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.15000000000000002
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            0.5358333333333333
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.5208333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.6458333333333333
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            0.9066666666666666
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.0316666666666667
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            0.9216666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            1.3074999999999999
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.2925
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.4175
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.6900000000000001,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.46,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.0,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.6783333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.46,
+            0,
+            1.8033333333333332
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.6900000000000001,
+            0,
+            1.6933333333333331
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.6900000000000001,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -0.23,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.23,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            2.0791666666666666
+          ],
+          "size": [
+            0.13,
+            0.15,
+            0.23
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            2.0641666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.055,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "bottle_green"
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0.6900000000000001,
+            0,
+            2.1891666666666665
+          ],
+          "size": [
+            0,
+            0,
+            0.05
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0.027,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "metal"
+        }
+      ]
+    },
+    {
+      "id": "island_display",
+      "position": [
+        0,
+        4,
+        0.85
+      ],
+      "rotation_degrees": [
+        0,
+        0,
+        0
+      ],
+      "material_id": "",
+      "confidence": 0.6,
+      "observed": false,
+      "support_id": "island_table",
+      "parts": [
+        {
+          "type": "box",
+          "position": [
+            0,
+            0,
+            0.03
+          ],
+          "size": [
+            1.35,
+            0.55,
+            0.06
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "oak"
+        },
+        {
+          "type": "box",
+          "position": [
+            0,
+            -0.28,
+            0.25
+          ],
+          "size": [
+            1.35,
+            0.012,
+            0.38
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "glass"
+        },
+        {
+          "type": "box",
+          "position": [
+            0,
+            0.28,
+            0.25
+          ],
+          "size": [
+            1.35,
+            0.012,
+            0.38
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "glass"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.46,
+            0,
+            0.16
+          ],
+          "size": [
+            0.16,
+            0.2,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "box",
+          "position": [
+            -0.23,
+            0,
+            0.16
+          ],
+          "size": [
+            0.16,
+            0.2,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.0,
+            0,
+            0.16
+          ],
+          "size": [
+            0.16,
+            0.2,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.23,
+            0,
+            0.16
+          ],
+          "size": [
+            0.16,
+            0.2,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        },
+        {
+          "type": "box",
+          "position": [
+            0.46,
+            0,
+            0.16
+          ],
+          "size": [
+            0.16,
+            0.2,
+            0.2
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": "packaging"
+        }
+      ]
+    },
+    {
+      "id": "ceiling_track",
+      "position": [
+        0,
+        4.8,
+        3.02
+      ],
+      "rotation_degrees": [
+        0,
+        0,
+        0
+      ],
+      "material_id": "metal",
+      "confidence": 0.6,
+      "observed": false,
+      "support_id": "",
+      "parts": [
+        {
+          "type": "box",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            4.8,
+            0.05,
+            0.06
+          ],
+          "rotation_degrees": [
+            0,
+            0,
+            0
+          ],
+          "radius": 0,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": ""
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -2,
+            0,
+            -0.1
+          ],
+          "size": [
+            0,
+            0,
+            0.18
+          ],
+          "rotation_degrees": [
+            20,
+            0,
+            0
+          ],
+          "radius": 0.065,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": ""
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            -1,
+            0,
+            -0.1
+          ],
+          "size": [
+            0,
+            0,
+            0.18
+          ],
+          "rotation_degrees": [
+            20,
+            0,
+            0
+          ],
+          "radius": 0.065,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": ""
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            0,
+            0,
+            -0.1
+          ],
+          "size": [
+            0,
+            0,
+            0.18
+          ],
+          "rotation_degrees": [
+            20,
+            0,
+            0
+          ],
+          "radius": 0.065,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": ""
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            1,
+            0,
+            -0.1
+          ],
+          "size": [
+            0,
+            0,
+            0.18
+          ],
+          "rotation_degrees": [
+            20,
+            0,
+            0
+          ],
+          "radius": 0.065,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": ""
+        },
+        {
+          "type": "cylinder",
+          "position": [
+            2,
+            0,
+            -0.1
+          ],
+          "size": [
+            0,
+            0,
+            0.18
+          ],
+          "rotation_degrees": [
+            20,
+            0,
+            0
+          ],
+          "radius": 0.065,
+          "points": [],
+          "vertices": [],
+          "faces": [],
+          "material_id": ""
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "id": "track_emitter_0",
+      "type": "AREA",
+      "position": [
+        -2,
+        4.8,
+        2.8
+      ],
+      "target": [
+        -2,
+        7.0,
+        1.1
+      ],
+      "color": [
+        1,
+        0.92,
+        0.8
+      ],
+      "energy": 100,
+      "size": 0.12,
+      "size_y": 0.12,
+      "shape": "RECTANGLE",
+      "spread_degrees": 120
+    },
+    {
+      "id": "track_emitter_1",
+      "type": "AREA",
+      "position": [
+        -1,
+        4.8,
+        2.8
+      ],
+      "target": [
+        -1,
+        7.0,
+        1.1
+      ],
+      "color": [
+        1,
+        0.92,
+        0.8
+      ],
+      "energy": 100,
+      "size": 0.12,
+      "size_y": 0.12,
+      "shape": "RECTANGLE",
+      "spread_degrees": 120
+    },
+    {
+      "id": "track_emitter_2",
+      "type": "AREA",
+      "position": [
+        0,
+        4.8,
+        2.8
+      ],
+      "target": [
+        0,
+        7.0,
+        1.1
+      ],
+      "color": [
+        1,
+        0.92,
+        0.8
+      ],
+      "energy": 100,
+      "size": 0.12,
+      "size_y": 0.12,
+      "shape": "RECTANGLE",
+      "spread_degrees": 120
+    },
+    {
+      "id": "track_emitter_3",
+      "type": "AREA",
+      "position": [
+        1,
+        4.8,
+        2.8
+      ],
+      "target": [
+        1,
+        7.0,
+        1.1
+      ],
+      "color": [
+        1,
+        0.92,
+        0.8
+      ],
+      "energy": 100,
+      "size": 0.12,
+      "size_y": 0.12,
+      "shape": "RECTANGLE",
+      "spread_degrees": 120
+    },
+    {
+      "id": "track_emitter_4",
+      "type": "AREA",
+      "position": [
+        2,
+        4.8,
+        2.8
+      ],
+      "target": [
+        2,
+        7.0,
+        1.1
+      ],
+      "color": [
+        1,
+        0.92,
+        0.8
+      ],
+      "energy": 100,
+      "size": 0.12,
+      "size_y": 0.12,
+      "shape": "RECTANGLE",
+      "spread_degrees": 120
+    },
+    {
+      "id": "island_light",
+      "type": "AREA",
+      "position": [
+        0,
+        3.5,
+        2.9
+      ],
+      "target": [
+        0,
+        4,
+        0.9
+      ],
+      "color": [
+        1,
+        0.93,
+        0.82
+      ],
+      "energy": 180,
+      "size": 1.0,
+      "size_y": 0.5,
+      "shape": "RECTANGLE",
+      "spread_degrees": 120
+    }
+  ],
+  "camera": {
+    "roll_degrees": 0
+  },
+  "render": {
+    "exposure": 0.25,
+    "world_color": [
+      0.3,
+      0.35,
+      0.4
+    ],
+    "replace_base_lights": true
+  }
+}

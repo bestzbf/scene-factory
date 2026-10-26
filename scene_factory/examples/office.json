@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "scene_type": "office",
+  "description": "手写合成示例，仅用于验证通用建模器，非自动读图结果",
+  "seed": 23,
+  "room": {
+    "width": 10,
+    "depth": 13,
+    "height": 3.6,
+    "wall_color": [
+      0.66,
+      0.65,
+      0.61
+    ],
+    "floor_color": [
+      0.3,
+      0.27,
+      0.23
+    ],
+    "ceiling_color": [
+      0.8,
+      0.8,
+      0.76
+    ]
+  },
+  "camera": {
+    "position": [
+      0.5,
+      0.4,
+      1.7
+    ],
+    "target": [
+      0,
+      8,
+      1.9
+    ],
+    "lens_mm": 20
+  },
+  "lighting": {
+    "energy": 1500,
+    "color": [
+      1,
+      0.93,
+      0.82
+    ],
+    "world_strength": 0.2
+  },
+  "objects": [
+    {
+      "id": "desks",
+      "category": "desk",
+      "position": [
+        -3.5,
+        3.0,
+        0
+      ],
+      "dimensions": [
+        1.4,
+        0.75,
+        0.76
+      ],
+      "color": [
+        0.59,
+        0.43,
+        0.24
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        5,
+        4
+      ],
+      "spacing": [
+        1.45,
+        2.5
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "monitors",
+      "category": "monitor",
+      "position": [
+        -3.5,
+        3.14,
+        0.76
+      ],
+      "dimensions": [
+        0.61,
+        0.2,
+        0.46
+      ],
+      "color": [
+        0.025,
+        0.03,
+        0.035
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        5,
+        4
+      ],
+      "spacing": [
+        1.45,
+        2.5
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "chairs",
+      "category": "chair",
+      "position": [
+        -3.5,
+        2.2,
+        0
+      ],
+      "dimensions": [
+        0.56,
+        0.57,
+        1.05
+      ],
+      "color": [
+        0.026,
+        0.03,
+        0.032
+      ],
+      "rotation_z_deg": 180,
+      "repeat": [
+        5,
+        4
+      ],
+      "spacing": [
+        1.45,
+        2.5
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "column",
+      "category": "column",
+      "position": [
+        3.9,
+        4.8,
+        0
+      ],
+      "dimensions": [
+        0.7,
+        0.7,
+        3.6
+      ],
+      "color": [
+        0.7,
+        0.7,
+        0.67
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "windows",
+      "category": "window",
+      "position": [
+        4.96,
+        2.4,
+        0.8
+      ],
+      "dimensions": [
+        2.0,
+        0.08,
+        2.4
+      ],
+      "color": [
+        0.8,
+        0.8,
+        0.75
+      ],
+      "rotation_z_deg": 90,
+      "repeat": [
+        1,
+        5
+      ],
+      "spacing": [
+        0,
+        2.1
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "tree",
+      "category": "plant",
+      "position": [
+        -4.5,
+        6.0,
+        0
+      ],
+      "dimensions": [
+        0.8,
+        0.8,
+        2.0
+      ],
+      "color": [
+        0.07,
+        0.23,
+        0.06
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        1,
+        1
+      ],
+      "spacing": [
+        0,
+        0
+      ],
+      "confidence": 0.6
+    },
+    {
+      "id": "battens",
+      "category": "linear_light",
+      "position": [
+        -2.5,
+        2.2,
+        3.1
+      ],
+      "dimensions": [
+        1.7,
+        0.12,
+        0.08
+      ],
+      "color": [
+        0.8,
+        0.8,
+        0.75
+      ],
+      "rotation_z_deg": 0,
+      "repeat": [
+        3,
+        4
+      ],
+      "spacing": [
+        2.8,
+        2.7
+      ],
+      "confidence": 0.6
+    }
+  ],
+  "assumptions": [
+    "此为人工编写的合成布局，不能用于评价照片重建准确性。"
+  ]
+}

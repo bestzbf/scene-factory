@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "models": {
+    "analysis": {
+      "provider": "openai_chat",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "model": "glm-5.3-flash",
+      "api_key_env": "BIGMODEL_API_KEY",
+      "response_format": "json_object",
+      "token_parameter": "max_tokens",
+      "max_output_tokens": 32768,
+      "timeout_seconds": 1800,
+      "max_retries": 2,
+      "stream": true,
+      "reasoning_effort": "high"
+    },
+    "review": {
+      "provider": "openai_chat",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "model": "glm-5.3-flash",
+      "api_key_env": "BIGMODEL_API_KEY",
+      "response_format": "json_object",
+      "token_parameter": "max_tokens",
+      "max_output_tokens": 12288,
+      "timeout_seconds": 1800,
+      "max_retries": 2,
+      "stream": true,
+      "reasoning_effort": "low"
+    },
+    "repair": {
+      "provider": "openai_chat",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "model": "glm-5.3-flash",
+      "api_key_env": "BIGMODEL_API_KEY",
+      "response_format": "json_object",
+      "token_parameter": "max_tokens",
+      "max_output_tokens": 32768,
+      "timeout_seconds": 1800,
+      "max_retries": 2,
+      "stream": true,
+      "reasoning_effort": "low"
+    }
+  },
+  "batch": {
+    "workers": 1,
+    "max_repairs": 2,
+    "no_review": false,
+    "vision_timeout": 2100,
+    "render_timeout": 2400,
+    "api_workers": 2
+  },
+  "render": {
+    "max_edge": 1600,
+    "samples": 128,
+    "device": "AUTO",
+    "appearance_policy": "photo_reconstruction",
+    "tone_match": "reference"
+  },
+  "pipeline": {
+    "analysis_mode": "staged",
+    "repair_mode": "typed",
+    "validation_retries": 2,
+    "staged": {
+      "planner_timeout": 1800,
+      "detail_timeout": 1200,
+      "detail_workers": 2,
+      "max_groups": 8,
+      "max_parts_per_group": 60,
+      "validation_retries": 2,
+      "planner_effort": "high",
+      "detail_effort": "high"
+    }
+  },
+  "asset_library": {
+    "catalog": "assets/asset_catalog.json",
+    "bindings": null,
+    "preview": false,
+    "auto_bind": true,
+    "selection": {
+      "seed": 0,
+      "dimension_tolerance": 0.15,
+      "min_uniform_scale": 0.8,
+      "max_uniform_scale": 1.25,
+      "floor_tolerance_m": 0.0001,
+      "diversity": false,
+      "category_map": {}
+    }
+  }
+}

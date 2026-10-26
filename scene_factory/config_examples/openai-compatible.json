@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "models": {
+    "analysis": {
+      "provider": "openai_chat",
+      "base_url": "",
+      "model": "GLM-5.3-Flash",
+      "api_key_env": "SCENE_API_KEY",
+      "response_format": "json_object",
+      "max_output_tokens": 32768,
+      "timeout_seconds": 600,
+      "max_retries": 2
+    }
+  },
+  "batch": {
+    "workers": 3,
+    "max_repairs": 0,
+    "no_review": true,
+    "vision_timeout": 900,
+    "render_timeout": 1800
+  },
+  "render": {
+    "max_edge": 1280,
+    "samples": 96,
+    "device": "AUTO",
+    "appearance_policy": "photo_reconstruction",
+    "tone_match": "reference"
+  }
+}

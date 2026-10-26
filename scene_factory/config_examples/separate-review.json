@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "models": {
+    "analysis": {
+      "provider": "openai_chat",
+      "base_url": "",
+      "model": "YOUR_VISION_MODEL",
+      "api_key_env": "SCENE_ANALYSIS_KEY",
+      "response_format": "json_schema",
+      "max_output_tokens": 32768
+    },
+    "review": {
+      "provider": "openai_chat",
+      "base_url": "",
+      "model": "YOUR_REVIEW_VISION_MODEL",
+      "api_key_env": "SCENE_REVIEW_KEY",
+      "response_format": "json_object",
+      "max_output_tokens": 32768
+    }
+  },
+  "batch": {
+    "workers": 3,
+    "max_repairs": 1,
+    "no_review": false
+  },
+  "render": {
+    "max_edge": 1280,
+    "samples": 96,
+    "device": "AUTO",
+    "appearance_policy": "photo_reconstruction",
+    "tone_match": "reference"
+  }
+}
