@@ -26,8 +26,10 @@ from mathutils import Vector
 
 try:
     from .assets_lib import office_furniture as furniture
+    from .assets_lib.material_roles import source_role
 except ImportError:
     from assets_lib import office_furniture as furniture
+    from assets_lib.material_roles import source_role
 
 SUPPORTED_KINDS = frozenset({'desk', 'table', 'chair', 'plant', 'monitor', 'computer'})
 TEXTURE_DIR = Path(__file__).resolve().parent / 'assets_lib' / 'textures'
@@ -39,6 +41,20 @@ _WOOD_MATERIALS = {}
 _FABRIC_MATERIALS = {}
 _LAMINATE_MATERIALS = {}
 APPEARANCE_POLICIES = frozenset({'legacy', 'photo_reconstruction'})
+
+
+def _cached_datablock(cache, key, collection):
+    """Return a cached Blender datablock only while Blender still owns it."""
+    value = cache.get(key)
+    if value is None:
+        return None
+    try:
+        if collection.get(value.name) is value:
+            return value
+    except ReferenceError:
+        pass
+    cache.pop(key, None)
+    return None
 
 
 def _principled(mat):
@@ -72,8 +88,9 @@ def _plain_material(name, color, roughness=.55, metallic=0, emission=0):
 
 def _wood(api, color):
     key = tuple(color)
-    if key in _WOOD_MATERIALS:
-        return _WOOD_MATERIALS[key]
+    cached = _cached_datablock(_WOOD_MATERIALS, key, bpy.data.materials)
+    if cached is not None:
+        return cached
     mat = api.material('Detailed_OakBase', color, .48).copy()
     mat.name = 'Detailed_OakLaminate_' + hashlib.sha256(repr(key).encode()).hexdigest()[:8]
     nodes, links = mat.node_tree.nodes, mat.node_tree.links
@@ -98,13 +115,15 @@ def _wood(api, color):
     links.new(ramp.outputs['Color'], shader.inputs['Base Color'])
     links.new(noise.outputs['Fac'], bump.inputs['Height'])
     links.new(bump.outputs['Normal'], shader.inputs['Normal'])
+    mat = source_role(mat, 'body')
     _WOOD_MATERIALS[key] = mat
     return mat
 
 
 def _fabric(api, color):
     key = tuple(color)
-    if key not in _FABRIC_MATERIALS:
+    mat = _cached_datablock(_FABRIC_MATERIALS, key, bpy.data.materials)
+    if mat is None:
         mat = api.material('Detailed_FabricBase', color, .83).copy()
         mat.name = 'Detailed_WovenUpholstery_' + hashlib.sha256(repr(key).encode()).hexdigest()[:8]
         nodes, links = mat.node_tree.nodes, mat.node_tree.links
@@ -116,8 +135,9 @@ def _fabric(api, color):
         bump.inputs['Distance'].default_value = .0012
         links.new(noise.outputs['Fac'], bump.inputs['Height'])
         links.new(bump.outputs['Normal'], _principled(mat).inputs['Normal'])
+        mat = source_role(mat, 'fabric')
         _FABRIC_MATERIALS[key] = mat
-    return _FABRIC_MATERIALS[key]
+    return mat
 
 
 def _laminate(api, color):
@@ -127,7 +147,8 @@ def _laminate(api, color):
     table. A photo's lighting/shadows must not be baked into its base colour.
     """
     key = tuple(color)
-    if key not in _LAMINATE_MATERIALS:
+    mat = _cached_datablock(_LAMINATE_MATERIALS, key, bpy.data.materials)
+    if mat is None:
         mat = api.material('Detailed_LaminateBase', color, .51).copy()
         mat.name = 'Detailed_MatteLaminate_' + hashlib.sha256(repr(key).encode()).hexdigest()[:8]
         mat['appearance_kind'] = 'matte_laminate'
@@ -151,8 +172,9 @@ def _laminate(api, color):
         links.new(finish.outputs['Result'], shader.inputs['Roughness'])
         links.new(noise.outputs['Fac'], bump.inputs['Height'])
         links.new(bump.outputs['Normal'], shader.inputs['Normal'])
+        mat = source_role(mat, 'body')
         _LAMINATE_MATERIALS[key] = mat
-    return _LAMINATE_MATERIALS[key]
+    return mat
 
 
 def _is_neutral(color):
@@ -163,15 +185,21 @@ def _is_neutral(color):
 
 def _screen_mesh(w, h):
     key = (w, h)
-    if key not in _SCREEN_MESHES:
-        mesh = bpy.data.meshes.new('DetailedMonitorScreenMesh')
-        mesh.from_pydata([(-w/2, 0, -h/2), (w/2, 0, -h/2), (w/2, 0, h/2), (-w/2, 0, h/2)], [], [(0, 1, 2, 3)])
-        mesh.uv_layers.new()
-        for loop, uv in zip(mesh.uv_layers.active.data, [(0, 0), (1, 0), (1, 1), (0, 1)]):
-            loop.uv = uv
-        mesh.update()
-        _SCREEN_MESHES[key] = mesh
-    return _SCREEN_MESHES[key]
+    mesh = _cached_datablock(_SCREEN_MESHES, key, bpy.data.meshes)
+    # A Blender file load or scene reset can remove datablocks while this
+    # module-level cache survives.  Never hand a dead StructRNA wrapper to a
+    # new object; rebuild the small screen mesh just like office_furniture's
+    # reusable geometry cache does.
+    if mesh is not None:
+        return mesh
+    mesh = bpy.data.meshes.new('DetailedMonitorScreenMesh')
+    mesh.from_pydata([(-w/2, 0, -h/2), (w/2, 0, -h/2), (w/2, 0, h/2), (-w/2, 0, h/2)], [], [(0, 1, 2, 3)])
+    mesh.uv_layers.new()
+    for loop, uv in zip(mesh.uv_layers.active.data, [(0, 0), (1, 0), (1, 1), (0, 1)]):
+        loop.uv = uv
+    mesh.update()
+    _SCREEN_MESHES[key] = mesh
+    return mesh
 
 
 def _unobserved_screen(root, api, w=.617, h=.344, y=-.026, z=.288):
@@ -179,6 +207,7 @@ def _unobserved_screen(root, api, w=.617, h=.344, y=-.026, z=.288):
     # must never acquire the semantic screen selector merely by matching RGB.
     mat = api.material('Detailed_UnobservedDarkLCD', (.008, .011, .014), .28).copy()
     mat.name = 'Detailed_MonitorScreen'
+    mat = source_role(mat, 'body')
     mat['scene_material_id'] = 'monitor_screen'
     mat['appearance_kind'] = 'unobserved_dark_screen'
     obj = furniture._mesh_object(root.name + '_UnobservedScreen', _screen_mesh(w, h), root, (0, y, z), mat)
@@ -190,9 +219,11 @@ def _screen(root, filename, w=.617, h=.344, y=-.026, z=.288):
     path = TEXTURE_DIR / filename
     if not path.is_file():
         raise FileNotFoundError(f'Required detailed monitor texture is missing: {path}')
-    if filename not in _TEXTURE_MATERIALS:
+    mat = _cached_datablock(_TEXTURE_MATERIALS, filename, bpy.data.materials)
+    if mat is None:
         mat = bpy.data.materials.new('DetailedScreen_' + Path(filename).stem)
         mat['scene_material_id'] = 'monitor_screen'
+        mat['asset_material_role'] = 'body'
         mat.use_nodes = True
         shader = _principled(mat)
         shader.inputs['Roughness'].default_value = .38
@@ -203,7 +234,6 @@ def _screen(root, filename, w=.617, h=.344, y=-.026, z=.288):
         mat.node_tree.links.new(texture.outputs['Color'], shader.inputs['Base Color'])
         mat.node_tree.links.new(texture.outputs['Color'], shader.inputs['Emission Color'])
         _TEXTURE_MATERIALS[filename] = mat
-    mat = _TEXTURE_MATERIALS[filename]
     return furniture._mesh_object(root.name + '_ActiveScreen', _screen_mesh(w, h), root, (0, y, z), mat)
 
 
@@ -255,11 +285,11 @@ def build(entry, api=None, seed=23, appearance_policy='legacy'):
     default = {'desk': (.61, .43, .23), 'table': (.61, .43, .23),
                'plant': (.075, .19, .033), 'chair': (.022, .027, .029)}
     color = tuple(entry.get('color', default.get(kind, (.022, .028, .033)))[:3])
-    black = api.material('Detailed_GraphiteABS', (.017, .021, .024), .44 if reconstruction else .38)
-    rubber = api.material('Detailed_BlackRubber', (.008, .011, .012), .78)
-    metal = api.material('Detailed_BrushedAluminum', (.39, .43, .44), .29, .72)
-    pale = api.material('Detailed_WarmWhite', (.80, .80, .76), .58)
-    base = api.material('Detailed_' + kind, color, entry.get('roughness', .55))
+    black = source_role(api.material('Detailed_GraphiteABS', (.017, .021, .024), .44 if reconstruction else .38), 'body')
+    rubber = source_role(api.material('Detailed_BlackRubber', (.008, .011, .012), .78), 'body')
+    metal = source_role(api.material('Detailed_BrushedAluminum', (.39, .43, .44), .29, .72), 'metal')
+    pale = source_role(api.material('Detailed_WarmWhite', (.80, .80, .76), .58), 'body')
+    base = source_role(api.material('Detailed_' + kind, color, entry.get('roughness', .55)), 'body')
     root = None
 
     if kind == 'chair':
@@ -279,7 +309,7 @@ def build(entry, api=None, seed=23, appearance_policy='legacy'):
         variant = 'ergonomic_' + ('alloy_base' if choice % 2 and not reconstruction else 'nylon_base')
     elif kind == 'plant':
         root = furniture.build_plant(name, (0, 0, 0), height=1.7, seed=choice)
-        leaf_materials = [api.material('Detailed_Foliage', tuple(min(v * factor, 1) for v in color), .63)
+        leaf_materials = [source_role(api.material('Detailed_Foliage', tuple(min(v * factor, 1) for v in color), .63), 'body')
                           for factor in (.72, .94, 1.22, 1.08)]
         for obj in root.children_recursive:
             if obj.name.endswith('_Leaves'):
@@ -318,7 +348,7 @@ def build(entry, api=None, seed=23, appearance_policy='legacy'):
             for i in range(6):
                 B('InventoryBarcode', (-.259 + i * .006, .025, .384), (.002, .001, .012), black, 0)
             B('FrontBadge', (0, -.023, .099), (.048, .001, .003), metal, 0)
-            led = api.material('Detailed_MonitorPower', (.12, .55, .24), .35, emission=0 if reconstruction else .6)
+            led = source_role(api.material('Detailed_MonitorPower', (.12, .55, .24), .35, emission=0 if reconstruction else .6), 'body')
             B('PowerIndicator', (.285, -.023, .099), (.006, .001, .002), led, 0)
             if reconstruction:
                 _unobserved_screen(root, api)
@@ -335,7 +365,7 @@ def build(entry, api=None, seed=23, appearance_policy='legacy'):
             for x in (-.05, 0):
                 B('USBSurround', (x, -.233, .365), (.028, .003, .010), metal, .001)
                 B('USBPort', (x, -.235, .365), (.020, .002, .005), rubber, 0)
-            led = api.material('Detailed_TowerPower', (.12, .7, .27), .35, emission=.8)
+            led = source_role(api.material('Detailed_TowerPower', (.12, .7, .27), .35, emission=.8), 'body')
             R('PowerRing', (.065, -.235, .365), (.065, -.238, .365), .008, metal)
             R('PowerLED', (.065, -.238, .365), (.065, -.240, .365), .005, led)
             for i in range(12):

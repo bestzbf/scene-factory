@@ -2,7 +2,7 @@
 from pathlib import Path
 import sys
 
-__version__ = '0.3.15'
+__version__ = '0.3.43'
 
 
 def _enable_legacy_imports():

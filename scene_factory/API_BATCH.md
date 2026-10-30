@@ -88,8 +88,11 @@ Z.ai 官方资料确认 GLM-5.3-Flash 具备原生图片/多图输入能力，�
   },
   "batch": {
     "workers": 3,
+    "render_workers": 1,
     "max_repairs": 0,
     "no_review": true,
+    "min_free_disk_bytes": 0,
+    "shared_ledger_dir": null,
     "vision_timeout": 900,
     "render_timeout": 1800
   },
@@ -102,6 +105,8 @@ Z.ai 官方资料确认 GLM-5.3-Flash 具备原生图片/多图输入能力，�
   }
 }
 ```
+
+`batch.shared_ledger_dir` 默认为 `null`，表示预算和服务商限流账本保存在当前 `output-dir`。需要并行分片时，可把它设为一个共享父目录（相对路径按 `factory.json` 所在目录解析），并确保每个分片的 `output-dir` 都位于该目录之内。所有进程必须使用相同的账本目录和预算/限流配置；账本用本机 SQLite 协调并发预约。它不跨机器，也不适用于缺少可靠 SQLite 文件锁语义的网络文件系统。共享根目录会包含账本和各分片输出，请为每个分片使用独立输出目录。
 
 密钥只从 `api_key_env` 指定的本机环境变量读取，不在配置内写 `api_key`。macOS/Linux 可以在终端使用无回显输入：
 
@@ -126,7 +131,7 @@ printf '\n'
 
 `response_format` 由服务能力决定：`json_schema` 请求严格结构化输出，`json_object` 请求 JSON 模式，`prompt` 仅通过提示词要求 JSON。三种模式都会经过相同的本地格式与数值检查；失败不会执行任意模型脚本，也不会静默降级到另一种模式。`temperature`、`reasoning_effort` 为可选字段，只在显式配置时发送。聊天兼容端点默认发送 `max_completion_tokens`；若服务文档要求 `max_tokens`，显式添加 `"token_parameter": "max_tokens"`。Anthropic 默认使用 `x-api-key` 认证，可通过 `"auth_scheme": "bearer"` 选择 Bearer 认证；OpenAI 兼容端点固定使用 Bearer。服务不支持这些字段时请移除。兼容 API 的参数支持仍需用 `probe` 实测。
 
-`models.analysis` 用于照片规划和细节生成，`models.review` 用于原图/渲染对比及最终验收，`models.repair` 用于修正。省略 review 则复制 analysis，省略 repair 则复制 review。三者都可接 GLM，也可分别接不同服务。开启验收设 `batch.no_review=false`；自动修正设 `max_repairs` 为 1–5，关闭验收时必须为 0。
+`models.analysis` 用于照片规划和细节生成，`models.review` 用于原图/渲染对比及最终验收，`models.repair` 用于修正。省略 review 则复制 analysis，省略 repair 则复制 review。三者都可接 GLM，也可分别接不同服务。开启验收设 `batch.no_review=false`；`max_repairs` 为 1–5 时，启用视觉验收会允许技术修复和视觉修复共享此上限，关闭视觉验收时只允许针对阻断性本地预检错误的技术修复。未进行视觉验收的输出仍为 `generated_unreviewed`，不得进入正式数据集。
 
 新增 `pipeline` 配置：
 
@@ -148,7 +153,7 @@ printf '\n'
 }
 ```
 
-`staged` 将照片规划和各物体组细节分开，减少单次输出过长导致的失败；所有几何数值仍来自 API。最多 16 组、每组 100 部件，配置乘积不能超过 800。`typed` 将评分与修正分开，模型输出有类型约束的数据编辑，固定程序校验并应用，不能执行模型生成的 Python。`validation_retries` 控制 JSON/语义错误纠正次数，不等同于视觉返修轮数。分阶段分析的 planner/detail_timeout 按每次请求计算；评分与修正的 vision_timeout 是该阶段全部校验重试的总时限，单次请求同时受模型 timeout_seconds 限制。旧配置默认 `analysis_mode=monolithic`，可显式保留 `repair_mode=full_bundle` 的整场景修改模式；完整 GLM 闭环请使用 bigmodel 模板。
+`staged` 将照片规划和各物体组细节分开，减少单次输出过长导致的失败；所有几何数值仍来自 API。最多 16 组、每组 100 部件，配置乘积不能超过 800。`pipeline.staged.detail_wire_format="native_sparse_parts_v1"` 可省略未使用的空几何数组；本地解码会恢复默认值并对完整规范场景再次验证，拓扑与数值不会由解码器生成。它保持关闭，只有显式省成本配置启用；不同模型的解释一致性尚未实测。`pipeline.staged.route_detail_images=true` 可按规划阶段声明的构件证据视角路由细节请求；只有构件和照片贴图材质映射均超过置信度门槛时才过滤图片，并把声明贴图材质的源视角一并保留，同时限制细节输出只能使用这些贴图材质。缺字段、低置信度或不一致映射会回退为发送全部原图。该选项默认关闭；置信度由模型自报，未在真实照片集上校准。`typed` 将评分与修正分开，模型输出有类型约束的数据编辑，固定程序校验并应用，不能执行模型生成的 Python。`validation_retries` 控制 JSON/语义错误纠正次数，不等同于视觉返修轮数。分阶段分析的 planner/detail_timeout 按每次请求计算；评分与修正的 vision_timeout 是该阶段全部校验重试的总时限，单次请求同时受模型 timeout_seconds 限制。旧配置默认 `analysis_mode=monolithic`，可显式保留 `repair_mode=full_bundle` 的整场景修改模式；完整 GLM 闭环请使用 bigmodel 模板。
 
 `stream=true` 当前只支持 `openai_chat`。只保存最终有效 JSON 和数字化调用统计，不保存模型思考文本；中断或无效输出不会当作场景。`reasoning_effort` 参数须符合服务商要求；GLM 支持 low/high/max，本模板避免默认最高档。
 

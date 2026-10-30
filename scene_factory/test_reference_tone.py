@@ -5,7 +5,7 @@ import unittest
 
 import numpy as np
 
-from reference_tone import choose_shared_exposure, compute_stats
+from reference_tone import choose_shared_exposure, compute_stats, compare_spatial_stats
 
 
 def stats(values):
@@ -17,6 +17,34 @@ def candidate(ev, **views):
 
 
 class ReferenceToneTests(unittest.TestCase):
+    def test_one_severe_region_requires_inspection_even_when_median_and_spread_pass(self):
+        for stops in (-3.5, 3.5):
+            reference = {'a': {'status': 'available', 'regions': [
+                {'id': str(index), 'p65': .05, 'normalized_bounds_xyxy': [0, 0, 1, 1]}
+                for index in range(9)]}}
+            rendered = copy.deepcopy(reference)
+            rendered['a']['regions'][6]['p65'] *= 2 ** stops
+            report = compare_spatial_stats(reference, rendered)
+            view = report['per_view']['a']
+            self.assertFalse(view['nonuniform_residual'])
+            self.assertEqual(view['median_absolute_error_stops'], 0)
+            self.assertTrue(report['requires_inspection'])
+            self.assertEqual(report['reasons'], ['a:severe_regional_brightness_residual'])
+            self.assertEqual(view['severe_residual_region_ids'], ['6'])
+            self.assertAlmostEqual(view['max_absolute_region_error_stops'], 3.5)
+
+    def test_severe_region_threshold_is_strict_and_excludes_unmetered_reference(self):
+        reference = {'a': {'status': 'available', 'regions': [
+            {'id': str(index), 'p65': .05, 'normalized_bounds_xyxy': [0, 0, 1, 1]}
+            for index in range(9)]}}
+        rendered = copy.deepcopy(reference)
+        rendered['a']['regions'][0]['p65'] = .2  # Exactly two stops.
+        reference['a']['regions'][1]['p65'] = 0  # No usable reference information.
+        rendered['a']['regions'][1]['p65'] = 1
+        report = compare_spatial_stats(reference, rendered)
+        self.assertEqual(report['per_view']['a']['severe_residual_region_ids'], [])
+        self.assertNotIn('a:severe_regional_brightness_residual', report['reasons'])
+
     def test_rgb_decodes_display_transfer_before_luminance(self):
         result = compute_stats(np.full((2, 3, 3), .5, dtype=np.float64))
         self.assertAlmostEqual(result['quantiles']['p50'], .21404114048223255)

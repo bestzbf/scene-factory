@@ -42,6 +42,7 @@
     }
   },
   "batch": {
+    "shared_ledger_dir": null,
     "workers": 1,
     "max_repairs": 2,
     "no_review": false,

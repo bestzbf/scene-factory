@@ -118,19 +118,68 @@ def bind_fixture_power_drivers(scene):
     return records
 
 
+def _physical_backing_hit(scene, depsgraph, origin, direction, distance):
+    """Ignore generated appearance surfaces while finding real backing geometry.
+
+    Existing faces can be in front of a newly added lamp. Stepping through them
+    keeps them out of the physical evidence without hiding or editing scene
+    objects. Bound traversal so a malformed tagged mesh cannot loop forever.
+    """
+    remaining = distance
+    budget = 1 + sum(bool(obj.get('fixture_appearance_only')) for obj in scene.objects)
+    for _ in range(budget):
+        hit, point, normal, _, backing, _ = scene.ray_cast(
+            depsgraph, origin, direction, distance=remaining)
+        if not hit:
+            return None
+        if not backing.get('fixture_appearance_only'):
+            return point, normal, backing
+        step = (point - origin).length + .00001
+        remaining -= step
+        if remaining <= 0:
+            return None
+        origin = point + direction * .00001
+    return None
+
+
 def add_fixture_faces(scene):
+    """Create at most one appearance surface per newly matched AREA light.
+
+    Match every lamp against physical geometry before creating any faces, so
+    one lamp's generated appearance never becomes another lamp's backing.
+    Existing tagged faces are reused, including edited faces that must not be
+    overwritten. This function does not remove legacy duplicate faces.
+    """
     bpy.context.view_layer.update()
     depsgraph = bpy.context.evaluated_depsgraph_get()
-    records = []
+    records, matches = [], []
+    existing_faces = {}
+    for face in scene.objects:
+        if not face.get('fixture_appearance_only'):
+            continue
+        source = face.get('source_light_object')
+        if not isinstance(source, bpy.types.Object):
+            source = scene.objects.get(face.get('source_light', ''))
+        if isinstance(source, bpy.types.Object):
+            existing_faces.setdefault(source, []).append(face)
     for lamp in list(scene.objects):
         if lamp.type != 'LIGHT' or lamp.data.type != 'AREA' or lamp.get('exterior_illumination_proxy'):
             continue
         if lamp.data.energy <= 0 or lamp.data.shape not in {'RECTANGLE', 'SQUARE', 'DISK'}:
             continue
+        if lamp in existing_faces:
+            for face in existing_faces[lamp]:
+                records.append({'light': lamp.name, 'face': face.name,
+                                'backing': face.get('backing_geometry', ''),
+                                'status': 'reused', 'additional_diffuse_emission': False})
+            continue
         normal = lamp.matrix_world.to_quaternion() @ Vector((0, 0, -1))
-        hit, point, face_normal, _, backing, _ = scene.ray_cast(
-            depsgraph, lamp.location - normal * .0001, -normal, distance=.12)
-        if not hit or backing.type != 'MESH' or abs(face_normal.dot(normal)) < .95:
+        hit = _physical_backing_hit(scene, depsgraph,
+            lamp.location - normal * .0001, -normal, .12)
+        if hit is None:
+            continue
+        point, face_normal, backing = hit
+        if backing.type != 'MESH' or abs(face_normal.dot(normal)) < .95:
             continue
         inverse = lamp.matrix_world.inverted()
         corners = [inverse @ (backing.matrix_world @ Vector(corner)) for corner in backing.bound_box]
@@ -140,6 +189,8 @@ def add_fixture_faces(scene):
         # Do not turn a ceiling, wall or oversized softbox proxy into a fixture.
         if spans[2] > .15 or not (.65*sx <= spans[0] <= 1.6*sx and .65*sy <= spans[1] <= 1.6*sy):
             continue
+        matches.append((lamp, normal, point, backing, sx, sy))
+    for lamp, normal, point, backing, sx, sy in matches:
         material = bpy.data.materials.new('FixtureAppearance_' + lamp.name)
         material.use_nodes = True
         nodes, links = material.node_tree.nodes, material.node_tree.links

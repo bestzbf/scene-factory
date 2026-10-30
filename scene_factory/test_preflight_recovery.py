@@ -13,6 +13,7 @@ import automatic_repair
 import batch_multiview as runner
 from batch import atomic_json, file_sha256, read_json
 from model_api import ModelAPIError
+from dataset_export import DatasetExportError, export_dataset
 import test_batch_multiview as fixtures
 from test_automatic_repair import CONFIG
 import vision_multiview as vision
@@ -105,7 +106,7 @@ class PreflightRecoveryTests(unittest.TestCase):
         self.assertIn('technical_history.json', result['artifacts'])
 
     def test_exhausted_or_disabled_recovery_never_calls_model(self):
-        for setting in ('max_repairs', 'no_review', 'no_model', 'not_typed'):
+        for setting in ('max_repairs', 'no_model', 'not_typed'):
             with self.subTest(setting=setting):
                 self.args.output_dir = self.root / setting
                 self.args.max_repairs = 0 if setting == 'max_repairs' else 1
@@ -116,6 +117,24 @@ class PreflightRecoveryTests(unittest.TestCase):
                 self.assertEqual(result['status'], 'failed')
                 self.assertIn('no configured automatic repair budget', result['error'])
                 self.assertNotIn('history', result)
+
+    def test_no_review_allows_bounded_preflight_repair_but_blocks_export(self):
+        self.args.output_dir = self.root / 'no_review_repair'
+        self.args.no_review = True
+
+        result = self.run_job()
+
+        self.assertEqual(result['status'], 'generated_unreviewed')
+        self.assertEqual(result['iteration'], 'iteration_01')
+        self.assertEqual(self.events, [('preflight', 'iteration_00'),
+                                       ('technical_model', 'iteration_00'),
+                                       ('render', 'iteration_01')])
+        self.assertEqual(len(result['technical_history']), 1)
+        self.assertNotIn('history', result)
+        self.assertNotIn('gate', result)
+        with self.assertRaisesRegex(DatasetExportError, 'No accepted scenes'):
+            export_dataset(self.args.output_dir, self.root / 'formal_dataset')
+        self.assertFalse((self.root / 'formal_dataset').exists())
 
     def test_repeated_preflight_failure_consumes_shared_candidate_limit(self):
         result = self.run_job(render=self.reject)

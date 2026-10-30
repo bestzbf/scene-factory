@@ -19,11 +19,37 @@ SCHEMA=obj({
  'objects':{'type':'array','minItems':1,'maxItems':160,'items':obj({
      'id':{'type':'string'},'category':{'type':'string','enum':CATEGORIES},'position':vector(3),
      'dimensions':vector(3,.01,30),'rotation_z_deg':{'type':'number','minimum':-360,'maximum':360},
-     'color':color,'repeat':{'type':'array','items':{'type':'integer','minimum':1,'maximum':12},'minItems':2,'maxItems':2},
-     'spacing':vector(2,-10,10),'confidence':{'type':'number','minimum':0,'maximum':1}
+     'color':color,'repeat':{'type':'array','items':{'type':'integer','minimum':1,'maximum':12},'minItems':2,'maxItems':2,
+                            'description':'[count_X,count_Y]. The first count repeats along world X; the second along world Y, independent of object yaw.'},
+     'spacing':{'type':'array','items':{'type':'number','minimum':-10,'maximum':10},'minItems':2,'maxItems':2,
+                'description':'[step_X,step_Y] world-space offsets before object yaw. If count_X or count_Y is greater than 1, its matching step must be nonzero; a singleton axis may use zero. Negative steps are valid.'},
+     'confidence':{'type':'number','minimum':0,'maximum':1}
  })},
  'assumptions':{'type':'array','items':{'type':'string'},'maxItems':30}
 })
+
+def expand_repeat_positions(position, repeat, spacing, path='scene.objects'):
+    """Return repeated world positions and reject coincident active slots.
+
+    Repeat axes are world X then world Y, regardless of object yaw. Spacing on
+    a singleton axis is unused and may be zero; an active axis needs a
+    nonzero step. Negative steps are valid.
+    """
+    for axis, name in enumerate(('x', 'y')):
+        if repeat[axis] > 1 and spacing[axis] == 0:
+            raise ValueError(f'{path}.spacing.{name} must be nonzero when repeat.{name} > 1; repeated instances would overlap')
+    result = []
+    seen = set()
+    for i in range(repeat[0]):
+        for j in range(repeat[1]):
+            point = (position[0] + i * spacing[0],
+                     position[1] + j * spacing[1], position[2])
+            if point in seen:
+                raise ValueError(f'{path}: repeat/spacing produces duplicate expanded positions')
+            seen.add(point)
+            result.append((i, j, list(point)))
+    return result
+
 def validate(spec):
     # A dependency-free strict recursive validator for the subset above.
     def walk(value,rule,path):
@@ -40,6 +66,9 @@ def validate(spec):
         elif typ in ('number','integer'):
             if not math.isfinite(value) or not rule.get('minimum',-math.inf)<=value<=rule.get('maximum',math.inf): raise ValueError(f'{path}: out of bounds')
     walk(spec,SCHEMA,'scene')
+    for index, entry in enumerate(spec['objects']):
+        expand_repeat_positions(entry['position'], entry['repeat'], entry['spacing'],
+                                f'scene.objects[{index}]')
     ids=[o['id'] for o in spec['objects']]
     if len(ids)!=len(set(ids)): raise ValueError('scene.objects: duplicate ids')
     count=sum(o['repeat'][0]*o['repeat'][1] for o in spec['objects'])

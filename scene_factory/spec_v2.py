@@ -4,7 +4,7 @@ V2 top-level fields: schema_version, scene_type, base_scene, image, materials,
 textures, surface_overrides, custom_objects, lights, camera, render, and additive
 base_material_overrides/exterior_contexts. Old saved JSON may omit extensions.
 Custom group position is its local origin in world metres (not bottom centre).
-Part position is its centre in group space. Curves/meshes use local points and
+Part position is its centre in group space. Curves/polylines/meshes use local points and
 vertices, then part rotation/position, then group rotation/position. Local
 image-plane front is -Y, width=size.x and height=size.z. Box texture front=-Y.
 All rotations are XYZ Euler degrees; reference photo crop order UL UR LR LL.
@@ -45,7 +45,7 @@ CURTAIN_SCHEMA = obj({
     'seed': {'type': 'integer', 'minimum': 0, 'maximum': 2147483647},
 })
 PART_SCHEMA = obj({
-    'type': {'type': 'string', 'enum': ['box', 'cylinder', 'sphere', 'curve', 'mesh', 'image_plane', 'curtain']},
+    'type': {'type': 'string', 'enum': ['box', 'cylinder', 'sphere', 'curve', 'polyline', 'mesh', 'image_plane', 'curtain']},
     'position': vector(3), 'size': vector(3, 0, 30), 'rotation_degrees': ANGLE,
     'radius': {'type': 'number', 'minimum': 0, 'maximum': 5},
     'points': {'type': 'array', 'items': vector(3), 'maxItems': 256},
@@ -198,6 +198,43 @@ def _ref(identifier, identifiers, label, allow_empty=True):
         raise ValueError(label + ': unknown reference ' + identifier)
 
 
+def audit_material_references(spec):
+    """Summarize unresolved references in a structurally validated V2 scene.
+
+    The output deliberately contains schema paths and counts only: model-chosen
+    identifiers can contain arbitrary text and are not echoed into diagnostics.
+    Repeated references to the same missing identifier count once toward
+    ``unique_missing_ids`` and once per use toward ``missing_references``.
+    Empty optional bindings are ignored; empty required base-material bindings
+    are reported as unresolved references.
+    """
+    material_ids = {item.get('id') for item in spec.get('materials', [])
+                    if isinstance(item, dict) and isinstance(item.get('id'), str)}
+    references = []
+    for index, item in enumerate(spec.get('base_material_overrides', [])):
+        identifier = item.get('material_id', '')
+        if identifier not in material_ids:
+            references.append((identifier, f'base_material_overrides[{index}].material_id'))
+    for key in ('floor', 'ceiling', 'left', 'right', 'back'):
+        identifier = spec.get('surface_overrides', {}).get(key, '')
+        if identifier and identifier not in material_ids:
+            references.append((identifier, f'surface_overrides.{key}'))
+    for group_index, group in enumerate(spec.get('custom_objects', [])):
+        identifier = group.get('material_id', '')
+        if identifier and identifier not in material_ids:
+            references.append((identifier, f'custom_objects[{group_index}].material_id'))
+        for part_index, part in enumerate(group.get('parts', [])):
+            identifier = part.get('material_id', '')
+            if identifier and identifier not in material_ids:
+                references.append((identifier,
+                                   f'custom_objects[{group_index}].parts[{part_index}].material_id'))
+    return {
+        'unique_missing_ids': len({identifier for identifier, _ in references}),
+        'missing_references': len(references),
+        'paths': [path for _, path in references],
+    }
+
+
 def _validate_quad(quad):
     # Convex ordered source quadrilateral prevents singular perspective crops.
     cross = []
@@ -221,6 +258,13 @@ def validate(spec):
     groups = _ids(spec['custom_objects'], 'custom_objects')
     base_ids = _ids(base['objects'], 'base_scene.objects')
     lights = _ids(spec['lights'], 'lights')
+    material_audit = audit_material_references(spec)
+    if material_audit['missing_references']:
+        raise ValueError(
+            'material references: unknown reference(s); '
+            f"unique_missing_ids={material_audit['unique_missing_ids']}; "
+            f"missing_references={material_audit['missing_references']}; "
+            'paths=' + ','.join(material_audit['paths']))
     expanded_ids = {item['id'] + ('__%d_%d' % (i, j) if item['repeat'] != [1, 1] else '')
                     for item in base['objects'] for i in range(item['repeat'][0]) for j in range(item['repeat'][1])}
     if len(expanded_ids) != sum(item['repeat'][0] * item['repeat'][1] for item in base['objects']):
@@ -235,7 +279,6 @@ def validate(spec):
     override_signatures = set()
     for item in material_overrides:
         _ref(item['object_id'], expanded_ids, 'base_material_overrides.object_id', allow_empty=False)
-        _ref(item['material_id'], materials, 'base_material_overrides.material_id', allow_empty=False)
         selector = item.get('selector')
         if selector is not None and not (selector['role'] or selector['material_name'] or selector['slot_index'] >= 0):
             raise ValueError('base_material_overrides.selector: provide a role, material_name or nonnegative slot_index')
@@ -262,18 +305,14 @@ def validate(spec):
                        for i in range(4))) / 2
         if area > .5:
             raise ValueError('exterior_contexts: crop exceeds half the photo; use only exterior content seen inside its window')
-    for identifier in spec['surface_overrides'].values():
-        _ref(identifier, materials, 'surface_overrides')
     material_map = {item['id']: item for item in spec['materials']}
     part_count = vertex_count = index_count = point_count = 0
     support_map = {}
     for group in spec['custom_objects']:
-        _ref(group['material_id'], materials, 'custom_objects.material_id')
         _ref(group['support_id'], groups | expanded_ids | {'floor'}, 'custom_objects.support_id')
         support_map[group['id']] = group['support_id']
         for item in group['parts']:
             part_count += 1
-            _ref(item['material_id'], materials, 'parts.material_id')
             effective_material = item['material_id'] or group['material_id']
             kind = item['type']
             cloths = item.get('cloth', [])
@@ -303,11 +342,11 @@ def validate(spec):
                     raise ValueError('image_plane: positive size.x and size.z required')
                 if not effective_material or not material_map[effective_material]['texture_id']:
                     raise ValueError('image_plane: material must reference a photo texture')
-            if kind == 'curve':
+            if kind in ('curve', 'polyline'):
                 if len(item['points']) < 2 or item['radius'] <= 0:
-                    raise ValueError('curve: at least two points and positive radius required')
+                    raise ValueError(kind + ': at least two points and positive radius required')
                 if not any(sum((a-b)**2 for a,b in zip(item['points'][0], point)) > 1e-10 for point in item['points'][1:]):
-                    raise ValueError('curve: coincident points')
+                    raise ValueError(kind + ': coincident points')
             elif item['points']:
                 raise ValueError('non-curve: points must be empty')
             if kind == 'mesh':

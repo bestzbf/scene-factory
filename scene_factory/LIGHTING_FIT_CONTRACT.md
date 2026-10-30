@@ -3,11 +3,19 @@
 `calibrate(scene, views, cameras, sources, set_view, *, fit_lighting=True)` remains backward-compatible. The default adds actual Cycles previews that search shared world/exterior/interior/directional power multipliers and the existing ±1.5 EV exposure interval. Light groups are inferred from actual Blender emitters and the existing exterior-proxy flag, never scene names or dorm-specific values.
 
 - Bounded cost: at most 15 lighting settings × number of views, 256-pixel previews, up to 16 samples, fixed seed 41. Each actual lighting render is reused only for color-management exposure variants.
+- Exposure-only previews use a 384-pixel maximum edge and up to 32 samples.
+  After each camera setup they enforce seed 41, animated seed off, adaptive
+  sampling off, denoising on, 100% resolution and render border off. This avoids
+  metering a cropped or unexpectedly downscaled image. These transient settings
+  are restored on success and failure; only a selected exposure is retained.
+  The report records them under `exposure_preview_settings`. Reproducibility
+  applies to a fixed Blender/device setup, not bitwise equality across hardware.
 - Bounded changes: powers remain between 1/64 and 16 times their input value; source positions, sizes, colors, materials and geometry remain fixed. One power/exposure setting serves every view.
 - Selection: equal-view mean of 3×3 log-luminance Huber loss plus 0.35 times regional contrast loss and 0.2 times the mean squared error of the worst third of cells. At least three informative reference cells in every view are required. Preserve the exposure-only baseline unless loss improves by at least 2% and 0.002 absolute; no view may degrade beyond 5% plus 0.005 loss.
-- Fail-closed boundary guard: if the selected power or ±1.5 EV correction reaches a bound while any view still has a regional residual above 2 stops, restore the original powers and exposure, report `status='reverted_unresolved'`, and emit the affected region IDs. This is an unresolved spatial-lighting problem, not a successful global fit.
+- Fail-closed boundary guard: if the selected power or ±1.5 EV correction reaches a bound while any view still has a regional residual above 2 stops, reject that proposal. Among the existing measured candidate records, a fallback may be applied only when all its powers and exposure are strictly inside their bounds, its loss improves the measured original powers/exposure by at least 2%, and no view's loss increases. Choose the lowest-loss eligible record; do not compare against the rejected exposure-only baseline. This adds no model requests or candidate renders. Report `status='selected_feasible_unresolved'`, retaining the original rejection reason and remaining severe-cell IDs. If no such record exists, restore the original powers and exposure with `status='reverted_unresolved'`. Neither status grants visual acceptance.
+- Final spatial diagnostics flag every informative cell with an absolute error above 2 stops, even when the median and p90–p10 statistics are small. The report includes maximum regional error and severe-cell IDs; a single extreme region cannot be hidden by eight better regions.
 - Reproducible reporting: `tone_calibration.lighting_fit` includes every candidate measurement, selected index, actual applied powers, multiplier bounds, preview settings, source SHA256 values and limitations. The original exposure-only measurements remain under `exposure_only_fit`.
-- On failure or an unresolved boundary fit restore original powers and all transient render settings. On success keep selected powers/exposure, restoring camera, sampling, seed, resolution, border settings and output path.
+- On failure or a boundary rejection without a feasible measured fallback, restore original powers and all transient render settings. Otherwise keep selected powers/exposure, restoring camera, sampling, seed, resolution, border settings and output path.
 - This is a brightness optimization aid, not a fidelity score or acceptance. Existing independent visual review is still mandatory.
 
 ## Renderer integration

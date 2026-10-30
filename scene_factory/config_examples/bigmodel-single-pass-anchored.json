@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "models": {
+    "analysis": {
+      "provider": "openai_chat",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "model": "glm-5.3-flash",
+      "api_key_env": "BIGMODEL_API_KEY",
+      "response_format": "json_object",
+      "token_parameter": "max_tokens",
+      "max_output_tokens": 12288,
+      "timeout_seconds": 900,
+      "max_retries": 0,
+      "stream": true,
+      "reasoning_effort": "low"
+    }
+  },
+  "batch": {
+    "shared_ledger_dir": null,
+    "workers": 1,
+    "api_workers": 1,
+    "render_workers": 1,
+    "max_repairs": 0,
+    "no_review": true,
+    "vision_timeout": 900,
+    "render_timeout": 2400
+  },
+  "render": {
+    "max_edge": 1600,
+    "samples": 128,
+    "device": "AUTO",
+    "appearance_policy": "photo_reconstruction",
+    "tone_match": "reference"
+  },
+  "pipeline": {
+    "analysis_mode": "monolithic",
+    "scene_wire_format": "anchored_parts_v1",
+    "repair_mode": "typed",
+    "validation_retries": 0,
+    "repair_stagnation_patience": 0
+  },
+  "budget": {
+    "max_requests": 1,
+    "max_output_tokens": 12288,
+    "max_reported_tokens": 0
+  }
+}

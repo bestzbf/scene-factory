@@ -74,6 +74,17 @@ class MaterialClothBlenderTests(unittest.TestCase):
             else:
                 self.assertEqual(actual.name, slot['source_material'])
 
+    def test_geometry_cache_rebuilds_after_mesh_datablock_is_removed(self):
+        from assets_lib import office_furniture
+        size = (.731, .419, .083)
+        bevel = .009
+        original = office_furniture._rounded_mesh(size, bevel)
+        bpy.data.meshes.remove(original)
+
+        rebuilt = office_furniture._rounded_mesh(size, bevel)
+        self.assertGreater(len(rebuilt.vertices), 0)
+        self.assertIs(bpy.data.meshes.get(rebuilt.name), rebuilt)
+
     def test_unmatched_or_conflicting_selector_rejects_before_render(self):
         for conflict in (False, True):
             bundle = self.scene_fixture()

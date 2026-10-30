@@ -67,7 +67,7 @@ class SceneBudgetTests(unittest.TestCase):
             self.reserve(75)
             self.assertEqual(session.snapshot()['requests'], 2)
 
-    def test_all_network_attempts_count_even_before_send_or_rejection(self):
+    def test_only_proven_unsent_attempt_is_refunded(self):
         with budget.scene_budget_session(self.root, {'max_requests': 3}) as session:
             transports = ({'phase': 'connecting', 'request_started': False},
                           {'phase': 'response_complete', 'http_status': 429},
@@ -76,11 +76,95 @@ class SceneBudgetTests(unittest.TestCase):
             for transport in transports:
                 self.reserve().finish(transport)
             data = session.snapshot()
-            self.assertEqual(data['requests'], 3)
-            self.assertEqual(data['output_tokens_accounted'], 300)
-            self.assertEqual(data['unknown_usage_attempts'], 3)
+            self.assertEqual(data['requests'], 2)
+            self.assertEqual(data['output_tokens_accounted'], 200)
+            self.assertEqual(data['unknown_usage_attempts'], 2)
             self.assertEqual(data['pending_attempts'], 0)
+            self.reserve().finish({'phase': 'waiting_response', 'request_started': True})
             self.assert_code('scene_budget_exceeded', self.reserve)
+
+    def test_connect_refund_is_durable_idempotent_and_allows_safe_retry(self):
+        policy = {'max_requests': 1, 'max_output_tokens': 100}
+        with budget.scene_budget_session(self.root, policy) as session:
+            ticket = self.reserve()
+            ticket.finish({'phase': 'connecting', 'request_started': False,
+                           'request_sent': False, 'network_error_type': 'ConnectionRefusedError'})
+            before = (self.root/budget.LEDGER_NAME).read_bytes()
+            ticket.finish({})
+            self.assertEqual(before, (self.root/budget.LEDGER_NAME).read_bytes())
+            self.assertEqual(session.snapshot()['requests'], 0)
+            self.assertEqual(session.snapshot()['output_tokens_accounted'], 0)
+            self.assertEqual(session.snapshot()['unknown_usage_attempts'], 0)
+        with budget.scene_budget_session(self.root, policy) as session:
+            self.reserve().finish(complete({'input_tokens': 3, 'output_tokens': 5}))
+            data = session.snapshot()
+            self.assertEqual(data['requests'], 1)
+            self.assertEqual(data['output_tokens_accounted'], 5)
+            self.assertEqual(len(data['attempts']), 2)
+
+    def test_conflicting_or_missing_unsent_evidence_keeps_full_capacity(self):
+        variants = ({}, {'request_started': True}, {'request_sent': True},
+                    {'http_status': 429}, {'response_bytes': 1},
+                    {'usage': {'provider_detail': 0}}, {'usage': ''},
+                    {'automatic_replay_blocked': True}, {'usage_invalid': True},
+                    {'completion_marker_missing': True})
+        with budget.scene_budget_session(self.root, {'max_requests': 100}) as session:
+            for extra in variants:
+                transport = {'phase': 'connecting', 'request_started': False, 'request_sent': False}
+                if not extra:
+                    del transport['request_started']
+                transport.update(extra)
+                self.reserve().finish(transport)
+            self.assertEqual(session.snapshot()['requests'], len(variants))
+            self.assertEqual(session.snapshot()['output_tokens_accounted'], 100*len(variants))
+
+    def make_v1(self):
+        ledger = self.ledger()
+        ledger['schema_version'] = 1
+        for item in ledger['attempts']:
+            del item['transport']
+        ledger.update(budget._totals(ledger['attempts']))
+        (self.root/budget.LEDGER_NAME).write_text(json.dumps(ledger))
+        return ledger
+
+    def test_v1_migration_preserves_unknown_usage_and_readonly_snapshot_does_not_migrate(self):
+        policy = {'max_requests': 3}
+        with budget.scene_budget_session(self.root, policy):
+            self.reserve().finish({'phase': 'connecting', 'request_started': False})
+            self.reserve().finish(complete({'input_tokens': 2, 'output_tokens': 4}))
+        original = self.make_v1()
+        before = (self.root/budget.LEDGER_NAME).read_bytes()
+        self.assertEqual(budget.budget_snapshot(self.root)['summary']['requests'], 2)
+        self.assertEqual(before, (self.root/budget.LEDGER_NAME).read_bytes())
+        with budget.scene_budget_session(self.root, policy) as session:
+            migrated = session.snapshot()
+            self.assertEqual(migrated['schema_version'], 2)
+            for key in budget._totals([]):
+                self.assertEqual(migrated[key], original[key])
+            self.assertTrue(all(item['transport']['state'] == 'legacy' for item in migrated['attempts']))
+            self.reserve().finish({'phase': 'not_sent', 'request_started': False})
+            self.assertEqual(session.snapshot()['requests'], 2)
+
+    def test_v1_pending_crash_blocks_before_migration(self):
+        policy = {'max_requests': 2}
+        with budget.scene_budget_session(self.root, policy):
+            self.reserve()
+        self.make_v1()
+        before = (self.root/budget.LEDGER_NAME).read_bytes()
+        self.assert_code('ambiguous_previous_request', lambda: budget.scene_budget_session(self.root, policy).__enter__())
+        self.assertEqual(before, (self.root/budget.LEDGER_NAME).read_bytes())
+
+    def test_transport_proof_and_usage_tampering_rejected(self):
+        policy = {'max_requests': 2}
+        with budget.scene_budget_session(self.root, policy):
+            self.reserve().finish({'phase': 'connecting', 'request_started': False})
+        original = self.ledger()
+        for change in ({'request_started': True}, {'usage': {'total_tokens': 1}},
+                       {'state': 'reserved'}, {'unexpected': 'value'}):
+            ledger = json.loads(json.dumps(original))
+            ledger['attempts'][0]['transport'].update(change)
+            (self.root/budget.LEDGER_NAME).write_text(json.dumps(ledger))
+            self.assert_code('invalid_scene_budget', lambda: budget.budget_snapshot(self.root))
 
     def test_complete_provider_usage_and_idempotent_finish(self):
         samples = [({'prompt_tokens': 10, 'completion_tokens': 3, 'total_tokens': 13}, 10, 3, 13),
@@ -233,7 +317,7 @@ class SceneBudgetTests(unittest.TestCase):
             self.assertNotIn('SECRET', str(error.exception))
             self.assertEqual(path.read_bytes(), replacement)
         value = json.loads(original)
-        value['schema_version'] = 2
+        value['schema_version'] = 999
         path.write_text(json.dumps(value))
         self.assert_code('invalid_scene_budget', lambda: budget.scene_budget_session(self.root, {'max_requests': 1}).__enter__())
         path.unlink()
@@ -266,6 +350,42 @@ class SceneBudgetTests(unittest.TestCase):
         self.assertEqual(before, {str(path): path.read_bytes() for path in self.root.iterdir()})
         (self.root / budget.LEDGER_NAME).write_text('{invalid')
         self.assert_code('invalid_scene_budget', lambda: budget.budget_snapshot(self.root))
+
+    def test_readonly_snapshot_uses_one_atomic_ledger_version(self):
+        with budget.scene_budget_session(self.root, {'max_requests': 2}):
+            self.reserve().finish(complete({'input_tokens': 9, 'output_tokens': 3}))
+            first = self.ledger()
+            self.reserve(name='detail.json')
+            replacement = self.ledger()
+        replacement['policy']['max_requests'] = 3
+        path = self.root / budget.LEDGER_NAME
+        path.write_text(json.dumps(first))
+        original_read = budget._read
+
+        def read_then_replace(target):
+            value = original_read(target)
+            temporary = self.root / 'replacement.json'
+            temporary.write_text(json.dumps(replacement))
+            os.replace(temporary, path)
+            return value
+
+        with patch.object(budget, '_read', side_effect=read_then_replace) as read, \
+                patch.object(budget, '_write') as write:
+            snapshot = budget.budget_snapshot(self.root)
+        self.assertEqual(read.call_count, 1)
+        write.assert_not_called()
+        self.assertEqual(snapshot['policy']['max_requests'], 2)
+        self.assertEqual(snapshot['summary']['requests'], 1)
+        self.assertEqual(snapshot['summary']['reported_tokens'], 12)
+        self.assertEqual(snapshot['summary']['pending_attempts'], 0)
+        # The next diagnostic read sees the complete replacement, including
+        # its pending/unknown reservation, without mixing versions or writing.
+        current = budget.budget_snapshot(self.root)
+        self.assertEqual(current['policy']['max_requests'], 3)
+        self.assertEqual(current['summary']['requests'], 2)
+        self.assertEqual(current['summary']['pending_attempts'], 1)
+        self.assertEqual(current['summary']['unknown_usage_attempts'], 1)
+        self.assertEqual(current['summary']['output_tokens_accounted'], 103)
 
     def test_invalid_cap_and_unavailable_lock_fail_before_reservation(self):
         with budget.scene_budget_session(self.root, {'max_requests': 1}) as session:

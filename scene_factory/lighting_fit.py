@@ -169,10 +169,79 @@ def unresolved_saturated_fit_reason(candidate):
 
 
 def select_lighting_candidate_fail_closed(candidates):
-    """Select the best fit, or restore the unchanged baseline on unsafe fit."""
+    """Reject unsafe fits, then try measured interior-of-bound alternatives.
+
+    Fallback is allowed only against an explicitly retained measurement of
+    the original scene, never the exposure-only baseline. It remains an
+    unresolved result requiring independent review, not an acceptance gate.
+    """
     proposed = select_lighting_candidate(candidates)
     reason = unresolved_saturated_fit_reason(candidates[proposed])
+    if reason:
+        original = candidates[0].get('_initial_exposure_variant')
+        selected = select_feasible_lighting_candidate(candidates, original)
+        if selected is not None:
+            original_loss = original['measurement']['loss']
+            return selected, {**reason,
+                'original_rejection_reason': reason,
+                'action': 'applied_measured_non_boundary_candidate_pending_review',
+                'message': ('The boundary-saturated proposal was rejected. A previously measured '
+                            'non-boundary candidate improves the original scene without degrading '
+                            'any view. Remaining regional errors still require independent review.'),
+                'fallback_selection': {'candidate_index': selected,
+                    'baseline': 'original_powers_and_exposure',
+                    'baseline_loss': original_loss,
+                    'selected_loss': candidates[selected]['measurement']['loss'],
+                    'minimum_relative_improvement': MIN_RELATIVE_IMPROVEMENT,
+                    'per_view_degradation_allowed': False}}
     return (0 if reason else proposed), reason
+
+
+def select_feasible_lighting_candidate(candidates, original):
+    """Return the best already-measured, non-boundary improvement or None."""
+    def finite_loss(value):
+        return (isinstance(value, (int, float)) and not isinstance(value, bool)
+                and math.isfinite(value) and value >= 0)
+
+    if (not isinstance(original, Mapping) or not candidates
+            or not isinstance(candidates[0], Mapping)):
+        return None
+    baseline = original.get('measurement', {})
+    expected_powers = candidates[0].get('multipliers')
+    if (not isinstance(baseline, Mapping) or not isinstance(expected_powers, Mapping)
+            or not expected_powers):
+        return None
+    base_loss, base_views = baseline.get('loss'), baseline.get('per_view')
+    if (not finite_loss(base_loss) or base_loss <= 0
+            or not isinstance(base_views, Mapping) or not base_views
+            or any(not isinstance(view, Mapping) or not finite_loss(view.get('loss'))
+                   for view in base_views.values())):
+        return None
+    best = None
+    for index, candidate in enumerate(candidates):
+        if not isinstance(candidate, Mapping):
+            continue
+        powers, ev = candidate.get('multipliers'), candidate.get('correction_ev')
+        if (not isinstance(powers, Mapping) or set(powers) != set(expected_powers)
+                or not isinstance(ev, (int, float)) or isinstance(ev, bool)
+                or not math.isfinite(ev) or abs(ev) >= MAX_EXPOSURE_CORRECTION_EV
+                or any(not isinstance(value, (int, float)) or isinstance(value, bool)
+                       or not math.isfinite(value) or not MIN_MULTIPLIER < value < MAX_MULTIPLIER
+                       for value in powers.values())):
+            continue
+        measurement = candidate.get('measurement', {})
+        if not isinstance(measurement, Mapping):
+            continue
+        loss, per_view = measurement.get('loss'), measurement.get('per_view')
+        if (not finite_loss(loss) or loss > base_loss * (1 - MIN_RELATIVE_IMPROVEMENT)
+                or not isinstance(per_view, Mapping) or set(per_view) != set(base_views)
+                or any(not isinstance(value, Mapping) or not finite_loss(value.get('loss'))
+                       or value['loss'] > base_views[view_id]['loss'] + 1e-12
+                       for view_id, value in per_view.items())):
+            continue
+        if best is None or loss < candidates[best]['measurement']['loss'] - 1e-12:
+            best = index
+    return best
 
 
 def calibration_status_after_fit(exposure_status, fit_status):
@@ -181,6 +250,8 @@ def calibration_status_after_fit(exposure_status, fit_status):
         return 'lighting_selected'
     if fit_status == 'reverted_unresolved':
         return 'lighting_reverted_unresolved'
+    if fit_status == 'selected_feasible_unresolved':
+        return 'lighting_selected_feasible_unresolved'
     return exposure_status
 
 
@@ -400,7 +471,8 @@ def fit_rendered_lighting(scene, views, cameras, sources, set_view, reference_gr
                 selected = select_lighting_candidate(records)
         searched_selected = selected
         selected, unresolved_reason = select_lighting_candidate_fail_closed(records)
-        if unresolved_reason:
+        feasible_fallback = bool(unresolved_reason and unresolved_reason.get('fallback_selection'))
+        if unresolved_reason and not feasible_fallback:
             # A power/exposure limit with severe remaining regional error is
             # not a successful global lighting fit. Restore the exact starting
             # scene state, including the original exposure rather than the
@@ -437,7 +509,8 @@ def fit_rendered_lighting(scene, views, cameras, sources, set_view, reference_gr
     baseline_loss = (records[0]['_initial_exposure_variant']['measurement']['loss']
                      if unresolved_reason else records[0]['measurement']['loss'])
     final_loss = applied_candidate['measurement']['loss']
-    report = {'status': ('reverted_unresolved' if unresolved_reason else
+    report = {'status': ('selected_feasible_unresolved' if feasible_fallback else
+                         'reverted_unresolved' if unresolved_reason else
                          'selected' if selected else 'unchanged'),
               'method': 'actual Cycles render search; equal-view 3x3 log luminance Huber + .35 regional contrast + .2 worst-third squared residual',
               'objective_version': OBJECTIVE_VERSION,
@@ -449,10 +522,12 @@ def fit_rendered_lighting(scene, views, cameras, sources, set_view, reference_gr
               'requires_non_power_inspection': any(value.get('severe_residual_region_ids')
                   for value in applied_candidate['measurement']['per_view'].values()),
               'unresolved_reason': unresolved_reason,
+              'feasible_fallback_selected': feasible_fallback,
               'residual_guidance': 'Severe residuals after fitting are not evidence for another global power increase. Inspect camera framing/visible coverage, light direction and size, aperture transmission and reflectance. Grouped powers cannot fix a spatial distribution unsupported by the scene.',
               'shared_across_views': sorted(reference_grid),
               'selected_index': selected, 'searched_selected_index': searched_selected,
-              'reverted_from_candidate_index': searched_selected if unresolved_reason else None,
+              'reverted_from_candidate_index': searched_selected if unresolved_reason and not feasible_fallback else None,
+              'rejected_candidate_index': searched_selected if unresolved_reason else None,
               'applied_exposure_correction_ev': applied_candidate.get('ev', applied_candidate.get('correction_ev')),
               'candidate_count': len(records),
               'max_candidate_count': MAX_LIGHTING_CANDIDATES,

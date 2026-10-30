@@ -127,6 +127,30 @@ class ProductionCoordinatorTests(unittest.TestCase):
         self.assertEqual(len(read_json(self.args.output_dir/'summary.json')['scenes']), 3)
         self.assertEqual(read_json(self.args.output_dir/'accepted.json'), [old])
 
+    def test_requested_recovery_records_are_replaced_before_checkpoint(self):
+        groups = self.groups(2)
+        old = self.accepted_fixture(groups[0])
+        # Keep an unrelated historical scene in the recovered index. The
+        # requested accepted payload must not remain live while its worker is
+        # being checked, while the unrelated scene must survive the run.
+        unrelated = {'scene_id': 'historical', 'directory': str(self.args.output_dir/'historical'),
+                     'status': 'generated_unreviewed', 'artifacts': {'old.bin': 'a' * 64}}
+        self.args.output_dir.mkdir(parents=True, exist_ok=True)
+        atomic_json(self.args.output_dir/'summary.json', {'run_id': 'previous', 'scenes': [old, unrelated]})
+        observed = []
+
+        def observe(path, value):
+            if path.name == 'summary.json' and value.get('run_state') == 'running':
+                observed.append({item['scene_id']: item['status'] for item in value['scenes']})
+            atomic_json(path, value)
+
+        with patch.object(runner, 'run_job', side_effect=self.outcome), \
+             patch.object(runner, 'atomic_json', side_effect=observe), \
+             patch('report_multiview.report'), redirect_stdout(io.StringIO()):
+            self.assertEqual(runner._coordinate([groups[0]], self.args, {}), 0)
+        self.assertEqual(observed[0], {'scene_0': 'pending', 'historical': 'generated_unreviewed'})
+        self.assertEqual(read_json(self.args.output_dir/'accepted.json'), [])
+
     def test_previous_accepted_corruption_is_removed_from_dataset_index(self):
         groups = self.groups(2)
         self.accepted_fixture(groups[0])
@@ -136,6 +160,48 @@ class ProductionCoordinatorTests(unittest.TestCase):
         previous = {item['scene_id']: item for item in read_json(self.args.output_dir/'summary.json')['scenes']}['scene_0']
         self.assertEqual(previous['status'], 'failed')
         self.assertFalse(previous['gate']['accepted'])
+
+    def test_equal_timestamp_failure_marker_prevents_old_acceptance(self):
+        groups = self.groups(2)
+        accepted = self.accepted_fixture(groups[0])
+        folder = self.args.output_dir/groups[0]['scene_id']
+        failed = {'scene_id': groups[0]['scene_id'], 'directory': str(folder),
+            'status': 'failed', 'failed_stage': 'initializing',
+            'error': 'Synthetic later attempt failed before changing artifacts'}
+        atomic_json(folder/'last_error.json', failed)
+        # Keep the successful artifacts intact; only commit ordering is
+        # ambiguous, as on a coarse filesystem or after timestamp-preserving copy.
+        timestamp = 1_700_000_000_000_000_000
+        for name in ('result.json', 'last_error.json'):
+            os.utime(folder/name, ns=(timestamp, timestamp))
+        self.assertEqual(runner.recorded_results(self.args.output_dir)[groups[0]['scene_id']], failed)
+        self.assertEqual(self.run_queue(groups[1:]), 0)
+        self.assertEqual(read_json(self.args.output_dir/'accepted.json'), [])
+        prior = {item['scene_id']: item for item in
+                 read_json(self.args.output_dir/'summary.json')['scenes']}[groups[0]['scene_id']]
+        self.assertEqual(prior['status'], 'failed')
+        self.assertEqual(read_json(folder/'result.json'), accepted)
+
+    def test_corrupt_equal_timestamp_failure_marker_fails_closed(self):
+        group = self.groups(1)[0]
+        self.accepted_fixture(group)
+        folder = self.args.output_dir/group['scene_id']
+        (folder/'last_error.json').write_text('{interrupted')
+        timestamp = (folder/'result.json').stat().st_mtime_ns
+        os.utime(folder/'last_error.json', ns=(timestamp, timestamp))
+        record = runner.recorded_results(self.args.output_dir)[group['scene_id']]
+        self.assertEqual(record['status'], 'failed')
+        self.assertEqual(record['failed_stage'], 'index_validation')
+
+    def test_newer_result_still_wins_older_failure_marker(self):
+        group = self.groups(1)[0]
+        accepted = self.accepted_fixture(group)
+        folder = self.args.output_dir/group['scene_id']
+        atomic_json(folder/'last_error.json', {'scene_id': group['scene_id'], 'status': 'failed'})
+        timestamp = 1_700_000_000_000_000_000
+        os.utime(folder/'last_error.json', ns=(timestamp, timestamp))
+        os.utime(folder/'result.json', ns=(timestamp+1_000_000_000, timestamp+1_000_000_000))
+        self.assertEqual(runner.recorded_results(self.args.output_dir)[group['scene_id']], accepted)
 
     def test_corrupt_summary_rebuilt_from_scene_commits(self):
         group = self.groups(1)[0]
@@ -186,6 +252,98 @@ class ProductionCoordinatorTests(unittest.TestCase):
         self.assertEqual(len(state['pending_scene_ids']), 6)
         self.assertEqual(len(state['resumable_scene_ids']), 8)
         self.assertEqual(read_json(self.args.output_dir/'accepted.json'), [])
+
+    def test_disk_preflight_rejects_before_creating_or_changing_indexes(self):
+        self.args.min_free_disk_bytes = 100
+        self.args.output_dir.mkdir(parents=True)
+        original = {'schema_version': 2, 'scenes': [], 'run_state': 'completed'}
+        atomic_json(self.args.output_dir/'summary.json', original)
+        before = (self.args.output_dir/'summary.json').read_bytes()
+        with patch.object(runner.shutil, 'disk_usage', return_value=SimpleNamespace(free=99)), \
+             patch.object(runner, 'run_job') as work, patch('report_multiview.report'), \
+             redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(runner._coordinate(self.groups(2), self.args, {}),
+                             runner.DISK_SPACE_PAUSE_EXIT_CODE)
+        work.assert_not_called()
+        self.assertEqual((self.args.output_dir/'summary.json').read_bytes(), before)
+        self.assertFalse((self.args.output_dir/'groups.json').exists())
+        self.assertIn('"state": "disk_paused"', output.getvalue())
+
+    def test_disk_drop_after_commit_keeps_running_result_and_pending_ids(self):
+        self.args.workers = 1
+        self.args.min_free_disk_bytes = 100
+        usage = [SimpleNamespace(free=value) for value in (200, 200, 200, 200, 200, 99)]
+        calls = []
+        def work(group, args, hashes):
+            calls.append(group['scene_id'])
+            return self.outcome(group, args, hashes)
+        with patch.object(runner.shutil, 'disk_usage', side_effect=usage), \
+             patch.object(runner, 'run_job', side_effect=work), \
+             patch('report_multiview.report'), redirect_stdout(io.StringIO()):
+            self.assertEqual(runner._coordinate(self.groups(3), self.args, {}),
+                             runner.DISK_SPACE_PAUSE_EXIT_CODE)
+        self.assertEqual(calls, ['scene_0'])
+        summary = read_json(self.args.output_dir/'summary.json')
+        statuses = {item['scene_id']: item['status'] for item in summary['scenes']}
+        self.assertEqual(statuses, {'scene_0': 'generated_unreviewed',
+                                    'scene_1': 'pending', 'scene_2': 'pending'})
+        state = read_json(self.args.output_dir/'run_state.json')
+        self.assertEqual(state['state'], 'paused_disk_space')
+        self.assertEqual(state['pending_scene_ids'], ['scene_1', 'scene_2'])
+
+    def test_disk_resume_admits_pending_scenes_after_space_returns(self):
+        self.args.workers = 1
+        self.args.min_free_disk_bytes = 100
+        groups = self.groups(3)
+        first_usage = [SimpleNamespace(free=value) for value in (200, 200, 200, 200, 200, 99)]
+        with patch.object(runner.shutil, 'disk_usage', side_effect=first_usage), \
+             patch.object(runner, 'run_job', side_effect=self.outcome), \
+             patch('report_multiview.report'), redirect_stdout(io.StringIO()):
+            self.assertEqual(runner._coordinate(groups, self.args, {}), runner.DISK_SPACE_PAUSE_EXIT_CODE)
+        with patch.object(runner.shutil, 'disk_usage', return_value=SimpleNamespace(free=200)), \
+             patch.object(runner, 'run_job', side_effect=self.outcome), \
+             patch('report_multiview.report'), redirect_stdout(io.StringIO()):
+            self.assertEqual(runner._coordinate(groups, self.args, {}), 0)
+        summary = read_json(self.args.output_dir/'summary.json')
+        self.assertEqual({item['status'] for item in summary['scenes']}, {'generated_unreviewed'})
+        self.assertEqual(read_json(self.args.output_dir/'run_state.json')['state'], 'completed')
+
+    def test_disk_pause_does_not_cancel_concurrent_inflight_workers(self):
+        self.args.workers = 2
+        self.args.min_free_disk_bytes = 100
+        started = threading.Event()
+        lock = threading.Lock()
+        calls = []
+        low = [False]
+        def usage(_path):
+            return SimpleNamespace(free=99 if low[0] else 200)
+        def work(group, args, hashes):
+            with lock:
+                calls.append(group['scene_id'])
+                if len(calls) == 2:
+                    started.set()
+            if group['scene_id'] == 'scene_0':
+                started.wait(5)
+                low[0] = True
+                return self.outcome(group, args, hashes)
+            args.disk_space_stop_event.wait(5)
+            return self.outcome(group, args, hashes)
+        with patch.object(runner.shutil, 'disk_usage', side_effect=usage), \
+             patch.object(runner, 'run_job', side_effect=work), \
+             patch('report_multiview.report'), redirect_stdout(io.StringIO()):
+            result = [None]
+            thread = threading.Thread(target=lambda: result.__setitem__(0, runner._coordinate(self.groups(4), self.args, {})))
+            thread.start()
+            self.assertTrue(started.wait(5))
+            thread.join(10)
+        self.assertFalse(thread.is_alive())
+        self.assertEqual(result[0], runner.DISK_SPACE_PAUSE_EXIT_CODE)
+        self.assertEqual(calls, ['scene_0', 'scene_1'])
+        statuses = {item['scene_id']: item['status'] for item in read_json(self.args.output_dir/'summary.json')['scenes']}
+        self.assertEqual(statuses['scene_0'], 'generated_unreviewed')
+        self.assertEqual(statuses['scene_1'], 'generated_unreviewed')
+        self.assertEqual(statuses['scene_2'], 'pending')
+        self.assertEqual(statuses['scene_3'], 'pending')
 
 
 @unittest.skipIf(fixtures.Image is None, 'Pillow required')

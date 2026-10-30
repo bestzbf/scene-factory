@@ -99,7 +99,7 @@ def _false_preview(value):
             _false_preview(item)
 
 
-def _verified_job(folder):
+def _verified_job(folder, *, snapshot_guard=None):
     """Validate the exact final reviewed iteration, never a batch summary flag."""
     from batch_multiview import source_check, validate_render
     import vision_multiview as vision
@@ -128,7 +128,7 @@ def _verified_job(folder):
     if job.get("scene_id") != folder.name or job.get("options", {}).get("no_review") is not False:
         raise DatasetExportError("A reviewed matching job is required")
     _false_preview(job.get("asset_library", {}))
-    source_check(job)
+    source_check(job, snapshot_guard=snapshot_guard)
     analysis = _json(folder / "analysis_provenance.json")
     if (analysis.get("manual_scene_seed") is not False
             or analysis.get("bundle_sha256") != file_sha256(folder / "initial_bundle.json")):
@@ -234,15 +234,44 @@ def _publish(staging, destination):
         raise OSError(error, os.strerror(error), str(destination))
 
 
-def _export_assets(record, destination):
+class _ExportCatalogCache:
+    """Keep only the current parsed catalog within one export's copy pass."""
+
+    def __init__(self):
+        self._key = None
+        self._catalog = None
+
+    def load(self, library):
+        from asset_catalog import AssetCatalog, load_catalog
+
+        # Check before resolving so a replaced path/parent cannot hide a
+        # symlink. Even a cache hit checks the current file identity.
+        path = AssetCatalog._checked_hash_path(library["catalog"])
+        expected = library["catalog_sha256"]
+        if not isinstance(expected, str) or not _DIGEST.fullmatch(expected):
+            raise DatasetExportError("Invalid asset catalog digest")
+        key = (str(path), expected)
+        if (key == self._key and self._catalog is not None
+                and AssetCatalog._stat_signature(path) == self._catalog.source_stat_signature):
+            return self._catalog
+        # Bound memory even when consecutive scenes use different libraries.
+        self._key, self._catalog = None, None
+        catalog = load_catalog(path)
+        if catalog.source_sha256 != expected:
+            raise DatasetExportError("Asset catalog changed during export")
+        self._key, self._catalog = key, catalog
+        return catalog
+
+
+def _export_assets(record, destination, *, catalog_cache=None):
     """Include only selected catalog records and their explicit dependencies."""
-    from asset_catalog import AssetCatalog, load_catalog
+    from asset_catalog import AssetCatalog
     from asset_manifest import validate_manifest
 
     library = record["job"].get("asset_library")
     if not library:
         return {}
-    catalog = load_catalog(library["catalog"])
+    catalog = (catalog_cache or _ExportCatalogCache()).load(library)
     binding_path = (record["iteration"] / "asset_bindings.json" if library.get("mode") == "automatic"
                     else Path(library["bindings"]))
     bindings = _json(binding_path)
@@ -305,7 +334,7 @@ def _model_identity(value):
     return {key: value[key] for key in ("provider", "model") if key in value}
 
 
-def _export_scene(record, destination):
+def _export_scene(record, destination, *, catalog_cache=None):
     folder, iteration = record["folder"], record["iteration"]
     result, bundle = record["result"], copy.deepcopy(record["bundle"])
     destination.mkdir()
@@ -360,7 +389,7 @@ def _export_scene(record, destination):
         raise DatasetExportError("A scene texture has no committed crop")
     atomic_json(destination / "textures/manifest.json", {"textures": crops,
                 "sources": [{"view_id": p["view_id"], "source_sha256": p["reference_sha256"]} for p in source_index]})
-    asset_arguments = _export_assets(record, destination)
+    asset_arguments = _export_assets(record, destination, catalog_cache=catalog_cache)
     metadata = {key: record["metadata"][key] for key in
                 ("schema_version", "status", "scene_id", "scene_type", "blender_version", "geometry_build_count",
                  "camera_count", "asset_count", "mesh_count", "render", "appearance_policy") if key in record["metadata"]}
@@ -395,13 +424,17 @@ def _export_scene(record, destination):
     return entry
 
 
-def export_dataset(output_dir, destination, *, scene_ids=None):
+def export_dataset(output_dir, destination, *, scene_ids=None, include_scene_entries=True):
     """Atomically publish accepted scene jobs to a new portable directory.
 
     ``scene_ids=None`` scans all job directories, not just the latest invocation's
     summary. Explicit IDs must all be accepted. Any invalid accepted scene fails
     the entire export. Existing destinations are never merged or overwritten;
     export a new version to publish an updated dataset. Returns the manifest.
+
+    ``include_scene_entries=False`` returns only batch-level metadata and the
+    published manifest path. The on-disk manifest always contains every scene
+    entry; this option avoids retaining/returning that potentially large list.
     """
     from batch_multiview import OutputInUseError, process_lock
 
@@ -409,6 +442,8 @@ def export_dataset(output_dir, destination, *, scene_ids=None):
     destination = Path(destination).expanduser().absolute()
     if not output.is_dir():
         raise DatasetExportError("Batch output directory does not exist")
+    if not isinstance(include_scene_entries, bool):
+        raise DatasetExportError("include_scene_entries must be a boolean")
     if destination.exists() or destination.is_symlink():
         raise DatasetExportError("Dataset destination already exists; choose a new version")
     destination = destination.resolve()
@@ -429,7 +464,8 @@ def export_dataset(output_dir, destination, *, scene_ids=None):
         # throughout publication, so cooperating batch runs cannot change this
         # snapshot. Retained lock files are reusable after exit or a crash.
         with process_lock(output / ".batch.lock"), process_lock(lock_path):
-            return _export_snapshot(output, destination, identifiers)
+            return _export_snapshot(output, destination, identifiers,
+                                    include_scene_entries=include_scene_entries)
     except OutputInUseError as exc:
         raise DatasetExportError("Dataset export is locked by a running process: " + str(exc)) from exc
     except (KeyError, TypeError, OSError, ValueError) as exc:
@@ -438,8 +474,9 @@ def export_dataset(output_dir, destination, *, scene_ids=None):
         raise DatasetExportError("Dataset export refused: " + str(exc)) from exc
 
 
-def _export_snapshot(output, destination, identifiers):
+def _export_snapshot(output, destination, identifiers, *, include_scene_entries=True):
     """Discover, verify and publish while source/destination locks are held."""
+    from batch_multiview import AssetSnapshotGuard
     if identifiers is None:
         identifiers = []
         for folder in sorted(output.iterdir()):
@@ -456,21 +493,70 @@ def _export_snapshot(output, destination, identifiers):
     try:
         if destination.exists() or destination.is_symlink():
             raise DatasetExportError("Dataset destination already exists")
-        records = [_verified_job(_local(output, identifier, directory=True)) for identifier in identifiers]
         staging = Path(tempfile.mkdtemp(prefix="." + destination.name + ".building-", dir=destination.parent))
         (staging / "scenes").mkdir()
-        entries = [_export_scene(record, staging / "scenes" / record["folder"].name) for record in records]
-        # Validate again before publication. A job/source/asset changing during
-        # copying must not create a certified mixed-time snapshot.
-        for record in records:
-            current = _verified_job(record["folder"])
-            if current["result_sha256"] != record["result_sha256"]:
-                raise DatasetExportError("Scene result changed during export")
-        manifest = {"schema_version": SCHEMA_VERSION, "created_at": utc_now(), "status": "published",
-                    "scene_count": len(entries), "view_count": sum(len(e["views"]) for e in entries),
-                    "accepted_only": True, "scenes": entries,
-                    "quality_scope": "Uncalibrated matched-view model review; not a metric reconstruction certificate"}
-        atomic_json(staging / "dataset_manifest.json", manifest)
+        # A verified record contains the decoded scene bundle, review report,
+        # metadata and provenance.  Do not retain one such object per scene:
+        # validate and export each scene before loading the next one.  Keep
+        # only the result digest needed for the final consistency check.
+        result_digests = []
+        view_count = 0
+        entries = [] if include_scene_entries else None
+        created_at = utc_now()
+        quality_scope = "Uncalibrated matched-view model review; not a metric reconstruction certificate"
+        manifest_path = staging / "dataset_manifest.json"
+        manifest_temporary = None
+        encoder = json.JSONEncoder(ensure_ascii=False, indent=2, sort_keys=True, allow_nan=False)
+        try:
+            with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=staging,
+                                             prefix=".dataset_manifest.", suffix=".tmp", delete=False) as handle:
+                manifest_temporary = Path(handle.name)
+                # The scene list is the only unbounded field. Stream each
+                # verified entry into the staged manifest as it is exported.
+                prefix = {"accepted_only": True, "created_at": created_at,
+                          "quality_scope": quality_scope, "scene_count": len(identifiers),
+                          "schema_version": SCHEMA_VERSION, "status": "published"}
+                handle.write("".join(encoder.iterencode(prefix))[:-1])
+                handle.write(',\n  "scenes": [\n')
+                copy_guard = AssetSnapshotGuard()
+                catalog_cache = _ExportCatalogCache()
+                for index, identifier in enumerate(identifiers):
+                    record = _verified_job(_local(output, identifier, directory=True), snapshot_guard=copy_guard)
+                    entry = _export_scene(record, staging / "scenes" / identifier,
+                                          catalog_cache=catalog_cache)
+                    if index:
+                        handle.write(",\n")
+                    handle.writelines(encoder.iterencode(entry))
+                    if entries is not None:
+                        entries.append(entry)
+                    result_digests.append(record["result_sha256"])
+                    view_count += len(entry["views"])
+                    del record, entry
+                # Validate again before publication. A job/source/asset changing
+                # during copying must not create a mixed-time certified snapshot.
+                # Use a fresh guard: cached library verification from the copy
+                # pass cannot certify inputs that changed while copying.
+                final_guard = AssetSnapshotGuard()
+                for identifier, expected_digest in zip(identifiers, result_digests):
+                    current = _verified_job(_local(output, identifier, directory=True), snapshot_guard=final_guard)
+                    if current["result_sha256"] != expected_digest:
+                        raise DatasetExportError("Scene result changed during export")
+                    del current
+                handle.write(f'\n  ],\n  "view_count": {view_count}\n}}\n')
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(manifest_temporary, manifest_path)
+            manifest_temporary = None
+        finally:
+            if manifest_temporary is not None:
+                manifest_temporary.unlink(missing_ok=True)
+        manifest = {"schema_version": SCHEMA_VERSION, "created_at": created_at, "status": "published",
+                    "scene_count": len(identifiers), "view_count": view_count,
+                    "accepted_only": True, "quality_scope": quality_scope}
+        if entries is not None:
+            manifest["scenes"] = entries
+        else:
+            manifest["manifest_path"] = str(destination / "dataset_manifest.json")
         (staging / "README.txt").write_text(
             "Accepted scene dataset, scene_dataset_v1\n\n"
             "Open scenes/<scene_id>/scene.blend in Blender. Images are packed by the generating renderer.\n"

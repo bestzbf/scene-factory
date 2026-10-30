@@ -58,6 +58,28 @@ class AutomaticAssetBatchTests(unittest.TestCase):
             result = runner.run_job(group, self.args, self.pipeline)
         return result, analyze, render
 
+    def test_standalone_asset_job_respects_batch_lock(self):
+        group = runner.load_groups(self.groups_path)[0]
+        self.args.output_dir.mkdir(parents=True, exist_ok=True)
+        with runner.process_lock(self.args.output_dir / '.batch.lock'):
+            result, analyze, render = self.run_mocked(group)
+        self.assertEqual(result['status'], 'locked')
+        self.assertEqual((analyze.call_count, render.call_count), (0, 0))
+
+    def test_batch_asset_scope_restores_marker_after_exit_and_error(self):
+        args = copy.copy(self.args)
+        self.assertFalse(hasattr(args, '_asset_batch_scope_active'))
+        with runner._batch_asset_scope(args):
+            self.assertTrue(args._asset_batch_scope_active)
+        self.assertFalse(hasattr(args, '_asset_batch_scope_active'))
+
+        args._asset_batch_scope_active = False
+        with self.assertRaisesRegex(RuntimeError, 'fixture failure'):
+            with runner._batch_asset_scope(args):
+                self.assertTrue(args._asset_batch_scope_active)
+                raise RuntimeError('fixture failure')
+        self.assertIs(args._asset_batch_scope_active, False)
+
     def test_config_asset_paths_resolve_from_config_directory_after_chdir(self):
         config_dir = self.root / 'configuration'
         config_dir.mkdir()
@@ -67,6 +89,11 @@ class AutomaticAssetBatchTests(unittest.TestCase):
         previous_cwd = Path.cwd()
         for automatic in (True, False):
             with self.subTest(auto_bind=automatic):
+                library_dir = config_dir / 'library'
+                library_dir.mkdir(exist_ok=True)
+                catalog_data = copy.deepcopy(self.library.data)
+                catalog_data['root'] = str(self.library.root)
+                atomic_json(library_dir / 'catalog.json', catalog_data)
                 atomic_json(config_path, {
                     'schema_version': 1,
                     'models': {'analysis': {
@@ -200,7 +227,7 @@ class AutomaticAssetBatchTests(unittest.TestCase):
         (self.library.root / 'unused.glb').write_bytes(b'changed')
         result, analyze, render = self.run_mocked()
         self.assertIn(result['status'], ('failed', 'conflict'))
-        self.assertIn('Input, code or options changed', result['error'])
+        self.assertIn('Asset library changed since this batch was started', result['error'])
         self.assertEqual((analyze.call_count, render.call_count), (0, 0))
 
     def test_previously_missing_candidate_appearing_invalidates_resume(self):
@@ -235,6 +262,23 @@ class AutomaticAssetBatchTests(unittest.TestCase):
         self.assertEqual(result['status'], 'needs_review')
         self.assertIn('draft_asset_preview_only', result['gate']['reasons'])
         self.assertIn('--asset-preview', render.call_args.args[0])
+
+    def test_snapshot_backed_accepted_resume_reuses_library_hash_check(self):
+        self.args.no_review, self.args.max_repairs = False, 0
+        with patch.object(vision, 'review', side_effect=lambda bundle, directory, **kwargs:
+                          self.review_report(bundle, score=95, verdict='recommend_accept')), \
+             patch.object(vision, 'quality_gate', return_value={'accepted': True, 'reasons': []}):
+            first, _, _ = self.run_mocked()
+            self.assertEqual(first['status'], 'accepted')
+            with patch.object(runner, 'source_check', wraps=runner.source_check) as check, \
+                 patch.object(runner, 'verify_selected_asset_inputs',
+                              side_effect=AssertionError('snapshot-backed resume must not reread selected assets')), \
+                 patch.object(vision, 'analyze', side_effect=AssertionError('accepted analysis should resume')), \
+                 patch.object(runner, 'run_stage', side_effect=AssertionError('accepted render should resume')):
+                resumed, _, _ = self.run_mocked()
+        self.assertTrue(resumed['resumed'])
+        self.assertEqual(resumed['status'], 'accepted')
+        self.assertGreaterEqual(check.call_count, 1)
 
 
 if __name__ == '__main__':

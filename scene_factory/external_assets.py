@@ -89,6 +89,9 @@ class ExternalAssetImporter:
         variants = []
         for material_id in asset.get('material_variant_ids', []):
             variant = self.catalog.get_material_variant(material_id)
+            if variant.get('mode') == 'embedded_gltf':
+                self.catalog.verify_material_hashes(material_id)
+                continue
             variants.append((material_id, variant))
             declared.update((variant.get('slot_materials') or {}).keys())
         actual = {
@@ -158,7 +161,8 @@ class ExternalAssetImporter:
             points = [v.co for mesh in copies for v in mesh.vertices]
             if not points:
                 raise CatalogError('Empty catalog geometry')
-            manifest_gate = bool((asset.get('audit_provenance') or {}).get('manifest_gate'))
+            manifest_gate = bool((asset.get('audit_provenance') or {}).get('manifest_gate')
+                                 or (asset.get('audit_provenance') or {}).get('intake_gate'))
             if manifest_gate and any(not math.isfinite(component) for point in points for component in point):
                 raise CatalogError('Manifest asset geometry contains non-finite coordinates')
             low = Vector([min(v[i] for v in points) for i in range(3)])
@@ -280,7 +284,16 @@ class ExternalAssetImporter:
             units = finite(binding['preview_height_m'], .01, 30, 'preview_height_m') / dimensions[2]
             scale_source = 'preview_height_estimate_not_measured'
         scale = finite(units, .000001, 10000, 'meters_per_unit') * finite(binding.get('uniform_scale', 1), .01, 100, 'uniform_scale')
-        materials = self._materials_for(asset, binding['material_variant_id'])
+        variant = self.catalog.get_material_variant(binding['material_variant_id'])
+        native = variant.get('mode') == 'embedded_gltf'
+        if native:
+            self.catalog.verify_material_hashes(binding['material_variant_id'])
+            if (binding['material_variant_id'] not in asset['material_variant_ids']
+                    or variant.get('compatible_geometry_ids') != [asset['geometry_variant_id']]):
+                raise CatalogError('Incompatible native material/geometry pair')
+            materials = None
+        else:
+            materials = self._materials_for(asset, binding['material_variant_id'])
         root = bpy.data.objects.new(entry['id'], None)
         bpy.context.collection.objects.link(root)
         root.location = entry['position']; root.rotation_euler = rotation; root.scale = (scale, scale, scale)
@@ -293,6 +306,14 @@ class ExternalAssetImporter:
             instance_mesh = mesh.copy()
             obj = bpy.data.objects.new(entry['id'] + '_mesh_' + str(index), instance_mesh)
             bpy.context.collection.objects.link(obj); obj.parent = root
+            if native:
+                # Preserve the native glTF graph, packed MR channels and scalar
+                # factors. Isolate mutable material state per instance.
+                for slot in obj.material_slots:
+                    if slot.material is None:
+                        raise CatalogError('Native appearance has an empty material slot')
+                    slot.material = slot.material.copy()
+                continue
             if not obj.material_slots:
                 obj.data.materials.append(materials['__default__'])
             for slot in obj.material_slots:
@@ -302,6 +323,9 @@ class ExternalAssetImporter:
                   'geometry_variant_id': asset['geometry_variant_id'], 'material_variant_id': binding['material_variant_id'],
                   'model_sha256': asset['hash'], 'meters_per_import_unit_applied': scale, 'scale_source': scale_source,
                   'preview_only': self.preview, 'readiness_issues': reasons}
+        if native:
+            record.update(material_mode='embedded_gltf', quality_status='technical_checked',
+                          visual_accepted=False, declared_scale_source=asset.get('scale_source'))
         root['asset_provenance'] = json.dumps(record, ensure_ascii=False)
         self.records.append(record)
         return root

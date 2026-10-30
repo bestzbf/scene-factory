@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import math
 from pathlib import Path
 import tempfile
 import unittest
@@ -242,6 +243,27 @@ class PlanGeometryTests(unittest.TestCase):
             self.assertAlmostEqual(low[axis], expected[0], places=6)
             self.assertAlmostEqual(high[axis], expected[1], places=6)
 
+    def test_transformed_rigid_polyline_bounds_gate_room_placement(self):
+        group = self.plan['groups'][0]
+        group['p'] = [0, 2, .2]
+        group['r'] = [0, 0, 30]
+        detail = fixture_detail(group['id'], 'polyline')
+        detail['parts'][0]['points'] = [[-.5, 0, .8], [-.5, 0, 1.4],
+                                        [.5, 0, 1.4], [.5, 0, .8]]
+        detail['parts'][0]['data'] = [.12, -.03, 0, 0, 0, 0, 9, -14, 21, .018]
+        low, high = staged._detail_part_world_bounds(detail['parts'][0], group)
+        self.assertLessEqual(low[0], high[0])
+        self.assertLessEqual(low[1], high[1])
+        self.assertLessEqual(low[2], high[2])
+        staged.validate_detail(detail, group, self.plan, self.views, 'fixture_scene')
+
+        # The transformed right rail plus its radius protrudes beyond the
+        # room's right wall. The staged validator must catch the actual local
+        # polyline bounds before issuing or accepting a detail result.
+        group['p'] = [2.78, 2, .2]
+        with self.assertRaisesRegex(staged.PlanGeometryError, r'groups\[0\]\.parts\[0\]'):
+            staged.validate_detail(detail, group, self.plan, self.views, 'fixture_scene')
+
     @unittest.skipUnless(bpy is not None, 'Requires Blender Python')
     def test_auto_curve_bound_contains_blender_evaluated_mesh(self):
         group = {'p': [.2, 2, .4], 'r': [13, -8, 24]}
@@ -320,6 +342,13 @@ class PlanGeometryTests(unittest.TestCase):
                 calls.append(stage)
                 value = (copy.deepcopy(invalid if calls.count('plan') == 1 else corrected)
                          if stage == 'plan' else fixture_detail(stage))
+                if stage == 'plan' and 'groups' in schema['properties']:
+                    group_properties = schema['properties']['groups']['items']['properties']
+                    if 'evidence_view_ids' not in group_properties:
+                        for group in value.get('groups', []):
+                            for key in ('evidence_view_ids', 'evidence_confidence',
+                                        'texture_material_ids', 'texture_material_confidence'):
+                                group.pop(key, None)
                 atomic_json(Path(output).with_suffix('.raw.json'), value)
                 atomic_json(Path(output).with_suffix('.api.json'), {
                     'status': 'completed', 'config': public_config(config),
@@ -350,7 +379,25 @@ class PlanGeometryTests(unittest.TestCase):
             invalid['groups'][0]['p'] = [4, 3, 0]
             config = {'provider': 'openai_chat', 'model': 'fixture',
                       'base_url': 'http://127.0.0.1:1/v1', 'api_key_env': ''}
-            with patch.object(staged, 'call_model', return_value=invalid) as model:
+
+            def invalid_plan(prompt, images, schema, output, timeout, effort, *, config):
+                value = copy.deepcopy(invalid)
+                if 'groups' in schema['properties']:
+                    group_properties = schema['properties']['groups']['items']['properties']
+                    if 'evidence_view_ids' not in group_properties:
+                        for group in value.get('groups', []):
+                            for key in ('evidence_view_ids', 'evidence_confidence',
+                                        'texture_material_ids', 'texture_material_confidence'):
+                                group.pop(key, None)
+                atomic_json(Path(output).with_suffix('.raw.json'), value)
+                atomic_json(Path(output).with_suffix('.api.json'), {
+                    'status': 'completed', 'config': public_config(config),
+                    'prompt_sha256': staged.hashlib.sha256(prompt.encode()).hexdigest(),
+                    'schema_sha256': staged._hash(schema),
+                    'image_sha256': [file_sha256(path) for path in images]})
+                return value
+
+            with patch.object(staged, 'call_model', side_effect=invalid_plan) as model:
                 with self.assertRaisesRegex(staged.StagedAnalysisError, 'exhausted validation attempts'):
                     staged.analyze('fixture_scene', views, root / 'bundle.json', model_config=config,
                                    options={'validation_retries': 1})

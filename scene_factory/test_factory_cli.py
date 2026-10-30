@@ -21,6 +21,21 @@ BASE = {'schema_version': 1, 'models': {'analysis': {
 
 
 class ConfigTests(unittest.TestCase):
+    def test_library_profile_initializes_import_instructions_and_single_request_limits(self):
+        with tempfile.TemporaryDirectory() as temp:
+            result = init_project(Path(temp)/'project', 'bigmodel-library-single-pass')
+            config = load_config(result['config'])
+            self.assertEqual(config['pipeline']['scene_wire_format'], 'library_layout_v1')
+            self.assertEqual(config['budget']['max_requests'], 1)
+            self.assertEqual(config['models']['analysis']['max_retries'], 0)
+            self.assertTrue(config['batch']['no_review'])
+            directory = Path(result['directory'])
+            self.assertTrue((directory/'asset_packages').is_dir())
+            readme = (directory/'README_运行.md').read_text()
+            self.assertIn('assets-import', readme)
+            self.assertIn('generated_unreviewed', readme)
+            self.assertIn('BIGMODEL_API_KEY', readme)
+
     def test_scene_budget_is_optional_strict_and_idempotent(self):
         self.assertNotIn('budget', normalize_config(BASE))
         policy = {'max_requests': 24, 'max_output_tokens': 393216, 'max_reported_tokens': 600000}
@@ -90,10 +105,30 @@ class ConfigTests(unittest.TestCase):
         result = normalize_config(source)
         self.assertTrue(result['batch']['no_review'])
         self.assertEqual(result['batch']['max_repairs'], 0)
+        self.assertEqual(result['batch']['min_free_disk_bytes'], 0)
         self.assertEqual(result['render']['samples'], 96)
         result['models']['review']['model'] = 'other'
         self.assertEqual(result['models']['analysis']['model'], 'vision-model')
         self.assertEqual(source, BASE)
+
+    def test_shared_ledger_dir_is_optional_and_strict(self):
+        result = normalize_config(BASE)
+        self.assertIsNone(result['batch']['shared_ledger_dir'])
+        result = normalize_config({**BASE, 'batch': {'shared_ledger_dir': '../shared-ledger'}})
+        self.assertEqual(result['batch']['shared_ledger_dir'], '../shared-ledger')
+        self.assertEqual(normalize_config(result), result)
+        for invalid in ('', '   ', 12, True, '\x00ledger'):
+            with self.subTest(value=invalid), self.assertRaises(ValueError):
+                normalize_config({**BASE, 'batch': {'shared_ledger_dir': invalid}})
+
+    def test_minimum_free_disk_space_is_optional_and_strict(self):
+        value = 20 * 1024**3
+        result = normalize_config({**BASE, 'batch': {'min_free_disk_bytes': value}})
+        self.assertEqual(result['batch']['min_free_disk_bytes'], value)
+        self.assertEqual(normalize_config(result), result)
+        for invalid in (True, -1, 1.5, 10**15 + 1):
+            with self.subTest(value=invalid), self.assertRaises(ValueError):
+                normalize_config({**BASE, 'batch': {'min_free_disk_bytes': invalid}})
 
     def test_rejects_secrets_unknown_fields_and_implicit_endpoint(self):
         for location in ('top', 'model', 'batch', 'render'):
@@ -110,7 +145,7 @@ class ConfigTests(unittest.TestCase):
 
     def test_rejects_invalid_scalar_and_contradictory_review_options(self):
         cases = [('batch', 'workers', True), ('batch', 'workers', 0),
-                 ('batch', 'no_review', 'false'), ('batch', 'max_repairs', 1),
+                 ('batch', 'no_review', 'false'),
                  ('render', 'max_edge', 12), ('render', 'samples', 1.5),
                  ('render', 'tone_match', 'auto'), ('render', 'device', 'GPU')]
         for section, key, entry in cases:
@@ -119,6 +154,13 @@ class ConfigTests(unittest.TestCase):
                 value[section] = {key: entry}
                 with self.assertRaises(ValueError):
                     normalize_config(value)
+
+    def test_no_review_allows_bounded_technical_repairs(self):
+        value = copy.deepcopy(BASE)
+        value['batch'] = {'no_review': True, 'max_repairs': 2}
+        result = normalize_config(value)
+        self.assertTrue(result['batch']['no_review'])
+        self.assertEqual(result['batch']['max_repairs'], 2)
 
     def test_load_rejects_duplicate_fields_and_nonfinite_values(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -157,10 +199,16 @@ class GroupingTests(unittest.TestCase):
                 self.assertEqual(record['scene_id'], previous[tuple(record['images'])])
 
     def test_limits_group_size(self):
-        for index in range(17):
+        for index in range(33):
             self.photo(f'one_room/view{index}.jpg')
-        with self.assertRaisesRegex(ValueError, '1..16'):
+        with self.assertRaisesRegex(ValueError, '1..32'):
             discover_groups(self.root)
+
+    def test_accepts_every_camera_of_a_large_shop(self):
+        for index in range(25):
+            self.photo(f'shop/cam{index:02d}.jpg')
+        manifest = discover_groups(self.root)
+        self.assertEqual([len(record['images']) for record in manifest['scenes']], [25])
 
     def test_rejects_symlink_photo(self):
         self.photo('one.jpg')
@@ -187,11 +235,30 @@ class CommandTests(unittest.TestCase):
                 self.assertGreaterEqual(config['render']['samples'], 64)
                 self.assertEqual(config['asset_library']['auto_bind'], profile.endswith('auto-assets'))
 
+    def test_cost_saving_profile_opts_into_bounded_input_and_sparse_detail(self):
+        with tempfile.TemporaryDirectory() as temp:
+            quality = load_config(init_project(Path(temp)/'quality', 'bigmodel-production')['config'])
+            economy = load_config(init_project(Path(temp)/'economy', 'bigmodel-production-cost-saving')['config'])
+        self.assertFalse(quality['pipeline']['staged']['route_detail_images'])
+        self.assertTrue(economy['pipeline']['staged']['route_detail_images'])
+        self.assertEqual(economy['pipeline']['staged']['detail_view_min_confidence'], .9)
+        self.assertEqual(economy['pipeline']['staged']['detail_wire_format'], 'native_sparse_parts_v1')
+        self.assertEqual(quality['pipeline']['staged']['detail_wire_format'], 'canonical')
+        self.assertEqual(economy['models'], quality['models'])
+        self.assertEqual(economy['batch'], quality['batch'])
+
     def test_api_worker_limit_rejects_invalid_values(self):
         self.assertEqual(normalize_config(BASE)['batch']['api_workers'], 2)
         for value in (True, 0, 33, 1.5, '2'):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 normalize_config({**BASE, 'batch': {'api_workers': value}})
+
+    def test_render_worker_limit_defaults_to_serial_and_is_strict(self):
+        self.assertEqual(normalize_config(BASE)['batch']['render_workers'], 1)
+        self.assertEqual(normalize_config({**BASE, 'batch': {'render_workers': 2}})['batch']['render_workers'], 2)
+        for value in (True, 0, 9, 1.5, '2'):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                normalize_config({**BASE, 'batch': {'render_workers': value}})
 
     def test_offline_operational_commands_dispatch_without_model_calls(self):
         commands = (
@@ -199,7 +266,8 @@ class CommandTests(unittest.TestCase):
              'scene_factory.diagnostics.batch_status', (Path('output'),), {'verify': True, 'limit': 5}),
             (['usage', 'output'], 'scene_factory.diagnostics.usage_report', (Path('output'),), {}),
             (['export', 'output', '--destination', 'dataset-v1'],
-             'scene_factory.dataset_export.export_dataset', (Path('output'), Path('dataset-v1')), {}),
+             'scene_factory.dataset_export.export_dataset', (Path('output'), Path('dataset-v1')),
+             {'include_scene_entries': False}),
         )
         for argv, target, expected_args, expected_kwargs in commands:
             with self.subTest(command=argv[0]), redirect_stdout(io.StringIO()), \
@@ -275,6 +343,37 @@ class CommandTests(unittest.TestCase):
                 result = probe(config)
             self.assertTrue(result['image_test_passed'])
             self.assertTrue(result['schema_valid'])
+
+    def test_probe_opens_provider_rate_session_for_configured_quota(self):
+        from provider_limits import reserve_request
+        with tempfile.TemporaryDirectory() as temp:
+            config_path = Path(temp)/'factory.json'
+            configured = copy.deepcopy(BASE)
+            configured['models']['analysis']['rate_limit'] = {'requests_per_minute': 1}
+            config_path.write_text(json.dumps(configured))
+
+            def fake_call(prompt, images, schema, output, **kwargs):
+                self.assertTrue(prompt)
+                config = kwargs['config']
+                ticket = reserve_request(output, config, deadline=__import__('time').monotonic()+5)
+                self.assertIsNotNone(ticket)
+                ticket.finish({'phase': 'response_complete', 'request_started': True,
+                               'request_sent': True, 'http_status': 200,
+                               'usage': {'prompt_tokens': 3, 'completion_tokens': 2,
+                                         'total_tokens': 5}})
+                Path(output).with_name('probe.api.json').write_text(json.dumps({
+                    'attempts': 1, 'usage': {'total_tokens': 5}}))
+                from PIL import Image
+                palette = {(230, 20, 20): 'red', (20, 190, 20): 'green',
+                           (20, 20, 230): 'blue', (240, 225, 20): 'yellow'}
+                with Image.open(images[0]) as image:
+                    colors = [palette[image.getpixel(position)]
+                              for position in ((20, 20), (120, 20), (20, 120), (120, 120))]
+                return {'colors': colors}
+
+            with patch('model_api.call_model', side_effect=fake_call):
+                result = probe(config_path)
+            self.assertTrue(result['image_test_passed'])
 
     def test_run_forwards_generated_manifest_and_no_environment_mutation(self):
         with tempfile.TemporaryDirectory() as temp:

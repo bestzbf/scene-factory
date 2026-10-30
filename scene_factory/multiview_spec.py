@@ -15,6 +15,7 @@ from spec_v2 import validate as validate_v2
 
 SURFACES = {'floor', 'ceiling', 'left', 'right', 'back'}
 SAFE_ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$')
+MAX_VIEWS = 32             # reference photos per shared scene, e.g. every camera of one shop
 
 
 def _keys(value, expected, label):
@@ -52,8 +53,8 @@ def validate(bundle):
         raise ValueError('omit_surfaces must be a unique list of named room surfaces')
     if not isinstance(architecture['front_wall'], bool):
         raise ValueError('front_wall must be boolean')
-    if not isinstance(bundle['views'], list) or not 1 <= len(bundle['views']) <= 16:
-        raise ValueError('A shared scene requires 1..16 reference views')
+    if not isinstance(bundle['views'], list) or not 1 <= len(bundle['views']) <= MAX_VIEWS:
+        raise ValueError(f'A shared scene requires 1..{MAX_VIEWS} reference views')
     ids = set()
     for view in bundle['views']:
         _keys(view, {'id', 'source_image', 'width', 'height', 'camera'}, 'view')
@@ -72,8 +73,16 @@ def validate(bundle):
         _vector(camera['target'], 'camera target')
         if sum((a-b)**2 for a,b in zip(camera['position'], camera['target'])) < 1e-10:
             raise ValueError('Camera position and target must differ')
-        _number(camera['lens_mm'], 5, 500, 'lens_mm')
+        _number(camera['lens_mm'], 12, 85, 'lens_mm')
         _number(camera['roll_degrees'], -180, 180, 'roll_degrees')
+    primary_camera = bundle['views'][0]['camera']
+    legacy_camera = bundle['shared_scene']['base_scene']['camera']
+    stored_roll = bundle['shared_scene']['camera']['roll_degrees']
+    if any(primary_camera[key] != legacy_camera[key]
+           for key in ('position', 'target', 'lens_mm')):
+        raise ValueError('First view camera must exactly match shared_scene.base_scene.camera')
+    if primary_camera['roll_degrees'] != stored_roll:
+        raise ValueError('First view roll_degrees must exactly match shared_scene.camera.roll_degrees')
     if not isinstance(bundle['texture_sources'], list):
         raise ValueError('texture_sources must be a list')
     texture_ids = {item['id'] for item in bundle['shared_scene']['textures']}

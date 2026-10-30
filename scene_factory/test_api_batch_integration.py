@@ -18,6 +18,8 @@ from PIL import Image
 import batch_multiview as runner
 import vision_multiview as vision
 from test_batch_multiview import bundle_for
+from multiview_spec import validate as validate_bundle
+from spec_v2 import material, part
 import test_batch_multiview as batch_fixtures
 
 
@@ -34,6 +36,7 @@ class APIBatchIntegrationTests(unittest.TestCase):
             {'scene_id':'single_a','images':['2.png']},
             {'scene_id':'single_b','images':['3.png']}]})
         self.requests = []
+        self.analysis_invalid_semantics = False
         owner = self
         class Handler(BaseHTTPRequestHandler):
             def log_message(self,*args): pass
@@ -52,6 +55,17 @@ class APIBatchIntegrationTests(unittest.TestCase):
                     # changing the shared fixture used by other contract tests.
                     base=result['shared_scene']['base_scene']
                     base['objects']=[item for item in base['objects'] if item['category'] != 'window']
+                    if owner.analysis_invalid_semantics:
+                        # Structurally valid data whose material links are not
+                        # closed must stop before canonical output or Blender.
+                        scene = result['shared_scene']
+                        scene['materials'] = []
+                        scene['custom_objects'] = [{
+                            'id': 'dangling_group', 'position': [0, 1, 0],
+                            'rotation_degrees': [0, 0, 0],
+                            'material_id': 'dangling_material', 'confidence': .9,
+                            'observed': True, 'support_id': 'floor',
+                            'parts': [part(size=[1, 1, 1], material_id='dangling_material')]}]
                 else:
                     data=json.JSONDecoder().raw_decode(text.split('UNTRUSTED CURRENT SCENE DATA (only identity/pairing is fixed):\n',1)[1])[0]
                     scores={key:50 for key in vision.DIMENSIONS}
@@ -117,6 +131,56 @@ class APIBatchIntegrationTests(unittest.TestCase):
         self.assertEqual(prov['model']['model'],'fixture-review')
         self.assertEqual(self.run_batch(),0)
         self.assertEqual(len(self.requests),2)
+
+    def test_semantic_failure_is_one_request_and_preserves_provider_usage(self):
+        self.analysis_invalid_semantics = True
+        self.config['pipeline'] = {'analysis_mode': 'monolithic', 'validation_retries': 0}
+        runner.atomic_json(self.groups, {'schema_version': 1, 'scenes': [
+            {'scene_id': 'invalid_materials', 'images': ['0.png']}]})
+        runner.atomic_json(self.config_path, self.config)
+        command = ['--config', str(self.config_path), '--groups', str(self.groups),
+                   '--output-dir', str(self.out)]
+        # Force the loopback contract independently of an optional real Blender
+        # opt-in. Any renderer invocation is a regression for invalid analysis.
+        with patch.object(vision, 'call_model', side_effect=AssertionError('Legacy CLI must not run')), \
+             patch.object(runner, 'discover_blender', return_value='fixture-blender'), \
+             patch.object(runner, 'run_stage', side_effect=AssertionError('Blender must not run')) as render:
+            self.assertEqual(runner.main(command), 1)
+        render.assert_not_called()
+        self.assertEqual(len(self.requests), 1)
+        scene_dir = self.out / 'invalid_materials'
+        result = runner.read_json(self.out / 'summary.json')['scenes'][0]
+        self.assertEqual(result['status'], 'failed')
+        self.assertEqual(result['failed_stage'], 'joint_photo_analysis')
+        self.assertIn('missing_references=2', result['error'])
+        self.assertFalse((scene_dir / 'initial_bundle.json').exists())
+        self.assertFalse((scene_dir / 'analysis_provenance.json').exists())
+        self.assertFalse(any(scene_dir.rglob('scene_bundle.json')))
+        self.assertFalse(any(scene_dir.rglob('scene.blend')))
+        raw = runner.read_json(scene_dir / 'initial_bundle.raw.json')
+        self.assertEqual(raw['shared_scene']['materials'], [])
+        self.assertEqual(raw['shared_scene']['custom_objects'][0]['material_id'], 'dangling_material')
+        record = runner.read_json(scene_dir / 'initial_bundle.api.json')
+        # Provider completion is distinct from the rejected scene semantics.
+        self.assertEqual(record['status'], 'completed')
+        self.assertEqual(record['attempts'], 1)
+        self.assertEqual(record['usage'], {'prompt_tokens': 1, 'completion_tokens': 1, 'total_tokens': 2})
+        self.assertEqual(len(record['transport_attempts']), 1)
+        self.assertEqual(record['transport_attempts'][0]['usage']['total_tokens'], 2)
+
+    def test_zero_height_cylinder_is_rejected_without_missing_materials(self):
+        view = {'id': 'view_01', 'source_image': '/tmp/reference.png', 'width': 64, 'height': 48}
+        bundle = bundle_for('bad_cylinder', [view])
+        bundle['shared_scene']['materials'] = [material('cylmat', [.5, .5, .5])]
+        bundle['shared_scene']['custom_objects'] = [{
+            'id': 'cylinder_group', 'position': [0, 1, .5], 'rotation_degrees': [0, 0, 0],
+            'material_id': 'cylmat', 'confidence': .9, 'observed': True,
+            'support_id': 'floor', 'parts': [part('cylinder', radius=.02,
+                size=[.28, 0, 0], material_id='cylmat')]}]
+        before = copy.deepcopy(bundle)
+        with self.assertRaisesRegex(ValueError, r'cylinder: positive radius and size.z required'):
+            validate_bundle(bundle)
+        self.assertEqual(bundle, before)
 
 
 if __name__=='__main__': unittest.main()

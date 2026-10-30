@@ -72,6 +72,8 @@ The schema version 3 wrapper contains exactly:
 
 `shared_scene` must be a **complete valid V2 document**, omitted above for brevity. Geometry is built once. The V2 camera is superseded by the view cameras; no separate rooms or duplicate furniture are created per input photo. Relative source paths are resolved from the bundle file. Every texture crop belongs to the first reference unless overridden in `texture_sources`; preprocessing must use the selected original photograph.
 
+Every view focal length is bounded to 12–85 mm. The first view's position, target and focal length must match `shared_scene.base_scene.camera`, and its roll must match `shared_scene.camera.roll_degrees`. The normalizer copies those first-view fields into the duplicated legacy camera and records the synchronization in provenance before validation. `shared_scene.scene_type` also controls which stock furniture families and material slots are built: classify by the room's dominant use, so a work area with rows of desks and task chairs is `office` even when it contains storage shelves.
+
 `omit_surfaces` removes selected full base surfaces **and their skirting**. Supply custom wall segments in V2 for actual door/window apertures. A photo plane placed over an opaque wall does not create an opening. `front_wall` closes the normally absent Y=0 wall when opposing cameras need it. Its colour follows `base_scene.room.wall_color`.
 
 Prepare crops using `photo_assets_v2.extract` grouped by `texture_view_map(bundle)` and merge those records into a manifest containing `textures: [{id,path}]`. Then invoke:

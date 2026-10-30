@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scene-factory"
-version = "0.3.15"
+version = "0.3.43"
 description = "Batch photo-to-Blender reconstruction with configurable multimodal model APIs"
 readme = "scene_factory/API_BATCH.md"
 requires-python = ">=3.10"
@@ -18,4 +18,4 @@ packages = ["scene_factory"]
 include-package-data = false
 
 [tool.setuptools.package-data]
-scene_factory = ["assets_lib/*.py", "assets_lib/*.md", "assets_lib/textures/*.png", "config_examples/*.json", "API_BATCH.md", "PRODUCTION.md", "TOKEN_BUDGETS.md", "ASSET_LIBRARY.md", "HARMONY_WORKFLOW.md", "MATERIAL_CLOTH_CONTRACT.md", "EXTERIOR_CONTEXT_CONTRACT.md", "LIGHTING_FIT_CONTRACT.md", "CUSTOM_PART_PROJECTION_CONTRACT.md", "MULTIVIEW.md", "ASSET_PRODUCTION_STANDARD_V1.md", "asset_manifest.template.json", "examples/*.json", "examples_v2/*.json", "scene_schema*.json"]
+scene_factory = ["assets_lib/*.py", "assets_lib/*.md", "assets_lib/textures/*.png", "config_examples/*.json", "API_BATCH.md", "PRODUCTION.md", "TOKEN_BUDGETS.md", "ASSET_LIBRARY.md", "LIBRARY_PIPELINE.md", "HARMONY_WORKFLOW.md", "MATERIAL_CLOTH_CONTRACT.md", "EXTERIOR_CONTEXT_CONTRACT.md", "LIGHTING_FIT_CONTRACT.md", "CUSTOM_PART_PROJECTION_CONTRACT.md", "MULTIVIEW.md", "ASSET_PRODUCTION_STANDARD_V1.md", "asset_manifest.template.json", "examples/*.json", "examples_v2/*.json", "scene_schema*.json"]

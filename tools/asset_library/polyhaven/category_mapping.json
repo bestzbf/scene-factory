@@ -1,0 +1,474 @@
+{
+ "leaf_paths": {
+  "Apparel & Personal Items/Accessories/Nautical Instruments": {
+   "category": "nautical_instrument",
+   "placement": "surface"
+  },
+  "Apparel & Personal Items/Accessories/Smoking Accessories": {
+   "category": "smoking_accessory",
+   "placement": "surface"
+  },
+  "Apparel & Personal Items/Clothing & Footwear/Gloves & Workwear": {
+   "category": "work_gloves",
+   "placement": "surface"
+  },
+  "Apparel & Personal Items/Clothing & Footwear/Safety Gear": {
+   "category": "safety_gear",
+   "placement": "floor"
+  },
+  "Apparel & Personal Items/Headwear": {
+   "category": "hat",
+   "placement": "surface"
+  },
+  "Apparel & Personal Items/Mobility & Medical": {
+   "category": "medical_supply",
+   "placement": "surface"
+  },
+  "Apparel & Personal Items/Mobility & Medical/Medical Kits": {
+   "category": "first_aid_kit",
+   "placement": "surface"
+  },
+  "Apparel & Personal Items/Mobility & Medical/Wheelchairs": {
+   "category": "wheelchair",
+   "placement": "floor"
+  },
+  "Containers & Storage/Bags/Garden & Compost Bags": {
+   "category": "garden_bag",
+   "placement": "floor"
+  },
+  "Containers & Storage/Bags/Sacks": {
+   "category": "sack",
+   "placement": "floor"
+  },
+  "Containers & Storage/Bags/Waste Bags": {
+   "category": "trash_bag",
+   "placement": "floor"
+  },
+  "Containers & Storage/Barrels & Drums/Metal Drums": {
+   "category": "metal_drum",
+   "placement": "floor"
+  },
+  "Containers & Storage/Barrels & Drums/Plastic Drums": {
+   "category": "plastic_drum",
+   "placement": "floor"
+  },
+  "Containers & Storage/Barrels & Drums/Wooden Barrels": {
+   "category": "wooden_barrel",
+   "placement": "floor"
+  },
+  "Containers & Storage/Baskets & Buckets/Baskets": {
+   "category": "basket",
+   "placement": "surface"
+  },
+  "Containers & Storage/Baskets & Buckets/Buckets": {
+   "category": "bucket",
+   "placement": "floor"
+  },
+  "Containers & Storage/Boxes & Crates/Bins": {
+   "category": "storage_bin",
+   "placement": "floor"
+  },
+  "Containers & Storage/Boxes & Crates/Cardboard Boxes": {
+   "category": "cardboard_box",
+   "placement": "floor"
+  },
+  "Containers & Storage/Boxes & Crates/Chests & Trunks": {
+   "category": "chest",
+   "placement": "floor"
+  },
+  "Containers & Storage/Boxes & Crates/Military Crates": {
+   "category": "military_crate",
+   "placement": "floor"
+  },
+  "Containers & Storage/Boxes & Crates/Planter Boxes": {
+   "category": "planter_box",
+   "placement": "floor"
+  },
+  "Containers & Storage/Boxes & Crates/Plastic Crates": {
+   "category": "plastic_crate",
+   "placement": "floor"
+  },
+  "Containers & Storage/Boxes & Crates/Wooden Crates": {
+   "category": "wooden_crate",
+   "placement": "floor"
+  },
+  "Containers & Storage/Cans, Tins & Bottles/Aerosol & Spray Cans": {
+   "category": "spray_can",
+   "placement": "surface"
+  },
+  "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles": {
+   "category": "cleaning_bottle",
+   "placement": "surface"
+  },
+  "Containers & Storage/Cans, Tins & Bottles/Jugs & Bottles": {
+   "category": "bottle",
+   "placement": "surface"
+  },
+  "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans": {
+   "category": "oil_can",
+   "placement": "surface"
+  },
+  "Containers & Storage/Cans, Tins & Bottles/Tins": {
+   "category": "tin_can",
+   "placement": "surface"
+  },
+  "Containers & Storage/Tanks & Jerrycans/Gas Cylinders": {
+   "category": "gas_cylinder",
+   "placement": "floor"
+  },
+  "Containers & Storage/Tanks & Jerrycans/Jerrycans": {
+   "category": "jerrycan",
+   "placement": "floor"
+  },
+  "Decor & Art/Ornaments/Cushions & Pillows": {
+   "category": "throw_pillow",
+   "placement": "surface"
+  },
+  "Decor & Art/Ornaments/Decorative Objects": {
+   "category": "decorative_object",
+   "placement": "surface"
+  },
+  "Decor & Art/Ornaments/Display Pieces": {
+   "category": "display_stand",
+   "placement": "surface"
+  },
+  "Decor & Art/Ornaments/Room Dividers & Screens": {
+   "category": "room_divider",
+   "placement": "floor"
+  },
+  "Decor & Art/Sculptures & Figurines/Animal Figures": {
+   "category": "animal_figurine",
+   "placement": "surface"
+  },
+  "Decor & Art/Sculptures & Figurines/Busts & Human Figures": {
+   "category": "bust",
+   "placement": "surface"
+  },
+  "Decor & Art/Sculptures & Figurines/Ornamental Sculptures": {
+   "category": "sculpture",
+   "placement": "surface"
+  },
+  "Decor & Art/Vases & Vessels/Ceramic Vases": {
+   "category": "vase",
+   "placement": "surface"
+  },
+  "Decor & Art/Vases & Vessels/Metal Vases": {
+   "category": "vase",
+   "placement": "surface"
+  },
+  "Decor & Art/Vases & Vessels/Terracotta Pots": {
+   "category": "terracotta_pot",
+   "placement": "surface"
+  },
+  "Electronics & Appliances/Audio & Video/Projectors": {
+   "category": "projector_screen",
+   "placement": "floor"
+  },
+  "Electronics & Appliances/Audio & Video/Radios & Portable Audio": {
+   "category": "radio",
+   "placement": "surface"
+  },
+  "Electronics & Appliances/Audio & Video/Televisions": {
+   "category": "television",
+   "placement": "surface"
+  },
+  "Electronics & Appliances/Computing/Computers": {
+   "category": "computer",
+   "placement": "surface"
+  },
+  "Electronics & Appliances/Devices & Instruments/Handheld Devices": {
+   "category": "handheld_device",
+   "placement": "surface"
+  },
+  "Electronics & Appliances/Devices & Instruments/Lab Equipment": {
+   "category": "lab_equipment",
+   "placement": "surface"
+  },
+  "Electronics & Appliances/Devices & Instruments/Optical Instruments": {
+   "category": "optical_instrument",
+   "placement": "surface"
+  },
+  "Electronics & Appliances/Home Appliances/Stoves & Heaters": {
+   "category": "stove",
+   "placement": "floor"
+  },
+  "Food & Kitchen/Cookware/Pots & Pans": {
+   "category": "cookware",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Drinks/Flasks & Thermoses": {
+   "category": "thermos",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Prepared Food/Cakes & Pastries": {
+   "category": "cake",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Produce/Fruit": {
+   "category": "fruit",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Produce/Vegetables": {
+   "category": "vegetable",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Tableware/Bowls": {
+   "category": "bowl",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Tableware/Cups & Goblets": {
+   "category": "goblet",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Tableware/Jugs & Pitchers": {
+   "category": "pitcher",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Tableware/Plates": {
+   "category": "plate",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Utensils/Cutting Boards": {
+   "category": "cutting_board",
+   "placement": "surface"
+  },
+  "Food & Kitchen/Utensils/Wooden Utensils": {
+   "category": "kitchen_utensil",
+   "placement": "surface"
+  },
+  "Furniture/Beds": {
+   "category": "bed",
+   "placement": "floor"
+  },
+  "Furniture/Seating/Benches": {
+   "category": "bench",
+   "placement": "floor"
+  },
+  "Furniture/Seating/Chairs": {
+   "category": "chair",
+   "placement": "floor"
+  },
+  "Furniture/Seating/Ottomans & Footstools": {
+   "category": "ottoman",
+   "placement": "floor"
+  },
+  "Furniture/Seating/Outdoor Seating": {
+   "category": "outdoor_table_set",
+   "placement": "floor"
+  },
+  "Furniture/Seating/Sofas & Couches": {
+   "category": "sofa",
+   "placement": "floor"
+  },
+  "Furniture/Seating/Stools & Bar Seating": {
+   "category": "stool",
+   "placement": "floor"
+  },
+  "Furniture/Storage Furniture/Cabinets & Cupboards": {
+   "category": "cabinet",
+   "placement": "floor"
+  },
+  "Furniture/Storage Furniture/Carts & Trolleys": {
+   "category": "cart",
+   "placement": "floor"
+  },
+  "Furniture/Storage Furniture/Drawers & Dressers": {
+   "category": "dresser",
+   "placement": "floor"
+  },
+  "Furniture/Storage Furniture/Shelving & Bookcases": {
+   "category": "shelf",
+   "placement": "floor"
+  },
+  "Furniture/Storage Furniture/Sideboards": {
+   "category": "sideboard",
+   "placement": "floor"
+  },
+  "Furniture/Tables/Coffee Tables": {
+   "category": "coffee_table",
+   "placement": "floor"
+  },
+  "Furniture/Tables/Console Tables": {
+   "category": "console_table",
+   "placement": "floor"
+  },
+  "Furniture/Tables/Desks": {
+   "category": "desk",
+   "placement": "floor"
+  },
+  "Furniture/Tables/Dining Tables": {
+   "category": "dining_table",
+   "placement": "floor"
+  },
+  "Furniture/Tables/Outdoor Tables": {
+   "category": "outdoor_table",
+   "placement": "floor"
+  },
+  "Furniture/Tables/Side & End Tables": {
+   "category": "side_table",
+   "placement": "floor"
+  },
+  "Leisure/Games & Toys/Board Games": {
+   "category": "board_game",
+   "placement": "surface"
+  },
+  "Leisure/Musical Instruments/String Instruments": {
+   "category": "string_instrument",
+   "placement": "surface"
+  },
+  "Leisure/Sports/Balls": {
+   "category": "ball",
+   "placement": "floor"
+  },
+  "Leisure/Sports/Bats & Rackets": {
+   "category": "sports_bat",
+   "placement": "floor"
+  },
+  "Lighting/Bulbs & Fittings/Bulbs": {
+   "category": "light_bulb",
+   "placement": "surface"
+  },
+  "Lighting/Portable/Candles & Candlesticks": {
+   "category": "candlestick",
+   "placement": "surface"
+  },
+  "Nature/Plants/Potted Plants": {
+   "category": "potted_plant",
+   "placement": "surface"
+  },
+  "Office & Stationery/Books & Documents/Books": {
+   "category": "book_set",
+   "placement": "surface"
+  },
+  "Office & Stationery/Stationery & Supplies/Clipboards & Boards": {
+   "category": "clipboard",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Garden Tools/Brooms & Cleaning": {
+   "category": "cleaning_tool",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Garden Tools/Digging Tools": {
+   "category": "shovel",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Garden Tools/Planters & Pots": {
+   "category": "plant_pot",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Garden Tools/Watering & Irrigation": {
+   "category": "watering_can",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Hand Tools": {
+   "category": "hand_tool",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Hand Tools/Axes & Hatchets": {
+   "category": "axe",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Hand Tools/Hammers & Mallets": {
+   "category": "hammer",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Hand Tools/Hand Drills": {
+   "category": "hand_drill",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Hand Tools/Measuring Tools": {
+   "category": "measuring_tool",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Hand Tools/Pliers & Grippers": {
+   "category": "pliers",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Hand Tools/Pry Bars": {
+   "category": "crowbar",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Hand Tools/Saws & Cutting": {
+   "category": "saw",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Hand Tools/Screwdrivers": {
+   "category": "screwdriver",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Hand Tools/Wrenches & Spanners": {
+   "category": "wrench",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Power Tools/Drills": {
+   "category": "power_drill",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Power Tools/Workshop Machines": {
+   "category": "workshop_machine",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Workshop Equipment/Ladders": {
+   "category": "ladder",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Workshop Equipment/Pumps": {
+   "category": "pump",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Workshop Equipment/Tool Chests": {
+   "category": "toolbox",
+   "placement": "floor"
+  },
+  "Tools & Equipment/Workshop Equipment/Torches & Burners": {
+   "category": "blowtorch",
+   "placement": "surface"
+  },
+  "Tools & Equipment/Workshop Equipment/Vices & Clamps": {
+   "category": "vise",
+   "placement": "floor"
+  }
+ },
+ "per_model_overrides": {
+  "life_jacket": {
+   "category": "life_jacket",
+   "placement": "floor"
+  },
+  "old_gas_mask": {
+   "category": "gas_mask",
+   "placement": "floor"
+  },
+  "gothic_statue": {
+   "category": "statue",
+   "placement": "floor"
+  },
+  "standing_chalkboard_01": {
+   "category": "chalkboard",
+   "placement": "floor"
+  },
+  "spinning_wheel_01": {
+   "category": "spinning_wheel",
+   "placement": "floor"
+  },
+  "dustpan": {
+   "category": "dustpan",
+   "placement": "floor"
+  },
+  "plunger": {
+   "category": "plunger",
+   "placement": "floor"
+  },
+  "medical_tape": {
+   "category": "medical_tape",
+   "placement": "surface"
+  }
+ },
+ "excluded_paths": {
+  "Decor & Art/Wall Decor/Mirrors": "wall-mounted mirror",
+  "Decor & Art/Wall Decor/Picture Frames & Art": "wall-hung picture",
+  "Lighting/Ceiling/Chandeliers": "ceiling-hung chandelier",
+  "Lighting/Wall/Sconces": "wall sconce",
+  "Lighting/Bulbs & Fittings/Sockets & Fittings": "ceiling light socket",
+  "Electronics & Appliances/Devices & Instruments/Public Terminals": "wall-mounted payphone"
+ }
+}

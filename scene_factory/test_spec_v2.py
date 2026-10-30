@@ -3,7 +3,7 @@ import copy
 import json
 from pathlib import Path
 import unittest
-from spec_v2 import SCHEMA, material, part, upgrade_v1, validate
+from spec_v2 import SCHEMA, audit_material_references, material, part, upgrade_v1, validate
 
 ROOT = Path(__file__).parent
 
@@ -69,6 +69,83 @@ class ContractTests(unittest.TestCase):
         bad = fixture(); bad['custom_objects'][0]['parts'][0]['material_id'] = 'missing'
         with self.assertRaises(ValueError): validate(bad)
 
+    def test_empty_material_table_reports_every_missing_reference_without_values(self):
+        spec = fixture()
+        spec['materials'] = []
+        group = spec['custom_objects'][0]
+        marker = 'untrusted-key-shaped-secret'
+        group['material_id'] = marker
+        group['parts'] = [part(size=[1, 1, 1], material_id=marker),
+                          part(size=[1, 1, 1], material_id='another_missing'),
+                          part(size=[1, 1, 1])]
+        spec['surface_overrides']['floor'] = marker
+        spec['base_material_overrides'] = [{
+            'object_id': spec['base_scene']['objects'][0]['id'],
+            'material_id': 'another_missing',
+            'selector': {'role': 'body', 'material_name': '', 'slot_index': -1}}]
+        before = copy.deepcopy(spec)
+        expected = {'unique_missing_ids': 2, 'missing_references': 5, 'paths': [
+            'base_material_overrides[0].material_id',
+            'surface_overrides.floor',
+            'custom_objects[0].material_id',
+            'custom_objects[0].parts[0].material_id',
+            'custom_objects[0].parts[1].material_id']}
+        self.assertEqual(audit_material_references(spec), expected)
+        with self.assertRaises(ValueError) as raised:
+            validate(spec)
+        message = str(raised.exception)
+        for path in expected['paths']:
+            self.assertIn(path, message)
+        self.assertIn('unique_missing_ids=2', message)
+        self.assertIn('missing_references=5', message)
+        self.assertNotIn(marker, message)
+        self.assertNotIn('another_missing', message)
+        self.assertEqual(spec, before)
+
+    def test_material_audit_uses_schema_surface_order(self):
+        spec = fixture()
+        spec['surface_overrides'] = {key: 'missing' for key in
+                                     ('back', 'right', 'left', 'ceiling', 'floor')}
+        self.assertEqual(audit_material_references(spec)['paths'], [
+            'surface_overrides.' + key for key in ('floor', 'ceiling', 'left', 'right', 'back')])
+
+    def test_material_audit_preserves_valid_and_inherited_materials(self):
+        spec = fixture()
+        group = spec['custom_objects'][0]
+        group['parts'].append(part(size=[1, 1, 1], material_id='wood'))
+        spec['surface_overrides']['floor'] = 'wood'
+        spec['base_material_overrides'] = [{
+            'object_id': spec['base_scene']['objects'][0]['id'],
+            'material_id': 'wood',
+            'selector': {'role': 'body', 'material_name': '', 'slot_index': -1}}]
+        before = copy.deepcopy(spec)
+        self.assertEqual(audit_material_references(spec), {
+            'unique_missing_ids': 0, 'missing_references': 0, 'paths': []})
+        self.assertIs(validate(spec), spec)
+        self.assertEqual(spec, before)
+        spec['materials'] = []; spec['custom_objects'] = []
+        spec['surface_overrides'] = {key: '' for key in spec['surface_overrides']}
+        spec['base_material_overrides'] = []
+        self.assertIs(validate(spec), spec)
+
+    def test_material_audit_does_not_allow_duplicate_definitions(self):
+        spec = fixture()
+        spec['materials'].append(copy.deepcopy(spec['materials'][0]))
+        self.assertEqual(audit_material_references(spec)['missing_references'], 0)
+        with self.assertRaisesRegex(ValueError, 'materials: empty or duplicate ids'):
+            validate(spec)
+
+    def test_empty_base_material_binding_is_reported_as_required(self):
+        spec = fixture()
+        spec['base_material_overrides'] = [{
+            'object_id': spec['base_scene']['objects'][0]['id'], 'material_id': '',
+            'selector': {'role': 'body', 'material_name': '', 'slot_index': -1}}]
+        self.assertEqual(audit_material_references(spec), {
+            'unique_missing_ids': 1, 'missing_references': 1,
+            'paths': ['base_material_overrides[0].material_id']})
+        with self.assertRaisesRegex(ValueError, 'unknown reference'):
+            validate(spec)
+
     def test_no_cyclic_supports(self):
         bad = fixture(); group = bad['custom_objects'][0]; group['support_id'] = group['id']
         with self.assertRaises(ValueError): validate(bad)
@@ -102,12 +179,16 @@ class ContractTests(unittest.TestCase):
     def test_geometry_types(self):
         valid = [part('box', size=[1,.1,1]), part('cylinder', radius=.1, size=[0,0,1]),
                  part('sphere', radius=.1), part('sphere', size=[.2,.3,.4]), part('curve', radius=.01, points=[[0,0,0],[1,0,0]]),
+                 part('polyline', radius=.018, points=[[-1.97,0,.75],[-1.97,0,1.48],[1.97,0,1.48],[1.97,0,.75]]),
                  part('mesh', vertices=[[0,0,0],[1,0,0],[0,0,1]], faces=[[0,1,2]]),
                  part('image_plane', size=[1,0,1], material_id='photo')]
         spec = fixture(); spec['custom_objects'][0]['parts'] = valid
         self.assertIs(validate(spec), spec)
         bad_parts = [part(), part('cylinder', radius=.1), part('sphere'),
                      part('curve', radius=.1, points=[[0,0,0],[0,0,0]]),
+                     part('polyline', radius=0, points=[[0,0,0],[1,0,0]]),
+                     part('polyline', radius=.01, points=[[0,0,0]]),
+                     part('polyline', radius=.01, points=[[0,0,0],[0,0,0]]),
                      part('image_plane', size=[1,0,1]), part('mesh', vertices=[[0,0,0],[1,0,0],[0,0,1]], faces=[[0,1,3]]),
                      part('mesh', vertices=[[0,0,0],[1,0,0],[2,0,0]], faces=[[0,1,2]]),
                      part('box', size=[1,1,1], points=[[0,0,0]])]
