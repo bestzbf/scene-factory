@@ -13,6 +13,7 @@
     }
   },
   "batch": {
+    "shared_ledger_dir": null,
     "workers": 3,
     "max_repairs": 0,
     "no_review": true,

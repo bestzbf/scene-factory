@@ -69,7 +69,9 @@ class SpatialToneTests(unittest.TestCase):
         b = compute_spatial_stats(image_from_rows([40, 40, 40]))
         report = compare_spatial_stats({'a': a}, {'a': b})
         self.assertFalse(report['per_view']['a']['nonuniform_residual'])
-        self.assertEqual(report['reasons'], ['a:large_spatial_brightness_residual'])
+        self.assertEqual(report['reasons'], ['a:large_spatial_brightness_residual',
+                                             'a:severe_regional_brightness_residual'])
+        self.assertEqual(len(report['per_view']['a']['severe_residual_region_ids']), 9)
 
     def test_black_and_clipped_reference_cells_are_explicitly_unusable(self):
         for value in (0, 255):

@@ -1,0 +1,56 @@
+[
+ {
+  "id": "Chandelier_01",
+  "name": "Chandelier 01",
+  "category_path": "Lighting/Ceiling/Chandeliers",
+  "reason": "ceiling-hung chandelier"
+ },
+ {
+  "id": "Chandelier_02",
+  "name": "Chandelier 02",
+  "category_path": "Lighting/Ceiling/Chandeliers",
+  "reason": "ceiling-hung chandelier"
+ },
+ {
+  "id": "chinese_chandelier",
+  "name": "Chinese Chandelier",
+  "category_path": "Lighting/Ceiling/Chandeliers",
+  "reason": "ceiling-hung chandelier"
+ },
+ {
+  "id": "fancy_picture_frame_01",
+  "name": "Fancy Picture Frame 01",
+  "category_path": "Decor & Art/Wall Decor/Picture Frames & Art",
+  "reason": "wall-hung picture"
+ },
+ {
+  "id": "fancy_picture_frame_02",
+  "name": "Fancy Picture Frame 02",
+  "category_path": "Decor & Art/Wall Decor/Picture Frames & Art",
+  "reason": "wall-hung picture"
+ },
+ {
+  "id": "industrial_wall_sconce",
+  "name": "Industrial Wall Sconce",
+  "category_path": "Lighting/Wall/Sconces",
+  "reason": "wall sconce"
+ },
+ {
+  "id": "korean_public_payphone_01",
+  "name": "Korean Public Payphone 01",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Public Terminals",
+  "reason": "wall-mounted payphone"
+ },
+ {
+  "id": "ornate_mirror_01",
+  "name": "Ornate Mirror 01",
+  "category_path": "Decor & Art/Wall Decor/Mirrors",
+  "reason": "wall-mounted mirror"
+ },
+ {
+  "id": "pull_chain_light_socket",
+  "name": "Pull Chain Light Socket",
+  "category_path": "Lighting/Bulbs & Fittings/Sockets & Fittings",
+  "reason": "ceiling light socket"
+ }
+]

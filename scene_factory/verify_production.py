@@ -58,6 +58,9 @@ def fixture_plan(views):
         'omit': [], 'front_wall': False, 'textures': [],
         'groups': [{'id': 'cabinet', 'p': [1, 4, 0], 'r': [0, 0, 0], 'm': 'wood',
                     'support': 'floor', 'd': [.8, .5, 1], 'confidence': .9,
+                    'evidence_view_ids': [view['id'] for view in views],
+                    'evidence_confidence': .9,
+                    'texture_material_ids': [], 'texture_material_confidence': .9,
                     'observed': True, 'instructions': 'Synthetic floor-supported box fixture.'}],
         'assumptions': ['Synthetic integration fixture. No photograph interpretation or realism claim.'],
     }
@@ -131,11 +134,20 @@ class FixtureAPI:
             identity = _decode_after(prompt, 'TRUSTED INPUT IDENTITY (images in exactly this order):\n')
             scene_id, views = identity['scene_id'], identity['views']
             result = fixture_detail(properties['group_id']['enum'][0])
+            if 'wire_format' in properties:
+                from compact_staged_detail import compact_detail
+                result = compact_detail(result)
         elif 'groups' in properties and 'schema_version' not in properties:
             stage = 'plan'
             identity = _decode_after(prompt, 'TRUSTED INPUT IDENTITY (images in exactly this order):\n')
             scene_id, views = identity['scene_id'], identity['views']
             result = fixture_plan(views)
+            group_properties = properties['groups']['items']['properties']
+            if 'evidence_view_ids' not in group_properties:
+                for group in result['groups']:
+                    for key in ('evidence_view_ids', 'evidence_confidence',
+                                'texture_material_ids', 'texture_material_confidence'):
+                        group.pop(key, None)
         elif 'part_updates' in properties:
             stage = 'repair'
             data = _decode_after(prompt, 'UNTRUSTED SCENE AND ASSESSMENT DATA:\n')
@@ -218,7 +230,7 @@ def _mock_render(command, _log, _timeout):
     })
 
 
-def verify(output_dir, blender=None, mock_render=False):
+def verify(output_dir, blender=None, mock_render=False, *, detail_wire_format='canonical'):
     """Run a new retained fixture and return its written verification record."""
     directory = Path(output_dir).expanduser().resolve()
     directory.mkdir(parents=True, exist_ok=False)
@@ -254,7 +266,8 @@ def verify(output_dir, blender=None, mock_render=False):
             'render': {'max_edge': 1280, 'samples': 64, 'tone_match': 'off', 'device': 'CPU'},
             'pipeline': {'analysis_mode': 'staged', 'repair_mode': 'typed', 'validation_retries': 0,
                          'staged': {'planner_timeout': 60, 'detail_timeout': 60, 'detail_workers': 1,
-                                    'max_groups': 2, 'max_parts_per_group': 10, 'validation_retries': 0}},
+                                    'max_groups': 2, 'max_parts_per_group': 10, 'validation_retries': 0,
+                                    'detail_wire_format': detail_wire_format}},
         }
         config_path = directory / 'factory.json'
         atomic_json(config_path, config)
@@ -317,6 +330,7 @@ def verify(output_dir, blender=None, mock_render=False):
     validation = {
         'status': 'passed', 'synthetic_fixture': True,
         'external_provider_calls': 0, 'paid_model_calls': 0,
+        'detail_wire_format': detail_wire_format,
         'real_blender': not mock_render, 'photograph_reconstruction_validated': False,
         'real_model_visual_acceptance_validated': False, 'formal_dataset_release': False,
         'scope': 'Technical batch orchestration only; synthetic verdicts and photos are not evidence of reconstruction quality.',
@@ -344,8 +358,11 @@ def main(argv=None):
     parser.add_argument('--output-dir', type=Path, required=True, help='New retained fixture directory; never overwritten')
     parser.add_argument('--blender', help='Installed Blender executable for real rendering')
     parser.add_argument('--mock-render', action='store_true', help='Fast orchestration check; produces invalid synthetic .blend bytes')
+    from compact_staged_detail import FORMAT
+    parser.add_argument('--detail-wire-format', choices=('canonical', FORMAT), default='canonical')
     args = parser.parse_args(argv)
-    print(json.dumps(verify(args.output_dir, args.blender, args.mock_render), ensure_ascii=False, indent=2))
+    print(json.dumps(verify(args.output_dir, args.blender, args.mock_render,
+                           detail_wire_format=args.detail_wire_format), ensure_ascii=False, indent=2))
     return 0
 
 

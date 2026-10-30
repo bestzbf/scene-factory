@@ -38,6 +38,15 @@ DEFAULT_OPTIONS = {
     "diversity": False,
     "category_map": {},
 }
+# Opt-in settings stay absent unless configured, so existing normalized options
+# and job fingerprints are unchanged. settle_max_shift_m (library_layout_v1
+# only): 0/absent keeps the strict behaviour where any overlap or a child
+# overhanging its support blocks the scene; a positive value lets the selector
+# move objects by at most this many metres each and records every move.
+# settle_max_omitted_fraction (requires settle_max_shift_m): objects that settling
+# cannot place may be left out, with their descendants, when they make up at most
+# this share of the scene; each omission is listed in the selection report.
+OPTIONAL_OPTIONS = {"settle_max_shift_m": (0, 1.0), "settle_max_omitted_fraction": (0, 0.25)}
 _FLOOR_CATEGORIES = {"desk", "table", "chair", "sofa", "bed", "cabinet", "shelf", "plant", "rug", "box", "column"}
 _OBJECT_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$")
 _CATALOG_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
@@ -61,9 +70,14 @@ def normalize_options(options=None):
     """Validate selector settings; no provider credentials or model calls exist."""
     if options is None:
         options = {}
-    if not isinstance(options, dict) or set(options) - set(DEFAULT_OPTIONS):
+    if not isinstance(options, dict) or set(options) - set(DEFAULT_OPTIONS) - set(OPTIONAL_OPTIONS):
         raise ValueError("Unknown automatic asset selection options")
     result = {**copy.deepcopy(DEFAULT_OPTIONS), **copy.deepcopy(options)}
+    for name, (low, high) in OPTIONAL_OPTIONS.items():
+        if name in result:
+            result[name] = _number(result[name], low, high, "selection." + name)
+    if result.get("settle_max_omitted_fraction", 0) > 0 and not result.get("settle_max_shift_m", 0) > 0:
+        raise ValueError("selection.settle_max_omitted_fraction requires selection.settle_max_shift_m")
     if type(result["seed"]) is not int or not 0 <= result["seed"] <= 2147483647:
         raise ValueError("selection.seed must be an integer in 0..2147483647")
     for name, low, high in (("dimension_tolerance", 0, 0.5), ("min_uniform_scale", 0.01, 100),
@@ -129,7 +143,7 @@ def _geometry_reasons(catalog, asset, entry, options, preview):
         try:
             manifest_path = catalog.resolve_path(asset.get("manifest_file"))
             if (not isinstance(manifest_digest, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", manifest_digest)
-                    or sha256_file(manifest_path).lower() != manifest_digest.lower()):
+                    or not catalog.verify_file_hash(manifest_path, manifest_digest)):
                 reasons.append("production_manifest_hash_invalid")
         except (CatalogError, OSError, TypeError):
             reasons.append("production_manifest_hash_invalid")
@@ -313,8 +327,9 @@ def generate_bindings(bundle, catalog, options=None, *, allow_preview=False):
                       provenance={"model_sha256": asset["hash"],
                                   "asset_audit": copy.deepcopy(asset.get("audit_provenance", {})),
                                   "material_audit": copy.deepcopy(material.get("audit_provenance", {}))})
+    catalog_digest = getattr(catalog, "_batch_catalog_sha256", None) or _hash(catalog.data)
     report = {"schema_version": "auto_asset_binding_report_v1", "policy_version": POLICY_VERSION,
-              "scene_id": bundle["scene_id"], "bundle_sha256": _hash(bundle), "catalog_sha256": _hash(catalog.data),
+              "scene_id": bundle["scene_id"], "bundle_sha256": _hash(bundle), "catalog_sha256": catalog_digest,
               "options": options, "preview": allow_preview, "total_objects": len(records),
               "bound_objects": len(bindings), "fallback_objects": len(records) - len(bindings),
               "appearance_match_verified": False, "objects": records}

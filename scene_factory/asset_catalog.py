@@ -39,12 +39,14 @@ import json
 import math
 import os
 import re
+import stat
+import threading
 from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 
 
 SCHEMA_VERSION = "asset_catalog_v1"
-_STATUSES = {"draft", "approved"}
+_STATUSES = {"draft", "approved", "technical_ready"}
 _HASH_CHARS = set("0123456789abcdef")
 _AXES = {"+X", "-X", "+Y", "-Y", "+Z", "-Z"}
 
@@ -304,6 +306,8 @@ def _validate_catalog(data: Mapping[str, Any], catalog_path: Path) -> None:
                 raise CatalogError(f"asset missing {key}")
         if asset["status"] not in _STATUSES:
             raise CatalogError(f"invalid asset status: {asset['status']}")
+        if asset["status"] == "technical_ready" and (asset.get("audit_provenance") or {}).get("intake_gate") != "asset_intake_v1":
+            raise CatalogError('technical_ready requires the asset_intake_v1 receipt gate')
         for id_key in ("asset_id", "family_id", "geometry_variant_id"):
             if not re.fullmatch(r"[A-Za-z0-9_.-]+", asset[id_key]):
                 raise CatalogError(f"invalid identifier: {id_key}")
@@ -396,7 +400,10 @@ class AssetCatalog:
         root = Path(self.data["root"]).expanduser()
         if not root.is_absolute() and self.catalog_path:
             root = self.catalog_path.parent / root
+        if root.is_symlink():
+            raise CatalogError("catalog root cannot use symlink paths")
         self.root = root.resolve()
+        self._checked_hash_path(self.root)
         self.data["root"] = str(self.root)
         _validate_catalog(self.data, self.catalog_path or Path("<memory>"))
         self.assets = {asset["asset_id"]: asset for asset in self.data["assets"]}
@@ -406,6 +413,104 @@ class AssetCatalog:
                                   for key, asset in self.assets.items()}
         self._material_audit_provenance = {key: copy.deepcopy(material.get("audit_provenance", {}))
                                            for key, material in self.materials.items()}
+        self._snapshot_file_hashes = None
+        self._snapshot_file_stats = {}
+        self._snapshot_lock = threading.RLock()
+        self._intake_receipt_cache = {}
+
+    @staticmethod
+    def _checked_hash_path(path: os.PathLike[str] | str) -> Path:
+        # Callers pass canonical roots so platform aliases are already resolved.
+        # Never resolve here: it would hide a substituted parent symlink.
+        candidate = Path(os.path.abspath(Path(path).expanduser()))
+        components = [*reversed(candidate.parents), candidate]
+        for component in components:
+            try:
+                mode = component.lstat().st_mode
+            except FileNotFoundError:
+                continue
+            if stat.S_ISLNK(mode):
+                raise CatalogError("catalog input cannot use symlink paths: " + str(candidate))
+        return candidate
+
+    @staticmethod
+    def _stat_signature(path: Path):
+        path = AssetCatalog._checked_hash_path(path)
+        info = path.stat()
+        if not stat.S_ISREG(info.st_mode):
+            raise CatalogError("catalog input is not a regular file: " + str(path))
+        return (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_ctime_ns)
+
+    @classmethod
+    def stable_file_digest(cls, path: os.PathLike[str] | str):
+        path = cls._checked_hash_path(path)
+        try:
+            before = cls._stat_signature(path)
+            digest = sha256_file(path)
+            after = cls._stat_signature(path)
+        except OSError as exc:
+            raise CatalogError("catalog input is unavailable: " + str(path)) from exc
+        if before != after:
+            raise CatalogError("catalog input changed while hashing: " + str(path))
+        return digest, after
+
+    def pin_snapshot_hashes(self, hashes: Mapping[str, Optional[str]], stats=None) -> None:
+        """Reverify snapshot hashes with stable file identities before caching."""
+        with self._snapshot_lock:
+            if stats is not None and not isinstance(stats, Mapping):
+                raise CatalogError("catalog snapshot stats must be a mapping")
+            normalized, verified_stats = {}, {}
+            for name, digest in hashes.items():
+                path = self._checked_hash_path(name)
+                key = str(path)
+                if digest is None:
+                    if path.exists():
+                        raise CatalogError("previously missing catalog input appeared: " + key)
+                else:
+                    if not _valid_hash(digest):
+                        raise CatalogError("invalid catalog snapshot hash: " + key)
+                    if stats is None:
+                        actual, signature = self.stable_file_digest(path)
+                        if actual.lower() != digest.lower():
+                            raise CatalogError("catalog input changed after the batch snapshot: " + key)
+                    else:
+                        try:
+                            signature = self._stat_signature(path)
+                        except OSError as exc:
+                            raise CatalogError("catalog input is unavailable: " + key) from exc
+                        if signature != stats.get(key):
+                            raise CatalogError("catalog input changed after the batch snapshot: " + key)
+                    verified_stats[key] = signature
+                normalized[key] = digest
+            self._snapshot_file_hashes = normalized
+            self._snapshot_file_stats = verified_stats
+
+    def verify_file_hash(self, path: os.PathLike[str] | str, expected: str, *, force: bool = False) -> bool:
+        """Verify a file, optionally forcing a fresh stable hash."""
+        with self._snapshot_lock:
+            resolved = self._checked_hash_path(path)
+            key = str(resolved)
+            if self._snapshot_file_hashes is not None and key in self._snapshot_file_hashes:
+                snapshot_digest = self._snapshot_file_hashes[key]
+                if snapshot_digest is None:
+                    raise CatalogError("catalog input was missing in the batch snapshot: " + key)
+                if snapshot_digest.lower() != str(expected).lower():
+                    raise CatalogError("catalog-declared hash differs from the batch snapshot: " + key)
+                try:
+                    signature = self._stat_signature(resolved)
+                except OSError as exc:
+                    raise CatalogError("catalog input is unavailable: " + key) from exc
+                if not force and signature == self._snapshot_file_stats.get(key):
+                    return True
+                actual, signature = self.stable_file_digest(resolved)
+                if actual.lower() != snapshot_digest.lower():
+                    raise CatalogError("catalog input changed after the batch snapshot: " + key)
+                self._snapshot_file_stats[key] = signature
+                return True
+            actual, _ = self.stable_file_digest(resolved)
+            if actual.lower() != str(expected).lower():
+                raise CatalogError("catalog file hash mismatch: " + key)
+            return True
 
     def get_asset(self, asset_id: str) -> Dict[str, Any]:
         try:
@@ -420,30 +525,101 @@ class AssetCatalog:
             raise CatalogError(f"unknown material_variant_id: {material_variant_id}") from exc
 
     def resolve_path(self, relative_path: str, must_exist: bool = True) -> Path:
+        self._checked_hash_path(self.root)
         relative = _relative_path(self.root, relative_path, "asset path", must_exist)
         return (self.root / relative).resolve()
 
-    def verify_hash(self, asset_id: str) -> bool:
+    def verify_hash(self, asset_id: str, *, force: bool = False) -> bool:
         asset = self.get_asset(asset_id)
         model = self.resolve_path(asset["model_file"], must_exist=True)
-        actual = sha256_file(model)
-        if actual.lower() != asset["hash"].lower():
+        try:
+            self.verify_file_hash(model, asset["hash"], force=force)
+        except CatalogError:
             raise CatalogError(f"asset {asset_id} model hash mismatch")
         return True
 
-    def verify_material_hashes(self, material_variant_id: str) -> bool:
+    def verify_material_hashes(self, material_variant_id: str, *, force: bool = False) -> bool:
         material = self.get_material_variant(material_variant_id)
+        if material.get('mode') == 'embedded_gltf':
+            compatible = material.get('compatible_geometry_ids', [])
+            if len(compatible) != 1 or compatible[0] not in self._geometry_to_asset:
+                raise CatalogError('embedded material requires one exact geometry')
+            asset = self._geometry_to_asset[compatible[0]]
+            if ((asset.get('audit_provenance') or {}).get('intake_gate') != 'asset_intake_v1'
+                    or material.get('model_sha256') != asset['hash']):
+                raise CatalogError('embedded material model identity differs')
+            self.verify_hash(asset['asset_id'], force=force)
+            self.verify_intake_receipt(asset)
+            return True
         records = list(material.get("maps", {}).values())
         for slot_maps in (material.get("slot_materials") or {}).values():
             records.extend(slot_maps.values())
         for record in records:
             if record.get("path"):
-                if sha256_file(self.resolve_path(record["path"])).lower() != str(record.get("hash", "")).lower():
+                try:
+                    valid = self.verify_file_hash(self.resolve_path(record["path"]), str(record.get("hash", "")), force=force)
+                except CatalogError:
+                    raise CatalogError(f"material {material_variant_id} texture hash mismatch") from None
+                if not valid:
                     raise CatalogError(f"material {material_variant_id} texture hash mismatch")
         return True
 
+    def verify_intake_receipt(self, asset):
+        """Validate technical admission separately from visual approval.
+
+        The content-addressed receipt pins all normalized geometry, material,
+        scale and support metadata consumed by the layout/runtime. It is not a
+        certificate of semantic completeness or photographic fidelity.
+        """
+        provenance = asset.get('audit_provenance') or {}
+        if provenance.get('intake_gate') != 'asset_intake_v1' or provenance.get('manifest_gate'):
+            raise CatalogError('invalid intake gate')
+        if not _valid_hash(provenance.get('manifest_sha256')):
+            raise CatalogError('intake receipt hash missing')
+        path = self.resolve_path(asset.get('manifest_file'))
+        self.verify_file_hash(path, provenance['manifest_sha256'])
+        cache_key = (str(path), provenance['manifest_sha256'])
+        with self._snapshot_lock:
+            receipt = self._intake_receipt_cache.get(cache_key)
+            if receipt is None:
+                receipt = _json_load(path)
+                self._intake_receipt_cache[cache_key] = receipt
+        checks = receipt.get('checks', {})
+        if (receipt.get('schema_version') != 'asset_intake_receipt_v1'
+                or receipt.get('policy_version') != 'asset_intake_v1'
+                or receipt.get('status') != 'technical_ready'
+                or any(checks.get(k) is not True for k in
+                    ('glb_embedded_standard_opaque', 'mesh_uv_materials', 'image_decode', 'scale_roundtrip'))):
+            raise CatalogError('intake technical checks missing')
+        comparable = {k: v for k, v in asset.items()
+                      if k not in ('model_file', 'manifest_file', 'audit_provenance')}
+        if receipt.get('asset') != comparable:
+            raise CatalogError('catalog asset differs from intake receipt')
+        metadata = receipt.get('metadata', {})
+        if (asset.get('status') != 'technical_ready' or asset.get('meters_per_unit') != 1
+                or asset.get('category') != metadata.get('category')
+                or asset.get('scale_source') != metadata.get('scale_source')
+                or asset.get('placement') != {'floor': 'floor', 'surface': 'table'}.get(metadata.get('placement'))
+                or not math.isclose(max(asset['dimensions_import_units']), metadata.get('longest_dimension_m', -1),
+                                    rel_tol=1e-5, abs_tol=1e-6)):
+            raise CatalogError('intake semantic/scale identity differs')
+        identifiers = asset.get('material_variant_ids', [])
+        if len(identifiers) != 1 or identifiers[0] not in self.materials:
+            raise CatalogError('intake requires one native appearance')
+        material = {k: v for k, v in self.materials[identifiers[0]].items() if k != 'audit_provenance'}
+        if receipt.get('material') != material or material.get('model_sha256') != asset['hash']:
+            raise CatalogError('embedded material differs from intake receipt')
+        self.verify_hash(asset['asset_id'])
+        return receipt
+
     def production_readiness(self, asset_or_id: Mapping[str, Any] | str) -> Tuple[bool, List[str]]:
         asset = self.get_asset(asset_or_id) if isinstance(asset_or_id, str) else asset_or_id
+        if (asset.get('audit_provenance') or {}).get('intake_gate'):
+            try:
+                self.verify_intake_receipt(asset)
+                return True, []
+            except (CatalogError, OSError, ValueError, TypeError, KeyError):
+                return False, ['intake_receipt_invalid']
         reasons: List[str] = []
         if asset.get("status") != "approved": reasons.append("asset_not_approved")
         scale = asset.get("meters_per_unit")
@@ -475,8 +651,9 @@ class AssetCatalog:
         if collision_file:
             try:
                 collision = self.resolve_path(collision_file)
-                if not asset.get("collision_hash") or sha256_file(collision).lower() != str(asset["collision_hash"]).lower():
+                if not asset.get("collision_hash"):
                     raise CatalogError("collision hash mismatch")
+                self.verify_file_hash(collision, str(asset["collision_hash"]))
             except CatalogError:
                 if "collision_invalid" not in reasons:
                     reasons.append("collision_invalid")
@@ -490,11 +667,26 @@ class AssetCatalog:
 
 
 def load_catalog(path: os.PathLike[str] | str) -> AssetCatalog:
-    catalog_path = Path(path).expanduser().resolve()
-    data = _json_load(catalog_path)
+    catalog_path = Path(path).expanduser()
+    if catalog_path.is_symlink():
+        raise CatalogError("catalog input cannot use symlink paths: " + str(catalog_path))
+    catalog_path = catalog_path.resolve()
+    before = AssetCatalog._stat_signature(catalog_path)
+    content = catalog_path.read_bytes()
+    after = AssetCatalog._stat_signature(catalog_path)
+    if before != after:
+        raise CatalogError("catalog input changed while loading: " + str(catalog_path))
+    try:
+        data = json.loads(content.decode("utf-8"), parse_constant=_reject_constant,
+                          object_pairs_hook=_unique_keys)
+    except json.JSONDecodeError as exc:
+        raise CatalogError(f"invalid JSON at {catalog_path}:{exc.lineno}:{exc.colno}") from None
     if not isinstance(data, Mapping):
         raise CatalogError("catalog JSON must be an object")
-    return AssetCatalog(data, catalog_path=catalog_path)
+    catalog = AssetCatalog(data, catalog_path=catalog_path)
+    catalog.source_sha256 = hashlib.sha256(content).hexdigest()
+    catalog.source_stat_signature = after
+    return catalog
 
 
 class AssetResolver:

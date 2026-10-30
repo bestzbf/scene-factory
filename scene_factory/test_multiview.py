@@ -10,13 +10,18 @@ from multiview_spec import load, render_dimensions, resolve_sources, texture_vie
 
 def fixture():
     spec = json.loads((Path(__file__).parent/'examples_v2/bedroom.json').read_text())
-    return {'schema_version': 3, 'scene_id': 'room', 'shared_scene': spec,
+    bundle = {'schema_version': 3, 'scene_id': 'room', 'shared_scene': spec,
             'architecture': {'omit_surfaces': ['back'], 'front_wall': True},
             'views': [{'id': 'a', 'source_image': 'a.png', 'width': 1280, 'height': 960,
                        'camera': {'position': [0, .3, 1.6], 'target': [0, 5, 1.4], 'lens_mm': 24, 'roll_degrees': -2}},
                       {'id': 'b', 'source_image': 'b.png', 'width': 960, 'height': 1280,
                        'camera': {'position': [0, 5, 1.6], 'target': [0, 1, 1.4], 'lens_mm': 28, 'roll_degrees': 1}}],
             'texture_sources': []}
+    first = bundle['views'][0]['camera']
+    bundle['shared_scene']['base_scene']['camera'] = {
+        key: first[key] for key in ('position', 'target', 'lens_mm')}
+    bundle['shared_scene']['camera']['roll_degrees'] = first['roll_degrees']
+    return bundle
 
 
 class MultiviewSpecTests(unittest.TestCase):
@@ -39,14 +44,30 @@ class MultiviewSpecTests(unittest.TestCase):
             validate(bundle)
 
     def test_camera_validation(self):
-        for value in (float('nan'), float('inf'), 0, True):
+        for value in (float('nan'), float('inf'), 0, True, 11, 86):
             bundle = fixture()
             bundle['views'][0]['camera']['lens_mm'] = value
             with self.subTest(value=value), self.assertRaises(ValueError):
                 validate(bundle)
+        for value in (12, 85):
+            bundle = fixture()
+            bundle['views'][0]['camera']['lens_mm'] = value
+            bundle['shared_scene']['base_scene']['camera']['lens_mm'] = value
+            self.assertIs(validate(bundle), bundle)
         bundle = fixture()
         bundle['views'][0]['camera']['target'] = bundle['views'][0]['camera']['position'][:]
         with self.assertRaisesRegex(ValueError, 'differ'):
+            validate(bundle)
+
+    def test_primary_camera_and_roll_must_match_legacy_fields(self):
+        for field, value in (('position', [1, 2, 3]), ('target', [1, 2, 3]), ('lens_mm', 35)):
+            bundle = fixture()
+            bundle['shared_scene']['base_scene']['camera'][field] = value
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'First view camera'):
+                validate(bundle)
+        bundle = fixture()
+        bundle['shared_scene']['camera']['roll_degrees'] = 5
+        with self.assertRaisesRegex(ValueError, 'First view roll_degrees'):
             validate(bundle)
 
     def test_texture_source_maps_explicit_second_view(self):

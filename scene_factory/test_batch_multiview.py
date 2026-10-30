@@ -5,9 +5,12 @@ association and fail-closed resume semantics independently of visual quality.
 """
 from __future__ import annotations
 import copy
+from contextlib import redirect_stderr, redirect_stdout
+from io import StringIO
 import json
 from pathlib import Path
 import tempfile
+import threading
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -33,6 +36,125 @@ def bundle_for(scene_id, views):
             'roll_degrees':float(index)}} for index,view in enumerate(views)],
         'texture_sources':[]}
     return validate(result)
+
+
+class LargeBatchBudgetTests(unittest.TestCase):
+    def setUp(self):
+        self.policy = {'max_requests': 500, 'max_output_tokens': 2000000,
+                       'max_reported_tokens': 5000000}
+
+    def test_budget_required_at_large_run_boundary_but_not_for_dry_run(self):
+        runner.require_large_batch_budget(999, None)
+        runner.require_large_batch_budget(1000, None, dry_run=True)
+        with self.assertRaisesRegex(ValueError, '1,000 or more scenes'):
+            runner.require_large_batch_budget(1000, None)
+        runner.require_large_batch_budget(10000, self.policy)
+
+    def test_all_three_aggregate_limits_must_be_positive_integers(self):
+        for field in ('max_requests', 'max_output_tokens', 'max_reported_tokens'):
+            policy = dict(self.policy)
+            policy[field] = 0
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, field):
+                runner.require_large_batch_budget(1000, policy)
+        invalid = dict(self.policy, max_requests=True)
+        with self.assertRaisesRegex(ValueError, 'max_requests'):
+            runner.require_large_batch_budget(1000, invalid)
+
+    def test_coordinator_checks_before_creating_output_or_starting_workers(self):
+        args = SimpleNamespace()
+        with self.assertRaisesRegex(ValueError, 'batch_budget limits'):
+            runner.coordinate([{}] * 1000, args, {})
+        self.assertFalse(hasattr(args, 'stop_event'))
+
+    def test_cli_rejects_unbudgeted_large_run_before_provider_preflight(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'source.png'
+            source.write_bytes(b'synthetic placeholder; group loader checks file existence')
+            groups = root / 'groups.json'
+            atomic_json(groups, {'schema_version': 1, 'scenes': [
+                {'scene_id': f'scene_{index}', 'images': [str(source)]}
+                for index in range(1000)]})
+            config = runner.ROOT / 'config_examples' / 'bigmodel-production.json'
+            stderr = StringIO()
+            with patch('model_api.preflight') as preflight, redirect_stderr(stderr):
+                with self.assertRaises(SystemExit) as failure:
+                    runner.main(['--config', str(config), '--groups', str(groups),
+                                 '--output-dir', str(root / 'output')])
+            self.assertEqual(failure.exception.code, 2)
+            self.assertIn('positive batch_budget limits', stderr.getvalue())
+            preflight.assert_not_called()
+            self.assertFalse((root / 'output').exists())
+
+
+class SharedLedgerPathTests(unittest.TestCase):
+    def test_output_must_be_inside_configured_shared_root(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            args = SimpleNamespace(output_dir=root/'shards'/'one',
+                                   shared_ledger_dir=root/'shards')
+            self.assertEqual(runner._resolve_batch_ledger_root(args), (root/'shards').resolve())
+            args.output_dir = root/'outside'
+            with self.assertRaisesRegex(ValueError, 'must contain every batch output'):
+                runner._resolve_batch_ledger_root(args)
+
+    def test_default_ledger_root_is_output_directory(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            args = SimpleNamespace(output_dir=root/'output', shared_ledger_dir=None)
+            self.assertEqual(runner._resolve_batch_ledger_root(args), (root/'output').resolve())
+
+    def test_cli_resolves_shared_root_relative_to_config_and_rejects_escape(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            config = root/'factory.json'
+            config.write_text(json.dumps({
+                'schema_version': 1,
+                'models': {'analysis': {'provider': 'openai_chat',
+                    'base_url': 'https://models.example.test/v1', 'model': 'fixture',
+                    'api_key_env': 'SCENE_TEST_KEY', 'response_format': 'json_object'}},
+                'batch': {'shared_ledger_dir': 'shared-ledger'}
+            }))
+            source = root/'source.jpg'
+            source.write_bytes(b'not decoded in dry-run')
+            groups = root/'groups.json'
+            atomic_json(groups, {'schema_version': 1, 'scenes': [
+                {'scene_id': 'scene-a', 'images': [str(source)]}]})
+            output = root/'shared-ledger'/'shard-a'
+            with redirect_stdout(StringIO()):
+                self.assertEqual(runner.main(['--config', str(config), '--groups', str(groups),
+                                              '--output-dir', str(output), '--dry-run']), 0)
+            self.assertFalse(output.exists())
+            outside = root/'outside'
+            with redirect_stderr(StringIO()), self.assertRaises(SystemExit) as failure:
+                runner.main(['--config', str(config), '--groups', str(groups),
+                             '--output-dir', str(outside), '--dry-run'])
+            self.assertEqual(failure.exception.code, 2)
+            self.assertFalse(outside.exists())
+
+    def test_large_dry_run_prints_bounded_summary_and_budget_readiness(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'source.png'
+            source.write_bytes(b'synthetic placeholder; group loader checks file existence')
+            groups = root / 'groups.json'
+            atomic_json(groups, {'schema_version': 1, 'scenes': [
+                {'scene_id': f'scene_{index}', 'images': [str(source)]}
+                for index in range(1000)]})
+            config = runner.ROOT / 'config_examples' / 'bigmodel-production.json'
+            stdout = StringIO()
+            with redirect_stdout(stdout):
+                result = runner.main(['--config', str(config), '--groups', str(groups),
+                                      '--output-dir', str(root / 'output'), '--dry-run'])
+            report = json.loads(stdout.getvalue())
+            self.assertEqual(result, 0)
+            self.assertEqual(report['scenes'], 1000)
+            self.assertEqual(report['images'], 1000)
+            self.assertEqual(len(report['preview_scenes']), 20)
+            self.assertEqual(report['omitted_scenes'], 980)
+            self.assertEqual(report['live_run_budget_missing'], [
+                'max_requests', 'max_output_tokens', 'max_reported_tokens'])
+            self.assertFalse((root / 'output').exists())
 
 
 @unittest.skipIf(Image is None,'Pillow required')
@@ -90,9 +212,9 @@ class GroupedBatchTests(unittest.TestCase):
 
     def test_pipeline_hashes_include_model_image_input_implementation(self):
         hashes = runner.pipeline_hashes()
-        name = 'model_image_inputs.py'
-        self.assertIn(name, hashes)
-        self.assertEqual(hashes[name], file_sha256(Path(runner.__file__).with_name(name)))
+        for name in ('model_image_inputs.py', 'compact_staged_detail.py', 'plan_geometry_patch.py', 'assets_lib/material_roles.py'):
+            self.assertIn(name, hashes)
+            self.assertEqual(hashes[name], file_sha256(Path(runner.__file__).parent / name))
 
     def test_2_plus_1_plus_1_runs_three_shared_scenes(self):
         groups=runner.load_groups(self.groups_path)
@@ -182,6 +304,40 @@ class GroupedBatchTests(unittest.TestCase):
         self.assertEqual(result['status'],'failed')
         self.assertFalse((self.args.output_dir/'lab/result.json').exists())
         self.assertFalse((self.args.output_dir/'lab/.lock').exists())
+
+    def test_cancel_during_asset_verification_prevents_blender_launch(self):
+        group=runner.load_groups(self.groups_path)[0]
+        stop=threading.Event()
+        self.args.stop_event=stop
+
+        def verify_then_stop(catalog, bindings_path):
+            stop.set()
+
+        with patch.object(vision,'analyze',side_effect=self.fake_analyze),\
+             patch.object(runner,'verify_selected_asset_inputs',side_effect=verify_then_stop),\
+             patch.object(runner,'run_stage',side_effect=self.fake_render) as render:
+            result=runner.run_job(group,self.args,self.pipeline)
+        self.assertEqual(result['status'],'interrupted')
+        render.assert_not_called()
+
+    def test_cancel_during_blender_command_setup_prevents_launch(self):
+        group=runner.load_groups(self.groups_path)[0]
+        stop=threading.Event()
+        base_args=self.args
+        base_args.stop_event=stop
+
+        class ArgsProxy:
+            def __getattr__(self, name):
+                if name == 'blender':
+                    stop.set()
+                    return 'mock-blender'
+                return getattr(base_args,name)
+
+        with patch.object(vision,'analyze',side_effect=self.fake_analyze),\
+             patch.object(runner,'run_stage',side_effect=self.fake_render) as render:
+            result=runner.run_job(group,ArgsProxy(),self.pipeline)
+        self.assertEqual(result['status'],'interrupted')
+        render.assert_not_called()
 
     def test_hash_verification_rejects_path_escape(self):
         outside=self.root/'outside.bin';outside.write_bytes(b'same bytes')

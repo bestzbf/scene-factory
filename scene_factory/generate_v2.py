@@ -22,18 +22,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import generate_scene as g
 from v2_materials import assign_material, build_materials, load_texture_manifest, planar_uv
 from base_material_binding import apply_base_material_overrides
+from schema import expand_repeat_positions
 
 
 def expand_objects(base):
     expanded = []
     for entry in base['objects']:
-        for i in range(entry['repeat'][0]):
-            for j in range(entry['repeat'][1]):
-                expanded.append({**entry,
+        for i, j, position in expand_repeat_positions(
+                entry['position'], entry['repeat'], entry['spacing'], f"base_scene.objects[{entry['id']}]"):
+            expanded.append({**entry,
                     'id': entry['id'] + ('__%d_%d' % (i, j) if entry['repeat'] != [1, 1] else ''),
                     'kind': entry['category'],
-                    'position': [entry['position'][0] + i * entry['spacing'][0],
-                                 entry['position'][1] + j * entry['spacing'][1], entry['position'][2]],
+                    'position': position,
                     'rotation_degrees': [0, 0, entry['rotation_z_deg']]})
     return {**base, 'objects': expanded}
 
@@ -91,18 +91,27 @@ def build_custom(entry, materials):
         elif kind == 'cylinder':
             obj = g.rod(root, name, (pos[0], pos[1], pos[2] - size[2] / 2),
                         (pos[0], pos[1], pos[2] + size[2] / 2), part['radius'], material, vertices=24)
-        elif kind == 'curve':
+        elif kind in {'curve', 'polyline'}:
             data = bpy.data.curves.new(name + '_Curve', 'CURVE')
             data.dimensions = '3D'
             data.resolution_u = 12
             data.bevel_depth = part['radius']
             data.bevel_resolution = 3
             data.use_fill_caps = True
-            spline = data.splines.new('BEZIER')
-            spline.bezier_points.add(len(part['points']) - 1)
-            for point, xyz in zip(spline.bezier_points, part['points']):
-                point.co = xyz
-                point.handle_left_type = point.handle_right_type = 'AUTO'
+            if kind == 'curve':
+                # Preserve the original smooth spline behavior for existing
+                # scene specifications. Rigid edges need an explicit POLY
+                # spline so AUTO handles cannot round a frame or wire route.
+                spline = data.splines.new('BEZIER')
+                spline.bezier_points.add(len(part['points']) - 1)
+                for point, xyz in zip(spline.bezier_points, part['points']):
+                    point.co = xyz
+                    point.handle_left_type = point.handle_right_type = 'AUTO'
+            else:
+                spline = data.splines.new('POLY')
+                spline.points.add(len(part['points']) - 1)
+                for point, xyz in zip(spline.points, part['points']):
+                    point.co = (*xyz, 1.0)
             obj = bpy.data.objects.new(name, data)
             bpy.context.collection.objects.link(obj)
             obj.parent = root

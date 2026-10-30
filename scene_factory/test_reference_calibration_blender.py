@@ -6,6 +6,8 @@ import sys
 import tempfile
 import unittest
 import zlib
+from types import SimpleNamespace
+from unittest.mock import patch
 
 try:
     import bpy
@@ -48,6 +50,8 @@ class ReferenceCalibrationBlenderTests(unittest.TestCase):
         self.scene.cycles.use_adaptive_sampling = False
         self.scene.cycles.use_denoising = False
         self.scene.cycles.seed = 41
+        self.scene.cycles.use_animated_seed = False
+        self.scene.render.use_border = False
         self.scene.render.resolution_x = 24
         self.scene.render.resolution_y = 16
         self.scene.render.resolution_percentage = 100
@@ -95,6 +99,50 @@ class ReferenceCalibrationBlenderTests(unittest.TestCase):
         path = self.directory / (name + '.png')
         bpy.data.images['Render Result'].save_render(str(path), scene=self.scene)
         return self.calibration.read_display_rgb(path), path
+
+    def preview_settings(self):
+        return (self.scene.cycles.seed, self.scene.cycles.use_animated_seed,
+                self.scene.cycles.use_adaptive_sampling, self.scene.cycles.use_denoising,
+                self.scene.render.resolution_percentage, self.scene.render.use_border)
+
+    def test_exposure_preview_overrides_view_settings_and_restores_them(self):
+        self.plane(emission=True)
+        camera = self.camera('DeterministicCamera', (0, 0, 2), (0, 0, 0))
+        self.scene.camera = camera
+        _, reference_path = self.render_rgb('deterministic_reference')
+        self.scene.cycles.seed = 97
+        self.scene.cycles.use_animated_seed = True
+        self.scene.cycles.use_adaptive_sampling = True
+        self.scene.render.resolution_percentage = 50
+        self.scene.render.use_border = True
+        original = self.preview_settings()
+        calls = []
+        render = bpy.ops.render.render
+        def render_checked(*args, **kwargs):
+            calls.append(self.preview_settings())
+            self.assertEqual(calls[-1], (41, False, False, True, 100, False))
+            return render(*args, **kwargs)
+        def tiny_view(scene, selected_camera, view, max_edge):
+            scene.camera = selected_camera
+            scene.render.resolution_x, scene.render.resolution_y = 24, 16
+            scene.cycles.seed = 123
+            scene.cycles.use_animated_seed = True
+            scene.render.use_border = True
+            scene.render.resolution_percentage = 25
+        # bpy.ops dynamically constructs operator wrappers on attribute access;
+        # patch the module binding, keeping actual Blender data and rendering.
+        checked_bpy = SimpleNamespace(data=bpy.data,
+            ops=SimpleNamespace(render=SimpleNamespace(render=render_checked)))
+        with patch('calibrate_reference.bpy', checked_bpy):
+            first = self.calibration.calibrate(self.scene, [{'id': 'a'}], {'a': camera},
+                {'a': reference_path}, tiny_view, fit_lighting=False)
+            self.assertEqual(self.preview_settings(), original)
+            second = self.calibration.calibrate(self.scene, [{'id': 'a'}], {'a': camera},
+                {'a': reference_path}, tiny_view, fit_lighting=False)
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(first['correction_ev'], 0)
+        self.assertEqual(first['selected_preview_stats'], second['selected_preview_stats'])
+        self.assertEqual(self.preview_settings(), original)
 
     def test_encoded_rgb_is_not_double_decoded_and_image_is_released(self):
         path = self.directory / 'literal.png'
@@ -147,14 +195,74 @@ class ReferenceCalibrationBlenderTests(unittest.TestCase):
         write_rgb_png(path, (128, 128, 128))
         original = (self.scene.cycles.samples, self.scene.render.resolution_x,
                     self.scene.render.resolution_y, self.scene.view_settings.exposure)
+        original_preview = self.preview_settings()
         def fail_after_change(scene, camera, view, max_edge):
             scene.render.resolution_x = 12
             scene.view_settings.exposure = -1.5
+            scene.cycles.seed = 93
+            scene.cycles.use_animated_seed = True
+            scene.cycles.use_adaptive_sampling = True
+            scene.cycles.use_denoising = True
+            scene.render.resolution_percentage = 25
+            scene.render.use_border = True
             raise RuntimeError('Synthetic set_view failure')
         with self.assertRaisesRegex(RuntimeError, 'Synthetic'):
             self.calibration.calibrate(self.scene, [{'id': 'a'}], {'a': camera}, {'a': path}, fail_after_change)
         self.assertEqual(original, (self.scene.cycles.samples, self.scene.render.resolution_x,
                                    self.scene.render.resolution_y, self.scene.view_settings.exposure))
+        self.assertEqual(original_preview, self.preview_settings())
+
+    def test_render_failure_restores_preview_settings(self):
+        camera = self.camera('RenderFailureCamera', (0, 0, 2), (0, 0, 0))
+        self.scene.camera = camera
+        path = self.directory / 'reference.png'
+        write_rgb_png(path, (128, 128, 128))
+        original = self.preview_settings()
+        exposure = self.scene.view_settings.exposure
+        def failed_render():
+            raise RuntimeError('Render failed')
+        failed_bpy = SimpleNamespace(data=bpy.data,
+            ops=SimpleNamespace(render=SimpleNamespace(render=failed_render)))
+        with patch('calibrate_reference.bpy', failed_bpy):
+            with self.assertRaisesRegex(RuntimeError, 'Render failed'):
+                self.calibration.calibrate(self.scene, [{'id': 'a'}], {'a': camera},
+                    {'a': path}, lambda *args: None, fit_lighting=False)
+        self.assertEqual(self.preview_settings(), original)
+        self.assertEqual(self.scene.view_settings.exposure, exposure)
+
+    def test_selected_lighting_fit_preview_is_recorded_and_diagnosed(self):
+        """Use the lighting-fit result schema when committing its selected candidate."""
+        self.plane(emission=True)
+        camera = self.camera('SelectedFitCamera', (0, -2, 2), (0, 0, 0))
+        self.scene.camera = camera
+        _, reference_path = self.render_rgb('selected_fit_reference')
+        rgb = self.calibration.read_display_rgb(reference_path)
+        preview_stats = self.calibration.compute_stats(rgb)
+        preview_grid = self.calibration.compute_spatial_stats(rgb, bottom_up=True)
+        fit = {'status': 'selected', 'selected_index': 1, 'method': 'test-fit',
+               'baseline_spatial_loss': 0.2, 'selected_spatial_loss': 0.1,
+               'candidates': [], 'preview_max_edge': 256, 'preview_samples': 4,
+               'limitations': []}
+        def tiny_view(scene, selected_camera, view, max_edge):
+            scene.camera = selected_camera
+            scene.render.resolution_x, scene.render.resolution_y = 24, 16
+
+        # Fit candidates and fail-closed rollback candidates use distinct
+        # persisted field names; both can become the selected final result.
+        for stats_field, grid_field in (('preview_stats', 'preview_grid'),
+                                        ('views', 'grid_views')):
+            with self.subTest(stats_field=stats_field):
+                self.scene.view_settings.exposure = 0.25
+                selected = {'ev': 0.25, stats_field: {'a': preview_stats},
+                            grid_field: {'a': preview_grid}}
+                with patch('lighting_fit.fit_rendered_lighting', return_value=(fit, selected)):
+                    report = self.calibration.calibrate(self.scene, [{'id': 'a'}], {'a': camera},
+                        {'a': reference_path}, tiny_view)
+
+                self.assertEqual(report['selected_preview_stats'], {'a': preview_stats})
+                self.assertEqual(report['spatial_diagnostics'], self.calibration.compare_spatial_stats(
+                    {'a': preview_grid}, {'a': preview_grid}, at_correction_bound=False))
+                self.assertEqual(report['final_exposure'], 0.5)
 
     def test_fixture_face_does_not_change_diffuse_floor_illumination(self):
         self.plane(emission=False)

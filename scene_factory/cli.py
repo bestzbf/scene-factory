@@ -14,6 +14,7 @@ import tempfile
 from . import __version__, _enable_legacy_imports
 
 _enable_legacy_imports()
+from multiview_spec import MAX_VIEWS  # noqa: E402  (needs the legacy import path)
 
 IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tif', '.tiff'}
 ROOT = Path(__file__).resolve().parent
@@ -52,8 +53,8 @@ def discover_groups(directory):
                 continue
         else:
             continue
-        if len(candidates) > 16:
-            raise ValueError(f'A scene has {len(candidates)} photos; each folder must contain 1..16 photos of one space')
+        if len(candidates) > MAX_VIEWS:
+            raise ValueError(f'A scene has {len(candidates)} photos; each folder must contain 1..{MAX_VIEWS} photos of one space')
         sources = []
         for candidate in candidates:
             source = candidate.resolve()
@@ -77,7 +78,10 @@ def _write_json(path, value):
 
 
 def init_project(directory, profile='openai-compatible'):
-    if profile not in ('openai-compatible', 'zai-anthropic', 'bigmodel', 'bigmodel-production', 'bigmodel-auto-assets', 'deepseek-production'):
+    profiles = ('openai-compatible', 'zai-anthropic', 'bigmodel', 'bigmodel-production',
+                'bigmodel-production-cost-saving', 'bigmodel-single-pass-anchored', 'bigmodel-single-pass-patterns',
+                'bigmodel-auto-assets', 'bigmodel-library-single-pass', 'deepseek-production')
+    if profile not in profiles:
         raise ValueError('Unknown project profile')
     directory = Path(directory).expanduser().resolve()
     files = (directory/'factory.json', directory/'README_运行.md')
@@ -85,13 +89,23 @@ def init_project(directory, profile='openai-compatible'):
         raise ValueError('Project config or README already exists; choose a new directory to avoid overwriting it')
     directory.mkdir(parents=True, exist_ok=True)
     (directory/'photos'/'同一场景多视角').mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(ROOT/'config_examples'/(profile+'.json'), files[0])
+    source_profile = 'bigmodel-production' if profile == 'bigmodel-production-cost-saving' else profile
+    shutil.copyfile(ROOT/'config_examples'/(source_profile+'.json'), files[0])
+    if profile == 'bigmodel-production-cost-saving':
+        config = json.loads(files[0].read_text(encoding='utf-8'))
+        config['pipeline']['staged']['route_detail_images'] = True
+        config['pipeline']['staged']['detail_view_min_confidence'] = 0.9
+        # The sparse wire preserves all geometry and is locally round-trip
+        # validated. Keep it scoped to the explicit cost-saving profile until
+        # matched provider usage and visual fidelity are measured.
+        config['pipeline']['staged']['detail_wire_format'] = 'native_sparse_parts_v1'
+        files[0].write_text(json.dumps(config, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     key_env = json.loads(files[0].read_text())['models']['analysis']['api_key_env']
-    files[1].write_text('''# 照片批量生成 Blender 场景
+    readme = '''# 照片批量生成 Blender 场景
 
 1. 编辑 `factory.json`：填写服务商实际 `base_url`，确认模型支持图片；配置文件不写密钥。
 2. 本机环境变量 `SCENE_API_KEY` 设置为该服务商专用密钥。
-3. 每张独立照片放 `photos/`；同一房间多视角放 `photos/同一场景多视角/`，每组最多 16 张。
+3. 每张独立照片放 `photos/`；同一房间多视角放 `photos/同一场景多视角/`，每组最多 32 张。
 4. 运行：
 
 ```sh
@@ -108,9 +122,53 @@ scene-factory export output --destination dataset-v1
 `doctor` 和 `--dry-run` 不联网；`probe` 会发起一次小图测试请求。
 重复运行相同 run 命令会继续未完成任务；已完成且内容未变的步骤直接复用。
 每次正式 export 使用新目录，只导出通过最终审核且完整性校验通过的场景。
+需要把多个本机分片放在同一预算/限流账本下时，在 `factory.json` 的 `batch.shared_ledger_dir` 设置共享父目录，并让所有分片输出目录位于该目录内；各分片使用不同的 `output` 目录。
 大批量运行说明见程序的 `scene_factory/PRODUCTION.md`。
 完整说明见程序的 `scene_factory/API_BATCH.md`。
-'''.replace('SCENE_API_KEY', key_env), encoding='utf-8')
+'''
+    if profile in ('bigmodel-single-pass-anchored', 'bigmodel-single-pass-patterns'):
+        readme = '''# 照片单次生成 Blender 场景
+
+本模板为可选的单次生成流程：每个场景用原始分辨率照片调用一次 GLM-5.3-Flash（low），一次输出完整 JSON，再由本地程序校验并渲染。关闭视觉复审、模型修正、验证重试和 API 重试；单场景请求预算为 1，输出上限为 12288 token。输出上限不能保证模型一定完成；失败会保留证据，不自动追加付费请求。
+
+1. 编辑 `factory.json`：确认 `base_url` 和模型支持图片；配置文件不写密钥。
+2. 在本机环境变量 `SCENE_API_KEY` 配置该服务商专用密钥。
+3. 每张独立照片放 `photos/`；同一房间多视角放 `photos/同一场景多视角/`，每组最多 32 张。
+4. 运行：
+
+```sh
+scene-factory doctor --config factory.json
+scene-factory run --config factory.json --input-dir photos --output-dir output --dry-run
+scene-factory run --config factory.json --input-dir photos --output-dir output
+scene-factory status output
+scene-factory usage output
+scene-factory report output
+```
+
+`doctor` 和 `--dry-run` 不联网。`probe` 是可选的独立付费连通性测试，以上步骤未自动运行。
+重复运行相同 run 命令会继续未完成的本地步骤；已完成且内容未变的步骤直接复用。已发送但未能确认完成的请求会阻止自动重发，需查看保留的错误和请求证据。
+
+本模板使用 `anchored_parts_v1`：模型为基础物体明确声明 `floor`、`on_top` 或 `world` 摆放方式。本地程序计算落地物体的底部 Z=0，以及指定支撑物上方物体的底部高度；`world` 保留明确给出的底面中心坐标，适用于悬挂、抬高或其他独立高度。程序不会自动把所有家具移到地板。该规则可避免底部与中心坐标混淆，但不能保证模型选对支撑、尺寸、布局或材质。
+该初版只支持程序内置资产；配置外部资产库会被拒绝，因为外部模型的真实接触面尚未验证。
+
+成功结果标记为 `generated_unreviewed`，表示生成与本地校验完成，尚未做原图视觉验收。本模板不会将它列入正式验收数据集；需要另行验收才能正式导出。单次生成不保证照片还原质量，也不代表已验证万级真实生产。
+完整说明见程序的 `scene_factory/PRODUCTION.md` 与 `scene_factory/API_BATCH.md`。
+'''
+        if profile == 'bigmodel-single-pass-patterns':
+            readme = readme.replace('`anchored_parts_v1`', '`anchored_patterns_v1`')
+            readme += '''
+## 实验性重复构件编码
+
+模型可在每个 custom_objects 组中声明 part_arrays：选取原型 parts 的索引，给出 XYZ 数量与组局部坐标间距。程序只展开这些明确给出的平移复制，不自动添加吊顶、家具、杂物或材质。不同形状/材质应分别建原型。展开后仍使用标准 V3 数据和同一 Blender 渲染器，并保留逐部件来源、格式与实现哈希。
+
+原型部分不意味着忽略实例数量：展开后仍受每组 100、全场景 800 parts 及拓扑预算限制。非法重复索引、未知引用、非有限坐标或超量请求会被拒绝。此模式使用独立的精简提示，旧模式提示不变；切换模式或升级代码请使用新输出目录。
+
+该选项只经过本地 schema、编解码、接口及几何验证；没有同模型对照证明实际 token 节省或照片还原更好。默认模板不自动启用此模式。关闭复审的成功场景仍为 generated_unreviewed，不能导出到已验收数据集。
+'''
+    if profile == 'bigmodel-library-single-pass':
+        readme = (ROOT/'LIBRARY_PIPELINE.md').read_text(encoding='utf-8')
+        (directory/'asset_packages').mkdir(exist_ok=True)
+    files[1].write_text(readme.replace('SCENE_API_KEY', key_env), encoding='utf-8')
     return {'directory': str(directory), 'config': str(files[0]),
             'next': f'Check base_url and model, then configure {key_env} locally.'}
 
@@ -122,8 +180,10 @@ def doctor(config_path, blender=None):
     config = load_config(config_path)
     checks = []
     for role, model in config['models'].items():
-        required = role == 'analysis' or (not config['batch']['no_review'] and
-                    (role == 'review' or (config['batch']['max_repairs'] > 0 and config['pipeline']['repair_mode'] == 'typed')))
+        required = (role == 'analysis' or
+                    (role == 'review' and not config['batch']['no_review']) or
+                    (role == 'repair' and config['batch']['max_repairs'] > 0
+                     and config['pipeline']['repair_mode'] == 'typed'))
         try:
             preflight(model)
             configured = True
@@ -162,8 +222,9 @@ def doctor(config_path, blender=None):
                     material_errors += 1
             checks.append({'check': 'asset_library.catalog', 'assets': len(catalog.assets),
                            'production_ready': ready, 'invalid_material_variants': material_errors,
+                           'technical_ready': sum(a.get('status') == 'technical_ready' for a in catalog.assets.values()),
                            'ok': (library['preview'] or ready > 0) and not material_errors,
-                           'note': 'Structural/hash check only; automatic category, fitting and material compatibility are decided for each scene.'})
+                           'note': 'Technical eligibility only, not visual acceptance. Category, size, material and support compatibility are checked for each scene.'})
             if library['bindings']:
                 bindings = Path(library['bindings']).expanduser()
                 if not bindings.is_absolute():
@@ -183,6 +244,7 @@ def doctor(config_path, blender=None):
             'production': {'review_enabled': not config['batch']['no_review'],
                            'automatic_repairs': config['batch']['max_repairs'],
                            'api_workers': config['batch']['api_workers'],
+                           'render_workers': config['batch']['render_workers'],
                            'scene_budget': config.get('budget', {}),
                            'acceptance_resolution_possible': config['render']['max_edge'] >= 1280,
                            'acceptance_samples_possible': config['render']['samples'] >= 64,
@@ -212,9 +274,11 @@ def probe(config_path, role='analysis'):
             x, y = index % 2 * 96, index // 2 * 96
             draw.rectangle((x, y, x+95, y+95), fill=palette[color])
         image.save(folder/'probe.png')
-        response = call_model('Look at the image. Name the four quadrant colors in this order: top-left, top-right, bottom-left, bottom-right. Return the JSON colors array.',
-                              [folder/'probe.png'], schema, folder/'probe.json',
-                              timeout=config['batch']['vision_timeout'], config=model)
+        from provider_limits import provider_limit_session
+        with provider_limit_session(folder, [model]):
+            response = call_model('Look at the image. Name the four quadrant colors in this order: top-left, top-right, bottom-left, bottom-right. Return the JSON colors array.',
+                                  [folder/'probe.png'], schema, folder/'probe.json',
+                                  timeout=config['batch']['vision_timeout'], config=model)
         provenance = json.loads((folder/'probe.api.json').read_text(encoding='utf-8'))
     return {'role': role, 'model': model['model'], 'schema_valid': True,
             'image_test_passed': response['colors'] == colors,
@@ -229,7 +293,15 @@ def main(argv=None):
     commands = parser.add_subparsers(dest='command', required=True)
     init = commands.add_parser('init', help='创建独立项目及无密钥配置模板')
     init.add_argument('--directory', type=Path, required=True)
-    init.add_argument('--profile', choices=('openai-compatible','zai-anthropic','bigmodel','bigmodel-production','bigmodel-auto-assets','deepseek-production'), default='openai-compatible')
+    init.add_argument('--profile', choices=('openai-compatible','zai-anthropic','bigmodel','bigmodel-production',
+                                            'bigmodel-production-cost-saving','bigmodel-single-pass-anchored','bigmodel-single-pass-patterns',
+                                            'bigmodel-auto-assets','bigmodel-library-single-pass','deepseek-production'),
+                      default='openai-compatible')
+    intake = commands.add_parser('assets-import', help='离线批量导入 model.glb + asset.json；失败隔离，可续跑')
+    intake.add_argument('--input-dir', type=Path, required=True)
+    intake.add_argument('--output-dir', type=Path, required=True)
+    intake.add_argument('--blender', help='Blender 可执行文件')
+    intake.add_argument('--timeout', type=float, default=300)
     group = commands.add_parser('groups', help='按文件夹生成场景分组；同一文件夹多图共用一个场景')
     group.add_argument('--input-dir', type=Path, required=True)
     group.add_argument('--output', type=Path, required=True)
@@ -240,6 +312,7 @@ def main(argv=None):
     run.add_argument('--config', type=Path, required=True)
     run.add_argument('--output-dir', type=Path, required=True)
     run.add_argument('--dry-run', action='store_true', help='仅校验配置和分组，不联网或渲染')
+    run.add_argument('--resume-batch', action='store_true', help='明确恢复服务熔断后的批次；不重置已消耗额度')
     run.add_argument('--blender', help='覆盖配置中的 Blender 可执行文件')
     check = commands.add_parser('doctor', help='离线检查配置、环境变量和 Blender 路径')
     check.add_argument('--config', type=Path, required=True)
@@ -258,10 +331,19 @@ def main(argv=None):
     export = commands.add_parser('export', help='仅将通过最终验收的场景原子导出为独立数据集')
     export.add_argument('directory', type=Path)
     export.add_argument('--destination', type=Path, required=True)
+    export.add_argument('--full-result', action='store_true',
+                        help='Include every scene entry in CLI output; this can be large for big datasets')
     args = parser.parse_args(argv)
     try:
         if args.command == 'init':
             _emit(init_project(args.directory, args.profile))
+        elif args.command == 'assets-import':
+            from asset_intake import ingest_library
+            from batch_multiview import discover_blender
+            result = ingest_library(args.input_dir,args.output_dir,
+                                    blender=discover_blender(args.blender),timeout=args.timeout)
+            _emit(result)
+            return 0 if result['quarantined'] == 0 else 1
         elif args.command == 'groups':
             manifest = discover_groups(args.input_dir)
             _write_json(args.output.expanduser().resolve(), manifest)
@@ -274,6 +356,8 @@ def main(argv=None):
             options = ['--config', str(args.config.expanduser().resolve()), '--output-dir', str(args.output_dir.expanduser().resolve())]
             if args.dry_run:
                 options.append('--dry-run')
+            if args.resume_batch:
+                options.append('--resume-batch')
             if args.blender:
                 options += ['--blender', args.blender]
             if args.groups:
@@ -302,7 +386,8 @@ def main(argv=None):
             _emit(usage_report(args.directory))
         elif args.command == 'export':
             from .dataset_export import export_dataset
-            _emit(export_dataset(args.directory, args.destination))
+            _emit(export_dataset(args.directory, args.destination,
+                                 include_scene_entries=args.full_result))
         return 0
     except (ValueError, OSError, RuntimeError) as exc:
         parser.error(str(exc))

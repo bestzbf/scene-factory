@@ -79,6 +79,25 @@ class TypedEditTests(unittest.TestCase):
         self.assertEqual(result[1]['radius'], .003)
         self.assertEqual(result[2]['size'], [2, 2, 2])
 
+    def test_repair_schema_and_semantic_updates_accept_rigid_polylines(self):
+        bundle = fixture()
+        group = bundle['shared_scene']['custom_objects'][0]
+        rigid = part('polyline', radius=.018,
+                     points=[[-1.97, 0, .75], [-1.97, 0, 1.48],
+                             [1.97, 0, 1.48], [1.97, 0, .75]])
+        edits = repair.empty_edits()
+        edits['part_updates'] = [{'group_id': group['id'], 'index': 0, 'part': rigid}]
+        updated = repair.apply_edits(bundle, edits)
+        self.assertEqual(updated['shared_scene']['custom_objects'][0]['parts'][0]['type'], 'polyline')
+        part_rule = repair.REPAIR_SCHEMA['properties']['part_updates']['items']['properties']['part']
+        self.assertIn('polyline', part_rule['properties']['type']['enum'])
+        self.assertIn('Use polyline for rigid frames', repair.REPAIR_PROMPT)
+        with self.assertRaisesRegex(repair.RepairValidationError, 'positive radius'):
+            invalid = repair.empty_edits()
+            invalid['part_updates'] = [{'group_id': group['id'], 'index': 0,
+                                        'part': part('polyline', points=[[0,0,0],[1,0,0]])}]
+            repair.apply_edits(bundle, invalid)
+
     def test_common_edits_and_group_insertion_need_no_full_scene_rewrite(self):
         bundle = fixture()
         edits = repair.empty_edits()

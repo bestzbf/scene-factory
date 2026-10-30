@@ -65,6 +65,12 @@ class AutonomousPipelineTests(unittest.TestCase):
                     # Simple closed room for fast real Blender fixture renders.
                     result['omit'] = []
                     result['front_wall'] = False
+                    group_properties = props['groups']['items']['properties']
+                    if 'evidence_view_ids' not in group_properties:
+                        for group in result.get('groups', []):
+                            for key in ('evidence_view_ids', 'evidence_confidence',
+                                        'texture_material_ids', 'texture_material_confidence'):
+                                group.pop(key, None)
                 elif 'group_id' in props:
                     stage = 'detail'
                     data = owner.payload(prompt, 'TRUSTED INPUT IDENTITY (images in exactly this order):\n')

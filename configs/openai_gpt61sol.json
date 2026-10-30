@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "models": {
+    "analysis": {
+      "provider": "openai_responses",
+      "base_url": "https://api.openai.com/v1",
+      "model": "gpt-6.1-sol",
+      "api_key_env": "OPENAI_API_KEY",
+      "response_format": "json_schema",
+      "max_output_tokens": 32768,
+      "timeout_seconds": 1200,
+      "max_retries": 0,
+      "reasoning_effort": "medium",
+      "proxy": "http://127.0.0.1:7897"
+    }
+  },
+  "batch": {
+    "shared_ledger_dir": null,
+    "workers": 3,
+    "api_workers": 3,
+    "render_workers": 1,
+    "max_repairs": 0,
+    "no_review": true,
+    "vision_timeout": 1200,
+    "render_timeout": 2400,
+    "min_free_disk_bytes": 53687091200
+  },
+  "render": {
+    "max_edge": 1600,
+    "samples": 128,
+    "device": "AUTO",
+    "appearance_policy": "photo_reconstruction",
+    "tone_match": "reference"
+  },
+  "pipeline": {
+    "analysis_mode": "monolithic",
+    "scene_wire_format": "library_layout_v1",
+    "repair_mode": "typed",
+    "validation_retries": 0,
+    "repair_stagnation_patience": 0
+  },
+  "budget": {
+    "max_requests": 1,
+    "max_output_tokens": 32768,
+    "max_reported_tokens": 0
+  },
+  "asset_library": {
+    "catalog": "../assets/production_library_20261030/library/asset_catalog.json",
+    "bindings": null,
+    "preview": false,
+    "auto_bind": true,
+    "selection": {
+      "seed": 0,
+      "dimension_tolerance": 0.25,
+      "min_uniform_scale": 0.8,
+      "max_uniform_scale": 1.25,
+      "floor_tolerance_m": 0.0001,
+      "diversity": true,
+      "category_map": {},
+      "settle_max_shift_m": 0.5,
+      "settle_max_omitted_fraction": 0.1
+    }
+  },
+  "batch_budget": {
+    "max_requests": 2000,
+    "max_output_tokens": 25000000,
+    "max_reported_tokens": 60000000,
+    "failure_threshold": 5,
+    "cooldown_seconds": 60
+  }
+}

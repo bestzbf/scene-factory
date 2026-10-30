@@ -30,6 +30,11 @@ def read_display_rgb(path):
 def calibrate(scene, views, cameras, sources, set_view, *, fit_lighting=True):
     original = {'camera': scene.camera, 'samples': scene.cycles.samples,
                 'x': scene.render.resolution_x, 'y': scene.render.resolution_y,
+                'percentage': scene.render.resolution_percentage,
+                'seed': scene.cycles.seed, 'animated_seed': scene.cycles.use_animated_seed,
+                'adaptive': scene.cycles.use_adaptive_sampling,
+                'denoising': scene.cycles.use_denoising,
+                'border': scene.render.use_border,
                 'exposure': scene.view_settings.exposure, 'filepath': scene.render.filepath}
     reference, reference_grid = {}, {}
     for view in views:
@@ -39,11 +44,19 @@ def calibrate(scene, views, cameras, sources, set_view, *, fit_lighting=True):
     offsets = [round(i*.25, 2) for i in range(-6, 7)]
     candidates = [{'ev': offset, 'views': {}, 'grid_views': {}} for offset in offsets]
     try:
-        scene.cycles.samples = min(32, original['samples'])
         with tempfile.TemporaryDirectory(prefix='scene-tone-') as folder:
             path = str(Path(folder)/'candidate.png')
             for view in views:
                 set_view(scene, cameras[view['id']], view, 384)
+                # Apply after set_view so camera setup cannot accidentally
+                # reintroduce cropped, scaled or stochastic metering previews.
+                scene.cycles.samples = min(32, original['samples'])
+                scene.cycles.seed = 41
+                scene.cycles.use_animated_seed = False
+                scene.cycles.use_adaptive_sampling = False
+                scene.cycles.use_denoising = True
+                scene.render.resolution_percentage = 100
+                scene.render.use_border = False
                 scene.view_settings.exposure = original['exposure']
                 bpy.ops.render.render()
                 result = bpy.data.images['Render Result']
@@ -60,6 +73,9 @@ def calibrate(scene, views, cameras, sources, set_view, *, fit_lighting=True):
                        'look': scene.view_settings.look, 'reference_stats': reference,
                        'selected_preview_stats': candidates[report['selected_index']]['views'],
                        'preview_max_edge': 384, 'preview_samples': min(32, original['samples']),
+                       'exposure_preview_settings': {'seed': 41, 'animated_seed': False,
+                           'adaptive_sampling': False, 'denoising': True,
+                           'resolution_percentage': 100, 'render_border': False},
                        'additional_model_calls': 0,
                        'at_correction_bound': abs(report['correction_ev']) == report['max_correction_ev']})
         report['spatial_diagnostics'] = compare_spatial_stats(reference_grid,
@@ -67,7 +83,13 @@ def calibrate(scene, views, cameras, sources, set_view, *, fit_lighting=True):
     finally:
         scene.camera = original['camera']
         scene.cycles.samples = original['samples']
+        scene.cycles.seed = original['seed']
+        scene.cycles.use_animated_seed = original['animated_seed']
+        scene.cycles.use_adaptive_sampling = original['adaptive']
+        scene.cycles.use_denoising = original['denoising']
         scene.render.resolution_x, scene.render.resolution_y = original['x'], original['y']
+        scene.render.resolution_percentage = original['percentage']
+        scene.render.use_border = original['border']
         scene.render.filepath = original['filepath']
         scene.view_settings.exposure = original['exposure']
     scene.view_settings.exposure = report['final_exposure']
@@ -94,9 +116,16 @@ def calibrate(scene, views, cameras, sources, set_view, *, fit_lighting=True):
             report['correction_ev'] = selected['ev']
             report['final_exposure'] = original['exposure'] + selected['ev']
             report['at_correction_bound'] = abs(selected['ev']) == report['max_correction_ev']
-            report['selected_preview_stats'] = selected['views']
+            # Normal fit records use preview_stats/preview_grid. Fail-closed
+            # rollback selects the unchanged exposure candidate, which still
+            # uses the exposure-only views/grid_views names.
+            preview_stats = selected.get('preview_stats', selected.get('views'))
+            preview_grid = selected.get('preview_grid', selected.get('grid_views'))
+            if not isinstance(preview_stats, dict) or not isinstance(preview_grid, dict):
+                raise ValueError('Selected lighting candidate lacks preview diagnostics')
+            report['selected_preview_stats'] = preview_stats
             report['spatial_diagnostics'] = compare_spatial_stats(reference_grid,
-                selected['grid_views'], at_correction_bound=report['at_correction_bound'])
+                preview_grid, at_correction_bound=report['at_correction_bound'])
             from lighting_fit import calibration_status_after_fit
             # A bounded fit that hit a power/exposure limit while severe
             # regional residuals remained was rolled back. Keep the unresolved

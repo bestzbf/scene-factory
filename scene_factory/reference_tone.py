@@ -21,6 +21,7 @@ import numpy as np
 
 QUANTILES = ('p50', 'p65', 'p80')
 MAX_CORRECTION_EV = 1.5
+SEVERE_SPATIAL_RESIDUAL_STOPS = 2.0
 _LOW = .0001
 _HIGH = .98
 _HUBER_DELTA = .5
@@ -144,19 +145,27 @@ def compare_spatial_stats(reference, rendered, *, at_correction_bound=False):
         median_abs = float(np.median(np.abs(errors))) if errors else None
         nonuniform = len(errors) >= 3 and spread >= 1.5 and max(abs(e) for e in errors) >= 1.0
         large_residual = len(errors) >= 3 and median_abs >= 1.0
+        severe_regions = [region['id'] for region in regions
+                          if region['log2_luminance_error'] is not None
+                          and abs(region['log2_luminance_error']) > SEVERE_SPATIAL_RESIDUAL_STOPS]
         if nonuniform:
             reasons.append(view_id + ':nonuniform_spatial_brightness')
         if large_residual:
             reasons.append(view_id + ':large_spatial_brightness_residual')
+        if severe_regions:
+            reasons.append(view_id + ':severe_regional_brightness_residual')
         per_view[view_id] = {'status': 'compared' if errors else 'insufficient_information',
                             'regions': regions, 'usable_region_count': len(errors),
                             'p90_minus_p10_error_stops': spread,
                             'median_absolute_error_stops': median_abs,
+                            'max_absolute_region_error_stops': max(map(abs, errors)) if errors else None,
+                            'severe_residual_region_ids': severe_regions,
                             'nonuniform_residual': nonuniform}
     return {'method': '3x3 normalized image grid; p65 sRGB-decoded linear luminance; log2(render/reference)',
             'coordinate_origin': 'top_left', 'positive_error_means': 'render_brighter_than_reference',
             'requires_inspection': bool(reasons), 'reasons': reasons, 'per_view': per_view,
             'thresholds': {'nonuniform_spread_stops': 1.5, 'large_region_error_stops': 1.0,
+                           'severe_region_error_stops': SEVERE_SPATIAL_RESIDUAL_STOPS,
                            'large_median_absolute_error_stops': 1.0, 'minimum_usable_regions': 3},
             'guidance': 'Inspect window transmission, duplicate/occluding surfaces, light direction, material reflectance and framing before changing exposure or adding fill. A bounded global exposure adjustment cannot correct spatially different errors.',
             'limitations': 'Diagnostic only: grid regions are not semantic object masks or aligned geometry; framing/material differences can cause warnings. No pixel edits, lighting changes or visual acceptance are performed.'}

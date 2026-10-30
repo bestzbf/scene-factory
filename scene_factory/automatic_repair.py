@@ -18,7 +18,7 @@ if __package__:
 
 from batch import atomic_json, canonical_bytes, file_sha256, read_json
 from model_api import ModelAPIError, call_model, public_config, guard_ambiguous_model_resume
-from multiview_spec import validate, resolve_sources
+from multiview_spec import MAX_VIEWS, validate, resolve_sources
 from schema import SCHEMA as V1_SCHEMA, obj
 from spec_v2 import SCHEMA as V2_SCHEMA, PART_SCHEMA, _walk
 from vision_multiview import CAMERA_SCHEMA, SCHEMA as V3_SCHEMA, _inputs, validate_review
@@ -46,7 +46,7 @@ TEXTURE_SCHEMA = obj({**copy.deepcopy(V2_SCHEMA['properties']['textures']['items
 REPAIR_SCHEMA = obj({
     'schema_version': {'type': 'integer', 'enum': [1]},
     'summary': {'type': 'string', 'maxLength': 4000},
-    'cameras': _array(obj({'view_id': ID, 'camera': CAMERA_SCHEMA}), 16),
+    'cameras': _array(obj({'view_id': ID, 'camera': CAMERA_SCHEMA}), MAX_VIEWS),
     'room': _array(V1_SCHEMA['properties']['room'], 1),
     'architecture': _array(V3_SCHEMA['properties']['architecture'], 1),
     'lighting': _array(V1_SCHEMA['properties']['lighting'], 1),
@@ -78,9 +78,9 @@ All edit fields are required; use [] when unchanged. Singleton arrays room, arch
 
 groups changes complete metadata/transforms of EXISTING groups, retaining parts. replace_groups inserts or replaces a complete group including all parts. Do not combine replace_groups/remove_groups with any other edit of the same group. part_updates replaces a COMPLETE part at an ORIGINAL zero-based index. remove_parts removes ORIGINAL zero-based indices, applied descending after updates; do not update and remove the same index. add_parts appends after removals. Each group may occur once in groups, replace_groups, remove_parts and add_parts; part_updates may contain several distinct indices for a group. All references must exist after all edits; remove dangling material/support/texture links explicitly. The complete scene remains bounded to 80 groups and 800 parts; favor simple curves and modest meshes.
 
-Units metres, Z up. Room X +/-width/2, Y 0..depth, Z 0..height. Base objects positions are BOTTOM CENTRES, fronts -Y. Custom group position is its WORLD origin, parts are LOCAL CENTRES, size is full XYZ, rotations XYZ Euler degrees. box needs all positive sizes; cylinder positive radius and size.z; curve at least two distinct local points and positive radius; mesh explicit local vertices and nondegenerate polygon faces. Unused points/vertices/faces must be []. Blank part material_id inherits group. Support uses existing custom/base instance id, "floor" or "" (empty string; never literal "empty" or "ceiling"); repeated base IDs are id__i_j. Do not create support cycles.
+Units metres, Z up. Room X +/-width/2, Y 0..depth, Z 0..height. Base objects positions are BOTTOM CENTRES, fronts -Y. Custom group position is its WORLD origin, parts are LOCAL CENTRES, size is full XYZ, rotations XYZ Euler degrees. box needs all positive sizes; cylinder positive radius and size.z; smooth curve uses Blender AUTO Bezier handles and needs at least two distinct local points plus positive radius; rigid polyline uses straight segments through its listed points, preserves exact corners, and needs at least two distinct local points plus positive radius; mesh explicit local vertices and nondegenerate polygon faces. Use polyline for rigid frames, rails and trim; use curve only for genuinely smooth bends. Unused points/vertices/faces must be []. Blank part material_id inherits group. Support uses existing custom/base instance id, "floor" or "" (empty string; never literal "empty" or "ceiling"); repeated base IDs are id__i_j. Do not create support cycles.
 
-Material RGB is linear reflectance, not photographed display RGB; dark fabric must stay dark. Set noise and bump only where observed. Omit opaque base wall surfaces and replace with segments around windows/doors for true light openings. An image plane in front of a wall cannot transmit daylight. AREA lights need coherent direction and realistic local sizes. lighting.world_strength controls ambient light; render.world_color/exposure and replace_base_lights control environment and base fixtures. Avoid double illumination. Keep first camera lens in 12..85 to satisfy the legacy scene contract; other cameras may use 5..500. Reference tone matching may fit bounded global exposure, but cannot repair local lighting or geometry.
+Material RGB is linear reflectance, not photographed display RGB; dark fabric must stay dark. Set noise and bump only where observed. Omit opaque base wall surfaces and replace with segments around windows/doors for true light openings. An image plane in front of a wall cannot transmit daylight. AREA lights need coherent direction and realistic local sizes. lighting.world_strength controls ambient light; render.world_color/exposure and replace_base_lights control environment and base fixtures. Avoid double illumination. Keep every view camera lens in 12..85 and copy the first view camera/roll exactly to the shared legacy fields. Reference tone matching may fit bounded global exposure, but cannot repair local lighting or geometry.
 Before raising light energy, resolve wall/camera collisions and trace the daylight path: a base window already supplies clear glazing, so duplicate custom panes or photo planes may block it. Treat image crops containing photographed shadows/reflections as baked illumination, not measured albedo. Preserve the reference's spatial contrast. A tone correction at its bound or opposite-sign regional brightness residuals calls for inspection of geometry, materials and local light direction, not another global exposure increase.
 Window appearance and incident illumination are separate: a dark view through glass does NOT justify stronger room lights. Exterior AREA emitters are invisible through glass; raising them cannot create a bright exterior building. Use the actual fitted light settings in lighting_diagnostics as your starting evidence, not only the original JSON energies. Do not increase illumination over already too-bright regions. Prefer correcting reflectance, occluders, openings and direction. Regional fitting cannot certify photo fidelity.
 When lighting_fit.requires_non_power_inspection=true, the measured best bounded power fit still has severe regional errors. Merely raising the same emitter powers will be counteracted by the fitter on rebuild. Inspect camera framing/roll and which surfaces occupy the mismatching regions, then correct evidenced emitter position/target/size, opening geometry, occluders and surface reflectance. Use the original photo and per-part projection rather than accepting a reviewer's unsupported suggestion to increase all lights. If a curtain remains outside_frame across attempts, inspect its evaluated world bounds and the camera pose before another local-position guess; preserve one coherent 3D scene and do not attach billboard replacements to the camera.
@@ -140,8 +140,9 @@ def _safe_semantic_error(exc):
         ('sphere:', 'sphere requires positive radius or dimensions'),
         ('image_plane:', 'image_plane requires positive dimensions and a valid photo texture'),
         ('curve:', 'curve requires distinct points and positive radius'),
+        ('polyline:', 'polyline requires at least two distinct points and positive radius'),
         ('mesh:', 'mesh has invalid or degenerate topology'),
-        ('non-curve:', 'only curves may contain points'),
+        ('non-curve:', 'only curve or polyline parts may contain points'),
         ('non-mesh:', 'only meshes may contain vertices and faces'),
         ('photo textures require', 'photo textures require box, mesh or image_plane UV mapping'),
         ('quad must be', 'texture quad must be convex UL UR LR LL'),

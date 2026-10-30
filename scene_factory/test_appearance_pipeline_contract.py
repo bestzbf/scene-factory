@@ -55,6 +55,13 @@ class AppearancePipelineContractTests(unittest.TestCase):
         def model(prompt, images, schema, output, timeout, effort, config):
             is_detail = 'group_id' in schema['properties']
             response = copy.deepcopy(self.detail if is_detail else self.plan)
+            if not is_detail and 'groups' in schema['properties']:
+                group_properties = schema['properties']['groups']['items']['properties']
+                if 'evidence_view_ids' not in group_properties:
+                    for group in response.get('groups', []):
+                        for key in ('evidence_view_ids', 'evidence_confidence',
+                                    'texture_material_ids', 'texture_material_confidence'):
+                            group.pop(key, None)
             requests.append((prompt, list(images), copy.deepcopy(schema)))
             atomic_json(output.with_suffix('.raw.json'), response)
             atomic_json(output.with_suffix('.api.json'), {

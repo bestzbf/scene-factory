@@ -7,6 +7,7 @@ from lighting_fit import (MIN_MULTIPLIER, MAX_LIGHTING_CANDIDATES,
                           apply_lighting_controls, candidate_multipliers,
                           score_spatial_candidate, select_lighting_candidate,
                           select_lighting_candidate_fail_closed,
+                          select_feasible_lighting_candidate,
                           calibration_status_after_fit)
 
 
@@ -129,6 +130,85 @@ class LightingFitTests(unittest.TestCase):
         self.assertEqual(selected, 1)
         self.assertIsNone(reason)
 
+    def test_boundary_rejection_selects_measured_fallback_against_original_scene(self):
+        def measured(loss, ev, powers=1.):
+            return {'multipliers': {'interior': powers}, 'correction_ev': ev,
+                    'measurement': {'loss': loss, 'per_view': {'front': {
+                        'loss': loss, 'severe_residual_region_ids': ['lower_left']}}}}
+        # Original is worse than the exposure-only baseline. A safe fallback
+        # may be slightly worse than that rejected, boundary-limited baseline.
+        baseline = measured(.90, -1.5)
+        baseline['_initial_exposure_variant'] = measured(1.4, 0.)
+        fallback, worse = measured(.94, -.75, .5), measured(.96, .5, .25)
+        candidates = [baseline, worse, fallback]
+        unchanged = copy.deepcopy(candidates)
+        selected, reason = select_lighting_candidate_fail_closed(candidates)
+        self.assertEqual(selected, 2)
+        self.assertEqual(reason['fallback_selection']['baseline'], 'original_powers_and_exposure')
+        self.assertEqual(reason['fallback_selection']['baseline_loss'], 1.4)
+        self.assertFalse(reason['fallback_selection']['per_view_degradation_allowed'])
+        self.assertEqual(reason['original_rejection_reason']['action'],
+                         'restored_original_lighting_and_exposure')
+        self.assertEqual(reason['severe_residual_region_ids_by_view'], {'front': ['lower_left']})
+        self.assertEqual(candidates, unchanged)
+        json.dumps(reason, allow_nan=False)
+
+    def test_fallback_rejects_view_regression_even_when_aggregate_improves(self):
+        original = {'measurement': {'loss': 1., 'per_view': {'a': {'loss': 1.}, 'b': {'loss': 1.}}}}
+        candidate = {'multipliers': {'interior': 1.}, 'correction_ev': .5,
+                     'measurement': {'loss': .6, 'per_view': {'a': {'loss': .19}, 'b': {'loss': 1.01}}}}
+        self.assertIsNone(select_feasible_lighting_candidate([candidate], original))
+        candidate['measurement']['per_view']['b']['loss'] = 1.
+        self.assertEqual(select_feasible_lighting_candidate([candidate], original), 0)
+
+    def test_fallback_requires_two_percent_improvement_and_complete_finite_measurement(self):
+        original = {'measurement': {'loss': 1., 'per_view': {'front': {'loss': 1.}}}}
+        candidate = {'multipliers': {'interior': 1.}, 'correction_ev': .5,
+                     'measurement': {'loss': .98, 'per_view': {'front': {'loss': .98}}}}
+        self.assertEqual(select_feasible_lighting_candidate([candidate], original), 0)
+        for loss in (.98001, None, float('nan'), float('inf'), True):
+            value = copy.deepcopy(candidate)
+            value['measurement']['loss'] = loss
+            self.assertIsNone(select_feasible_lighting_candidate([value], original))
+        value = copy.deepcopy(candidate)
+        value['measurement']['per_view'] = {'other': {'loss': .1}}
+        self.assertIsNone(select_feasible_lighting_candidate([value], original))
+        self.assertIsNone(select_feasible_lighting_candidate([candidate], None))
+        self.assertIsNone(select_feasible_lighting_candidate([candidate], {'measurement': None}))
+        value = copy.deepcopy(candidate)
+        value['measurement'] = None
+        self.assertIsNone(select_feasible_lighting_candidate([value], original))
+
+    def test_fallback_requires_every_baseline_light_control(self):
+        original = {'measurement': {'loss': 1., 'per_view': {'front': {'loss': 1.}}}}
+        baseline = {'multipliers': {'interior': 1., 'world': 1.}, 'correction_ev': -1.5,
+                    'measurement': {'loss': .5, 'per_view': {'front': {'loss': .5}}}}
+        for powers in ({'interior': .5}, {'interior': .5, 'world': 1., 'extra': 1.}):
+            candidate = copy.deepcopy(baseline)
+            candidate['multipliers'], candidate['correction_ev'] = powers, 0.
+            self.assertIsNone(select_feasible_lighting_candidate([baseline, candidate], original))
+
+    def test_fallback_excludes_all_power_and_exposure_bounds(self):
+        original = {'measurement': {'loss': 1., 'per_view': {'front': {'loss': 1.}}}}
+        candidate = {'multipliers': {'interior': 1.}, 'correction_ev': .5,
+                     'measurement': {'loss': .5, 'per_view': {'front': {'loss': .5}}}}
+        for ev, power in ((-1.5, 1.), (1.5, 1.), (0., MIN_MULTIPLIER), (0., 16.),
+                          (0., 17.), (float('nan'), 1.), (0., float('nan'))):
+            value = copy.deepcopy(candidate)
+            value['correction_ev'], value['multipliers']['interior'] = ev, power
+            self.assertIsNone(select_feasible_lighting_candidate([value], original))
+
+    def test_boundary_rejection_without_safe_fallback_preserves_original_rollback(self):
+        original = {'measurement': {'loss': 1., 'per_view': {'front': {'loss': 1.}}}}
+        boundary = {'multipliers': {'interior': 16.}, 'correction_ev': 0.,
+                    'measurement': {'loss': .5, 'per_view': {'front': {
+                        'loss': .5, 'severe_residual_region_ids': ['upper_left']}}},
+                    '_initial_exposure_variant': original}
+        selected, reason = select_lighting_candidate_fail_closed([boundary])
+        self.assertEqual(selected, 0)
+        self.assertEqual(reason['action'], 'restored_original_lighting_and_exposure')
+        self.assertNotIn('fallback_selection', reason)
+
     def test_proposals_are_bounded_deterministic_and_do_not_mutate(self):
         current = {'interior': 1., 'world': 1.}
         proposals = list(candidate_multipliers(['interior', 'world'], current, global_stage=True))
@@ -162,6 +242,8 @@ class LightingFitTests(unittest.TestCase):
         self.assertEqual(calibration_status_after_fit('selected', 'selected'), 'lighting_selected')
         self.assertEqual(calibration_status_after_fit('selected', 'reverted_unresolved'),
                          'lighting_reverted_unresolved')
+        self.assertEqual(calibration_status_after_fit('selected', 'selected_feasible_unresolved'),
+                         'lighting_selected_feasible_unresolved')
         self.assertEqual(calibration_status_after_fit('unchanged', 'unchanged'), 'unchanged')
 
 

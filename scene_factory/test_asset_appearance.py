@@ -85,6 +85,32 @@ class AssetAppearanceTests(unittest.TestCase):
         table = self.build('desk', 'legacy')
         self.assertTrue(self.shader(self.material(table, '_OakTabletop')).inputs['Base Color'].is_linked)
 
+    def test_cached_materials_and_screen_mesh_rebuild_after_datablock_removal(self):
+        api = self.assets._standalone_api()
+        color = (.713, .421, .219)
+        for factory in (self.assets._wood, self.assets._fabric, self.assets._laminate):
+            with self.subTest(factory=factory.__name__):
+                original = factory(api, color)
+                bpy.data.materials.remove(original, do_unlink=True)
+                rebuilt = factory(api, color)
+                self.assertIs(bpy.data.materials.get(rebuilt.name), rebuilt)
+
+        filename = self.assets.SCREEN_FILES[0]
+        root = api.root_object('StaleScreenCacheTest')
+        self.assets._screen(root, filename)
+        original = self.assets._TEXTURE_MATERIALS[filename]
+        bpy.data.materials.remove(original, do_unlink=True)
+        self.assets._screen(root, filename)
+        rebuilt = self.assets._TEXTURE_MATERIALS[filename]
+        self.assertIs(bpy.data.materials.get(rebuilt.name), rebuilt)
+
+        key = (.617, .344)
+        original_mesh = self.assets._screen_mesh(*key)
+        bpy.data.meshes.remove(original_mesh, do_unlink=True)
+        rebuilt_mesh = self.assets._screen_mesh(*key)
+        self.assertGreater(len(rebuilt_mesh.vertices), 0)
+        self.assertIs(bpy.data.meshes.get(rebuilt_mesh.name), rebuilt_mesh)
+
     def test_non_neutral_wood_colour_retains_wood_material(self):
         root = self.build('desk', color=(.61, .43, .23))
         self.assertTrue(self.shader(self.material(root, '_OakTabletop')).inputs['Base Color'].is_linked)

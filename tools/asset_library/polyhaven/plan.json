@@ -1,0 +1,6160 @@
+[
+ {
+  "id": "ArmChair_01",
+  "name": "Arm Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.8484,
+   0.7658,
+   1.0651
+  ],
+  "info": {
+   "name": "Arm Chair 01",
+   "dimensions": [
+    848.4309017658234,
+    765.7602727413177,
+    1065.087635157397
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "BarberShopChair_01",
+  "name": "Barber Shop Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.7565,
+   1.3279,
+   1.489
+  ],
+  "info": {
+   "name": "Barber Shop Chair 01",
+   "dimensions": [
+    756.5155327320099,
+    1327.9063999652863,
+    1489.0052630568675
+   ],
+   "authors": {
+    "Fernando Quinn": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "Barrel_01",
+  "name": "Barrel_01",
+  "category": "metal_drum",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Barrels & Drums/Metal Drums",
+  "dimensions_m": [
+   0.563,
+   0.563,
+   0.88
+  ],
+  "info": {
+   "name": "Barrel_01",
+   "dimensions": [
+    563.0351305007935,
+    563.0352199077606,
+    880.0000050105155
+   ],
+   "authors": {
+    "Jorge Camacho": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Containers & Storage/Barrels & Drums/Metal Drums"
+  }
+ },
+ {
+  "id": "Barrel_02",
+  "name": "Barrel 02",
+  "category": "plastic_drum",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Barrels & Drums/Plastic Drums",
+  "dimensions_m": [
+   0.4882,
+   0.4846,
+   0.88
+  ],
+  "info": {
+   "name": "Barrel 02",
+   "dimensions": [
+    488.17557096481323,
+    484.6164435148239,
+    879.9999924376607
+   ],
+   "authors": {
+    "Jorge Camacho": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Containers & Storage/Barrels & Drums/Plastic Drums"
+  }
+ },
+ {
+  "id": "CheeseBox_01",
+  "name": "CheeseBox_01",
+  "category": "wooden_crate",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Wooden Crates",
+  "dimensions_m": [
+   0.2404,
+   0.1356,
+   0.0927
+  ],
+  "info": {
+   "name": "CheeseBox_01",
+   "dimensions": [
+    240.39557576179504,
+    135.5806179344654,
+    92.68356184475124
+   ],
+   "authors": {
+    "Gabriel Radić": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Containers & Storage/Boxes & Crates/Wooden Crates"
+  }
+ },
+ {
+  "id": "ClassicConsole_01",
+  "name": "Classic Console 01",
+  "category": "console_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Console Tables",
+  "dimensions_m": [
+   1.543,
+   0.5893,
+   0.9491
+  ],
+  "info": {
+   "name": "Classic Console 01",
+   "dimensions": [
+    1543.0203676223755,
+    589.2754197120667,
+    949.0714100943478
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Tables/Console Tables"
+  }
+ },
+ {
+  "id": "ClassicNightstand_01",
+  "name": "Classic Nightstand 01",
+  "category": "side_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "dimensions_m": [
+   0.5678,
+   0.4242,
+   0.7
+  ],
+  "info": {
+   "name": "Classic Nightstand 01",
+   "dimensions": [
+    567.7522718906403,
+    424.192875623703,
+    699.9649838462041
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Tables/Side & End Tables"
+  }
+ },
+ {
+  "id": "CoffeeCart_01",
+  "name": "Coffee Cart 01",
+  "category": "cart",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "dimensions_m": [
+   2.1676,
+   1.0733,
+   1.7177
+  ],
+  "info": {
+   "name": "Coffee Cart 01",
+   "dimensions": [
+    2167.636811733246,
+    1073.2900500297546,
+    1717.6724136807024
+   ],
+   "authors": {
+    "Joe Seabuhr": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Storage Furniture/Carts & Trolleys"
+  }
+ },
+ {
+  "id": "CoffeeTable_01",
+  "name": "Coffee Table 01",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   1.54,
+   0.9728,
+   0.5232
+  ],
+  "info": {
+   "name": "Coffee Table 01",
+   "dimensions": [
+    1540.0111079216003,
+    972.847044467926,
+    523.237330140546
+   ],
+   "authors": {
+    "Fernando Quinn": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "Drill_01",
+  "name": "Drill 01",
+  "category": "power_drill",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Power Tools/Drills",
+  "dimensions_m": [
+   0.1829,
+   0.0524,
+   0.1851
+  ],
+  "info": {
+   "name": "Drill 01",
+   "dimensions": [
+    182.8799918293953,
+    52.41549015045166,
+    185.06235629320145
+   ],
+   "authors": {
+    "Fernando Quinn": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Tools & Equipment/Power Tools/Drills"
+  }
+ },
+ {
+  "id": "GothicBed_01",
+  "name": "Gothic Bed 01",
+  "category": "bed",
+  "placement": "floor",
+  "category_path": "Furniture/Beds",
+  "dimensions_m": [
+   1.4938,
+   2.04,
+   1.5338
+  ],
+  "info": {
+   "name": "Gothic Bed 01",
+   "dimensions": [
+    1493.751883506775,
+    2039.9999022483826,
+    1533.8402975614968
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Beds"
+  }
+ },
+ {
+  "id": "GothicCabinet_01",
+  "name": "Gothic Cabinet 01",
+  "category": "cabinet",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "dimensions_m": [
+   1.7191,
+   1.1287,
+   2.3609
+  ],
+  "info": {
+   "name": "Gothic Cabinet 01",
+   "dimensions": [
+    1719.1437482833862,
+    1128.6656260490417,
+    2360.900953424988
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Storage Furniture/Cabinets & Cupboards"
+  }
+ },
+ {
+  "id": "GothicCommode_01",
+  "name": "Gothic Commode 01",
+  "category": "dresser",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Drawers & Dressers",
+  "dimensions_m": [
+   1.2014,
+   0.5807,
+   1.212
+  ],
+  "info": {
+   "name": "Gothic Commode 01",
+   "dimensions": [
+    1201.4026641845703,
+    580.6596577167511,
+    1212.042630148815
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Storage Furniture/Drawers & Dressers"
+  }
+ },
+ {
+  "id": "GreenChair_01",
+  "name": "Green Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.6731,
+   0.6644,
+   1.0585
+  ],
+  "info": {
+   "name": "Green Chair 01",
+   "dimensions": [
+    673.0944514274597,
+    664.3875539302826,
+    1058.5118799936026
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "Megaphone_01",
+  "name": "Megaphone 01",
+  "category": "handheld_device",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Handheld Devices",
+  "dimensions_m": [
+   0.3707,
+   0.2285,
+   0.3001
+  ],
+  "info": {
+   "name": "Megaphone 01",
+   "dimensions": [
+    370.6655204296112,
+    228.45355421304703,
+    300.07804185152054
+   ],
+   "authors": {
+    "Ethan Simon-Law": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Electronics & Appliances/Devices & Instruments/Handheld Devices"
+  }
+ },
+ {
+  "id": "Ottoman_01",
+  "name": "Ottoman 01",
+  "category": "ottoman",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Ottomans & Footstools",
+  "dimensions_m": [
+   0.8846,
+   0.6211,
+   0.6243
+  ],
+  "info": {
+   "name": "Ottoman 01",
+   "dimensions": [
+    884.5577836036682,
+    621.1484670639038,
+    624.3239195573551
+   ],
+   "authors": {
+    "Caspian Fortune": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Seating/Ottomans & Footstools"
+  }
+ },
+ {
+  "id": "Rockingchair_01",
+  "name": "Rockingchair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.7081,
+   0.8335,
+   0.9949
+  ],
+  "info": {
+   "name": "Rockingchair 01",
+   "dimensions": [
+    708.1280946731567,
+    833.482027053833,
+    994.9284568428993
+   ],
+   "authors": {
+    "Jorge Camacho": "All"
+   },
+   "date_published": 1588208147,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "SchoolChair_01",
+  "name": "School Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.5659,
+   0.6753,
+   1.006
+  ],
+  "info": {
+   "name": "School Chair 01",
+   "dimensions": [
+    565.8532977104187,
+    675.2548813819885,
+    1006.035539903678
+   ],
+   "authors": {
+    "Ethan Place": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "SchoolDesk_01",
+  "name": "School Desk 01",
+  "category": "desk",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Desks",
+  "dimensions_m": [
+   0.7118,
+   0.546,
+   0.8826
+  ],
+  "info": {
+   "name": "School Desk 01",
+   "dimensions": [
+    711.7760181427002,
+    545.9675788879395,
+    882.6298794883769
+   ],
+   "authors": {
+    "Ethan Place": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Tables/Desks"
+  }
+ },
+ {
+  "id": "Shelf_01",
+  "name": "Shelf 01",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   1.0034,
+   0.257,
+   2.0803
+  ],
+  "info": {
+   "name": "Shelf 01",
+   "dimensions": [
+    1003.443717956543,
+    256.9795063869833,
+    2080.310344696045
+   ],
+   "authors": {
+    "Gabriel Radić": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "Sofa_01",
+  "name": "Sofa 01",
+  "category": "sofa",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "dimensions_m": [
+   1.5715,
+   0.658,
+   0.7965
+  ],
+  "info": {
+   "name": "Sofa 01",
+   "dimensions": [
+    1571.4675784111023,
+    658.0145359039307,
+    796.515051391907
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Seating/Sofas & Couches"
+  }
+ },
+ {
+  "id": "Television_01",
+  "name": "Television 01",
+  "category": "television",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Audio & Video/Televisions",
+  "dimensions_m": [
+   0.6,
+   0.4708,
+   0.4568
+  ],
+  "info": {
+   "name": "Television 01",
+   "dimensions": [
+    599.9999642372131,
+    470.8106815814972,
+    456.84892892313655
+   ],
+   "authors": {
+    "Gabriel Radić": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Electronics & Appliances/Audio & Video/Televisions"
+  }
+ },
+ {
+  "id": "Ukulele_01",
+  "name": "Ukulele 01",
+  "category": "string_instrument",
+  "placement": "surface",
+  "category_path": "Leisure/Musical Instruments/String Instruments",
+  "dimensions_m": [
+   0.1779,
+   0.0508,
+   0.527
+  ],
+  "info": {
+   "name": "Ukulele 01",
+   "dimensions": [
+    177.8610646724701,
+    50.76222866773605,
+    526.9626826047897
+   ],
+   "authors": {
+    "Joseph Burgan": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Leisure/Musical Instruments/String Instruments"
+  }
+ },
+ {
+  "id": "WoodenChair_01",
+  "name": "Wooden Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.6882,
+   0.6585,
+   2.2735
+  ],
+  "info": {
+   "name": "Wooden Chair 01",
+   "dimensions": [
+    688.1728172302246,
+    658.4618389606476,
+    2273.514856118709
+   ],
+   "authors": {
+    "Jake Mobley": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "WoodenTable_01",
+  "name": "Wooden Table 01",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   1.7996,
+   0.6572,
+   0.5488
+  ],
+  "info": {
+   "name": "Wooden Table 01",
+   "dimensions": [
+    1799.6479272842407,
+    657.1746468544006,
+    548.8492709302584
+   ],
+   "authors": {
+    "Ethan Place": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "WoodenTable_02",
+  "name": "Wooden Table 02",
+  "category": "side_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "dimensions_m": [
+   0.3007,
+   0.3007,
+   0.4177
+  ],
+  "info": {
+   "name": "Wooden Table 02",
+   "dimensions": [
+    300.67646503448486,
+    300.67646503448486,
+    417.6570537537643
+   ],
+   "authors": {
+    "Fran Calvente": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Tables/Side & End Tables"
+  }
+ },
+ {
+  "id": "WoodenTable_03",
+  "name": "Wooden Table 03",
+  "category": "sideboard",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Sideboards",
+  "dimensions_m": [
+   1.3269,
+   0.5617,
+   0.8301
+  ],
+  "info": {
+   "name": "Wooden Table 03",
+   "dimensions": [
+    1326.8529176712036,
+    561.7093443870544,
+    830.0816416740417
+   ],
+   "authors": {
+    "Gabriel Radić": "All"
+   },
+   "date_published": 1585605600,
+   "category": "Furniture/Storage Furniture/Sideboards"
+  }
+ },
+ {
+  "id": "adjustable_wrench",
+  "name": "Adjustable Wrench",
+  "category": "wrench",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "dimensions_m": [
+   0.0683,
+   0.0306,
+   0.2541
+  ],
+  "info": {
+   "name": "Adjustable Wrench",
+   "dimensions": [
+    68.34418512880802,
+    30.590344220399857,
+    254.1303038597107
+   ],
+   "authors": {
+    "Mateusz Sadek": "All"
+   },
+   "date_published": 1782777600,
+   "category": "Tools & Equipment/Hand Tools/Wrenches & Spanners"
+  }
+ },
+ {
+  "id": "american_football",
+  "name": "American Football",
+  "category": "ball",
+  "placement": "floor",
+  "category_path": "Leisure/Sports/Balls",
+  "dimensions_m": [
+   0.4533,
+   0.2558,
+   0.2558
+  ],
+  "info": {
+   "name": "American Football",
+   "dimensions": [
+    453.26216518878937,
+    255.84320724010468,
+    255.84322214126587
+   ],
+   "authors": {
+    "Riley Queen": "All"
+   },
+   "date_published": 1701475200,
+   "category": "Leisure/Sports/Balls"
+  }
+ },
+ {
+  "id": "ammo_box",
+  "name": "Ammo Box",
+  "category": "military_crate",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Military Crates",
+  "dimensions_m": [
+   0.0866,
+   0.2579,
+   0.1775
+  ],
+  "info": {
+   "name": "Ammo Box",
+   "dimensions": [
+    86.56343817710876,
+    257.8783482313156,
+    177.47706174850464
+   ],
+   "authors": {
+    "DanKit": "All"
+   },
+   "date_published": 1781827200,
+   "category": "Containers & Storage/Boxes & Crates/Military Crates"
+  }
+ },
+ {
+  "id": "antique_ceramic_vase_01",
+  "name": "Antique Ceramic Vase 01",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "dimensions_m": [
+   0.255,
+   0.255,
+   0.4396
+  ],
+  "info": {
+   "name": "Antique Ceramic Vase 01",
+   "dimensions": [
+    255.02996146678925,
+    255.02994656562805,
+    439.553053722193
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767593,
+   "category": "Decor & Art/Vases & Vessels/Ceramic Vases"
+  }
+ },
+ {
+  "id": "bar_chair_round_01",
+  "name": "Bar Chair Round 01",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.4832,
+   0.486,
+   0.7505
+  ],
+  "info": {
+   "name": "Bar Chair Round 01",
+   "dimensions": [
+    483.1501990556717,
+    485.99570989608765,
+    750.5484623070515
+   ],
+   "authors": {
+    "Dairon Sanchez": "All"
+   },
+   "date_published": 1639094400,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "barrel_03",
+  "name": "Barrel 03",
+  "category": "metal_drum",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Barrels & Drums/Metal Drums",
+  "dimensions_m": [
+   0.6339,
+   0.6386,
+   0.9305
+  ],
+  "info": {
+   "name": "Barrel 03",
+   "dimensions": [
+    633.943498134613,
+    638.5995149612427,
+    930.4736243899824
+   ],
+   "authors": {
+    "Serhii Khromov": "All"
+   },
+   "date_published": 1632268800,
+   "category": "Containers & Storage/Barrels & Drums/Metal Drums"
+  }
+ },
+ {
+  "id": "barrel_stove",
+  "name": "Barrel Stove",
+  "category": "stove",
+  "placement": "floor",
+  "category_path": "Electronics & Appliances/Home Appliances/Stoves & Heaters",
+  "dimensions_m": [
+   0.5993,
+   0.5981,
+   0.8556
+  ],
+  "info": {
+   "name": "Barrel Stove",
+   "dimensions": [
+    599.3210971355438,
+    598.1101393699646,
+    855.6039333343506
+   ],
+   "authors": {
+    "MP": "All"
+   },
+   "date_published": 1698969600,
+   "category": "Electronics & Appliances/Home Appliances/Stoves & Heaters"
+  }
+ },
+ {
+  "id": "baseball_01",
+  "name": "Baseball 01",
+  "category": "ball",
+  "placement": "floor",
+  "category_path": "Leisure/Sports/Balls",
+  "dimensions_m": [
+   0.074,
+   0.0754,
+   0.0756
+  ],
+  "info": {
+   "name": "Baseball 01",
+   "dimensions": [
+    73.97906854748726,
+    75.37996023893356,
+    75.57932659983635
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1623767596,
+   "category": "Leisure/Sports/Balls"
+  }
+ },
+ {
+  "id": "baseball_bat",
+  "name": "Baseball Bat",
+  "category": "sports_bat",
+  "placement": "floor",
+  "category_path": "Leisure/Sports/Bats & Rackets",
+  "dimensions_m": [
+   0.0635,
+   0.0635,
+   0.9132
+  ],
+  "info": {
+   "name": "Baseball Bat",
+   "dimensions": [
+    63.5339580476284,
+    63.53400647640228,
+    913.1987690925598
+   ],
+   "authors": {
+    "Enrique Martín": "All"
+   },
+   "date_published": 1701993600,
+   "category": "Leisure/Sports/Bats & Rackets"
+  }
+ },
+ {
+  "id": "bleach_bottle",
+  "name": "Bleach Bottle",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "dimensions_m": [
+   0.0884,
+   0.0612,
+   0.2937
+  ],
+  "info": {
+   "name": "Bleach Bottle",
+   "dimensions": [
+    88.39113637804985,
+    61.21089309453964,
+    293.7394976615906
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1682467200,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles"
+  }
+ },
+ {
+  "id": "bolt_cutters_01",
+  "name": "Bolt Cutters 01",
+  "category": "saw",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Saws & Cutting",
+  "dimensions_m": [
+   0.2807,
+   0.036,
+   0.9376
+  ],
+  "info": {
+   "name": "Bolt Cutters 01",
+   "dimensions": [
+    280.6978076696396,
+    36.02746408432722,
+    937.6180171966553
+   ],
+   "authors": {
+    "Yann Kervran": "Rigging",
+    "Antanas Kep": "Modeling & Texturing"
+   },
+   "date_published": 1669939200,
+   "category": "Tools & Equipment/Hand Tools/Saws & Cutting"
+  }
+ },
+ {
+  "id": "book_encyclopedia_set_01",
+  "name": "Book Encyclopedia Set 01",
+  "category": "book_set",
+  "placement": "surface",
+  "category_path": "Office & Stationery/Books & Documents/Books",
+  "dimensions_m": [
+   0.5513,
+   0.1631,
+   0.2374
+  ],
+  "info": {
+   "name": "Book Encyclopedia Set 01",
+   "dimensions": [
+    551.2974057346582,
+    163.06233406066895,
+    237.41818653931634
+   ],
+   "authors": {
+    "John Malcolm": "All"
+   },
+   "date_published": 1623767600,
+   "category": "Office & Stationery/Books & Documents/Books"
+  }
+ },
+ {
+  "id": "brass_blowtorch",
+  "name": "Brass Blowtorch",
+  "category": "blowtorch",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Workshop Equipment/Torches & Burners",
+  "dimensions_m": [
+   0.1294,
+   0.2593,
+   0.2106
+  ],
+  "info": {
+   "name": "Brass Blowtorch",
+   "dimensions": [
+    129.4436901807785,
+    259.2874839901924,
+    210.61663329601288
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1754006400,
+   "category": "Tools & Equipment/Workshop Equipment/Torches & Burners"
+  }
+ },
+ {
+  "id": "brass_goblets",
+  "name": "Brass Goblets",
+  "category": "goblet",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Tableware/Cups & Goblets",
+  "dimensions_m": [
+   0.4534,
+   0.2976,
+   0.2734
+  ],
+  "info": {
+   "name": "Brass Goblets",
+   "dimensions": [
+    453.39466631412506,
+    297.6139709353447,
+    273.377850651741
+   ],
+   "authors": {
+    "Tina": "All"
+   },
+   "date_published": 1702684800,
+   "category": "Food & Kitchen/Tableware/Cups & Goblets"
+  }
+ },
+ {
+  "id": "brass_pan_01",
+  "name": "Brass Pan 01",
+  "category": "cookware",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "dimensions_m": [
+   0.1913,
+   0.4497,
+   0.0525
+  ],
+  "info": {
+   "name": "Brass Pan 01",
+   "dimensions": [
+    191.2703588604927,
+    449.6646225452423,
+    52.509385510347784
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1659657600,
+   "category": "Food & Kitchen/Cookware/Pots & Pans"
+  }
+ },
+ {
+  "id": "brass_pot_01",
+  "name": "Brass Pot 01",
+  "category": "cookware",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "dimensions_m": [
+   0.3019,
+   0.3017,
+   0.2909
+  ],
+  "info": {
+   "name": "Brass Pot 01",
+   "dimensions": [
+    301.94565653800964,
+    301.69259011745453,
+    290.94765486661345
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1656633600,
+   "category": "Food & Kitchen/Cookware/Pots & Pans"
+  }
+ },
+ {
+  "id": "brass_pot_02",
+  "name": "Brass Pot 02",
+  "category": "cookware",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "dimensions_m": [
+   0.3667,
+   0.3023,
+   0.1085
+  ],
+  "info": {
+   "name": "Brass Pot 02",
+   "dimensions": [
+    366.66905879974365,
+    302.2904098033905,
+    108.54637622833252
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1657065600,
+   "category": "Food & Kitchen/Cookware/Pots & Pans"
+  }
+ },
+ {
+  "id": "brass_vase_01",
+  "name": "Brass Vase 01",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "dimensions_m": [
+   0.2273,
+   0.2273,
+   0.6925
+  ],
+  "info": {
+   "name": "Brass Vase 01",
+   "dimensions": [
+    227.3191586136818,
+    227.31918096542358,
+    692.4719526432455
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1629936000,
+   "category": "Decor & Art/Vases & Vessels/Metal Vases"
+  }
+ },
+ {
+  "id": "brass_vase_02",
+  "name": "Brass Vase 02",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "dimensions_m": [
+   0.2102,
+   0.2102,
+   0.5286
+  ],
+  "info": {
+   "name": "Brass Vase 02",
+   "dimensions": [
+    210.23856103420258,
+    210.2375626564026,
+    528.6410981789231
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1637107200,
+   "category": "Decor & Art/Vases & Vessels/Metal Vases"
+  }
+ },
+ {
+  "id": "brass_vase_03",
+  "name": "Brass Vase 03",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "dimensions_m": [
+   0.0825,
+   0.0825,
+   0.2004
+  ],
+  "info": {
+   "name": "Brass Vase 03",
+   "dimensions": [
+    82.50189200043678,
+    82.50195905566216,
+    200.36906062159687
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1644537600,
+   "category": "Decor & Art/Vases & Vessels/Metal Vases"
+  }
+ },
+ {
+  "id": "brass_vase_04",
+  "name": "Brass Vase 04",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "dimensions_m": [
+   0.082,
+   0.061,
+   0.1703
+  ],
+  "info": {
+   "name": "Brass Vase 04",
+   "dimensions": [
+    81.96411095559597,
+    61.04915961623192,
+    170.27275305736111
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1635897600,
+   "category": "Decor & Art/Vases & Vessels/Metal Vases"
+  }
+ },
+ {
+  "id": "bull_head",
+  "name": "Bull Head",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "dimensions_m": [
+   0.3064,
+   0.2807,
+   0.433
+  ],
+  "info": {
+   "name": "Bull Head",
+   "dimensions": [
+    306.3598871231079,
+    280.7491421699524,
+    433.00686348811723
+   ],
+   "authors": {
+    "Tina": "All"
+   },
+   "date_published": 1739145600,
+   "category": "Decor & Art/Sculptures & Figurines/Animal Figures"
+  }
+ },
+ {
+  "id": "bunsen_burner",
+  "name": "Bunsen Burner",
+  "category": "lab_equipment",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Lab Equipment",
+  "dimensions_m": [
+   0.1389,
+   0.1389,
+   0.1731
+  ],
+  "info": {
+   "name": "Bunsen Burner",
+   "dimensions": [
+    138.89388740062714,
+    138.89388740062714,
+    173.1255203485489
+   ],
+   "authors": {
+    "BKS": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Electronics & Appliances/Devices & Instruments/Lab Equipment"
+  }
+ },
+ {
+  "id": "can_rusted",
+  "name": "Can Rusted",
+  "category": "tin_can",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Tins",
+  "dimensions_m": [
+   0.1245,
+   0.1247,
+   0.1514
+  ],
+  "info": {
+   "name": "Can Rusted",
+   "dimensions": [
+    124.53292682766914,
+    124.67572093009949,
+    151.37778513599187
+   ],
+   "authors": {
+    "Rahul Chaudhary": "All"
+   },
+   "date_published": 1676851200,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Tins"
+  }
+ },
+ {
+  "id": "cardboard_box_01",
+  "name": "Cardboard Box 01",
+  "category": "cardboard_box",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Cardboard Boxes",
+  "dimensions_m": [
+   0.387,
+   0.5159,
+   0.3418
+  ],
+  "info": {
+   "name": "Cardboard Box 01",
+   "dimensions": [
+    387.02359795570374,
+    515.8704221248627,
+    341.7995423078537
+   ],
+   "authors": {
+    "Rahul Chaudhary": "All"
+   },
+   "date_published": 1671148800,
+   "category": "Containers & Storage/Boxes & Crates/Cardboard Boxes"
+  }
+ },
+ {
+  "id": "carrot_cake",
+  "name": "Carrot Cake",
+  "category": "cake",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Prepared Food/Cakes & Pastries",
+  "dimensions_m": [
+   0.2254,
+   0.2254,
+   0.0976
+  ],
+  "info": {
+   "name": "Carrot Cake",
+   "dimensions": [
+    225.42137652635574,
+    225.38353502750397,
+    97.57296415045857
+   ],
+   "authors": {
+    "Greg Zaal": "photography",
+    "James Ray Cock": "processing"
+   },
+   "date_published": 1660694400,
+   "category": "Food & Kitchen/Prepared Food/Cakes & Pastries"
+  }
+ },
+ {
+  "id": "carved_wooden_elephant",
+  "name": "Carved Wooden Elephant",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "dimensions_m": [
+   0.1092,
+   0.0576,
+   0.0962
+  ],
+  "info": {
+   "name": "Carved Wooden Elephant",
+   "dimensions": [
+    109.18296501040459,
+    57.556506246328354,
+    96.15053108427674
+   ],
+   "authors": {
+    "Greg Zaal": "All"
+   },
+   "date_published": 1643760000,
+   "category": "Decor & Art/Sculptures & Figurines/Animal Figures"
+  }
+ },
+ {
+  "id": "carved_wooden_plate",
+  "name": "Carved Wooden Plate",
+  "category": "plate",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Tableware/Plates",
+  "dimensions_m": [
+   0.2718,
+   0.2688,
+   0.0381
+  ],
+  "info": {
+   "name": "Carved Wooden Plate",
+   "dimensions": [
+    271.8309164047241,
+    268.7795162200928,
+    38.11051766388118
+   ],
+   "authors": {
+    "Jan Martens": "All"
+   },
+   "date_published": 1698451200,
+   "category": "Food & Kitchen/Tableware/Plates"
+  }
+ },
+ {
+  "id": "cement_bag",
+  "name": "Cement Bag",
+  "category": "sack",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Bags/Sacks",
+  "dimensions_m": [
+   0.4625,
+   0.6996,
+   0.1799
+  ],
+  "info": {
+   "name": "Cement Bag",
+   "dimensions": [
+    462.4738246202469,
+    699.5841264724731,
+    179.9098700284958
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1780911023,
+   "category": "Containers & Storage/Bags/Sacks"
+  }
+ },
+ {
+  "id": "ceramic_vase_01",
+  "name": "Ceramic Vase 01",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "dimensions_m": [
+   0.2049,
+   0.2064,
+   0.4014
+  ],
+  "info": {
+   "name": "Ceramic Vase 01",
+   "dimensions": [
+    204.87193763256073,
+    206.37669414281845,
+    401.379804010503
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767601,
+   "category": "Decor & Art/Vases & Vessels/Ceramic Vases"
+  }
+ },
+ {
+  "id": "ceramic_vase_02",
+  "name": "Ceramic Vase 02",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "dimensions_m": [
+   0.2198,
+   0.2215,
+   0.3093
+  ],
+  "info": {
+   "name": "Ceramic Vase 02",
+   "dimensions": [
+    219.83815729618073,
+    221.4527726173401,
+    309.2874630820006
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767604,
+   "category": "Decor & Art/Vases & Vessels/Ceramic Vases"
+  }
+ },
+ {
+  "id": "ceramic_vase_03",
+  "name": "Ceramic Vase 03",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "dimensions_m": [
+   0.1125,
+   0.1125,
+   0.4144
+  ],
+  "info": {
+   "name": "Ceramic Vase 03",
+   "dimensions": [
+    112.45502531528473,
+    112.45502158999443,
+    414.438920259272
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767605,
+   "category": "Decor & Art/Vases & Vessels/Ceramic Vases"
+  }
+ },
+ {
+  "id": "ceramic_vase_04",
+  "name": "Ceramic Vase 04",
+  "category": "vase",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "dimensions_m": [
+   0.1833,
+   0.182,
+   0.3423
+  ],
+  "info": {
+   "name": "Ceramic Vase 04",
+   "dimensions": [
+    183.31684917211533,
+    181.98027461767197,
+    342.3411250114441
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767607,
+   "category": "Decor & Art/Vases & Vessels/Ceramic Vases"
+  }
+ },
+ {
+  "id": "chess_set",
+  "name": "Chess Set",
+  "category": "board_game",
+  "placement": "surface",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "dimensions_m": [
+   0.5532,
+   0.5532,
+   0.1124
+  ],
+  "info": {
+   "name": "Chess Set",
+   "dimensions": [
+    553.2379746437073,
+    553.2379746437073,
+    112.3529537471768
+   ],
+   "authors": {
+    "Riley Queen": "All"
+   },
+   "date_published": 1684886400,
+   "category": "Leisure/Games & Toys/Board Games"
+  }
+ },
+ {
+  "id": "chinese_armchair",
+  "name": "Chinese Armchair",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.8483,
+   0.7887,
+   1.5875
+  ],
+  "info": {
+   "name": "Chinese Armchair",
+   "dimensions": [
+    848.2747673988342,
+    788.6627614498138,
+    1587.4828653213626
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1717977600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "chinese_cabinet",
+  "name": "Chinese Cabinet",
+  "category": "cabinet",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "dimensions_m": [
+   1.2625,
+   0.5452,
+   2.8721
+  ],
+  "info": {
+   "name": "Chinese Cabinet",
+   "dimensions": [
+    1262.4960541725159,
+    545.2098548412323,
+    2872.0987772358058
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1719187200,
+   "category": "Furniture/Storage Furniture/Cabinets & Cupboards"
+  }
+ },
+ {
+  "id": "chinese_commode",
+  "name": "Chinese Commode",
+  "category": "cabinet",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "dimensions_m": [
+   4.4905,
+   1.1699,
+   2.0199
+  ],
+  "info": {
+   "name": "Chinese Commode",
+   "dimensions": [
+    4490.48638343811,
+    1169.9001789093018,
+    2019.874095916748
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1720137600,
+   "category": "Furniture/Storage Furniture/Cabinets & Cupboards"
+  }
+ },
+ {
+  "id": "chinese_console_table",
+  "name": "Chinese Console Table",
+  "category": "console_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Console Tables",
+  "dimensions_m": [
+   1.7196,
+   0.3388,
+   0.6607
+  ],
+  "info": {
+   "name": "Chinese Console Table",
+   "dimensions": [
+    1719.6246981620789,
+    338.7930691242218,
+    660.7421338558197
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1718755200,
+   "category": "Furniture/Tables/Console Tables"
+  }
+ },
+ {
+  "id": "chinese_screen_panels",
+  "name": "Chinese Screen Panels",
+  "category": "room_divider",
+  "placement": "floor",
+  "category_path": "Decor & Art/Ornaments/Room Dividers & Screens",
+  "dimensions_m": [
+   1.294,
+   0.3769,
+   1.6031
+  ],
+  "info": {
+   "name": "Chinese Screen Panels",
+   "dimensions": [
+    1293.9677834510803,
+    376.891165971756,
+    1603.1262874603271
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1718928000,
+   "category": "Decor & Art/Ornaments/Room Dividers & Screens"
+  }
+ },
+ {
+  "id": "chinese_sofa",
+  "name": "Chinese Sofa",
+  "category": "sofa",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "dimensions_m": [
+   2.2854,
+   0.9689,
+   0.86
+  ],
+  "info": {
+   "name": "Chinese Sofa",
+   "dimensions": [
+    2285.4329347610474,
+    968.8513875007629,
+    860.0191126264232
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1720396800,
+   "category": "Furniture/Seating/Sofas & Couches"
+  }
+ },
+ {
+  "id": "chinese_stool",
+  "name": "Chinese Stool",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.599,
+   0.5064,
+   0.6306
+  ],
+  "info": {
+   "name": "Chinese Stool",
+   "dimensions": [
+    598.9732146263123,
+    506.40586018562317,
+    630.5584987724009
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1718323200,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "chinese_tea_table",
+  "name": "Chinese Tea Table",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   0.8413,
+   0.8356,
+   0.4986
+  ],
+  "info": {
+   "name": "Chinese Tea Table",
+   "dimensions": [
+    841.3148820400238,
+    835.6219828128815,
+    498.6410439014435
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1719532800,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "cigarette_pack",
+  "name": "Cigarette Pack",
+  "category": "smoking_accessory",
+  "placement": "surface",
+  "category_path": "Apparel & Personal Items/Accessories/Smoking Accessories",
+  "dimensions_m": [
+   0.0556,
+   0.0295,
+   0.1027
+  ],
+  "info": {
+   "name": "Cigarette Pack",
+   "dimensions": [
+    55.60000613331795,
+    29.485042206943035,
+    102.71518916124478
+   ],
+   "authors": {
+    "Ulrich Büch": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Apparel & Personal Items/Accessories/Smoking Accessories"
+  }
+ },
+ {
+  "id": "classic_laptop",
+  "name": "Classic Laptop",
+  "category": "computer",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Computing/Computers",
+  "dimensions_m": [
+   0.6519,
+   0.4859,
+   0.5428
+  ],
+  "info": {
+   "name": "Classic Laptop",
+   "dimensions": [
+    651.9346237182617,
+    485.9423041343689,
+    542.8108091000468
+   ],
+   "authors": {
+    "Arrangemonk": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Electronics & Appliances/Computing/Computers"
+  }
+ },
+ {
+  "id": "clipboard",
+  "name": "Clipboard",
+  "category": "clipboard",
+  "placement": "surface",
+  "category_path": "Office & Stationery/Stationery & Supplies/Clipboards & Boards",
+  "dimensions_m": [
+   0.2286,
+   0.3366,
+   0.042
+  ],
+  "info": {
+   "name": "Clipboard",
+   "dimensions": [
+    228.6001443862915,
+    336.55010163784027,
+    41.990341851487756
+   ],
+   "authors": {
+    "ProgrammerOnCoffee": "All"
+   },
+   "date_published": 1782777600,
+   "category": "Office & Stationery/Stationery & Supplies/Clipboards & Boards"
+  }
+ },
+ {
+  "id": "coffee_table_round_01",
+  "name": "Coffee Table Round 01",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   1.3013,
+   1.3013,
+   0.491
+  ],
+  "info": {
+   "name": "Coffee Table Round 01",
+   "dimensions": [
+    1301.3009428977966,
+    1301.3015985488892,
+    491.0094439983368
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1637884800,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "combination_wrench",
+  "name": "Combination Wrench",
+  "category": "wrench",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "dimensions_m": [
+   0.0566,
+   0.337,
+   0.0215
+  ],
+  "info": {
+   "name": "Combination Wrench",
+   "dimensions": [
+    56.58109299838543,
+    336.9841277599335,
+    21.513011306524277
+   ],
+   "authors": {
+    "BKS": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Tools & Equipment/Hand Tools/Wrenches & Spanners"
+  }
+ },
+ {
+  "id": "compost_bag_02",
+  "name": "Compost Bag 02",
+  "category": "garden_bag",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Bags/Garden & Compost Bags",
+  "dimensions_m": [
+   0.5393,
+   0.4705,
+   0.4337
+  ],
+  "info": {
+   "name": "Compost Bag 02",
+   "dimensions": [
+    539.3457114696503,
+    470.53681313991547,
+    433.6617160588503
+   ],
+   "authors": {
+    "Satyaki Mandal": "All"
+   },
+   "date_published": 1678838400,
+   "category": "Containers & Storage/Bags/Garden & Compost Bags"
+  }
+ },
+ {
+  "id": "concrete_cat_statue",
+  "name": "Concrete Cat Statue",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "dimensions_m": [
+   0.153,
+   0.25,
+   0.283
+  ],
+  "info": {
+   "name": "Concrete Cat Statue",
+   "dimensions": [
+    152.97183394432068,
+    250.0000149011612,
+    283.0095653557052
+   ],
+   "authors": {
+    "Rico Cilliers": "Guidance",
+    "Riley Queen": "All"
+   },
+   "date_published": 1688947200,
+   "category": "Decor & Art/Sculptures & Figurines/Animal Figures"
+  }
+ },
+ {
+  "id": "croissant",
+  "name": "Croissant",
+  "category": "cake",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Prepared Food/Cakes & Pastries",
+  "dimensions_m": [
+   0.2,
+   0.0755,
+   0.062
+  ],
+  "info": {
+   "name": "Croissant",
+   "dimensions": [
+    200.00000298023224,
+    75.51151886582375,
+    61.99566961731762
+   ],
+   "authors": {
+    "Greg Zaal": "Processing",
+    "Dario Barresi": "Scanning"
+   },
+   "date_published": 1659916800,
+   "category": "Food & Kitchen/Prepared Food/Cakes & Pastries"
+  }
+ },
+ {
+  "id": "cross_pein_hammer",
+  "name": "Cross Pein Hammer",
+  "category": "hammer",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Hammers & Mallets",
+  "dimensions_m": [
+   0.0991,
+   0.0243,
+   0.3002
+  ],
+  "info": {
+   "name": "Cross Pein Hammer",
+   "dimensions": [
+    99.07165542244911,
+    24.275743402540684,
+    300.2498894929886
+   ],
+   "authors": {
+    "Tics": "All"
+   },
+   "date_published": 1774015324,
+   "category": "Tools & Equipment/Hand Tools/Hammers & Mallets"
+  }
+ },
+ {
+  "id": "crowbar_01",
+  "name": "Crowbar 01",
+  "category": "crowbar",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Hand Tools/Pry Bars",
+  "dimensions_m": [
+   0.0404,
+   0.1276,
+   0.5554
+  ],
+  "info": {
+   "name": "Crowbar 01",
+   "dimensions": [
+    40.41172005236149,
+    127.58862972259521,
+    555.3637742996216
+   ],
+   "authors": {
+    "Alexander Otterbeck": "All"
+   },
+   "date_published": 1674777600,
+   "category": "Tools & Equipment/Hand Tools/Pry Bars"
+  }
+ },
+ {
+  "id": "dartboard",
+  "name": "Dartboard",
+  "category": "board_game",
+  "placement": "surface",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "dimensions_m": [
+   0.4507,
+   0.0398,
+   0.4507
+  ],
+  "info": {
+   "name": "Dartboard",
+   "dimensions": [
+    450.6962299346924,
+    39.77856128316404,
+    450.6962150335312
+   ],
+   "authors": {
+    "Satyaki Mandal": "All"
+   },
+   "date_published": 1679616000,
+   "category": "Leisure/Games & Toys/Board Games"
+  }
+ },
+ {
+  "id": "dining_chair_02",
+  "name": "Dining Chair 02",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.4336,
+   0.5764,
+   0.9734
+  ],
+  "info": {
+   "name": "Dining Chair 02",
+   "dimensions": [
+    433.5707724094391,
+    576.4201134443283,
+    973.3776897192001
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767234,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "dining_table",
+  "name": "Dining Table",
+  "category": "dining_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "dimensions_m": [
+   2.2559,
+   1.3902,
+   0.877
+  ],
+  "info": {
+   "name": "Dining Table",
+   "dimensions": [
+    2255.895972251892,
+    1390.2360200881958,
+    876.989221200347
+   ],
+   "authors": {
+    "Aron Łyczek": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Furniture/Tables/Dining Tables"
+  }
+ },
+ {
+  "id": "drain_cleaner",
+  "name": "Drain Cleaner",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "dimensions_m": [
+   0.1654,
+   0.0563,
+   0.1786
+  ],
+  "info": {
+   "name": "Drain Cleaner",
+   "dimensions": [
+    165.39714485406876,
+    56.335341185331345,
+    178.55318179135793
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1702598400,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles"
+  }
+ },
+ {
+  "id": "drawer_cabinet",
+  "name": "Drawer Cabinet",
+  "category": "dresser",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Drawers & Dressers",
+  "dimensions_m": [
+   1.1411,
+   0.4881,
+   1.8813
+  ],
+  "info": {
+   "name": "Drawer Cabinet",
+   "dimensions": [
+    1141.0778760910034,
+    488.08445036411285,
+    1881.253957748413
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1598525497,
+   "category": "Furniture/Storage Furniture/Drawers & Dressers"
+  }
+ },
+ {
+  "id": "drill_press_01",
+  "name": "Drill Press 01",
+  "category": "workshop_machine",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Power Tools/Workshop Machines",
+  "dimensions_m": [
+   0.3659,
+   0.5988,
+   0.9016
+  ],
+  "info": {
+   "name": "Drill Press 01",
+   "dimensions": [
+    365.8628612756729,
+    598.7853109836578,
+    901.5651196241379
+   ],
+   "authors": {
+    "Viktor": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Tools & Equipment/Power Tools/Workshop Machines"
+  }
+ },
+ {
+  "id": "dustpan",
+  "name": "Dustpan",
+  "category": "dustpan",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Garden Tools/Brooms & Cleaning",
+  "dimensions_m": [
+   0.3321,
+   0.368,
+   0.1003
+  ],
+  "info": {
+   "name": "Dustpan",
+   "dimensions": [
+    332.10447430610657,
+    367.9768294095993,
+    100.31082824571058
+   ],
+   "authors": {
+    "Balen": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Tools & Equipment/Garden Tools/Brooms & Cleaning"
+  }
+ },
+ {
+  "id": "fishermans_hat",
+  "name": "Fishermans Hat",
+  "category": "hat",
+  "placement": "surface",
+  "category_path": "Apparel & Personal Items/Headwear",
+  "dimensions_m": [
+   0.3236,
+   0.35,
+   0.1239
+  ],
+  "info": {
+   "name": "Fishermans Hat",
+   "dimensions": [
+    323.60126078128815,
+    349.97908771038055,
+    123.94852191209793
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Apparel & Personal Items/Headwear"
+  }
+ },
+ {
+  "id": "flathead_screwdriver",
+  "name": "Flathead Screwdriver",
+  "category": "screwdriver",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Screwdrivers",
+  "dimensions_m": [
+   0.03,
+   0.03,
+   0.2613
+  ],
+  "info": {
+   "name": "Flathead Screwdriver",
+   "dimensions": [
+    30.02973645925522,
+    30.02973459661007,
+    261.29384338855743
+   ],
+   "authors": {
+    "Dylan Detwiller": "All"
+   },
+   "date_published": 1676419200,
+   "category": "Tools & Equipment/Hand Tools/Screwdrivers"
+  }
+ },
+ {
+  "id": "folding_wooden_stool",
+  "name": "Folding Wooden Stool",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.5278,
+   0.5471,
+   0.442
+  ],
+  "info": {
+   "name": "Folding Wooden Stool",
+   "dimensions": [
+    527.8338193893433,
+    547.0837950706482,
+    441.96850061416626
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1713139200,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "food_apple_01",
+  "name": "Food Apple 01",
+  "category": "fruit",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "dimensions_m": [
+   0.0976,
+   0.0959,
+   0.0854
+  ],
+  "info": {
+   "name": "Food Apple 01",
+   "dimensions": [
+    97.56118059158325,
+    95.90170904994011,
+    85.38994403897959
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1625619600,
+   "category": "Food & Kitchen/Produce/Fruit"
+  }
+ },
+ {
+  "id": "food_avocado_01",
+  "name": "Food Avocado 01",
+  "category": "fruit",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "dimensions_m": [
+   0.0952,
+   0.0946,
+   0.1432
+  ],
+  "info": {
+   "name": "Food Avocado 01",
+   "dimensions": [
+    95.18590942025185,
+    94.56679597496986,
+    143.23448191862553
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1625619600,
+   "category": "Food & Kitchen/Produce/Fruit"
+  }
+ },
+ {
+  "id": "food_ginger_01",
+  "name": "Food Ginger 01",
+  "category": "vegetable",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Vegetables",
+  "dimensions_m": [
+   0.2399,
+   0.1474,
+   0.5746
+  ],
+  "info": {
+   "name": "Food Ginger 01",
+   "dimensions": [
+    239.93631452322006,
+    147.37514406442642,
+    574.5899783214554
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1625619600,
+   "category": "Food & Kitchen/Produce/Vegetables"
+  }
+ },
+ {
+  "id": "food_kiwi_01",
+  "name": "Food Kiwi 01",
+  "category": "fruit",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "dimensions_m": [
+   0.0695,
+   0.0686,
+   0.0901
+  ],
+  "info": {
+   "name": "Food Kiwi 01",
+   "dimensions": [
+    69.51959803700447,
+    68.62715631723404,
+    90.06310164477327
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1625619600,
+   "category": "Food & Kitchen/Produce/Fruit"
+  }
+ },
+ {
+  "id": "food_lime_01",
+  "name": "Food Lime 01",
+  "category": "fruit",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "dimensions_m": [
+   0.0601,
+   0.0613,
+   0.0754
+  ],
+  "info": {
+   "name": "Food Lime 01",
+   "dimensions": [
+    60.0700993090868,
+    61.33793853223324,
+    75.4411633242853
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1625619600,
+   "category": "Food & Kitchen/Produce/Fruit"
+  }
+ },
+ {
+  "id": "food_lychee_01",
+  "name": "Food Lychee 01",
+  "category": "fruit",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "dimensions_m": [
+   0.0409,
+   0.042,
+   0.0506
+  ],
+  "info": {
+   "name": "Food Lychee 01",
+   "dimensions": [
+    40.87286256253719,
+    41.9513713568449,
+    50.59902649372816
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1625619600,
+   "category": "Food & Kitchen/Produce/Fruit"
+  }
+ },
+ {
+  "id": "food_pears_asian_01",
+  "name": "Pears Asian 01",
+  "category": "fruit",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "dimensions_m": [
+   0.1558,
+   0.1779,
+   0.1096
+  ],
+  "info": {
+   "name": "Pears Asian 01",
+   "dimensions": [
+    155.81603348255157,
+    177.93630063533783,
+    109.60551351308823
+   ],
+   "authors": {
+    "Amal Kumar": "All"
+   },
+   "date_published": 1666569600,
+   "category": "Food & Kitchen/Produce/Fruit"
+  }
+ },
+ {
+  "id": "food_pomegranate_01",
+  "name": "Food Pomegranate 01",
+  "category": "fruit",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "dimensions_m": [
+   0.1143,
+   0.1154,
+   0.115
+  ],
+  "info": {
+   "name": "Food Pomegranate 01",
+   "dimensions": [
+    114.2711341381073,
+    115.35424366593361,
+    114.9565652012825
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1625619600,
+   "category": "Food & Kitchen/Produce/Fruit"
+  }
+ },
+ {
+  "id": "gallinera_chair",
+  "name": "Gallinera Chair",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.5808,
+   0.6039,
+   1.0337
+  ],
+  "info": {
+   "name": "Gallinera Chair",
+   "dimensions": [
+    580.7991623878479,
+    603.8820147514343,
+    1033.689022064209
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1744761600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "gallinera_table",
+  "name": "Gallinera Table",
+  "category": "dining_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "dimensions_m": [
+   0.8301,
+   0.5183,
+   0.4878
+  ],
+  "info": {
+   "name": "Gallinera Table",
+   "dimensions": [
+    830.0825357437134,
+    518.291711807251,
+    487.785704433918
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1725408000,
+   "category": "Furniture/Tables/Dining Tables"
+  }
+ },
+ {
+  "id": "gamepad",
+  "name": "Gamepad",
+  "category": "handheld_device",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Handheld Devices",
+  "dimensions_m": [
+   0.4041,
+   0.435,
+   0.0189
+  ],
+  "info": {
+   "name": "Gamepad",
+   "dimensions": [
+    404.0517807006836,
+    434.9614977836609,
+    18.924321746453643
+   ],
+   "authors": {
+    "Josh Dean": "All"
+   },
+   "date_published": 1701820800,
+   "category": "Electronics & Appliances/Devices & Instruments/Handheld Devices"
+  }
+ },
+ {
+  "id": "garden_gloves_01",
+  "name": "Garden Gloves 01",
+  "category": "work_gloves",
+  "placement": "surface",
+  "category_path": "Apparel & Personal Items/Clothing & Footwear/Gloves & Workwear",
+  "dimensions_m": [
+   0.2266,
+   0.299,
+   0.076
+  ],
+  "info": {
+   "name": "Garden Gloves 01",
+   "dimensions": [
+    226.55709087848663,
+    299.04240369796753,
+    76.02626085281372
+   ],
+   "authors": {
+    "Satyaki Mandal": "All"
+   },
+   "date_published": 1672358400,
+   "category": "Apparel & Personal Items/Clothing & Footwear/Gloves & Workwear"
+  }
+ },
+ {
+  "id": "garden_gnome",
+  "name": "Garden Gnome",
+  "category": "sculpture",
+  "placement": "surface",
+  "category_path": "Decor & Art/Sculptures & Figurines/Ornamental Sculptures",
+  "dimensions_m": [
+   0.2579,
+   0.2097,
+   0.5991
+  ],
+  "info": {
+   "name": "Garden Gnome",
+   "dimensions": [
+    257.918581366539,
+    209.71597731113434,
+    599.08585294761
+   ],
+   "authors": {
+    "Bhargav Kubal": "All"
+   },
+   "date_published": 1678406400,
+   "category": "Decor & Art/Sculptures & Figurines/Ornamental Sculptures"
+  }
+ },
+ {
+  "id": "garden_hose_wall_mounted_01",
+  "name": "Garden Hose Wall Mounted 01",
+  "category": "watering_can",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Garden Tools/Watering & Irrigation",
+  "dimensions_m": [
+   0.4667,
+   0.2503,
+   0.557
+  ],
+  "info": {
+   "name": "Garden Hose Wall Mounted 01",
+   "dimensions": [
+    466.7283743619919,
+    250.3091422840953,
+    557.001918554306
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1670803200,
+   "category": "Tools & Equipment/Garden Tools/Watering & Irrigation"
+  }
+ },
+ {
+  "id": "garden_sprinkler_01",
+  "name": "Garden Sprinkler 01",
+  "category": "watering_can",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Garden Tools/Watering & Irrigation",
+  "dimensions_m": [
+   0.3596,
+   0.2491,
+   0.2156
+  ],
+  "info": {
+   "name": "Garden Sprinkler 01",
+   "dimensions": [
+    359.59315299987793,
+    249.06833469867706,
+    215.6235035508871
+   ],
+   "authors": {
+    "Amal Kumar": "All"
+   },
+   "date_published": 1674432000,
+   "category": "Tools & Equipment/Garden Tools/Watering & Irrigation"
+  }
+ },
+ {
+  "id": "gothic_coffee_table",
+  "name": "Gothic Coffee Table",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   1.4431,
+   1.4431,
+   0.5588
+  ],
+  "info": {
+   "name": "Gothic Coffee Table",
+   "dimensions": [
+    1443.0902004241943,
+    1443.0902004241943,
+    558.7729810795281
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1759881600,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "gothic_statue",
+  "name": "Gothic Statue",
+  "category": "statue",
+  "placement": "floor",
+  "category_path": "Decor & Art/Sculptures & Figurines/Busts & Human Figures",
+  "dimensions_m": [
+   1.4775,
+   1.5638,
+   1.7399
+  ],
+  "info": {
+   "name": "Gothic Statue",
+   "dimensions": [
+    1477.4640202522278,
+    1563.7580156326294,
+    1739.8978471755981
+   ],
+   "authors": {
+    "Benny Weimer": "All"
+   },
+   "date_published": 1782777600,
+   "category": "Decor & Art/Sculptures & Figurines/Busts & Human Figures"
+  }
+ },
+ {
+  "id": "hand_plane_no4",
+  "name": "Hand Plane No4",
+  "category": "hand_tool",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools",
+  "dimensions_m": [
+   0.3308,
+   0.0843,
+   0.1978
+  ],
+  "info": {
+   "name": "Hand Plane No4",
+   "dimensions": [
+    330.7979106903076,
+    84.31769162416458,
+    197.80341954901814
+   ],
+   "authors": {
+    "Satyaki Mandal": "All"
+   },
+   "date_published": 1669334400,
+   "category": "Tools & Equipment/Hand Tools"
+  }
+ },
+ {
+  "id": "hand_truck",
+  "name": "Hand Truck",
+  "category": "cart",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "dimensions_m": [
+   0.5933,
+   0.6925,
+   1.4025
+  ],
+  "info": {
+   "name": "Hand Truck",
+   "dimensions": [
+    593.2528674602509,
+    692.5271153450012,
+    1402.51275151968
+   ],
+   "authors": {
+    "Mutanzom3D": "All"
+   },
+   "date_published": 1776178726,
+   "category": "Furniture/Storage Furniture/Carts & Trolleys"
+  }
+ },
+ {
+  "id": "handsaw_wood",
+  "name": "Handsaw Wood",
+  "category": "saw",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Saws & Cutting",
+  "dimensions_m": [
+   0.0408,
+   0.633,
+   0.1665
+  ],
+  "info": {
+   "name": "Handsaw Wood",
+   "dimensions": [
+    40.833745151758194,
+    632.9791843891144,
+    166.52002930641174
+   ],
+   "authors": {
+    "Konrad Szałankiewicz": "All"
+   },
+   "date_published": 1677801600,
+   "category": "Tools & Equipment/Hand Tools/Saws & Cutting"
+  }
+ },
+ {
+  "id": "hatchet",
+  "name": "Hatchet",
+  "category": "axe",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "dimensions_m": [
+   0.026,
+   0.1043,
+   0.2887
+  ],
+  "info": {
+   "name": "Hatchet",
+   "dimensions": [
+    26.022234931588173,
+    104.27016951143742,
+    288.7292727828026
+   ],
+   "authors": {
+    "James Ray Cock": "Texturing",
+    "Ulan Cabanilla": "modeling"
+   },
+   "date_published": 1700870400,
+   "category": "Tools & Equipment/Hand Tools/Axes & Hatchets"
+  }
+ },
+ {
+  "id": "horse_head",
+  "name": "Horse Head",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "dimensions_m": [
+   0.2149,
+   0.3341,
+   0.4187
+  ],
+  "info": {
+   "name": "Horse Head",
+   "dimensions": [
+    214.92592990398407,
+    334.1144993901253,
+    418.6776154820109
+   ],
+   "authors": {
+    "Tina": "All"
+   },
+   "date_published": 1739750400,
+   "category": "Decor & Art/Sculptures & Figurines/Animal Figures"
+  }
+ },
+ {
+  "id": "industrial_coffee_table",
+  "name": "Industrial Coffee Table",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   0.7783,
+   0.7579,
+   0.6384
+  ],
+  "info": {
+   "name": "Industrial Coffee Table",
+   "dimensions": [
+    778.2644629478455,
+    757.9282224178314,
+    638.4220765778537
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1753660800,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "industrial_microscope",
+  "name": "Industrial Microscope",
+  "category": "optical_instrument",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Optical Instruments",
+  "dimensions_m": [
+   0.2145,
+   0.4981,
+   0.4617
+  ],
+  "info": {
+   "name": "Industrial Microscope",
+   "dimensions": [
+    214.53481912612915,
+    498.0906546115875,
+    461.7440301226452
+   ],
+   "authors": {
+    "Lukas Walzer": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Electronics & Appliances/Devices & Instruments/Optical Instruments"
+  }
+ },
+ {
+  "id": "industrial_pastic_container",
+  "name": "Industrial Plastic Container",
+  "category": "storage_bin",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Bins",
+  "dimensions_m": [
+   0.476,
+   0.6315,
+   0.4231
+  ],
+  "info": {
+   "name": "Industrial Plastic Container",
+   "dimensions": [
+    475.95515847206116,
+    631.4878165721893,
+    423.1307804584503
+   ],
+   "authors": {
+    "Galo Benivegna": "All"
+   },
+   "date_published": 1782777600,
+   "category": "Containers & Storage/Boxes & Crates/Bins"
+  }
+ },
+ {
+  "id": "industrial_storage_cart",
+  "name": "Industrial Storage Cart",
+  "category": "cart",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "dimensions_m": [
+   1.6033,
+   1.1027,
+   1.3774
+  ],
+  "info": {
+   "name": "Industrial Storage Cart",
+   "dimensions": [
+    1603.3486723899841,
+    1102.7454733848572,
+    1377.3844093084335
+   ],
+   "authors": {
+    "Jule Bielitz": "All"
+   },
+   "date_published": 1782777600,
+   "category": "Furniture/Storage Furniture/Carts & Trolleys"
+  }
+ },
+ {
+  "id": "jug_01",
+  "name": "Jug 01",
+  "category": "pitcher",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Tableware/Jugs & Pitchers",
+  "dimensions_m": [
+   0.2753,
+   0.1675,
+   0.2113
+  ],
+  "info": {
+   "name": "Jug 01",
+   "dimensions": [
+    275.3216624259949,
+    167.5262302160263,
+    211.31345149478875
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1661472000,
+   "category": "Food & Kitchen/Tableware/Jugs & Pitchers"
+  }
+ },
+ {
+  "id": "katana_stand_01",
+  "name": "Katana Stand 01",
+  "category": "display_stand",
+  "placement": "surface",
+  "category_path": "Decor & Art/Ornaments/Display Pieces",
+  "dimensions_m": [
+   0.2958,
+   0.0535,
+   0.1819
+  ],
+  "info": {
+   "name": "Katana Stand 01",
+   "dimensions": [
+    295.8274483680725,
+    53.46998375171097,
+    181.94599867638317
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1636675200,
+   "category": "Decor & Art/Ornaments/Display Pieces"
+  }
+ },
+ {
+  "id": "ladder_sectioned_01",
+  "name": "Ladder Sectioned 01",
+  "category": "ladder",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Workshop Equipment/Ladders",
+  "dimensions_m": [
+   0.6615,
+   0.1776,
+   2.1346
+  ],
+  "info": {
+   "name": "Ladder Sectioned 01",
+   "dimensions": [
+    661.5026593208313,
+    177.62134224176407,
+    2134.558429243043
+   ],
+   "authors": {
+    "MP": "All"
+   },
+   "date_published": 1672790400,
+   "category": "Tools & Equipment/Workshop Equipment/Ladders"
+  }
+ },
+ {
+  "id": "lambis_shell",
+  "name": "Lambis Shell",
+  "category": "decorative_object",
+  "placement": "surface",
+  "category_path": "Decor & Art/Ornaments/Decorative Objects",
+  "dimensions_m": [
+   0.1395,
+   0.0745,
+   0.0465
+  ],
+  "info": {
+   "name": "Lambis Shell",
+   "dimensions": [
+    139.482282102108,
+    74.54298064112663,
+    46.51167347037699
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1720742400,
+   "category": "Decor & Art/Ornaments/Decorative Objects"
+  }
+ },
+ {
+  "id": "leather_cleaner_can",
+  "name": "Leather Cleaner Can",
+  "category": "spray_can",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Aerosol & Spray Cans",
+  "dimensions_m": [
+   0.0704,
+   0.0704,
+   0.1697
+  ],
+  "info": {
+   "name": "Leather Cleaner Can",
+   "dimensions": [
+    70.42571157217026,
+    70.42571157217026,
+    169.68917846679688
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1681689600,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Aerosol & Spray Cans"
+  }
+ },
+ {
+  "id": "life_jacket",
+  "name": "Life Jacket",
+  "category": "life_jacket",
+  "placement": "floor",
+  "category_path": "Apparel & Personal Items/Clothing & Footwear/Safety Gear",
+  "dimensions_m": [
+   0.6956,
+   0.1842,
+   0.9923
+  ],
+  "info": {
+   "name": "Life Jacket",
+   "dimensions": [
+    695.5814361572266,
+    184.1820478439331,
+    992.3043847084045
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Apparel & Personal Items/Clothing & Footwear/Safety Gear"
+  }
+ },
+ {
+  "id": "lightbulb_led",
+  "name": "Lightbulb Led",
+  "category": "light_bulb",
+  "placement": "surface",
+  "category_path": "Lighting/Bulbs & Fittings/Bulbs",
+  "dimensions_m": [
+   0.0614,
+   0.0614,
+   0.1003
+  ],
+  "info": {
+   "name": "Lightbulb Led",
+   "dimensions": [
+    61.441509053111076,
+    61.441510915756226,
+    100.25119408965111
+   ],
+   "authors": {
+    "Josh Dean": "All"
+   },
+   "date_published": 1676592000,
+   "category": "Lighting/Bulbs & Fittings/Bulbs"
+  }
+ },
+ {
+  "id": "lion_head",
+  "name": "Lion Head",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "dimensions_m": [
+   0.3208,
+   0.2066,
+   0.4364
+  ],
+  "info": {
+   "name": "Lion Head",
+   "dimensions": [
+    320.7782953977585,
+    206.57429099082947,
+    436.3649595399668
+   ],
+   "authors": {
+    "Tina": "All"
+   },
+   "date_published": 1740096000,
+   "category": "Decor & Art/Sculptures & Figurines/Animal Figures"
+  }
+ },
+ {
+  "id": "lubricant_spray",
+  "name": "Lubricant Spray",
+  "category": "spray_can",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Aerosol & Spray Cans",
+  "dimensions_m": [
+   0.067,
+   0.0646,
+   0.1649
+  ],
+  "info": {
+   "name": "Lubricant Spray",
+   "dimensions": [
+    66.9858492910862,
+    64.59099799394608,
+    164.8811548948288
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1680825600,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Aerosol & Spray Cans"
+  }
+ },
+ {
+  "id": "marble_bust_01",
+  "name": "Marble Bust 01",
+  "category": "bust",
+  "placement": "surface",
+  "category_path": "Decor & Art/Sculptures & Figurines/Busts & Human Figures",
+  "dimensions_m": [
+   0.2717,
+   0.2997,
+   0.5149
+  ],
+  "info": {
+   "name": "Marble Bust 01",
+   "dimensions": [
+    271.7496156692505,
+    299.713671207428,
+    514.9431824684143
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1626268906,
+   "category": "Decor & Art/Sculptures & Figurines/Busts & Human Figures"
+  }
+ },
+ {
+  "id": "measuring_tape_01",
+  "name": "Measuring Tape 01",
+  "category": "measuring_tool",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Measuring Tools",
+  "dimensions_m": [
+   0.0406,
+   0.1694,
+   0.0734
+  ],
+  "info": {
+   "name": "Measuring Tape 01",
+   "dimensions": [
+    40.56626558303833,
+    169.41863298416138,
+    73.41387253836729
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1634256000,
+   "category": "Tools & Equipment/Hand Tools/Measuring Tools"
+  }
+ },
+ {
+  "id": "medical_box",
+  "name": "Medical Box",
+  "category": "first_aid_kit",
+  "placement": "surface",
+  "category_path": "Apparel & Personal Items/Mobility & Medical/Medical Kits",
+  "dimensions_m": [
+   0.5255,
+   0.3502,
+   0.0975
+  ],
+  "info": {
+   "name": "Medical Box",
+   "dimensions": [
+    525.4814624786377,
+    350.16927123069763,
+    97.5121483206749
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Apparel & Personal Items/Mobility & Medical/Medical Kits"
+  }
+ },
+ {
+  "id": "medical_tape",
+  "name": "Medical Tape",
+  "category": "medical_tape",
+  "placement": "surface",
+  "category_path": "Apparel & Personal Items/Mobility & Medical",
+  "dimensions_m": [
+   0.0453,
+   0.0452,
+   0.025
+  ],
+  "info": {
+   "name": "Medical Tape",
+   "dimensions": [
+    45.2995840460062,
+    45.17091251909733,
+    25.0389501452446
+   ],
+   "authors": {
+    "Miroslav Turura": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Apparel & Personal Items/Mobility & Medical"
+  }
+ },
+ {
+  "id": "metal_jerrycan",
+  "name": "Metal Jerrycan",
+  "category": "jerrycan",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Jerrycans",
+  "dimensions_m": [
+   0.3503,
+   0.1717,
+   0.4552
+  ],
+  "info": {
+   "name": "Metal Jerrycan",
+   "dimensions": [
+    350.3298610448837,
+    171.74389213323593,
+    455.1599698197606
+   ],
+   "authors": {
+    "Sean Buckley": "All"
+   },
+   "date_published": 1774015339,
+   "category": "Containers & Storage/Tanks & Jerrycans/Jerrycans"
+  }
+ },
+ {
+  "id": "metal_jerrycan_green",
+  "name": "Metal Jerrycan Green",
+  "category": "jerrycan",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Jerrycans",
+  "dimensions_m": [
+   0.3739,
+   0.1709,
+   0.5009
+  ],
+  "info": {
+   "name": "Metal Jerrycan Green",
+   "dimensions": [
+    373.92209470272064,
+    170.86732387542725,
+    500.91034173965454
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Containers & Storage/Tanks & Jerrycans/Jerrycans"
+  }
+ },
+ {
+  "id": "metal_jug",
+  "name": "Metal Jug",
+  "category": "pitcher",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Tableware/Jugs & Pitchers",
+  "dimensions_m": [
+   0.1968,
+   0.1955,
+   0.2875
+  ],
+  "info": {
+   "name": "Metal Jug",
+   "dimensions": [
+    196.82172685861588,
+    195.4544335603714,
+    287.5497347122291
+   ],
+   "authors": {
+    "Anzor Lezhava": "All"
+   },
+   "date_published": 1716336000,
+   "category": "Food & Kitchen/Tableware/Jugs & Pitchers"
+  }
+ },
+ {
+  "id": "metal_office_desk",
+  "name": "Metal Office Desk",
+  "category": "desk",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Desks",
+  "dimensions_m": [
+   2.0,
+   0.9472,
+   0.7875
+  ],
+  "info": {
+   "name": "Metal Office Desk",
+   "dimensions": [
+    2000.0003576278687,
+    947.2135305404663,
+    787.5000089406967
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1774015468,
+   "category": "Furniture/Tables/Desks"
+  }
+ },
+ {
+  "id": "metal_stool_01",
+  "name": "Metal Stool 01",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.352,
+   0.3546,
+   0.8828
+  ],
+  "info": {
+   "name": "Metal Stool 01",
+   "dimensions": [
+    351.9909083843231,
+    354.570209980011,
+    882.7742969733663
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1774015294,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "metal_stool_02",
+  "name": "Metal Stool 02",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.4481,
+   0.4731,
+   0.4581
+  ],
+  "info": {
+   "name": "Metal Stool 02",
+   "dimensions": [
+    448.09985160827637,
+    473.0903208255768,
+    458.12273025512695
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1774343758,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "metal_stool_03",
+  "name": "Metal Stool 03",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.4606,
+   0.4706,
+   1.0231
+  ],
+  "info": {
+   "name": "Metal Stool 03",
+   "dimensions": [
+    460.619181394577,
+    470.621719956398,
+    1023.1056683696806
+   ],
+   "authors": {
+    "Flo Tasser": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "metal_tool_chest",
+  "name": "Metal Tool Chest",
+  "category": "toolbox",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Workshop Equipment/Tool Chests",
+  "dimensions_m": [
+   0.6854,
+   0.4072,
+   0.6518
+  ],
+  "info": {
+   "name": "Metal Tool Chest",
+   "dimensions": [
+    685.3884160518646,
+    407.15324878692627,
+    651.8355906009674
+   ],
+   "authors": {
+    "Yann Kervran": "Rigging",
+    "John Hutcheson": "Modeling & Texturing"
+   },
+   "date_published": 1682899200,
+   "category": "Tools & Equipment/Workshop Equipment/Tool Chests"
+  }
+ },
+ {
+  "id": "metal_toolbox",
+  "name": "Metal Toolbox",
+  "category": "toolbox",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Workshop Equipment/Tool Chests",
+  "dimensions_m": [
+   0.4,
+   0.2923,
+   0.3471
+  ],
+  "info": {
+   "name": "Metal Toolbox",
+   "dimensions": [
+    400.0099003314972,
+    292.32875257730484,
+    347.10586071014404
+   ],
+   "authors": {
+    "Mateusz Sadek": "All"
+   },
+   "date_published": 1776330926,
+   "category": "Tools & Equipment/Workshop Equipment/Tool Chests"
+  }
+ },
+ {
+  "id": "mid_century_lounge_chair",
+  "name": "Mid Century Lounge Chair",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   1.0086,
+   1.1903,
+   1.1691
+  ],
+  "info": {
+   "name": "Mid Century Lounge Chair",
+   "dimensions": [
+    1008.6143612861633,
+    1190.310776233673,
+    1169.0847246776136
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1750809600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "modern_arm_chair_01",
+  "name": "Modern Arm Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.8203,
+   0.9866,
+   1.0229
+  ],
+  "info": {
+   "name": "Modern Arm Chair 01",
+   "dimensions": [
+    820.3444182872772,
+    986.5616858005524,
+    1022.8520567470696
+   ],
+   "authors": {
+    "Vibrant Nordic": "All"
+   },
+   "date_published": 1667174400,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "modern_coffee_table_01",
+  "name": "Modern Coffee Table 01",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   1.2018,
+   0.6,
+   0.39
+  ],
+  "info": {
+   "name": "Modern Coffee Table 01",
+   "dimensions": [
+    1201.8300294876099,
+    600.0000834465027,
+    389.99998569488525
+   ],
+   "authors": {
+    "Amin": "All"
+   },
+   "date_published": 1640736000,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "modern_coffee_table_02",
+  "name": "Modern Coffee Table 02",
+  "category": "coffee_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "dimensions_m": [
+   1.1991,
+   1.1997,
+   0.3692
+  ],
+  "info": {
+   "name": "Modern Coffee Table 02",
+   "dimensions": [
+    1199.1113424301147,
+    1199.6567845344543,
+    369.2496716976166
+   ],
+   "authors": {
+    "Amin": "All"
+   },
+   "date_published": 1642118400,
+   "category": "Furniture/Tables/Coffee Tables"
+  }
+ },
+ {
+  "id": "modified_thermos",
+  "name": "Modified Thermos",
+  "category": "thermos",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Drinks/Flasks & Thermoses",
+  "dimensions_m": [
+   0.1427,
+   0.1011,
+   0.3062
+  ],
+  "info": {
+   "name": "Modified Thermos",
+   "dimensions": [
+    142.67507940530777,
+    101.07244178652763,
+    306.22418313578237
+   ],
+   "authors": {
+    "Alex Weber": "All"
+   },
+   "date_published": 1776329345,
+   "category": "Food & Kitchen/Drinks/Flasks & Thermoses"
+  }
+ },
+ {
+  "id": "mousetrap",
+  "name": "Mousetrap",
+  "category": "hand_tool",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools",
+  "dimensions_m": [
+   0.055,
+   0.1004,
+   0.0179
+  ],
+  "info": {
+   "name": "Mousetrap",
+   "dimensions": [
+    54.98756840825081,
+    100.44356435537338,
+    17.934181294901208
+   ],
+   "authors": {
+    "GreenPixel": "All"
+   },
+   "date_published": 1684454400,
+   "category": "Tools & Equipment/Hand Tools"
+  }
+ },
+ {
+  "id": "multi_cleaner_5_litre",
+  "name": "Multi Cleaner 5 Litre",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "dimensions_m": [
+   0.2193,
+   0.1058,
+   0.3003
+  ],
+  "info": {
+   "name": "Multi Cleaner 5 Litre",
+   "dimensions": [
+    219.29194033145905,
+    105.77977448701859,
+    300.33773817538736
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1682035200,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles"
+  }
+ },
+ {
+  "id": "multi_cleaner_bottle",
+  "name": "Multi Cleaner Bottle",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "dimensions_m": [
+   0.0885,
+   0.0898,
+   0.2286
+  ],
+  "info": {
+   "name": "Multi Cleaner Bottle",
+   "dimensions": [
+    88.47218751907349,
+    89.751485735178,
+    228.56293622158105
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1681430400,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles"
+  }
+ },
+ {
+  "id": "oil_tin",
+  "name": "Oil Tin",
+  "category": "oil_can",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans",
+  "dimensions_m": [
+   0.1147,
+   0.1535,
+   0.2054
+  ],
+  "info": {
+   "name": "Oil Tin",
+   "dimensions": [
+    114.72199857234955,
+    153.54498475790024,
+    205.37899754708633
+   ],
+   "authors": {
+    "Niklas": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans"
+  }
+ },
+ {
+  "id": "old_bed_frame",
+  "name": "Old Bed Frame",
+  "category": "bed",
+  "placement": "floor",
+  "category_path": "Furniture/Beds",
+  "dimensions_m": [
+   0.9047,
+   2.0017,
+   1.2015
+  ],
+  "info": {
+   "name": "Old Bed Frame",
+   "dimensions": [
+    904.6578407287598,
+    2001.7260313034058,
+    1201.4837953575998
+   ],
+   "authors": {
+    "Luca B": "All"
+   },
+   "date_published": 1782990563,
+   "category": "Furniture/Beds"
+  }
+ },
+ {
+  "id": "old_drill_press",
+  "name": "Old Drill Press",
+  "category": "workshop_machine",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Power Tools/Workshop Machines",
+  "dimensions_m": [
+   0.5272,
+   0.6095,
+   1.05
+  ],
+  "info": {
+   "name": "Old Drill Press",
+   "dimensions": [
+    527.1955132484436,
+    609.5176190137863,
+    1049.9999523162842
+   ],
+   "authors": {
+    "Harsh Vardhan Singh": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Tools & Equipment/Power Tools/Workshop Machines"
+  }
+ },
+ {
+  "id": "old_gas_mask",
+  "name": "Old Gas Mask",
+  "category": "gas_mask",
+  "placement": "floor",
+  "category_path": "Apparel & Personal Items/Clothing & Footwear/Safety Gear",
+  "dimensions_m": [
+   0.2105,
+   0.3087,
+   1.1257
+  ],
+  "info": {
+   "name": "Old Gas Mask",
+   "dimensions": [
+    210.5255424976349,
+    308.7272718548775,
+    1125.6647408008575
+   ],
+   "authors": {
+    "Michał Wiśniewski": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Apparel & Personal Items/Clothing & Footwear/Safety Gear"
+  }
+ },
+ {
+  "id": "outdoor_table_chair_set_01",
+  "name": "Outdoor Table Chair Set 01",
+  "category": "outdoor_table_set",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Outdoor Seating",
+  "dimensions_m": [
+   0.776,
+   1.831,
+   0.8586
+  ],
+  "info": {
+   "name": "Outdoor Table Chair Set 01",
+   "dimensions": [
+    776.0046124458313,
+    1831.0473561286926,
+    858.5816156119108
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1634083200,
+   "category": "Furniture/Seating/Outdoor Seating"
+  }
+ },
+ {
+  "id": "painted_wooden_bench",
+  "name": "Painted Wooden Bench",
+  "category": "bench",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Benches",
+  "dimensions_m": [
+   1.1649,
+   0.4965,
+   0.8893
+  ],
+  "info": {
+   "name": "Painted Wooden Bench",
+   "dimensions": [
+    1164.9435758590698,
+    496.5430945158005,
+    889.2914750613272
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1712707200,
+   "category": "Furniture/Seating/Benches"
+  }
+ },
+ {
+  "id": "painted_wooden_cabinet",
+  "name": "Painted Wooden Cabinet",
+  "category": "cabinet",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "dimensions_m": [
+   1.1947,
+   0.6166,
+   1.1819
+  ],
+  "info": {
+   "name": "Painted Wooden Cabinet",
+   "dimensions": [
+    1194.674551486969,
+    616.6356205940247,
+    1181.8697528215125
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1708300800,
+   "category": "Furniture/Storage Furniture/Cabinets & Cupboards"
+  }
+ },
+ {
+  "id": "painted_wooden_cabinet_02",
+  "name": "Painted Wooden Cabinet 02",
+  "category": "cabinet",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "dimensions_m": [
+   0.9969,
+   0.7294,
+   2.5686
+  ],
+  "info": {
+   "name": "Painted Wooden Cabinet 02",
+   "dimensions": [
+    996.9334602355957,
+    729.429692029953,
+    2568.572537857108
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1710720000,
+   "category": "Furniture/Storage Furniture/Cabinets & Cupboards"
+  }
+ },
+ {
+  "id": "painted_wooden_chair_01",
+  "name": "Painted Wooden Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.4318,
+   0.5398,
+   0.9565
+  ],
+  "info": {
+   "name": "Painted Wooden Chair 01",
+   "dimensions": [
+    431.75144493579865,
+    539.8241728544235,
+    956.4821355743334
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1632873600,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "painted_wooden_chair_02",
+  "name": "Painted Wooden Chair 02",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.6394,
+   0.6621,
+   1.2638
+  ],
+  "info": {
+   "name": "Painted Wooden Chair 02",
+   "dimensions": [
+    639.3895149230957,
+    662.097692489624,
+    1263.7710904044432
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1710288000,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "painted_wooden_nightstand",
+  "name": "Painted Wooden Nightstand",
+  "category": "side_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "dimensions_m": [
+   0.5046,
+   0.5087,
+   0.6155
+  ],
+  "info": {
+   "name": "Painted Wooden Nightstand",
+   "dimensions": [
+    504.5645833015442,
+    508.71600210666656,
+    615.5209708555738
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1711929600,
+   "category": "Furniture/Tables/Side & End Tables"
+  }
+ },
+ {
+  "id": "painted_wooden_shelves",
+  "name": "Painted Wooden Shelves",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   0.5111,
+   0.3671,
+   1.1251
+  ],
+  "info": {
+   "name": "Painted Wooden Shelves",
+   "dimensions": [
+    511.115700006485,
+    367.09491535348883,
+    1125.072093855124
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1709510400,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "painted_wooden_sofa",
+  "name": "Painted Wooden Sofa",
+  "category": "sofa",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "dimensions_m": [
+   2.4517,
+   0.7873,
+   1.281
+  ],
+  "info": {
+   "name": "Painted Wooden Sofa",
+   "dimensions": [
+    2451.7107009887695,
+    787.3162031173706,
+    1281.0335159301758
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1711497600,
+   "category": "Furniture/Seating/Sofas & Couches"
+  }
+ },
+ {
+  "id": "painted_wooden_stool",
+  "name": "Painted Wooden Stool",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.3848,
+   0.4061,
+   0.5789
+  ],
+  "info": {
+   "name": "Painted Wooden Stool",
+   "dimensions": [
+    384.83743369579315,
+    406.07430040836334,
+    578.9150850614533
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1707868800,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "painted_wooden_table",
+  "name": "Painted Wooden Table",
+  "category": "dining_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "dimensions_m": [
+   2.4056,
+   1.137,
+   0.9586
+  ],
+  "info": {
+   "name": "Painted Wooden Table",
+   "dimensions": [
+    2405.603766441345,
+    1136.9839906692505,
+    958.6371183395386
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1709078400,
+   "category": "Furniture/Tables/Dining Tables"
+  }
+ },
+ {
+  "id": "picke_dirty_01",
+  "name": "Picke Dirty 01",
+  "category": "shovel",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Garden Tools/Digging Tools",
+  "dimensions_m": [
+   0.5498,
+   0.0691,
+   1.1156
+  ],
+  "info": {
+   "name": "Picke Dirty 01",
+   "dimensions": [
+    549.7921109199524,
+    69.11072321236134,
+    1115.6014502048492
+   ],
+   "authors": {
+    "Dennis Halbeck": "All"
+   },
+   "date_published": 1673568000,
+   "category": "Tools & Equipment/Garden Tools/Digging Tools"
+  }
+ },
+ {
+  "id": "pipe_wrench",
+  "name": "Pipe Wrench",
+  "category": "wrench",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "dimensions_m": [
+   0.084,
+   0.0343,
+   0.4047
+  ],
+  "info": {
+   "name": "Pipe Wrench",
+   "dimensions": [
+    83.97936820983887,
+    34.34488922357559,
+    404.66518700122833
+   ],
+   "authors": {
+    "Will Evarts": "All"
+   },
+   "date_published": 1692921600,
+   "category": "Tools & Equipment/Hand Tools/Wrenches & Spanners"
+  }
+ },
+ {
+  "id": "planter_box_01",
+  "name": "Planter Box 01",
+  "category": "planter_box",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Planter Boxes",
+  "dimensions_m": [
+   0.9126,
+   0.4137,
+   0.425
+  ],
+  "info": {
+   "name": "Planter Box 01",
+   "dimensions": [
+    912.6113951206207,
+    413.6679768562317,
+    424.96823612600565
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1683244800,
+   "category": "Containers & Storage/Boxes & Crates/Planter Boxes"
+  }
+ },
+ {
+  "id": "planter_box_02",
+  "name": "Planter Box 02",
+  "category": "planter_box",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Planter Boxes",
+  "dimensions_m": [
+   1.2516,
+   0.4672,
+   0.4534
+  ],
+  "info": {
+   "name": "Planter Box 02",
+   "dimensions": [
+    1251.5764236450195,
+    467.18619763851166,
+    453.37272534379736
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1683676800,
+   "category": "Containers & Storage/Boxes & Crates/Planter Boxes"
+  }
+ },
+ {
+  "id": "planter_box_03",
+  "name": "Planter Box 03",
+  "category": "planter_box",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Planter Boxes",
+  "dimensions_m": [
+   0.9143,
+   0.6555,
+   0.8551
+  ],
+  "info": {
+   "name": "Planter Box 03",
+   "dimensions": [
+    914.3069684505463,
+    655.5436849594116,
+    855.1032352806942
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1683849600,
+   "category": "Containers & Storage/Boxes & Crates/Planter Boxes"
+  }
+ },
+ {
+  "id": "planter_pot_clay",
+  "name": "Planter Pot Clay",
+  "category": "terracotta_pot",
+  "placement": "surface",
+  "category_path": "Decor & Art/Vases & Vessels/Terracotta Pots",
+  "dimensions_m": [
+   0.266,
+   0.2635,
+   0.2219
+  ],
+  "info": {
+   "name": "Planter Pot Clay",
+   "dimensions": [
+    265.9967243671417,
+    263.4630501270294,
+    221.87034250237048
+   ],
+   "authors": {
+    "Amal Kumar": "All"
+   },
+   "date_published": 1675641600,
+   "category": "Decor & Art/Vases & Vessels/Terracotta Pots"
+  }
+ },
+ {
+  "id": "plastic_bottle_gallon",
+  "name": "Plastic Bottle Gallon",
+  "category": "bottle",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Jugs & Bottles",
+  "dimensions_m": [
+   0.1663,
+   0.1264,
+   0.2745
+  ],
+  "info": {
+   "name": "Plastic Bottle Gallon",
+   "dimensions": [
+    166.28039628267288,
+    126.3512596487999,
+    274.4927511084825
+   ],
+   "authors": {
+    "Rahul Chaudhary": "All"
+   },
+   "date_published": 1675987200,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Jugs & Bottles"
+  }
+ },
+ {
+  "id": "plastic_container",
+  "name": "Plastic Container",
+  "category": "storage_bin",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Bins",
+  "dimensions_m": [
+   0.8951,
+   0.6264,
+   0.4297
+  ],
+  "info": {
+   "name": "Plastic Container",
+   "dimensions": [
+    895.0786888599396,
+    626.3633966445923,
+    429.68997440377774
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Containers & Storage/Boxes & Crates/Bins"
+  }
+ },
+ {
+  "id": "plastic_crate_01",
+  "name": "Plastic Crate 01",
+  "category": "plastic_crate",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Plastic Crates",
+  "dimensions_m": [
+   0.298,
+   0.408,
+   0.2642
+  ],
+  "info": {
+   "name": "Plastic Crate 01",
+   "dimensions": [
+    298.00063371658325,
+    408.00413489341736,
+    264.1694247722626
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Containers & Storage/Boxes & Crates/Plastic Crates"
+  }
+ },
+ {
+  "id": "plastic_crate_03",
+  "name": "Plastic Crate 03",
+  "category": "plastic_crate",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Plastic Crates",
+  "dimensions_m": [
+   0.4811,
+   0.265,
+   0.2659
+  ],
+  "info": {
+   "name": "Plastic Crate 03",
+   "dimensions": [
+    481.1011254787445,
+    264.971524477005,
+    265.92550610776743
+   ],
+   "authors": {
+    "Pacific Penguin": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Containers & Storage/Boxes & Crates/Plastic Crates"
+  }
+ },
+ {
+  "id": "plastic_jerrycan",
+  "name": "Plastic Jerrycan",
+  "category": "jerrycan",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Jerrycans",
+  "dimensions_m": [
+   0.268,
+   0.3409,
+   0.3184
+  ],
+  "info": {
+   "name": "Plastic Jerrycan",
+   "dimensions": [
+    268.02290976047516,
+    340.8927023410797,
+    318.4274435043335
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1774015390,
+   "category": "Containers & Storage/Tanks & Jerrycans/Jerrycans"
+  }
+ },
+ {
+  "id": "plastic_monobloc_chair_01",
+  "name": "Plastic Monobloc Chair 01",
+  "category": "chair",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Chairs",
+  "dimensions_m": [
+   0.6419,
+   0.6276,
+   0.8798
+  ],
+  "info": {
+   "name": "Plastic Monobloc Chair 01",
+   "dimensions": [
+    641.8611407279968,
+    627.5919079780579,
+    879.8411972820759
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1668384000,
+   "category": "Furniture/Seating/Chairs"
+  }
+ },
+ {
+  "id": "plastic_thermos",
+  "name": "Plastic Thermos",
+  "category": "thermos",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Drinks/Flasks & Thermoses",
+  "dimensions_m": [
+   0.1406,
+   0.1093,
+   0.3204
+  ],
+  "info": {
+   "name": "Plastic Thermos",
+   "dimensions": [
+    140.56628569960594,
+    109.29546505212784,
+    320.4147517681122
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1774019059,
+   "category": "Food & Kitchen/Drinks/Flasks & Thermoses"
+  }
+ },
+ {
+  "id": "pliers",
+  "name": "Pliers",
+  "category": "pliers",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Pliers & Grippers",
+  "dimensions_m": [
+   0.0553,
+   0.018,
+   0.1798
+  ],
+  "info": {
+   "name": "Pliers",
+   "dimensions": [
+    55.28969317674637,
+    17.9854528978467,
+    179.78323251008987
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Tools & Equipment/Hand Tools/Pliers & Grippers"
+  }
+ },
+ {
+  "id": "plunger",
+  "name": "Plunger",
+  "category": "plunger",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Garden Tools/Brooms & Cleaning",
+  "dimensions_m": [
+   0.1721,
+   0.1721,
+   0.4211
+  ],
+  "info": {
+   "name": "Plunger",
+   "dimensions": [
+    172.05405235290527,
+    172.05404490232468,
+    421.1148992180824
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1713916800,
+   "category": "Tools & Equipment/Garden Tools/Brooms & Cleaning"
+  }
+ },
+ {
+  "id": "pot_enamel_01",
+  "name": "Pot Enamel 01",
+  "category": "cookware",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "dimensions_m": [
+   0.2629,
+   0.1805,
+   0.1783
+  ],
+  "info": {
+   "name": "Pot Enamel 01",
+   "dimensions": [
+    262.93012499809265,
+    180.4744154214859,
+    178.26278507709503
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1662681600,
+   "category": "Food & Kitchen/Cookware/Pots & Pans"
+  }
+ },
+ {
+  "id": "potted_plant_04",
+  "name": "Potted Plant 04",
+  "category": "potted_plant",
+  "placement": "surface",
+  "category_path": "Nature/Plants/Potted Plants",
+  "dimensions_m": [
+   0.1703,
+   0.1859,
+   0.2676
+  ],
+  "info": {
+   "name": "Potted Plant 04",
+   "dimensions": [
+    170.27407884597778,
+    185.9453096985817,
+    267.5964875961654
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767629,
+   "category": "Nature/Plants/Potted Plants"
+  }
+ },
+ {
+  "id": "projector_screen",
+  "name": "Projector Screen",
+  "category": "projector_screen",
+  "placement": "floor",
+  "category_path": "Electronics & Appliances/Audio & Video/Projectors",
+  "dimensions_m": [
+   1.0936,
+   0.9158,
+   1.7995
+  ],
+  "info": {
+   "name": "Projector Screen",
+   "dimensions": [
+    1093.5667157173157,
+    915.8007800579071,
+    1799.4642853736877
+   ],
+   "authors": {
+    "PeterM": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Electronics & Appliances/Audio & Video/Projectors"
+  }
+ },
+ {
+  "id": "propane_tank",
+  "name": "Propane Tank",
+  "category": "gas_cylinder",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Gas Cylinders",
+  "dimensions_m": [
+   0.3374,
+   0.3374,
+   0.5538
+  ],
+  "info": {
+   "name": "Propane Tank",
+   "dimensions": [
+    337.3616933822632,
+    337.3616933822632,
+    553.7950303405523
+   ],
+   "authors": {
+    "Slinc": "All"
+   },
+   "date_published": 1774015850,
+   "category": "Containers & Storage/Tanks & Jerrycans/Gas Cylinders"
+  }
+ },
+ {
+  "id": "propane_torch",
+  "name": "Propane Torch",
+  "category": "blowtorch",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Workshop Equipment/Torches & Burners",
+  "dimensions_m": [
+   0.068,
+   0.0579,
+   0.3281
+  ],
+  "info": {
+   "name": "Propane Torch",
+   "dimensions": [
+    68.02495755255222,
+    57.90913663804531,
+    328.1470835208893
+   ],
+   "authors": {
+    "Jan W": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Tools & Equipment/Workshop Equipment/Torches & Burners"
+  }
+ },
+ {
+  "id": "ratchet_wrench",
+  "name": "Ratchet Wrench",
+  "category": "wrench",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "dimensions_m": [
+   0.0441,
+   0.0434,
+   0.2462
+  ],
+  "info": {
+   "name": "Ratchet Wrench",
+   "dimensions": [
+    44.089458882808685,
+    43.394144624471664,
+    246.20076268911362
+   ],
+   "authors": {
+    "John Hutcheson": "All"
+   },
+   "date_published": 1670544000,
+   "category": "Tools & Equipment/Hand Tools/Wrenches & Spanners"
+  }
+ },
+ {
+  "id": "round_wooden_table_01",
+  "name": "Round Wooden Table 01",
+  "category": "dining_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "dimensions_m": [
+   1.3993,
+   1.3993,
+   1.005
+  ],
+  "info": {
+   "name": "Round Wooden Table 01",
+   "dimensions": [
+    1399.3489742279053,
+    1399.3489146232605,
+    1005.0213932991028
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1633046400,
+   "category": "Furniture/Tables/Dining Tables"
+  }
+ },
+ {
+  "id": "round_wooden_table_02",
+  "name": "Round Wooden Table 02",
+  "category": "dining_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "dimensions_m": [
+   0.7962,
+   0.7962,
+   0.746
+  ],
+  "info": {
+   "name": "Round Wooden Table 02",
+   "dimensions": [
+    796.1780428886414,
+    796.1780428886414,
+    746.0266395536621
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1742774400,
+   "category": "Furniture/Tables/Dining Tables"
+  }
+ },
+ {
+  "id": "rusted_hacksaw",
+  "name": "Rusted Hacksaw",
+  "category": "saw",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Saws & Cutting",
+  "dimensions_m": [
+   0.4964,
+   0.0328,
+   0.1094
+  ],
+  "info": {
+   "name": "Rusted Hacksaw",
+   "dimensions": [
+    496.3712692260742,
+    32.82591328024864,
+    109.38195511698723
+   ],
+   "authors": {
+    "Dabou Master": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Tools & Equipment/Hand Tools/Saws & Cutting"
+  }
+ },
+ {
+  "id": "rusted_spade_01",
+  "name": "Rusted Spade 01",
+  "category": "shovel",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Garden Tools/Digging Tools",
+  "dimensions_m": [
+   0.1681,
+   0.0456,
+   1.1009
+  ],
+  "info": {
+   "name": "Rusted Spade 01",
+   "dimensions": [
+    168.1148111820221,
+    45.56426405906677,
+    1100.9047627449036
+   ],
+   "authors": {
+    "Blemonade": "All"
+   },
+   "date_published": 1673222400,
+   "category": "Tools & Equipment/Garden Tools/Digging Tools"
+  }
+ },
+ {
+  "id": "scandinavian_masonry_heater",
+  "name": "Scandinavian Masonry Heater",
+  "category": "stove",
+  "placement": "floor",
+  "category_path": "Electronics & Appliances/Home Appliances/Stoves & Heaters",
+  "dimensions_m": [
+   1.1677,
+   1.3353,
+   2.3605
+  ],
+  "info": {
+   "name": "Scandinavian Masonry Heater",
+   "dimensions": [
+    1167.6969528198242,
+    1335.2788388729095,
+    2360.4823132336605
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1747612800,
+   "category": "Electronics & Appliances/Home Appliances/Stoves & Heaters"
+  }
+ },
+ {
+  "id": "screwdriver",
+  "name": "Screwdriver",
+  "category": "screwdriver",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Screwdrivers",
+  "dimensions_m": [
+   0.0271,
+   0.0267,
+   0.209
+  ],
+  "info": {
+   "name": "Screwdriver",
+   "dimensions": [
+    27.132239192724228,
+    26.709272526204586,
+    209.04450863599777
+   ],
+   "authors": {
+    "PierreB3D": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Tools & Equipment/Hand Tools/Screwdrivers"
+  }
+ },
+ {
+  "id": "seadogs_compass",
+  "name": "Seadogs Compass",
+  "category": "nautical_instrument",
+  "placement": "surface",
+  "category_path": "Apparel & Personal Items/Accessories/Nautical Instruments",
+  "dimensions_m": [
+   0.0813,
+   0.1501,
+   0.0872
+  ],
+  "info": {
+   "name": "Seadogs Compass",
+   "dimensions": [
+    81.29258453845978,
+    150.05110204219818,
+    87.21982222050428
+   ],
+   "authors": {
+    "Benny Weimer": "All"
+   },
+   "date_published": 1776329124,
+   "category": "Apparel & Personal Items/Accessories/Nautical Instruments"
+  }
+ },
+ {
+  "id": "seeding_tray_01",
+  "name": "Seedling Tray 01",
+  "category": "plant_pot",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Garden Tools/Planters & Pots",
+  "dimensions_m": [
+   0.2202,
+   0.2202,
+   0.0608
+  ],
+  "info": {
+   "name": "Seedling Tray 01",
+   "dimensions": [
+    220.20762413740158,
+    220.20763158798218,
+    60.76497957110405
+   ],
+   "authors": {
+    "Satyaki Mandal": "All"
+   },
+   "date_published": 1675209600,
+   "category": "Tools & Equipment/Garden Tools/Planters & Pots"
+  }
+ },
+ {
+  "id": "side_table_01",
+  "name": "Side Table 01",
+  "category": "side_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "dimensions_m": [
+   0.55,
+   0.45,
+   0.5507
+  ],
+  "info": {
+   "name": "Side Table 01",
+   "dimensions": [
+    550.0000715255737,
+    450.00001788139343,
+    550.6622816901654
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767596,
+   "category": "Furniture/Tables/Side & End Tables"
+  }
+ },
+ {
+  "id": "side_table_tall_01",
+  "name": "Side Table Tall 01",
+  "category": "side_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "dimensions_m": [
+   0.384,
+   0.384,
+   0.7612
+  ],
+  "info": {
+   "name": "Side Table Tall 01",
+   "dimensions": [
+    383.98271799087524,
+    383.98271799087524,
+    761.1514969321433
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767631,
+   "category": "Furniture/Tables/Side & End Tables"
+  }
+ },
+ {
+  "id": "sledgehammer_01",
+  "name": "Sledgehammer 01",
+  "category": "hammer",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Hammers & Mallets",
+  "dimensions_m": [
+   0.2085,
+   0.0905,
+   1.0056
+  ],
+  "info": {
+   "name": "Sledgehammer 01",
+   "dimensions": [
+    208.48701149225235,
+    90.47714620828629,
+    1005.6212544441223
+   ],
+   "authors": {
+    "Dylan Guzman": "All"
+   },
+   "date_published": 1674172800,
+   "category": "Tools & Equipment/Hand Tools/Hammers & Mallets"
+  }
+ },
+ {
+  "id": "small_lpg_tank",
+  "name": "Small Lpg Tank",
+  "category": "gas_cylinder",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Gas Cylinders",
+  "dimensions_m": [
+   0.41,
+   0.4092,
+   0.642
+  ],
+  "info": {
+   "name": "Small Lpg Tank",
+   "dimensions": [
+    410.0192189216614,
+    409.1912806034088,
+    641.9749736785434
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1774252979,
+   "category": "Containers & Storage/Tanks & Jerrycans/Gas Cylinders"
+  }
+ },
+ {
+  "id": "small_oil_can_01",
+  "name": "Small Oil Can 01",
+  "category": "oil_can",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans",
+  "dimensions_m": [
+   0.2661,
+   0.1038,
+   0.2368
+  ],
+  "info": {
+   "name": "Small Oil Can 01",
+   "dimensions": [
+    266.0944238305092,
+    103.84923219680786,
+    236.79310083389282
+   ],
+   "authors": {
+    "Raven van de Werken": "All"
+   },
+   "date_published": 1623767633,
+   "category": "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans"
+  }
+ },
+ {
+  "id": "small_wooden_table_01",
+  "name": "Small Wooden Table 01",
+  "category": "side_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "dimensions_m": [
+   0.9162,
+   0.44,
+   0.5331
+  ],
+  "info": {
+   "name": "Small Wooden Table 01",
+   "dimensions": [
+    916.1878228187561,
+    439.96262550354004,
+    533.0857671797276
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1625732159,
+   "category": "Furniture/Tables/Side & End Tables"
+  }
+ },
+ {
+  "id": "sofa_02",
+  "name": "Sofa 02",
+  "category": "sofa",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "dimensions_m": [
+   1.8072,
+   0.8178,
+   0.7095
+  ],
+  "info": {
+   "name": "Sofa 02",
+   "dimensions": [
+    1807.1673512458801,
+    817.7513778209686,
+    709.4888985157013
+   ],
+   "authors": {
+    "Kirill Sannikov": "All"
+   },
+   "date_published": 1593521418,
+   "category": "Furniture/Seating/Sofas & Couches"
+  }
+ },
+ {
+  "id": "spinning_wheel_01",
+  "name": "Spinning Wheel 01",
+  "category": "spinning_wheel",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Workshop Equipment/Vices & Clamps",
+  "dimensions_m": [
+   0.4894,
+   1.0249,
+   0.9662
+  ],
+  "info": {
+   "name": "Spinning Wheel 01",
+   "dimensions": [
+    489.3998056650162,
+    1024.8570144176483,
+    966.2211883987766
+   ],
+   "authors": {
+    "Sofia Pahaoja": "All"
+   },
+   "date_published": 1633651200,
+   "category": "Tools & Equipment/Workshop Equipment/Vices & Clamps"
+  }
+ },
+ {
+  "id": "standing_chalkboard_01",
+  "name": "Standing Chalkboard 01",
+  "category": "chalkboard",
+  "placement": "floor",
+  "category_path": "Office & Stationery/Stationery & Supplies/Clipboards & Boards",
+  "dimensions_m": [
+   0.9195,
+   0.7587,
+   1.509
+  ],
+  "info": {
+   "name": "Standing Chalkboard 01",
+   "dimensions": [
+    919.5267558097839,
+    758.704662322998,
+    1509.0324000189241
+   ],
+   "authors": {
+    "ParzivalCG": "All"
+   },
+   "date_published": 1640304000,
+   "category": "Office & Stationery/Stationery & Supplies/Clipboards & Boards"
+  }
+ },
+ {
+  "id": "steel_frame_shelves_01",
+  "name": "Steel Frame Shelves 01",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   1.0974,
+   0.5021,
+   2.1405
+  ],
+  "info": {
+   "name": "Steel Frame Shelves 01",
+   "dimensions": [
+    1097.4148511886597,
+    502.1176338195801,
+    2140.5010361922905
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767642,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "steel_frame_shelves_02",
+  "name": "Steel Frame Shelves 02",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   0.5933,
+   0.5024,
+   2.1416
+  ],
+  "info": {
+   "name": "Steel Frame Shelves 02",
+   "dimensions": [
+    593.3027565479279,
+    502.37810611724854,
+    2141.6114285821095
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767643,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "steel_frame_shelves_03",
+  "name": "Steel Frame Shelves 03",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   2.3511,
+   0.7212,
+   2.3118
+  ],
+  "info": {
+   "name": "Steel Frame Shelves 03",
+   "dimensions": [
+    2351.0769605636597,
+    721.2460935115814,
+    2311.832904815674
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1714348800,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "strawberry_chocolate_cake",
+  "name": "Strawberry Chocolate Cake",
+  "category": "cake",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Prepared Food/Cakes & Pastries",
+  "dimensions_m": [
+   0.2443,
+   0.2403,
+   0.0792
+  ],
+  "info": {
+   "name": "Strawberry Chocolate Cake",
+   "dimensions": [
+    244.26066130399704,
+    240.267813205719,
+    79.19733006793805
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1721347200,
+   "category": "Food & Kitchen/Prepared Food/Cakes & Pastries"
+  }
+ },
+ {
+  "id": "sungka_board",
+  "name": "Sungka Board",
+  "category": "board_game",
+  "placement": "surface",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "dimensions_m": [
+   0.14,
+   0.6006,
+   0.0352
+  ],
+  "info": {
+   "name": "Sungka Board",
+   "dimensions": [
+    139.9620771408081,
+    600.566029548645,
+    35.22617928683758
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1680480000,
+   "category": "Leisure/Games & Toys/Board Games"
+  }
+ },
+ {
+  "id": "sungka_board_02",
+  "name": "Sungka Board 02",
+  "category": "board_game",
+  "placement": "surface",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "dimensions_m": [
+   0.9317,
+   0.1757,
+   0.0258
+  ],
+  "info": {
+   "name": "Sungka Board 02",
+   "dimensions": [
+    931.7000508308411,
+    175.69199949502945,
+    25.776559792404896
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1753833600,
+   "category": "Leisure/Games & Toys/Board Games"
+  }
+ },
+ {
+  "id": "sweet_potato",
+  "name": "Sweet Potato",
+  "category": "vegetable",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Vegetables",
+  "dimensions_m": [
+   0.0581,
+   0.061,
+   0.1005
+  ],
+  "info": {
+   "name": "Sweet Potato",
+   "dimensions": [
+    58.12427029013634,
+    60.989297926425934,
+    100.46296194195747
+   ],
+   "authors": {
+    "Jan Martens": "All"
+   },
+   "date_published": 1703203200,
+   "category": "Food & Kitchen/Produce/Vegetables"
+  }
+ },
+ {
+  "id": "television_02",
+  "name": "Television 02",
+  "category": "television",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Audio & Video/Televisions",
+  "dimensions_m": [
+   0.3997,
+   0.3502,
+   0.4114
+  ],
+  "info": {
+   "name": "Television 02",
+   "dimensions": [
+    399.74847435951233,
+    350.19391775131226,
+    411.41476929375244
+   ],
+   "authors": {
+    "Benny Weimer": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Electronics & Appliances/Audio & Video/Televisions"
+  }
+ },
+ {
+  "id": "throw_pillows_01",
+  "name": "Throw Pillows 01",
+  "category": "throw_pillow",
+  "placement": "surface",
+  "category_path": "Decor & Art/Ornaments/Cushions & Pillows",
+  "dimensions_m": [
+   1.0216,
+   0.6275,
+   0.4502
+  ],
+  "info": {
+   "name": "Throw Pillows 01",
+   "dimensions": [
+    1021.5678811073303,
+    627.4925470352173,
+    450.1592831220478
+   ],
+   "authors": {
+    "Serhii Khromov": "All"
+   },
+   "date_published": 1630022400,
+   "category": "Decor & Art/Ornaments/Cushions & Pillows"
+  }
+ },
+ {
+  "id": "tire_pump",
+  "name": "Tire Pump",
+  "category": "pump",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Workshop Equipment/Pumps",
+  "dimensions_m": [
+   0.2549,
+   0.101,
+   0.5795
+  ],
+  "info": {
+   "name": "Tire Pump",
+   "dimensions": [
+    254.89504635334015,
+    100.97793117165565,
+    579.5293497430976
+   ],
+   "authors": {
+    "Garrison Gager": "All"
+   },
+   "date_published": 1675382400,
+   "category": "Tools & Equipment/Workshop Equipment/Pumps"
+  }
+ },
+ {
+  "id": "tongue_groove_pliers",
+  "name": "Tongue & Groove Pliers",
+  "category": "pliers",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Pliers & Grippers",
+  "dimensions_m": [
+   0.0625,
+   0.2444,
+   0.0139
+  ],
+  "info": {
+   "name": "Tongue & Groove Pliers",
+   "dimensions": [
+    62.50903196632862,
+    244.4150596857071,
+    13.865156099200249
+   ],
+   "authors": {
+    "BKS": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Tools & Equipment/Hand Tools/Pliers & Grippers"
+  }
+ },
+ {
+  "id": "tool_cart",
+  "name": "Tool Cart",
+  "category": "cart",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "dimensions_m": [
+   1.2734,
+   0.7536,
+   0.9646
+  ],
+  "info": {
+   "name": "Tool Cart",
+   "dimensions": [
+    1273.4254002571106,
+    753.6306381225586,
+    964.644730091095
+   ],
+   "authors": {
+    "Savva Zakharov": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Furniture/Storage Furniture/Carts & Trolleys"
+  }
+ },
+ {
+  "id": "trashbag",
+  "name": "Trashbag",
+  "category": "trash_bag",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Bags/Waste Bags",
+  "dimensions_m": [
+   0.5281,
+   0.4629,
+   0.575
+  ],
+  "info": {
+   "name": "Trashbag",
+   "dimensions": [
+    528.0700623989105,
+    462.893009185791,
+    574.9993845820427
+   ],
+   "authors": {
+    "Benny Weimer": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Containers & Storage/Bags/Waste Bags"
+  }
+ },
+ {
+  "id": "treasure_chest",
+  "name": "Treasure Chest",
+  "category": "chest",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Chests & Trunks",
+  "dimensions_m": [
+   0.959,
+   0.5229,
+   0.619
+  ],
+  "info": {
+   "name": "Treasure Chest",
+   "dimensions": [
+    959.0365290641785,
+    522.853434085846,
+    618.9745217561722
+   ],
+   "authors": {
+    "Rico Cilliers": "All"
+   },
+   "date_published": 1650585600,
+   "category": "Containers & Storage/Boxes & Crates/Chests & Trunks"
+  }
+ },
+ {
+  "id": "trowel_01",
+  "name": "Trowel 01",
+  "category": "shovel",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Garden Tools/Digging Tools",
+  "dimensions_m": [
+   0.0991,
+   0.3469,
+   0.1026
+  ],
+  "info": {
+   "name": "Trowel 01",
+   "dimensions": [
+    99.12503510713577,
+    346.8870371580124,
+    102.62799635529518
+   ],
+   "authors": {
+    "Satyaki Mandal": "All"
+   },
+   "date_published": 1672012800,
+   "category": "Tools & Equipment/Garden Tools/Digging Tools"
+  }
+ },
+ {
+  "id": "vintage_binocular",
+  "name": "Vintage Binoculars",
+  "category": "optical_instrument",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Optical Instruments",
+  "dimensions_m": [
+   0.194,
+   0.1992,
+   0.0684
+  ],
+  "info": {
+   "name": "Vintage Binoculars",
+   "dimensions": [
+    193.99694353342056,
+    199.23493266105652,
+    68.44266317784786
+   ],
+   "authors": {
+    "Luke": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Electronics & Appliances/Devices & Instruments/Optical Instruments"
+  }
+ },
+ {
+  "id": "vintage_day_bed",
+  "name": "Vintage Day Bed",
+  "category": "bed",
+  "placement": "floor",
+  "category_path": "Furniture/Beds",
+  "dimensions_m": [
+   1.9726,
+   0.8548,
+   1.1273
+  ],
+  "info": {
+   "name": "Vintage Day Bed",
+   "dimensions": [
+    1972.5552201271057,
+    854.77614402771,
+    1127.3465404283343
+   ],
+   "authors": {
+    "Aron Łyczek": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Furniture/Beds"
+  }
+ },
+ {
+  "id": "vintage_hand_drill",
+  "name": "Vintage Hand Drill",
+  "category": "hand_drill",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Hand Drills",
+  "dimensions_m": [
+   0.1239,
+   0.1388,
+   0.4857
+  ],
+  "info": {
+   "name": "Vintage Hand Drill",
+   "dimensions": [
+    123.88670444488525,
+    138.80568742752075,
+    485.6843203306198
+   ],
+   "authors": {
+    "Yann Kervran": "Rigging",
+    "Benjamin McDonnell": "Modeling & Texturing"
+   },
+   "date_published": 1669161600,
+   "category": "Tools & Equipment/Hand Tools/Hand Drills"
+  }
+ },
+ {
+  "id": "vintage_radio_transceiver",
+  "name": "Vintage Radio Transceiver",
+  "category": "radio",
+  "placement": "surface",
+  "category_path": "Electronics & Appliances/Audio & Video/Radios & Portable Audio",
+  "dimensions_m": [
+   0.6182,
+   0.4179,
+   0.4344
+  ],
+  "info": {
+   "name": "Vintage Radio Transceiver",
+   "dimensions": [
+    618.1803643703461,
+    417.8741127252579,
+    434.39279100857675
+   ],
+   "authors": {
+    "Mateusz Sadek": "All"
+   },
+   "date_published": 1776328733,
+   "category": "Electronics & Appliances/Audio & Video/Radios & Portable Audio"
+  }
+ },
+ {
+  "id": "vintage_wooden_drawer_01",
+  "name": "Vintage Wooden Drawer 01",
+  "category": "dresser",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Drawers & Dressers",
+  "dimensions_m": [
+   1.7151,
+   1.0069,
+   1.0908
+  ],
+  "info": {
+   "name": "Vintage Wooden Drawer 01",
+   "dimensions": [
+    1715.1139974594116,
+    1006.912887096405,
+    1090.839296579361
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1629244800,
+   "category": "Furniture/Storage Furniture/Drawers & Dressers"
+  }
+ },
+ {
+  "id": "wheelchair_01",
+  "name": "Wheelchair 01",
+  "category": "wheelchair",
+  "placement": "floor",
+  "category_path": "Apparel & Personal Items/Mobility & Medical/Wheelchairs",
+  "dimensions_m": [
+   0.8241,
+   1.0909,
+   1.1035
+  ],
+  "info": {
+   "name": "Wheelchair 01",
+   "dimensions": [
+    824.0909576416016,
+    1090.866893529892,
+    1103.5015587694943
+   ],
+   "authors": {
+    "Garreth Dean": "All"
+   },
+   "date_published": 1625817438,
+   "category": "Apparel & Personal Items/Mobility & Medical/Wheelchairs"
+  }
+ },
+ {
+  "id": "wicker_basket_01",
+  "name": "Wicker Basket 01",
+  "category": "basket",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Baskets & Buckets/Baskets",
+  "dimensions_m": [
+   0.3832,
+   0.295,
+   0.1174
+  ],
+  "info": {
+   "name": "Wicker Basket 01",
+   "dimensions": [
+    383.2242637872696,
+    295.01520097255707,
+    117.42293369024992
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1672963200,
+   "category": "Containers & Storage/Baskets & Buckets/Baskets"
+  }
+ },
+ {
+  "id": "wicker_basket_02",
+  "name": "Wicker Basket 02",
+  "category": "basket",
+  "placement": "surface",
+  "category_path": "Containers & Storage/Baskets & Buckets/Baskets",
+  "dimensions_m": [
+   0.3747,
+   0.2707,
+   0.2182
+  ],
+  "info": {
+   "name": "Wicker Basket 02",
+   "dimensions": [
+    374.6650815010071,
+    270.6727311015129,
+    218.15226320177317
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1722384000,
+   "category": "Containers & Storage/Baskets & Buckets/Baskets"
+  }
+ },
+ {
+  "id": "wine_barrel_01",
+  "name": "Wine Barrel 01",
+  "category": "wooden_barrel",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Barrels & Drums/Wooden Barrels",
+  "dimensions_m": [
+   0.7419,
+   0.756,
+   0.8713
+  ],
+  "info": {
+   "name": "Wine Barrel 01",
+   "dimensions": [
+    741.9015169143677,
+    756.035715341568,
+    871.2633550167084
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767646,
+   "category": "Containers & Storage/Barrels & Drums/Wooden Barrels"
+  }
+ },
+ {
+  "id": "wooden_axe",
+  "name": "Wooden Axe",
+  "category": "axe",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "dimensions_m": [
+   0.0472,
+   0.2143,
+   0.6303
+  ],
+  "info": {
+   "name": "Wooden Axe",
+   "dimensions": [
+    47.16496914625168,
+    214.3455445766449,
+    630.3347498178482
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1715126400,
+   "category": "Tools & Equipment/Hand Tools/Axes & Hatchets"
+  }
+ },
+ {
+  "id": "wooden_axe_02",
+  "name": "Wooden Axe 02",
+  "category": "axe",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "dimensions_m": [
+   0.0509,
+   0.2257,
+   0.7042
+  ],
+  "info": {
+   "name": "Wooden Axe 02",
+   "dimensions": [
+    50.90378411114216,
+    225.73669627308846,
+    704.204648733139
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1721001600,
+   "category": "Tools & Equipment/Hand Tools/Axes & Hatchets"
+  }
+ },
+ {
+  "id": "wooden_axe_03",
+  "name": "Wooden Axe 03",
+  "category": "axe",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "dimensions_m": [
+   0.0505,
+   0.1583,
+   0.6318
+  ],
+  "info": {
+   "name": "Wooden Axe 03",
+   "dimensions": [
+    50.4691693931818,
+    158.34461152553558,
+    631.799966096878
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1741564800,
+   "category": "Tools & Equipment/Hand Tools/Axes & Hatchets"
+  }
+ },
+ {
+  "id": "wooden_bookshelf_worn",
+  "name": "Wooden Bookshelf Worn",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   1.374,
+   0.5813,
+   2.0634
+  ],
+  "info": {
+   "name": "Wooden Bookshelf Worn",
+   "dimensions": [
+    1373.95179271698,
+    581.3020169734955,
+    2063.442051410675
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1684108800,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "wooden_bowl_01",
+  "name": "Wooden Bowl 01",
+  "category": "bowl",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Tableware/Bowls",
+  "dimensions_m": [
+   0.3131,
+   0.3091,
+   0.0937
+  ],
+  "info": {
+   "name": "Wooden Bowl 01",
+   "dimensions": [
+    313.08163702487946,
+    309.1423809528351,
+    93.69255532510579
+   ],
+   "authors": {
+    "Oliver Harries": "All"
+   },
+   "date_published": 1628553600,
+   "category": "Food & Kitchen/Tableware/Bowls"
+  }
+ },
+ {
+  "id": "wooden_bowl_02",
+  "name": "Wooden Bowl 02",
+  "category": "bowl",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Tableware/Bowls",
+  "dimensions_m": [
+   0.1307,
+   0.1245,
+   0.0731
+  ],
+  "info": {
+   "name": "Wooden Bowl 02",
+   "dimensions": [
+    130.71347028017044,
+    124.53967705368996,
+    73.09794479806442
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1721952000,
+   "category": "Food & Kitchen/Tableware/Bowls"
+  }
+ },
+ {
+  "id": "wooden_bucket_01",
+  "name": "Wooden Bucket 01",
+  "category": "bucket",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Baskets & Buckets/Buckets",
+  "dimensions_m": [
+   0.367,
+   0.3422,
+   0.5499
+  ],
+  "info": {
+   "name": "Wooden Bucket 01",
+   "dimensions": [
+    366.97085201740265,
+    342.2211855649948,
+    549.862340092659
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1648598400,
+   "category": "Containers & Storage/Baskets & Buckets/Buckets"
+  }
+ },
+ {
+  "id": "wooden_bucket_02",
+  "name": "Wooden Bucket 02",
+  "category": "bucket",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Baskets & Buckets/Buckets",
+  "dimensions_m": [
+   0.6153,
+   0.6163,
+   0.3504
+  ],
+  "info": {
+   "name": "Wooden Bucket 02",
+   "dimensions": [
+    615.3266429901123,
+    616.3034439086914,
+    350.42548179626465
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1649808000,
+   "category": "Containers & Storage/Baskets & Buckets/Buckets"
+  }
+ },
+ {
+  "id": "wooden_candlestick",
+  "name": "Wooden Candlestick",
+  "category": "candlestick",
+  "placement": "surface",
+  "category_path": "Lighting/Portable/Candles & Candlesticks",
+  "dimensions_m": [
+   0.0983,
+   0.0999,
+   0.2197
+  ],
+  "info": {
+   "name": "Wooden Candlestick",
+   "dimensions": [
+    98.3029305934906,
+    99.87897053360939,
+    219.74407136440277
+   ],
+   "authors": {
+    "Josh Dean": "All"
+   },
+   "date_published": 1701388800,
+   "category": "Lighting/Portable/Candles & Candlesticks"
+  }
+ },
+ {
+  "id": "wooden_crate_01",
+  "name": "Wooden Crate 01",
+  "category": "wooden_crate",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Wooden Crates",
+  "dimensions_m": [
+   0.8253,
+   0.409,
+   0.3496
+  ],
+  "info": {
+   "name": "Wooden Crate 01",
+   "dimensions": [
+    825.2729177474976,
+    408.9537411928177,
+    349.6182831004262
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1645747200,
+   "category": "Containers & Storage/Boxes & Crates/Wooden Crates"
+  }
+ },
+ {
+  "id": "wooden_crate_02",
+  "name": "Wooden Crate 02",
+  "category": "wooden_crate",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Wooden Crates",
+  "dimensions_m": [
+   1.1663,
+   0.5291,
+   0.464
+  ],
+  "info": {
+   "name": "Wooden Crate 02",
+   "dimensions": [
+    1166.325867176056,
+    529.1010439395905,
+    463.95453810691833
+   ],
+   "authors": {
+    "James Ray Cock": "modeling",
+    "Jurita Burger": "graphic design"
+   },
+   "date_published": 1646179200,
+   "category": "Containers & Storage/Boxes & Crates/Wooden Crates"
+  }
+ },
+ {
+  "id": "wooden_cutting_board",
+  "name": "Wooden Cutting Board",
+  "category": "cutting_board",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Utensils/Cutting Boards",
+  "dimensions_m": [
+   0.4499,
+   0.2467,
+   0.0413
+  ],
+  "info": {
+   "name": "Wooden Cutting Board",
+   "dimensions": [
+    449.8896151781082,
+    246.6525286436081,
+    41.25304119224893
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1721606400,
+   "category": "Food & Kitchen/Utensils/Cutting Boards"
+  }
+ },
+ {
+  "id": "wooden_display_shelves_01",
+  "name": "Wooden Display Shelves 01",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   1.0778,
+   0.3715,
+   1.5562
+  ],
+  "info": {
+   "name": "Wooden Display Shelves 01",
+   "dimensions": [
+    1077.760934829712,
+    371.50970101356506,
+    1556.1838150024414
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1623767647,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "wooden_hammer_01",
+  "name": "Wooden Hammer 01",
+  "category": "hammer",
+  "placement": "surface",
+  "category_path": "Tools & Equipment/Hand Tools/Hammers & Mallets",
+  "dimensions_m": [
+   0.1118,
+   0.0234,
+   0.2792
+  ],
+  "info": {
+   "name": "Wooden Hammer 01",
+   "dimensions": [
+    111.81152239441872,
+    23.39816838502884,
+    279.15042638778687
+   ],
+   "authors": {
+    "James Ray Cock": "All"
+   },
+   "date_published": 1657843200,
+   "category": "Tools & Equipment/Hand Tools/Hammers & Mallets"
+  }
+ },
+ {
+  "id": "wooden_ladder",
+  "name": "Wooden Ladder",
+  "category": "ladder",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Workshop Equipment/Ladders",
+  "dimensions_m": [
+   0.9592,
+   0.5,
+   1.3349
+  ],
+  "info": {
+   "name": "Wooden Ladder",
+   "dimensions": [
+    959.1718018054962,
+    500.0000149011612,
+    1334.923267364502
+   ],
+   "authors": {
+    "Miroslav Turura": "All"
+   },
+   "date_published": 1780963200,
+   "category": "Tools & Equipment/Workshop Equipment/Ladders"
+  }
+ },
+ {
+  "id": "wooden_ladder_02",
+  "name": "Wooden Ladder 02",
+  "category": "ladder",
+  "placement": "floor",
+  "category_path": "Tools & Equipment/Workshop Equipment/Ladders",
+  "dimensions_m": [
+   0.9895,
+   0.6181,
+   1.7222
+  ],
+  "info": {
+   "name": "Wooden Ladder 02",
+   "dimensions": [
+    989.5061254501343,
+    618.1379556655884,
+    1722.179728676565
+   ],
+   "authors": {
+    "JN_3DPRINTINGNERD": "All"
+   },
+   "date_published": 1783036800,
+   "category": "Tools & Equipment/Workshop Equipment/Ladders"
+  }
+ },
+ {
+  "id": "wooden_military_crate",
+  "name": "Wooden Military Crate",
+  "category": "military_crate",
+  "placement": "floor",
+  "category_path": "Containers & Storage/Boxes & Crates/Military Crates",
+  "dimensions_m": [
+   1.2421,
+   0.5198,
+   0.4648
+  ],
+  "info": {
+   "name": "Wooden Military Crate",
+   "dimensions": [
+    1242.0655488967896,
+    519.7786092758179,
+    464.8151993751526
+   ],
+   "authors": {
+    "Prabhjinder Singh": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Containers & Storage/Boxes & Crates/Military Crates"
+  }
+ },
+ {
+  "id": "wooden_picnic_table",
+  "name": "Wooden Picnic Table",
+  "category": "outdoor_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Outdoor Tables",
+  "dimensions_m": [
+   2.241,
+   3.0223,
+   0.746
+  ],
+  "info": {
+   "name": "Wooden Picnic Table",
+   "dimensions": [
+    2240.9759759902954,
+    3022.329568862915,
+    745.9869086742401
+   ],
+   "authors": {
+    "Ulan Cabanilla": "All"
+   },
+   "date_published": 1715558400,
+   "category": "Furniture/Tables/Outdoor Tables"
+  }
+ },
+ {
+  "id": "wooden_spoon",
+  "name": "Wooden Spoon",
+  "category": "kitchen_utensil",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Utensils/Wooden Utensils",
+  "dimensions_m": [
+   0.0867,
+   0.2776,
+   0.0251
+  ],
+  "info": {
+   "name": "Wooden Spoon",
+   "dimensions": [
+    86.66010573506355,
+    277.6350826025009,
+    25.113525800406933
+   ],
+   "authors": {
+    "Ronnie Barter": "All"
+   },
+   "date_published": 1699056000,
+   "category": "Food & Kitchen/Utensils/Wooden Utensils"
+  }
+ },
+ {
+  "id": "wooden_stool_01",
+  "name": "Wooden Stool 01",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.4254,
+   0.4424,
+   0.4374
+  ],
+  "info": {
+   "name": "Wooden Stool 01",
+   "dimensions": [
+    425.3551661968231,
+    442.36281514167786,
+    437.35266576914
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1634688000,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "wooden_stool_02",
+  "name": "Wooden Stool 02",
+  "category": "stool",
+  "placement": "floor",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "dimensions_m": [
+   0.2652,
+   0.1831,
+   0.1819
+  ],
+  "info": {
+   "name": "Wooden Stool 02",
+   "dimensions": [
+    265.1771306991577,
+    183.12730640172958,
+    181.92848344915546
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1722556800,
+   "category": "Furniture/Seating/Stools & Bar Seating"
+  }
+ },
+ {
+  "id": "wooden_table_02",
+  "name": "Wooden Table 02",
+  "category": "dining_table",
+  "placement": "floor",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "dimensions_m": [
+   1.1344,
+   0.706,
+   0.7995
+  ],
+  "info": {
+   "name": "Wooden Table 02",
+   "dimensions": [
+    1134.41663980484,
+    706.0248255729675,
+    799.5428870490286
+   ],
+   "authors": {
+    "Serhii Khromov": "All"
+   },
+   "date_published": 1630540800,
+   "category": "Furniture/Tables/Dining Tables"
+  }
+ },
+ {
+  "id": "worn_metal_rack",
+  "name": "Worn Metal Rack",
+  "category": "shelf",
+  "placement": "floor",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "dimensions_m": [
+   0.9154,
+   0.6,
+   1.9
+  ],
+  "info": {
+   "name": "Worn Metal Rack",
+   "dimensions": [
+    915.4166579246521,
+    600.0000238418579,
+    1899.9999766365256
+   ],
+   "authors": {
+    "Luca B": "All"
+   },
+   "date_published": 1781913600,
+   "category": "Furniture/Storage Furniture/Shelving & Bookcases"
+  }
+ },
+ {
+  "id": "yellow_onion",
+  "name": "Yellow Onion",
+  "category": "vegetable",
+  "placement": "surface",
+  "category_path": "Food & Kitchen/Produce/Vegetables",
+  "dimensions_m": [
+   0.0725,
+   0.0686,
+   0.0864
+  ],
+  "info": {
+   "name": "Yellow Onion",
+   "dimensions": [
+    72.4824033677578,
+    68.636579439044,
+    86.37567976256832
+   ],
+   "authors": {
+    "Kuutti Siitonen": "All"
+   },
+   "date_published": 1720569600,
+   "category": "Food & Kitchen/Produce/Vegetables"
+  }
+ }
+]

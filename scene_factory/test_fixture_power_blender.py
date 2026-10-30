@@ -47,6 +47,90 @@ class FixturePowerBlenderTests(unittest.TestCase):
                         if node.type == 'EMISSION')
         return emission.inputs['Strength'].default_value
 
+    def test_nearby_lamps_match_physical_backing_before_creating_faces(self):
+        from appearance_lighting import add_fixture_faces
+        first = self.lamp('FirstBacked')
+        backing = bpy.context.object
+        second = bpy.data.objects.new('SecondBacked', first.data.copy())
+        self.scene.collection.objects.link(second)
+        second.location = (0, 0, 1.92)
+        powers = {lamp.name: lamp.data.energy for lamp in (first, second)}
+        records = add_fixture_faces(self.scene)
+        self.assertEqual(len(records), 2)
+        self.assertEqual({record['backing'] for record in records}, {backing.name})
+        self.assertEqual(powers, {lamp.name: lamp.data.energy for lamp in (first, second)})
+        self.assertEqual(len([obj for obj in self.scene.objects if obj.type == 'LIGHT']), 2)
+        for record in records:
+            face = self.scene.objects[record['face']]
+            self.assertFalse(face.visible_diffuse)
+            self.assertFalse(face.visible_shadow)
+            self.assertFalse(record['additional_diffuse_emission'])
+
+    def test_repeated_execution_reuses_faces_and_retains_renamed_source_binding(self):
+        from appearance_lighting import add_fixture_faces
+        lamp = self.lamp()
+        face, = self.faces()
+        lamp.name = 'RenamedIdempotentFixture'
+        original = (face.as_pointer(), face.data.as_pointer(),
+                    face.material_slots[0].material.as_pointer())
+        for _ in range(3):
+            record, = add_fixture_faces(self.scene)
+            self.assertEqual(record['status'], 'reused')
+            self.assertEqual(record['light'], lamp.name)
+            self.assertEqual(record['face'], face.name)
+        self.assertEqual(original, (face.as_pointer(), face.data.as_pointer(),
+                                   face.material_slots[0].material.as_pointer()))
+        self.assertEqual(len([obj for obj in self.scene.objects
+                              if obj.get('fixture_appearance_only')]), 1)
+
+    def test_new_lamp_sees_physical_backing_through_existing_generated_face(self):
+        from appearance_lighting import add_fixture_faces
+        first = self.lamp('ExistingBacked')
+        backing = bpy.context.object
+        old_face, = self.faces()
+        second = bpy.data.objects.new('NewBacked', first.data.copy())
+        self.scene.collection.objects.link(second)
+        second.location = (0, 0, 1.92)
+        records = add_fixture_faces(self.scene)
+        self.assertEqual(len(records), 2)
+        created = next(record for record in records if record['light'] == second.name)
+        self.assertNotEqual(created['face'], old_face.name)
+        self.assertEqual(created['backing'], backing.name)
+        self.assertFalse(self.scene.objects[created['backing']].get('fixture_appearance_only'))
+        self.assertEqual(len([obj for obj in self.scene.objects
+                              if obj.get('fixture_appearance_only')]), 2)
+
+    def test_existing_appearance_without_physical_backing_cannot_support_new_face(self):
+        from appearance_lighting import add_fixture_faces
+        first = self.lamp('RemovedBacking')
+        backing = bpy.context.object
+        face, = self.faces()
+        bpy.data.objects.remove(backing, do_unlink=True)
+        second = bpy.data.objects.new('UnbackedNew', first.data.copy())
+        self.scene.collection.objects.link(second)
+        second.location = (0, 0, 1.92)
+        records = add_fixture_faces(self.scene)
+        self.assertEqual([record['face'] for record in records], [face.name])
+        self.assertEqual(records[0]['status'], 'reused')
+        self.assertEqual(len([obj for obj in self.scene.objects
+                              if obj.get('fixture_appearance_only')]), 1)
+
+    def test_edited_existing_face_is_not_replaced_or_duplicated(self):
+        from appearance_lighting import add_fixture_faces
+        self.lamp()
+        face, = self.faces()
+        # User-edited appearance graphs are deliberately left intact by the
+        # power binder. They still claim this lamp's existing appearance.
+        tree = face.material_slots[0].material.node_tree
+        tree.nodes.remove(next(node for node in tree.nodes if node.type == 'MIX_SHADER'))
+        count = len(tree.nodes)
+        record, = add_fixture_faces(self.scene)
+        self.assertEqual(record['status'], 'reused')
+        self.assertEqual(record['face'], face.name)
+        self.assertEqual(len(tree.nodes), count)
+        self.assertEqual(len([obj for obj in self.scene.objects
+                              if obj.get('fixture_appearance_only')]), 1)
+
     def test_power_changes_are_visible_in_real_camera_render(self):
         from lighting_fit import collect_lighting_controls, apply_lighting_controls
         lamp = self.lamp()
@@ -189,4 +273,4 @@ class FixturePowerBlenderTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(argv=[__file__])

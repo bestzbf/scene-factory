@@ -1,0 +1,3946 @@
+[
+ {
+  "package": "polyhaven_ArmChair_01",
+  "polyhaven_id": "ArmChair_01",
+  "name": "Arm Chair 01",
+  "url": "https://polyhaven.com/a/ArmChair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_BarberShopChair_01",
+  "polyhaven_id": "BarberShopChair_01",
+  "name": "Barber Shop Chair 01",
+  "url": "https://polyhaven.com/a/BarberShopChair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Fernando Quinn"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Barrel_01",
+  "polyhaven_id": "Barrel_01",
+  "name": "Barrel_01",
+  "url": "https://polyhaven.com/a/Barrel_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jorge Camacho"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Barrels & Drums/Metal Drums",
+  "category": "metal_drum",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Barrel_02",
+  "polyhaven_id": "Barrel_02",
+  "name": "Barrel 02",
+  "url": "https://polyhaven.com/a/Barrel_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jorge Camacho"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Barrels & Drums/Plastic Drums",
+  "category": "plastic_drum",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_CheeseBox_01",
+  "polyhaven_id": "CheeseBox_01",
+  "name": "CheeseBox_01",
+  "url": "https://polyhaven.com/a/CheeseBox_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Gabriel Radić"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Wooden Crates",
+  "category": "wooden_crate",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ClassicConsole_01",
+  "polyhaven_id": "ClassicConsole_01",
+  "name": "Classic Console 01",
+  "url": "https://polyhaven.com/a/ClassicConsole_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Console Tables",
+  "category": "console_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ClassicNightstand_01",
+  "polyhaven_id": "ClassicNightstand_01",
+  "name": "Classic Nightstand 01",
+  "url": "https://polyhaven.com/a/ClassicNightstand_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "category": "side_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_CoffeeCart_01",
+  "polyhaven_id": "CoffeeCart_01",
+  "name": "Coffee Cart 01",
+  "url": "https://polyhaven.com/a/CoffeeCart_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Joe Seabuhr"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "category": "cart",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_CoffeeTable_01",
+  "polyhaven_id": "CoffeeTable_01",
+  "name": "Coffee Table 01",
+  "url": "https://polyhaven.com/a/CoffeeTable_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Fernando Quinn"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Drill_01",
+  "polyhaven_id": "Drill_01",
+  "name": "Drill 01",
+  "url": "https://polyhaven.com/a/Drill_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Fernando Quinn"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Power Tools/Drills",
+  "category": "power_drill",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_GothicBed_01",
+  "polyhaven_id": "GothicBed_01",
+  "name": "Gothic Bed 01",
+  "url": "https://polyhaven.com/a/GothicBed_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Beds",
+  "category": "bed",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_GothicCabinet_01",
+  "polyhaven_id": "GothicCabinet_01",
+  "name": "Gothic Cabinet 01",
+  "url": "https://polyhaven.com/a/GothicCabinet_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "category": "cabinet",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_GothicCommode_01",
+  "polyhaven_id": "GothicCommode_01",
+  "name": "Gothic Commode 01",
+  "url": "https://polyhaven.com/a/GothicCommode_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Drawers & Dressers",
+  "category": "dresser",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_GreenChair_01",
+  "polyhaven_id": "GreenChair_01",
+  "name": "Green Chair 01",
+  "url": "https://polyhaven.com/a/GreenChair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Megaphone_01",
+  "polyhaven_id": "Megaphone_01",
+  "name": "Megaphone 01",
+  "url": "https://polyhaven.com/a/Megaphone_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ethan Simon-Law"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Handheld Devices",
+  "category": "handheld_device",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Ottoman_01",
+  "polyhaven_id": "Ottoman_01",
+  "name": "Ottoman 01",
+  "url": "https://polyhaven.com/a/Ottoman_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Caspian Fortune"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Ottomans & Footstools",
+  "category": "ottoman",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Rockingchair_01",
+  "polyhaven_id": "Rockingchair_01",
+  "name": "Rockingchair 01",
+  "url": "https://polyhaven.com/a/Rockingchair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jorge Camacho"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_SchoolChair_01",
+  "polyhaven_id": "SchoolChair_01",
+  "name": "School Chair 01",
+  "url": "https://polyhaven.com/a/SchoolChair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ethan Place"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_SchoolDesk_01",
+  "polyhaven_id": "SchoolDesk_01",
+  "name": "School Desk 01",
+  "url": "https://polyhaven.com/a/SchoolDesk_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ethan Place"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Desks",
+  "category": "desk",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Shelf_01",
+  "polyhaven_id": "Shelf_01",
+  "name": "Shelf 01",
+  "url": "https://polyhaven.com/a/Shelf_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Gabriel Radić"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Sofa_01",
+  "polyhaven_id": "Sofa_01",
+  "name": "Sofa 01",
+  "url": "https://polyhaven.com/a/Sofa_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "category": "sofa",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Television_01",
+  "polyhaven_id": "Television_01",
+  "name": "Television 01",
+  "url": "https://polyhaven.com/a/Television_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Gabriel Radić"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Audio & Video/Televisions",
+  "category": "television",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_Ukulele_01",
+  "polyhaven_id": "Ukulele_01",
+  "name": "Ukulele 01",
+  "url": "https://polyhaven.com/a/Ukulele_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Joseph Burgan"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Musical Instruments/String Instruments",
+  "category": "string_instrument",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_WoodenChair_01",
+  "polyhaven_id": "WoodenChair_01",
+  "name": "Wooden Chair 01",
+  "url": "https://polyhaven.com/a/WoodenChair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jake Mobley"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_WoodenTable_01",
+  "polyhaven_id": "WoodenTable_01",
+  "name": "Wooden Table 01",
+  "url": "https://polyhaven.com/a/WoodenTable_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ethan Place"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_WoodenTable_02",
+  "polyhaven_id": "WoodenTable_02",
+  "name": "Wooden Table 02",
+  "url": "https://polyhaven.com/a/WoodenTable_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Fran Calvente"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "category": "side_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_WoodenTable_03",
+  "polyhaven_id": "WoodenTable_03",
+  "name": "Wooden Table 03",
+  "url": "https://polyhaven.com/a/WoodenTable_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "Gabriel Radić"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Sideboards",
+  "category": "sideboard",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_adjustable_wrench",
+  "polyhaven_id": "adjustable_wrench",
+  "name": "Adjustable Wrench",
+  "url": "https://polyhaven.com/a/adjustable_wrench",
+  "license": "CC0-1.0",
+  "authors": [
+   "Mateusz Sadek"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "category": "wrench",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_american_football",
+  "polyhaven_id": "american_football",
+  "name": "American Football",
+  "url": "https://polyhaven.com/a/american_football",
+  "license": "CC0-1.0",
+  "authors": [
+   "Riley Queen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Sports/Balls",
+  "category": "ball",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ammo_box",
+  "polyhaven_id": "ammo_box",
+  "name": "Ammo Box",
+  "url": "https://polyhaven.com/a/ammo_box",
+  "license": "CC0-1.0",
+  "authors": [
+   "DanKit"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Military Crates",
+  "category": "military_crate",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_antique_ceramic_vase_01",
+  "polyhaven_id": "antique_ceramic_vase_01",
+  "name": "Antique Ceramic Vase 01",
+  "url": "https://polyhaven.com/a/antique_ceramic_vase_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_bar_chair_round_01",
+  "polyhaven_id": "bar_chair_round_01",
+  "name": "Bar Chair Round 01",
+  "url": "https://polyhaven.com/a/bar_chair_round_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Dairon Sanchez"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_barrel_03",
+  "polyhaven_id": "barrel_03",
+  "name": "Barrel 03",
+  "url": "https://polyhaven.com/a/barrel_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "Serhii Khromov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Barrels & Drums/Metal Drums",
+  "category": "metal_drum",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_barrel_stove",
+  "polyhaven_id": "barrel_stove",
+  "name": "Barrel Stove",
+  "url": "https://polyhaven.com/a/barrel_stove",
+  "license": "CC0-1.0",
+  "authors": [
+   "MP"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Home Appliances/Stoves & Heaters",
+  "category": "stove",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_baseball_01",
+  "polyhaven_id": "baseball_01",
+  "name": "Baseball 01",
+  "url": "https://polyhaven.com/a/baseball_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Sports/Balls",
+  "category": "ball",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_baseball_bat",
+  "polyhaven_id": "baseball_bat",
+  "name": "Baseball Bat",
+  "url": "https://polyhaven.com/a/baseball_bat",
+  "license": "CC0-1.0",
+  "authors": [
+   "Enrique Martín"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Sports/Bats & Rackets",
+  "category": "sports_bat",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_bleach_bottle",
+  "polyhaven_id": "bleach_bottle",
+  "name": "Bleach Bottle",
+  "url": "https://polyhaven.com/a/bleach_bottle",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_bolt_cutters_01",
+  "polyhaven_id": "bolt_cutters_01",
+  "name": "Bolt Cutters 01",
+  "url": "https://polyhaven.com/a/bolt_cutters_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Antanas Kep",
+   "Yann Kervran"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Saws & Cutting",
+  "category": "saw",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_book_encyclopedia_set_01",
+  "polyhaven_id": "book_encyclopedia_set_01",
+  "name": "Book Encyclopedia Set 01",
+  "url": "https://polyhaven.com/a/book_encyclopedia_set_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "John Malcolm"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Office & Stationery/Books & Documents/Books",
+  "category": "book_set",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_blowtorch",
+  "polyhaven_id": "brass_blowtorch",
+  "name": "Brass Blowtorch",
+  "url": "https://polyhaven.com/a/brass_blowtorch",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Torches & Burners",
+  "category": "blowtorch",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_goblets",
+  "polyhaven_id": "brass_goblets",
+  "name": "Brass Goblets",
+  "url": "https://polyhaven.com/a/brass_goblets",
+  "license": "CC0-1.0",
+  "authors": [
+   "Tina"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Tableware/Cups & Goblets",
+  "category": "goblet",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_pan_01",
+  "polyhaven_id": "brass_pan_01",
+  "name": "Brass Pan 01",
+  "url": "https://polyhaven.com/a/brass_pan_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "category": "cookware",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_pot_01",
+  "polyhaven_id": "brass_pot_01",
+  "name": "Brass Pot 01",
+  "url": "https://polyhaven.com/a/brass_pot_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "category": "cookware",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_pot_02",
+  "polyhaven_id": "brass_pot_02",
+  "name": "Brass Pot 02",
+  "url": "https://polyhaven.com/a/brass_pot_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "category": "cookware",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_vase_01",
+  "polyhaven_id": "brass_vase_01",
+  "name": "Brass Vase 01",
+  "url": "https://polyhaven.com/a/brass_vase_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_vase_02",
+  "polyhaven_id": "brass_vase_02",
+  "name": "Brass Vase 02",
+  "url": "https://polyhaven.com/a/brass_vase_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_vase_03",
+  "polyhaven_id": "brass_vase_03",
+  "name": "Brass Vase 03",
+  "url": "https://polyhaven.com/a/brass_vase_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_brass_vase_04",
+  "polyhaven_id": "brass_vase_04",
+  "name": "Brass Vase 04",
+  "url": "https://polyhaven.com/a/brass_vase_04",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Metal Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_bull_head",
+  "polyhaven_id": "bull_head",
+  "name": "Bull Head",
+  "url": "https://polyhaven.com/a/bull_head",
+  "license": "CC0-1.0",
+  "authors": [
+   "Tina"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_bunsen_burner",
+  "polyhaven_id": "bunsen_burner",
+  "name": "Bunsen Burner",
+  "url": "https://polyhaven.com/a/bunsen_burner",
+  "license": "CC0-1.0",
+  "authors": [
+   "BKS"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Lab Equipment",
+  "category": "lab_equipment",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_can_rusted",
+  "polyhaven_id": "can_rusted",
+  "name": "Can Rusted",
+  "url": "https://polyhaven.com/a/can_rusted",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rahul Chaudhary"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Tins",
+  "category": "tin_can",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_cardboard_box_01",
+  "polyhaven_id": "cardboard_box_01",
+  "name": "Cardboard Box 01",
+  "url": "https://polyhaven.com/a/cardboard_box_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rahul Chaudhary"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Cardboard Boxes",
+  "category": "cardboard_box",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_carrot_cake",
+  "polyhaven_id": "carrot_cake",
+  "name": "Carrot Cake",
+  "url": "https://polyhaven.com/a/carrot_cake",
+  "license": "CC0-1.0",
+  "authors": [
+   "Greg Zaal",
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Prepared Food/Cakes & Pastries",
+  "category": "cake",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_carved_wooden_elephant",
+  "polyhaven_id": "carved_wooden_elephant",
+  "name": "Carved Wooden Elephant",
+  "url": "https://polyhaven.com/a/carved_wooden_elephant",
+  "license": "CC0-1.0",
+  "authors": [
+   "Greg Zaal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_carved_wooden_plate",
+  "polyhaven_id": "carved_wooden_plate",
+  "name": "Carved Wooden Plate",
+  "url": "https://polyhaven.com/a/carved_wooden_plate",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jan Martens"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Tableware/Plates",
+  "category": "plate",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_cement_bag",
+  "polyhaven_id": "cement_bag",
+  "name": "Cement Bag",
+  "url": "https://polyhaven.com/a/cement_bag",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Bags/Sacks",
+  "category": "sack",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ceramic_vase_01",
+  "polyhaven_id": "ceramic_vase_01",
+  "name": "Ceramic Vase 01",
+  "url": "https://polyhaven.com/a/ceramic_vase_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ceramic_vase_02",
+  "polyhaven_id": "ceramic_vase_02",
+  "name": "Ceramic Vase 02",
+  "url": "https://polyhaven.com/a/ceramic_vase_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ceramic_vase_03",
+  "polyhaven_id": "ceramic_vase_03",
+  "name": "Ceramic Vase 03",
+  "url": "https://polyhaven.com/a/ceramic_vase_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ceramic_vase_04",
+  "polyhaven_id": "ceramic_vase_04",
+  "name": "Ceramic Vase 04",
+  "url": "https://polyhaven.com/a/ceramic_vase_04",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Ceramic Vases",
+  "category": "vase",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chess_set",
+  "polyhaven_id": "chess_set",
+  "name": "Chess Set",
+  "url": "https://polyhaven.com/a/chess_set",
+  "license": "CC0-1.0",
+  "authors": [
+   "Riley Queen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "category": "board_game",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_armchair",
+  "polyhaven_id": "chinese_armchair",
+  "name": "Chinese Armchair",
+  "url": "https://polyhaven.com/a/chinese_armchair",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_cabinet",
+  "polyhaven_id": "chinese_cabinet",
+  "name": "Chinese Cabinet",
+  "url": "https://polyhaven.com/a/chinese_cabinet",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "category": "cabinet",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_commode",
+  "polyhaven_id": "chinese_commode",
+  "name": "Chinese Commode",
+  "url": "https://polyhaven.com/a/chinese_commode",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "category": "cabinet",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_console_table",
+  "polyhaven_id": "chinese_console_table",
+  "name": "Chinese Console Table",
+  "url": "https://polyhaven.com/a/chinese_console_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Console Tables",
+  "category": "console_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_screen_panels",
+  "polyhaven_id": "chinese_screen_panels",
+  "name": "Chinese Screen Panels",
+  "url": "https://polyhaven.com/a/chinese_screen_panels",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Ornaments/Room Dividers & Screens",
+  "category": "room_divider",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_sofa",
+  "polyhaven_id": "chinese_sofa",
+  "name": "Chinese Sofa",
+  "url": "https://polyhaven.com/a/chinese_sofa",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "category": "sofa",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_stool",
+  "polyhaven_id": "chinese_stool",
+  "name": "Chinese Stool",
+  "url": "https://polyhaven.com/a/chinese_stool",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_chinese_tea_table",
+  "polyhaven_id": "chinese_tea_table",
+  "name": "Chinese Tea Table",
+  "url": "https://polyhaven.com/a/chinese_tea_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_cigarette_pack",
+  "polyhaven_id": "cigarette_pack",
+  "name": "Cigarette Pack",
+  "url": "https://polyhaven.com/a/cigarette_pack",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulrich Büch"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Accessories/Smoking Accessories",
+  "category": "smoking_accessory",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_classic_laptop",
+  "polyhaven_id": "classic_laptop",
+  "name": "Classic Laptop",
+  "url": "https://polyhaven.com/a/classic_laptop",
+  "license": "CC0-1.0",
+  "authors": [
+   "Arrangemonk"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Computing/Computers",
+  "category": "computer",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_clipboard",
+  "polyhaven_id": "clipboard",
+  "name": "Clipboard",
+  "url": "https://polyhaven.com/a/clipboard",
+  "license": "CC0-1.0",
+  "authors": [
+   "ProgrammerOnCoffee"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Office & Stationery/Stationery & Supplies/Clipboards & Boards",
+  "category": "clipboard",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_coffee_table_round_01",
+  "polyhaven_id": "coffee_table_round_01",
+  "name": "Coffee Table Round 01",
+  "url": "https://polyhaven.com/a/coffee_table_round_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_combination_wrench",
+  "polyhaven_id": "combination_wrench",
+  "name": "Combination Wrench",
+  "url": "https://polyhaven.com/a/combination_wrench",
+  "license": "CC0-1.0",
+  "authors": [
+   "BKS"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "category": "wrench",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_compost_bag_02",
+  "polyhaven_id": "compost_bag_02",
+  "name": "Compost Bag 02",
+  "url": "https://polyhaven.com/a/compost_bag_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Satyaki Mandal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Bags/Garden & Compost Bags",
+  "category": "garden_bag",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_concrete_cat_statue",
+  "polyhaven_id": "concrete_cat_statue",
+  "name": "Concrete Cat Statue",
+  "url": "https://polyhaven.com/a/concrete_cat_statue",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers",
+   "Riley Queen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_croissant",
+  "polyhaven_id": "croissant",
+  "name": "Croissant",
+  "url": "https://polyhaven.com/a/croissant",
+  "license": "CC0-1.0",
+  "authors": [
+   "Dario Barresi",
+   "Greg Zaal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Prepared Food/Cakes & Pastries",
+  "category": "cake",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_cross_pein_hammer",
+  "polyhaven_id": "cross_pein_hammer",
+  "name": "Cross Pein Hammer",
+  "url": "https://polyhaven.com/a/cross_pein_hammer",
+  "license": "CC0-1.0",
+  "authors": [
+   "Tics"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Hammers & Mallets",
+  "category": "hammer",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_crowbar_01",
+  "polyhaven_id": "crowbar_01",
+  "name": "Crowbar 01",
+  "url": "https://polyhaven.com/a/crowbar_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Alexander Otterbeck"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Pry Bars",
+  "category": "crowbar",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_dartboard",
+  "polyhaven_id": "dartboard",
+  "name": "Dartboard",
+  "url": "https://polyhaven.com/a/dartboard",
+  "license": "CC0-1.0",
+  "authors": [
+   "Satyaki Mandal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "category": "board_game",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_dining_chair_02",
+  "polyhaven_id": "dining_chair_02",
+  "name": "Dining Chair 02",
+  "url": "https://polyhaven.com/a/dining_chair_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_dining_table",
+  "polyhaven_id": "dining_table",
+  "name": "Dining Table",
+  "url": "https://polyhaven.com/a/dining_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Aron Łyczek"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "category": "dining_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_drain_cleaner",
+  "polyhaven_id": "drain_cleaner",
+  "name": "Drain Cleaner",
+  "url": "https://polyhaven.com/a/drain_cleaner",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_drawer_cabinet",
+  "polyhaven_id": "drawer_cabinet",
+  "name": "Drawer Cabinet",
+  "url": "https://polyhaven.com/a/drawer_cabinet",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Drawers & Dressers",
+  "category": "dresser",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_drill_press_01",
+  "polyhaven_id": "drill_press_01",
+  "name": "Drill Press 01",
+  "url": "https://polyhaven.com/a/drill_press_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Viktor"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Power Tools/Workshop Machines",
+  "category": "workshop_machine",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_dustpan",
+  "polyhaven_id": "dustpan",
+  "name": "Dustpan",
+  "url": "https://polyhaven.com/a/dustpan",
+  "license": "CC0-1.0",
+  "authors": [
+   "Balen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Brooms & Cleaning",
+  "category": "dustpan",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_fishermans_hat",
+  "polyhaven_id": "fishermans_hat",
+  "name": "Fishermans Hat",
+  "url": "https://polyhaven.com/a/fishermans_hat",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Headwear",
+  "category": "hat",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_flathead_screwdriver",
+  "polyhaven_id": "flathead_screwdriver",
+  "name": "Flathead Screwdriver",
+  "url": "https://polyhaven.com/a/flathead_screwdriver",
+  "license": "CC0-1.0",
+  "authors": [
+   "Dylan Detwiller"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Screwdrivers",
+  "category": "screwdriver",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_folding_wooden_stool",
+  "polyhaven_id": "folding_wooden_stool",
+  "name": "Folding Wooden Stool",
+  "url": "https://polyhaven.com/a/folding_wooden_stool",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_apple_01",
+  "polyhaven_id": "food_apple_01",
+  "name": "Food Apple 01",
+  "url": "https://polyhaven.com/a/food_apple_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "category": "fruit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_avocado_01",
+  "polyhaven_id": "food_avocado_01",
+  "name": "Food Avocado 01",
+  "url": "https://polyhaven.com/a/food_avocado_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "category": "fruit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_ginger_01",
+  "polyhaven_id": "food_ginger_01",
+  "name": "Food Ginger 01",
+  "url": "https://polyhaven.com/a/food_ginger_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Vegetables",
+  "category": "vegetable",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_kiwi_01",
+  "polyhaven_id": "food_kiwi_01",
+  "name": "Food Kiwi 01",
+  "url": "https://polyhaven.com/a/food_kiwi_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "category": "fruit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_lime_01",
+  "polyhaven_id": "food_lime_01",
+  "name": "Food Lime 01",
+  "url": "https://polyhaven.com/a/food_lime_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "category": "fruit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_lychee_01",
+  "polyhaven_id": "food_lychee_01",
+  "name": "Food Lychee 01",
+  "url": "https://polyhaven.com/a/food_lychee_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "category": "fruit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_pears_asian_01",
+  "polyhaven_id": "food_pears_asian_01",
+  "name": "Pears Asian 01",
+  "url": "https://polyhaven.com/a/food_pears_asian_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Amal Kumar"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "category": "fruit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_food_pomegranate_01",
+  "polyhaven_id": "food_pomegranate_01",
+  "name": "Food Pomegranate 01",
+  "url": "https://polyhaven.com/a/food_pomegranate_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Fruit",
+  "category": "fruit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_gallinera_chair",
+  "polyhaven_id": "gallinera_chair",
+  "name": "Gallinera Chair",
+  "url": "https://polyhaven.com/a/gallinera_chair",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_gallinera_table",
+  "polyhaven_id": "gallinera_table",
+  "name": "Gallinera Table",
+  "url": "https://polyhaven.com/a/gallinera_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "category": "dining_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_gamepad",
+  "polyhaven_id": "gamepad",
+  "name": "Gamepad",
+  "url": "https://polyhaven.com/a/gamepad",
+  "license": "CC0-1.0",
+  "authors": [
+   "Josh Dean"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Handheld Devices",
+  "category": "handheld_device",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_garden_gloves_01",
+  "polyhaven_id": "garden_gloves_01",
+  "name": "Garden Gloves 01",
+  "url": "https://polyhaven.com/a/garden_gloves_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Satyaki Mandal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Clothing & Footwear/Gloves & Workwear",
+  "category": "work_gloves",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_garden_gnome",
+  "polyhaven_id": "garden_gnome",
+  "name": "Garden Gnome",
+  "url": "https://polyhaven.com/a/garden_gnome",
+  "license": "CC0-1.0",
+  "authors": [
+   "Bhargav Kubal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Ornamental Sculptures",
+  "category": "sculpture",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_garden_hose_wall_mounted_01",
+  "polyhaven_id": "garden_hose_wall_mounted_01",
+  "name": "Garden Hose Wall Mounted 01",
+  "url": "https://polyhaven.com/a/garden_hose_wall_mounted_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Watering & Irrigation",
+  "category": "watering_can",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_garden_sprinkler_01",
+  "polyhaven_id": "garden_sprinkler_01",
+  "name": "Garden Sprinkler 01",
+  "url": "https://polyhaven.com/a/garden_sprinkler_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Amal Kumar"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Watering & Irrigation",
+  "category": "watering_can",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_gothic_coffee_table",
+  "polyhaven_id": "gothic_coffee_table",
+  "name": "Gothic Coffee Table",
+  "url": "https://polyhaven.com/a/gothic_coffee_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_gothic_statue",
+  "polyhaven_id": "gothic_statue",
+  "name": "Gothic Statue",
+  "url": "https://polyhaven.com/a/gothic_statue",
+  "license": "CC0-1.0",
+  "authors": [
+   "Benny Weimer"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Busts & Human Figures",
+  "category": "statue",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_hand_plane_no4",
+  "polyhaven_id": "hand_plane_no4",
+  "name": "Hand Plane No4",
+  "url": "https://polyhaven.com/a/hand_plane_no4",
+  "license": "CC0-1.0",
+  "authors": [
+   "Satyaki Mandal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools",
+  "category": "hand_tool",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_hand_truck",
+  "polyhaven_id": "hand_truck",
+  "name": "Hand Truck",
+  "url": "https://polyhaven.com/a/hand_truck",
+  "license": "CC0-1.0",
+  "authors": [
+   "Mutanzom3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "category": "cart",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_handsaw_wood",
+  "polyhaven_id": "handsaw_wood",
+  "name": "Handsaw Wood",
+  "url": "https://polyhaven.com/a/handsaw_wood",
+  "license": "CC0-1.0",
+  "authors": [
+   "Konrad Szałankiewicz"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Saws & Cutting",
+  "category": "saw",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_hatchet",
+  "polyhaven_id": "hatchet",
+  "name": "Hatchet",
+  "url": "https://polyhaven.com/a/hatchet",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock",
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "category": "axe",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_horse_head",
+  "polyhaven_id": "horse_head",
+  "name": "Horse Head",
+  "url": "https://polyhaven.com/a/horse_head",
+  "license": "CC0-1.0",
+  "authors": [
+   "Tina"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_industrial_coffee_table",
+  "polyhaven_id": "industrial_coffee_table",
+  "name": "Industrial Coffee Table",
+  "url": "https://polyhaven.com/a/industrial_coffee_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_industrial_microscope",
+  "polyhaven_id": "industrial_microscope",
+  "name": "Industrial Microscope",
+  "url": "https://polyhaven.com/a/industrial_microscope",
+  "license": "CC0-1.0",
+  "authors": [
+   "Lukas Walzer"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Optical Instruments",
+  "category": "optical_instrument",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_industrial_pastic_container",
+  "polyhaven_id": "industrial_pastic_container",
+  "name": "Industrial Plastic Container",
+  "url": "https://polyhaven.com/a/industrial_pastic_container",
+  "license": "CC0-1.0",
+  "authors": [
+   "Galo Benivegna"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Bins",
+  "category": "storage_bin",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_industrial_storage_cart",
+  "polyhaven_id": "industrial_storage_cart",
+  "name": "Industrial Storage Cart",
+  "url": "https://polyhaven.com/a/industrial_storage_cart",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jule Bielitz"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "category": "cart",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_jug_01",
+  "polyhaven_id": "jug_01",
+  "name": "Jug 01",
+  "url": "https://polyhaven.com/a/jug_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Tableware/Jugs & Pitchers",
+  "category": "pitcher",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_katana_stand_01",
+  "polyhaven_id": "katana_stand_01",
+  "name": "Katana Stand 01",
+  "url": "https://polyhaven.com/a/katana_stand_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Ornaments/Display Pieces",
+  "category": "display_stand",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ladder_sectioned_01",
+  "polyhaven_id": "ladder_sectioned_01",
+  "name": "Ladder Sectioned 01",
+  "url": "https://polyhaven.com/a/ladder_sectioned_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "MP"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Ladders",
+  "category": "ladder",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_lambis_shell",
+  "polyhaven_id": "lambis_shell",
+  "name": "Lambis Shell",
+  "url": "https://polyhaven.com/a/lambis_shell",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Ornaments/Decorative Objects",
+  "category": "decorative_object",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_leather_cleaner_can",
+  "polyhaven_id": "leather_cleaner_can",
+  "name": "Leather Cleaner Can",
+  "url": "https://polyhaven.com/a/leather_cleaner_can",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Aerosol & Spray Cans",
+  "category": "spray_can",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_life_jacket",
+  "polyhaven_id": "life_jacket",
+  "name": "Life Jacket",
+  "url": "https://polyhaven.com/a/life_jacket",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Clothing & Footwear/Safety Gear",
+  "category": "life_jacket",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_lightbulb_led",
+  "polyhaven_id": "lightbulb_led",
+  "name": "Lightbulb Led",
+  "url": "https://polyhaven.com/a/lightbulb_led",
+  "license": "CC0-1.0",
+  "authors": [
+   "Josh Dean"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Lighting/Bulbs & Fittings/Bulbs",
+  "category": "light_bulb",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_lion_head",
+  "polyhaven_id": "lion_head",
+  "name": "Lion Head",
+  "url": "https://polyhaven.com/a/lion_head",
+  "license": "CC0-1.0",
+  "authors": [
+   "Tina"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Animal Figures",
+  "category": "animal_figurine",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_lubricant_spray",
+  "polyhaven_id": "lubricant_spray",
+  "name": "Lubricant Spray",
+  "url": "https://polyhaven.com/a/lubricant_spray",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Aerosol & Spray Cans",
+  "category": "spray_can",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_marble_bust_01",
+  "polyhaven_id": "marble_bust_01",
+  "name": "Marble Bust 01",
+  "url": "https://polyhaven.com/a/marble_bust_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Sculptures & Figurines/Busts & Human Figures",
+  "category": "bust",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_measuring_tape_01",
+  "polyhaven_id": "measuring_tape_01",
+  "name": "Measuring Tape 01",
+  "url": "https://polyhaven.com/a/measuring_tape_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Measuring Tools",
+  "category": "measuring_tool",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_medical_box",
+  "polyhaven_id": "medical_box",
+  "name": "Medical Box",
+  "url": "https://polyhaven.com/a/medical_box",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Mobility & Medical/Medical Kits",
+  "category": "first_aid_kit",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_medical_tape",
+  "polyhaven_id": "medical_tape",
+  "name": "Medical Tape",
+  "url": "https://polyhaven.com/a/medical_tape",
+  "license": "CC0-1.0",
+  "authors": [
+   "Miroslav Turura"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Mobility & Medical",
+  "category": "medical_tape",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_jerrycan",
+  "polyhaven_id": "metal_jerrycan",
+  "name": "Metal Jerrycan",
+  "url": "https://polyhaven.com/a/metal_jerrycan",
+  "license": "CC0-1.0",
+  "authors": [
+   "Sean Buckley"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Jerrycans",
+  "category": "jerrycan",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_jerrycan_green",
+  "polyhaven_id": "metal_jerrycan_green",
+  "name": "Metal Jerrycan Green",
+  "url": "https://polyhaven.com/a/metal_jerrycan_green",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Jerrycans",
+  "category": "jerrycan",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_jug",
+  "polyhaven_id": "metal_jug",
+  "name": "Metal Jug",
+  "url": "https://polyhaven.com/a/metal_jug",
+  "license": "CC0-1.0",
+  "authors": [
+   "Anzor Lezhava"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Tableware/Jugs & Pitchers",
+  "category": "pitcher",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_office_desk",
+  "polyhaven_id": "metal_office_desk",
+  "name": "Metal Office Desk",
+  "url": "https://polyhaven.com/a/metal_office_desk",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Desks",
+  "category": "desk",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_stool_01",
+  "polyhaven_id": "metal_stool_01",
+  "name": "Metal Stool 01",
+  "url": "https://polyhaven.com/a/metal_stool_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_stool_02",
+  "polyhaven_id": "metal_stool_02",
+  "name": "Metal Stool 02",
+  "url": "https://polyhaven.com/a/metal_stool_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_stool_03",
+  "polyhaven_id": "metal_stool_03",
+  "name": "Metal Stool 03",
+  "url": "https://polyhaven.com/a/metal_stool_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "Flo Tasser"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_tool_chest",
+  "polyhaven_id": "metal_tool_chest",
+  "name": "Metal Tool Chest",
+  "url": "https://polyhaven.com/a/metal_tool_chest",
+  "license": "CC0-1.0",
+  "authors": [
+   "John Hutcheson",
+   "Yann Kervran"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Tool Chests",
+  "category": "toolbox",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_metal_toolbox",
+  "polyhaven_id": "metal_toolbox",
+  "name": "Metal Toolbox",
+  "url": "https://polyhaven.com/a/metal_toolbox",
+  "license": "CC0-1.0",
+  "authors": [
+   "Mateusz Sadek"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Tool Chests",
+  "category": "toolbox",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_mid_century_lounge_chair",
+  "polyhaven_id": "mid_century_lounge_chair",
+  "name": "Mid Century Lounge Chair",
+  "url": "https://polyhaven.com/a/mid_century_lounge_chair",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_modern_arm_chair_01",
+  "polyhaven_id": "modern_arm_chair_01",
+  "name": "Modern Arm Chair 01",
+  "url": "https://polyhaven.com/a/modern_arm_chair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Vibrant Nordic"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_modern_coffee_table_01",
+  "polyhaven_id": "modern_coffee_table_01",
+  "name": "Modern Coffee Table 01",
+  "url": "https://polyhaven.com/a/modern_coffee_table_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Amin"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_modern_coffee_table_02",
+  "polyhaven_id": "modern_coffee_table_02",
+  "name": "Modern Coffee Table 02",
+  "url": "https://polyhaven.com/a/modern_coffee_table_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Amin"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Coffee Tables",
+  "category": "coffee_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_modified_thermos",
+  "polyhaven_id": "modified_thermos",
+  "name": "Modified Thermos",
+  "url": "https://polyhaven.com/a/modified_thermos",
+  "license": "CC0-1.0",
+  "authors": [
+   "Alex Weber"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Drinks/Flasks & Thermoses",
+  "category": "thermos",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_mousetrap",
+  "polyhaven_id": "mousetrap",
+  "name": "Mousetrap",
+  "url": "https://polyhaven.com/a/mousetrap",
+  "license": "CC0-1.0",
+  "authors": [
+   "GreenPixel"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools",
+  "category": "hand_tool",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_multi_cleaner_5_litre",
+  "polyhaven_id": "multi_cleaner_5_litre",
+  "name": "Multi Cleaner 5 Litre",
+  "url": "https://polyhaven.com/a/multi_cleaner_5_litre",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_multi_cleaner_bottle",
+  "polyhaven_id": "multi_cleaner_bottle",
+  "name": "Multi Cleaner Bottle",
+  "url": "https://polyhaven.com/a/multi_cleaner_bottle",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Cleaning & Chemical Bottles",
+  "category": "cleaning_bottle",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_oil_tin",
+  "polyhaven_id": "oil_tin",
+  "name": "Oil Tin",
+  "url": "https://polyhaven.com/a/oil_tin",
+  "license": "CC0-1.0",
+  "authors": [
+   "Niklas"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans",
+  "category": "oil_can",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_old_bed_frame",
+  "polyhaven_id": "old_bed_frame",
+  "name": "Old Bed Frame",
+  "url": "https://polyhaven.com/a/old_bed_frame",
+  "license": "CC0-1.0",
+  "authors": [
+   "Luca B"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Beds",
+  "category": "bed",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_old_drill_press",
+  "polyhaven_id": "old_drill_press",
+  "name": "Old Drill Press",
+  "url": "https://polyhaven.com/a/old_drill_press",
+  "license": "CC0-1.0",
+  "authors": [
+   "Harsh Vardhan Singh"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Power Tools/Workshop Machines",
+  "category": "workshop_machine",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_old_gas_mask",
+  "polyhaven_id": "old_gas_mask",
+  "name": "Old Gas Mask",
+  "url": "https://polyhaven.com/a/old_gas_mask",
+  "license": "CC0-1.0",
+  "authors": [
+   "Michał Wiśniewski"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Clothing & Footwear/Safety Gear",
+  "category": "gas_mask",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_outdoor_table_chair_set_01",
+  "polyhaven_id": "outdoor_table_chair_set_01",
+  "name": "Outdoor Table Chair Set 01",
+  "url": "https://polyhaven.com/a/outdoor_table_chair_set_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Outdoor Seating",
+  "category": "outdoor_table_set",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_bench",
+  "polyhaven_id": "painted_wooden_bench",
+  "name": "Painted Wooden Bench",
+  "url": "https://polyhaven.com/a/painted_wooden_bench",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Benches",
+  "category": "bench",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_cabinet",
+  "polyhaven_id": "painted_wooden_cabinet",
+  "name": "Painted Wooden Cabinet",
+  "url": "https://polyhaven.com/a/painted_wooden_cabinet",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "category": "cabinet",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_cabinet_02",
+  "polyhaven_id": "painted_wooden_cabinet_02",
+  "name": "Painted Wooden Cabinet 02",
+  "url": "https://polyhaven.com/a/painted_wooden_cabinet_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Cabinets & Cupboards",
+  "category": "cabinet",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_chair_01",
+  "polyhaven_id": "painted_wooden_chair_01",
+  "name": "Painted Wooden Chair 01",
+  "url": "https://polyhaven.com/a/painted_wooden_chair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_chair_02",
+  "polyhaven_id": "painted_wooden_chair_02",
+  "name": "Painted Wooden Chair 02",
+  "url": "https://polyhaven.com/a/painted_wooden_chair_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_nightstand",
+  "polyhaven_id": "painted_wooden_nightstand",
+  "name": "Painted Wooden Nightstand",
+  "url": "https://polyhaven.com/a/painted_wooden_nightstand",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "category": "side_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_shelves",
+  "polyhaven_id": "painted_wooden_shelves",
+  "name": "Painted Wooden Shelves",
+  "url": "https://polyhaven.com/a/painted_wooden_shelves",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_sofa",
+  "polyhaven_id": "painted_wooden_sofa",
+  "name": "Painted Wooden Sofa",
+  "url": "https://polyhaven.com/a/painted_wooden_sofa",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "category": "sofa",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_stool",
+  "polyhaven_id": "painted_wooden_stool",
+  "name": "Painted Wooden Stool",
+  "url": "https://polyhaven.com/a/painted_wooden_stool",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_painted_wooden_table",
+  "polyhaven_id": "painted_wooden_table",
+  "name": "Painted Wooden Table",
+  "url": "https://polyhaven.com/a/painted_wooden_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "category": "dining_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_picke_dirty_01",
+  "polyhaven_id": "picke_dirty_01",
+  "name": "Picke Dirty 01",
+  "url": "https://polyhaven.com/a/picke_dirty_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Dennis Halbeck"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Digging Tools",
+  "category": "shovel",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_pipe_wrench",
+  "polyhaven_id": "pipe_wrench",
+  "name": "Pipe Wrench",
+  "url": "https://polyhaven.com/a/pipe_wrench",
+  "license": "CC0-1.0",
+  "authors": [
+   "Will Evarts"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "category": "wrench",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_planter_box_01",
+  "polyhaven_id": "planter_box_01",
+  "name": "Planter Box 01",
+  "url": "https://polyhaven.com/a/planter_box_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Planter Boxes",
+  "category": "planter_box",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_planter_box_02",
+  "polyhaven_id": "planter_box_02",
+  "name": "Planter Box 02",
+  "url": "https://polyhaven.com/a/planter_box_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Planter Boxes",
+  "category": "planter_box",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_planter_box_03",
+  "polyhaven_id": "planter_box_03",
+  "name": "Planter Box 03",
+  "url": "https://polyhaven.com/a/planter_box_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Planter Boxes",
+  "category": "planter_box",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_planter_pot_clay",
+  "polyhaven_id": "planter_pot_clay",
+  "name": "Planter Pot Clay",
+  "url": "https://polyhaven.com/a/planter_pot_clay",
+  "license": "CC0-1.0",
+  "authors": [
+   "Amal Kumar"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Vases & Vessels/Terracotta Pots",
+  "category": "terracotta_pot",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plastic_bottle_gallon",
+  "polyhaven_id": "plastic_bottle_gallon",
+  "name": "Plastic Bottle Gallon",
+  "url": "https://polyhaven.com/a/plastic_bottle_gallon",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rahul Chaudhary"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Jugs & Bottles",
+  "category": "bottle",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plastic_container",
+  "polyhaven_id": "plastic_container",
+  "name": "Plastic Container",
+  "url": "https://polyhaven.com/a/plastic_container",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Bins",
+  "category": "storage_bin",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plastic_crate_01",
+  "polyhaven_id": "plastic_crate_01",
+  "name": "Plastic Crate 01",
+  "url": "https://polyhaven.com/a/plastic_crate_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Plastic Crates",
+  "category": "plastic_crate",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plastic_crate_03",
+  "polyhaven_id": "plastic_crate_03",
+  "name": "Plastic Crate 03",
+  "url": "https://polyhaven.com/a/plastic_crate_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "Pacific Penguin"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Plastic Crates",
+  "category": "plastic_crate",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plastic_jerrycan",
+  "polyhaven_id": "plastic_jerrycan",
+  "name": "Plastic Jerrycan",
+  "url": "https://polyhaven.com/a/plastic_jerrycan",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Jerrycans",
+  "category": "jerrycan",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plastic_monobloc_chair_01",
+  "polyhaven_id": "plastic_monobloc_chair_01",
+  "name": "Plastic Monobloc Chair 01",
+  "url": "https://polyhaven.com/a/plastic_monobloc_chair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Chairs",
+  "category": "chair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plastic_thermos",
+  "polyhaven_id": "plastic_thermos",
+  "name": "Plastic Thermos",
+  "url": "https://polyhaven.com/a/plastic_thermos",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Drinks/Flasks & Thermoses",
+  "category": "thermos",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_pliers",
+  "polyhaven_id": "pliers",
+  "name": "Pliers",
+  "url": "https://polyhaven.com/a/pliers",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Pliers & Grippers",
+  "category": "pliers",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_plunger",
+  "polyhaven_id": "plunger",
+  "name": "Plunger",
+  "url": "https://polyhaven.com/a/plunger",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Brooms & Cleaning",
+  "category": "plunger",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_pot_enamel_01",
+  "polyhaven_id": "pot_enamel_01",
+  "name": "Pot Enamel 01",
+  "url": "https://polyhaven.com/a/pot_enamel_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Cookware/Pots & Pans",
+  "category": "cookware",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_potted_plant_04",
+  "polyhaven_id": "potted_plant_04",
+  "name": "Potted Plant 04",
+  "url": "https://polyhaven.com/a/potted_plant_04",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Nature/Plants/Potted Plants",
+  "category": "potted_plant",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_projector_screen",
+  "polyhaven_id": "projector_screen",
+  "name": "Projector Screen",
+  "url": "https://polyhaven.com/a/projector_screen",
+  "license": "CC0-1.0",
+  "authors": [
+   "PeterM"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Audio & Video/Projectors",
+  "category": "projector_screen",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_propane_tank",
+  "polyhaven_id": "propane_tank",
+  "name": "Propane Tank",
+  "url": "https://polyhaven.com/a/propane_tank",
+  "license": "CC0-1.0",
+  "authors": [
+   "Slinc"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Gas Cylinders",
+  "category": "gas_cylinder",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_propane_torch",
+  "polyhaven_id": "propane_torch",
+  "name": "Propane Torch",
+  "url": "https://polyhaven.com/a/propane_torch",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jan W"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Torches & Burners",
+  "category": "blowtorch",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_ratchet_wrench",
+  "polyhaven_id": "ratchet_wrench",
+  "name": "Ratchet Wrench",
+  "url": "https://polyhaven.com/a/ratchet_wrench",
+  "license": "CC0-1.0",
+  "authors": [
+   "John Hutcheson"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Wrenches & Spanners",
+  "category": "wrench",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_round_wooden_table_01",
+  "polyhaven_id": "round_wooden_table_01",
+  "name": "Round Wooden Table 01",
+  "url": "https://polyhaven.com/a/round_wooden_table_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "category": "dining_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_round_wooden_table_02",
+  "polyhaven_id": "round_wooden_table_02",
+  "name": "Round Wooden Table 02",
+  "url": "https://polyhaven.com/a/round_wooden_table_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "category": "dining_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_rusted_hacksaw",
+  "polyhaven_id": "rusted_hacksaw",
+  "name": "Rusted Hacksaw",
+  "url": "https://polyhaven.com/a/rusted_hacksaw",
+  "license": "CC0-1.0",
+  "authors": [
+   "Dabou Master"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Saws & Cutting",
+  "category": "saw",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_rusted_spade_01",
+  "polyhaven_id": "rusted_spade_01",
+  "name": "Rusted Spade 01",
+  "url": "https://polyhaven.com/a/rusted_spade_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Blemonade"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Digging Tools",
+  "category": "shovel",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_scandinavian_masonry_heater",
+  "polyhaven_id": "scandinavian_masonry_heater",
+  "name": "Scandinavian Masonry Heater",
+  "url": "https://polyhaven.com/a/scandinavian_masonry_heater",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Home Appliances/Stoves & Heaters",
+  "category": "stove",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_screwdriver",
+  "polyhaven_id": "screwdriver",
+  "name": "Screwdriver",
+  "url": "https://polyhaven.com/a/screwdriver",
+  "license": "CC0-1.0",
+  "authors": [
+   "PierreB3D"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Screwdrivers",
+  "category": "screwdriver",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_seadogs_compass",
+  "polyhaven_id": "seadogs_compass",
+  "name": "Seadogs Compass",
+  "url": "https://polyhaven.com/a/seadogs_compass",
+  "license": "CC0-1.0",
+  "authors": [
+   "Benny Weimer"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Accessories/Nautical Instruments",
+  "category": "nautical_instrument",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_seeding_tray_01",
+  "polyhaven_id": "seeding_tray_01",
+  "name": "Seedling Tray 01",
+  "url": "https://polyhaven.com/a/seeding_tray_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Satyaki Mandal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Planters & Pots",
+  "category": "plant_pot",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_side_table_01",
+  "polyhaven_id": "side_table_01",
+  "name": "Side Table 01",
+  "url": "https://polyhaven.com/a/side_table_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "category": "side_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_side_table_tall_01",
+  "polyhaven_id": "side_table_tall_01",
+  "name": "Side Table Tall 01",
+  "url": "https://polyhaven.com/a/side_table_tall_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "category": "side_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_sledgehammer_01",
+  "polyhaven_id": "sledgehammer_01",
+  "name": "Sledgehammer 01",
+  "url": "https://polyhaven.com/a/sledgehammer_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Dylan Guzman"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Hammers & Mallets",
+  "category": "hammer",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_small_lpg_tank",
+  "polyhaven_id": "small_lpg_tank",
+  "name": "Small Lpg Tank",
+  "url": "https://polyhaven.com/a/small_lpg_tank",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Tanks & Jerrycans/Gas Cylinders",
+  "category": "gas_cylinder",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_small_oil_can_01",
+  "polyhaven_id": "small_oil_can_01",
+  "name": "Small Oil Can 01",
+  "url": "https://polyhaven.com/a/small_oil_can_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Raven van de Werken"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans",
+  "category": "oil_can",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_small_wooden_table_01",
+  "polyhaven_id": "small_wooden_table_01",
+  "name": "Small Wooden Table 01",
+  "url": "https://polyhaven.com/a/small_wooden_table_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Side & End Tables",
+  "category": "side_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_sofa_02",
+  "polyhaven_id": "sofa_02",
+  "name": "Sofa 02",
+  "url": "https://polyhaven.com/a/sofa_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kirill Sannikov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Sofas & Couches",
+  "category": "sofa",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_spinning_wheel_01",
+  "polyhaven_id": "spinning_wheel_01",
+  "name": "Spinning Wheel 01",
+  "url": "https://polyhaven.com/a/spinning_wheel_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Sofia Pahaoja"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Vices & Clamps",
+  "category": "spinning_wheel",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_standing_chalkboard_01",
+  "polyhaven_id": "standing_chalkboard_01",
+  "name": "Standing Chalkboard 01",
+  "url": "https://polyhaven.com/a/standing_chalkboard_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "ParzivalCG"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Office & Stationery/Stationery & Supplies/Clipboards & Boards",
+  "category": "chalkboard",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_steel_frame_shelves_01",
+  "polyhaven_id": "steel_frame_shelves_01",
+  "name": "Steel Frame Shelves 01",
+  "url": "https://polyhaven.com/a/steel_frame_shelves_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_steel_frame_shelves_02",
+  "polyhaven_id": "steel_frame_shelves_02",
+  "name": "Steel Frame Shelves 02",
+  "url": "https://polyhaven.com/a/steel_frame_shelves_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_steel_frame_shelves_03",
+  "polyhaven_id": "steel_frame_shelves_03",
+  "name": "Steel Frame Shelves 03",
+  "url": "https://polyhaven.com/a/steel_frame_shelves_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_strawberry_chocolate_cake",
+  "polyhaven_id": "strawberry_chocolate_cake",
+  "name": "Strawberry Chocolate Cake",
+  "url": "https://polyhaven.com/a/strawberry_chocolate_cake",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Prepared Food/Cakes & Pastries",
+  "category": "cake",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_sungka_board",
+  "polyhaven_id": "sungka_board",
+  "name": "Sungka Board",
+  "url": "https://polyhaven.com/a/sungka_board",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "category": "board_game",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_sungka_board_02",
+  "polyhaven_id": "sungka_board_02",
+  "name": "Sungka Board 02",
+  "url": "https://polyhaven.com/a/sungka_board_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Leisure/Games & Toys/Board Games",
+  "category": "board_game",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_sweet_potato",
+  "polyhaven_id": "sweet_potato",
+  "name": "Sweet Potato",
+  "url": "https://polyhaven.com/a/sweet_potato",
+  "license": "CC0-1.0",
+  "authors": [
+   "Jan Martens"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Vegetables",
+  "category": "vegetable",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_television_02",
+  "polyhaven_id": "television_02",
+  "name": "Television 02",
+  "url": "https://polyhaven.com/a/television_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Benny Weimer"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Audio & Video/Televisions",
+  "category": "television",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_throw_pillows_01",
+  "polyhaven_id": "throw_pillows_01",
+  "name": "Throw Pillows 01",
+  "url": "https://polyhaven.com/a/throw_pillows_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Serhii Khromov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Decor & Art/Ornaments/Cushions & Pillows",
+  "category": "throw_pillow",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_tire_pump",
+  "polyhaven_id": "tire_pump",
+  "name": "Tire Pump",
+  "url": "https://polyhaven.com/a/tire_pump",
+  "license": "CC0-1.0",
+  "authors": [
+   "Garrison Gager"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Pumps",
+  "category": "pump",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_tongue_groove_pliers",
+  "polyhaven_id": "tongue_groove_pliers",
+  "name": "Tongue & Groove Pliers",
+  "url": "https://polyhaven.com/a/tongue_groove_pliers",
+  "license": "CC0-1.0",
+  "authors": [
+   "BKS"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Pliers & Grippers",
+  "category": "pliers",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_tool_cart",
+  "polyhaven_id": "tool_cart",
+  "name": "Tool Cart",
+  "url": "https://polyhaven.com/a/tool_cart",
+  "license": "CC0-1.0",
+  "authors": [
+   "Savva Zakharov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Carts & Trolleys",
+  "category": "cart",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_trashbag",
+  "polyhaven_id": "trashbag",
+  "name": "Trashbag",
+  "url": "https://polyhaven.com/a/trashbag",
+  "license": "CC0-1.0",
+  "authors": [
+   "Benny Weimer"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Bags/Waste Bags",
+  "category": "trash_bag",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_treasure_chest",
+  "polyhaven_id": "treasure_chest",
+  "name": "Treasure Chest",
+  "url": "https://polyhaven.com/a/treasure_chest",
+  "license": "CC0-1.0",
+  "authors": [
+   "Rico Cilliers"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Chests & Trunks",
+  "category": "chest",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_trowel_01",
+  "polyhaven_id": "trowel_01",
+  "name": "Trowel 01",
+  "url": "https://polyhaven.com/a/trowel_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Satyaki Mandal"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Garden Tools/Digging Tools",
+  "category": "shovel",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_vintage_binocular",
+  "polyhaven_id": "vintage_binocular",
+  "name": "Vintage Binoculars",
+  "url": "https://polyhaven.com/a/vintage_binocular",
+  "license": "CC0-1.0",
+  "authors": [
+   "Luke"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Devices & Instruments/Optical Instruments",
+  "category": "optical_instrument",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_vintage_day_bed",
+  "polyhaven_id": "vintage_day_bed",
+  "name": "Vintage Day Bed",
+  "url": "https://polyhaven.com/a/vintage_day_bed",
+  "license": "CC0-1.0",
+  "authors": [
+   "Aron Łyczek"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Beds",
+  "category": "bed",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_vintage_hand_drill",
+  "polyhaven_id": "vintage_hand_drill",
+  "name": "Vintage Hand Drill",
+  "url": "https://polyhaven.com/a/vintage_hand_drill",
+  "license": "CC0-1.0",
+  "authors": [
+   "Benjamin McDonnell",
+   "Yann Kervran"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Hand Drills",
+  "category": "hand_drill",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_vintage_radio_transceiver",
+  "polyhaven_id": "vintage_radio_transceiver",
+  "name": "Vintage Radio Transceiver",
+  "url": "https://polyhaven.com/a/vintage_radio_transceiver",
+  "license": "CC0-1.0",
+  "authors": [
+   "Mateusz Sadek"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Electronics & Appliances/Audio & Video/Radios & Portable Audio",
+  "category": "radio",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_vintage_wooden_drawer_01",
+  "polyhaven_id": "vintage_wooden_drawer_01",
+  "name": "Vintage Wooden Drawer 01",
+  "url": "https://polyhaven.com/a/vintage_wooden_drawer_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Drawers & Dressers",
+  "category": "dresser",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wheelchair_01",
+  "polyhaven_id": "wheelchair_01",
+  "name": "Wheelchair 01",
+  "url": "https://polyhaven.com/a/wheelchair_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Garreth Dean"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Apparel & Personal Items/Mobility & Medical/Wheelchairs",
+  "category": "wheelchair",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wicker_basket_01",
+  "polyhaven_id": "wicker_basket_01",
+  "name": "Wicker Basket 01",
+  "url": "https://polyhaven.com/a/wicker_basket_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Baskets & Buckets/Baskets",
+  "category": "basket",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wicker_basket_02",
+  "polyhaven_id": "wicker_basket_02",
+  "name": "Wicker Basket 02",
+  "url": "https://polyhaven.com/a/wicker_basket_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Baskets & Buckets/Baskets",
+  "category": "basket",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wine_barrel_01",
+  "polyhaven_id": "wine_barrel_01",
+  "name": "Wine Barrel 01",
+  "url": "https://polyhaven.com/a/wine_barrel_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Barrels & Drums/Wooden Barrels",
+  "category": "wooden_barrel",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_axe",
+  "polyhaven_id": "wooden_axe",
+  "name": "Wooden Axe",
+  "url": "https://polyhaven.com/a/wooden_axe",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "category": "axe",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_axe_02",
+  "polyhaven_id": "wooden_axe_02",
+  "name": "Wooden Axe 02",
+  "url": "https://polyhaven.com/a/wooden_axe_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "category": "axe",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_axe_03",
+  "polyhaven_id": "wooden_axe_03",
+  "name": "Wooden Axe 03",
+  "url": "https://polyhaven.com/a/wooden_axe_03",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Axes & Hatchets",
+  "category": "axe",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_bookshelf_worn",
+  "polyhaven_id": "wooden_bookshelf_worn",
+  "name": "Wooden Bookshelf Worn",
+  "url": "https://polyhaven.com/a/wooden_bookshelf_worn",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_bowl_01",
+  "polyhaven_id": "wooden_bowl_01",
+  "name": "Wooden Bowl 01",
+  "url": "https://polyhaven.com/a/wooden_bowl_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Oliver Harries"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Tableware/Bowls",
+  "category": "bowl",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_bowl_02",
+  "polyhaven_id": "wooden_bowl_02",
+  "name": "Wooden Bowl 02",
+  "url": "https://polyhaven.com/a/wooden_bowl_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Tableware/Bowls",
+  "category": "bowl",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_bucket_01",
+  "polyhaven_id": "wooden_bucket_01",
+  "name": "Wooden Bucket 01",
+  "url": "https://polyhaven.com/a/wooden_bucket_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Baskets & Buckets/Buckets",
+  "category": "bucket",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_bucket_02",
+  "polyhaven_id": "wooden_bucket_02",
+  "name": "Wooden Bucket 02",
+  "url": "https://polyhaven.com/a/wooden_bucket_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Baskets & Buckets/Buckets",
+  "category": "bucket",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_candlestick",
+  "polyhaven_id": "wooden_candlestick",
+  "name": "Wooden Candlestick",
+  "url": "https://polyhaven.com/a/wooden_candlestick",
+  "license": "CC0-1.0",
+  "authors": [
+   "Josh Dean"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Lighting/Portable/Candles & Candlesticks",
+  "category": "candlestick",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_crate_01",
+  "polyhaven_id": "wooden_crate_01",
+  "name": "Wooden Crate 01",
+  "url": "https://polyhaven.com/a/wooden_crate_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Wooden Crates",
+  "category": "wooden_crate",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_crate_02",
+  "polyhaven_id": "wooden_crate_02",
+  "name": "Wooden Crate 02",
+  "url": "https://polyhaven.com/a/wooden_crate_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock",
+   "Jurita Burger"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Wooden Crates",
+  "category": "wooden_crate",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_cutting_board",
+  "polyhaven_id": "wooden_cutting_board",
+  "name": "Wooden Cutting Board",
+  "url": "https://polyhaven.com/a/wooden_cutting_board",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Utensils/Cutting Boards",
+  "category": "cutting_board",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_display_shelves_01",
+  "polyhaven_id": "wooden_display_shelves_01",
+  "name": "Wooden Display Shelves 01",
+  "url": "https://polyhaven.com/a/wooden_display_shelves_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_hammer_01",
+  "polyhaven_id": "wooden_hammer_01",
+  "name": "Wooden Hammer 01",
+  "url": "https://polyhaven.com/a/wooden_hammer_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "James Ray Cock"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Hand Tools/Hammers & Mallets",
+  "category": "hammer",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_ladder",
+  "polyhaven_id": "wooden_ladder",
+  "name": "Wooden Ladder",
+  "url": "https://polyhaven.com/a/wooden_ladder",
+  "license": "CC0-1.0",
+  "authors": [
+   "Miroslav Turura"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Ladders",
+  "category": "ladder",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_ladder_02",
+  "polyhaven_id": "wooden_ladder_02",
+  "name": "Wooden Ladder 02",
+  "url": "https://polyhaven.com/a/wooden_ladder_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "JN_3DPRINTINGNERD"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Tools & Equipment/Workshop Equipment/Ladders",
+  "category": "ladder",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_military_crate",
+  "polyhaven_id": "wooden_military_crate",
+  "name": "Wooden Military Crate",
+  "url": "https://polyhaven.com/a/wooden_military_crate",
+  "license": "CC0-1.0",
+  "authors": [
+   "Prabhjinder Singh"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Containers & Storage/Boxes & Crates/Military Crates",
+  "category": "military_crate",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_picnic_table",
+  "polyhaven_id": "wooden_picnic_table",
+  "name": "Wooden Picnic Table",
+  "url": "https://polyhaven.com/a/wooden_picnic_table",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ulan Cabanilla"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Outdoor Tables",
+  "category": "outdoor_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_spoon",
+  "polyhaven_id": "wooden_spoon",
+  "name": "Wooden Spoon",
+  "url": "https://polyhaven.com/a/wooden_spoon",
+  "license": "CC0-1.0",
+  "authors": [
+   "Ronnie Barter"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Utensils/Wooden Utensils",
+  "category": "kitchen_utensil",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_stool_01",
+  "polyhaven_id": "wooden_stool_01",
+  "name": "Wooden Stool 01",
+  "url": "https://polyhaven.com/a/wooden_stool_01",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_stool_02",
+  "polyhaven_id": "wooden_stool_02",
+  "name": "Wooden Stool 02",
+  "url": "https://polyhaven.com/a/wooden_stool_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Seating/Stools & Bar Seating",
+  "category": "stool",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_wooden_table_02",
+  "polyhaven_id": "wooden_table_02",
+  "name": "Wooden Table 02",
+  "url": "https://polyhaven.com/a/wooden_table_02",
+  "license": "CC0-1.0",
+  "authors": [
+   "Serhii Khromov"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Tables/Dining Tables",
+  "category": "dining_table",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_worn_metal_rack",
+  "polyhaven_id": "worn_metal_rack",
+  "name": "Worn Metal Rack",
+  "url": "https://polyhaven.com/a/worn_metal_rack",
+  "license": "CC0-1.0",
+  "authors": [
+   "Luca B"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Furniture/Storage Furniture/Shelving & Bookcases",
+  "category": "shelf",
+  "placement": "floor",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ },
+ {
+  "package": "polyhaven_yellow_onion",
+  "polyhaven_id": "yellow_onion",
+  "name": "Yellow Onion",
+  "url": "https://polyhaven.com/a/yellow_onion",
+  "license": "CC0-1.0",
+  "authors": [
+   "Kuutti Siitonen"
+  ],
+  "download": "glTF 1k via api.polyhaven.com",
+  "downloaded": "2026-10-29",
+  "category_path": "Food & Kitchen/Produce/Vegetables",
+  "category": "vegetable",
+  "placement": "surface",
+  "scale_source": "known_reference (Poly Haven dimensions)"
+ }
+]

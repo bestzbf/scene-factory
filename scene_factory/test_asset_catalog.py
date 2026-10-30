@@ -4,11 +4,14 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 try:
-    from .asset_catalog import AssetCatalog, CatalogError, audit_draft_to_catalog, load_catalog
+    from . import asset_catalog as catalog_module
+    from .asset_catalog import AssetCatalog, CatalogError, audit_draft_to_catalog, load_catalog, sha256_file
 except ImportError:
-    from asset_catalog import AssetCatalog, CatalogError, audit_draft_to_catalog, load_catalog
+    import asset_catalog as catalog_module
+    from asset_catalog import AssetCatalog, CatalogError, audit_draft_to_catalog, load_catalog, sha256_file
 
 
 class AssetCatalogTests(unittest.TestCase):
@@ -51,6 +54,7 @@ class AssetCatalogTests(unittest.TestCase):
         self.assertIn("normal_convention_unknown", material["audit_flags"])
         loaded = load_catalog(out)
         self.assertEqual(loaded.resolve_path("chair/chair.fbx"), self.model.resolve())
+        self.assertEqual(loaded.source_sha256, sha256_file(out))
         self.assertTrue(loaded.verify_hash("chair_01"))
 
     def test_path_escape_and_hash_mismatch_rejected(self):
@@ -170,6 +174,22 @@ class AssetCatalogTests(unittest.TestCase):
         with self.assertRaisesRegex(CatalogError, "model hash"):
             catalog.verify_hash("chair_01")
 
+    def test_pinned_batch_hashes_are_reused_but_stat_changes_are_rehashed(self):
+        catalog = self.make_ready_catalog(1)
+        material_id = catalog.assets["chair_01"]["material_variant_ids"][0]
+        paths = [self.model, self.root / "chair/textures/base.png"]
+        hashes = {str(path.resolve()): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}
+        catalog.pin_snapshot_hashes(hashes)
+        with patch.object(catalog_module, "sha256_file", wraps=sha256_file) as digest:
+            for _ in range(4):
+                catalog.verify_hash("chair_01")
+                catalog.verify_material_hashes(material_id)
+            self.assertEqual(digest.call_count, 0)
+            self.model.write_bytes(b"replacement with new stat")
+            with self.assertRaisesRegex(CatalogError, "model hash"):
+                catalog.verify_hash("chair_01")
+            self.assertEqual(digest.call_count, 1)
+
     def test_duplicate_ids_and_json_keys_rejected(self):
         data = self.make_ready_catalog(1).data
         data["assets"].append(copy.deepcopy(data["assets"][0]))
@@ -179,6 +199,73 @@ class AssetCatalogTests(unittest.TestCase):
         path.write_text('{"root":"a","root":"b"}')
         with self.assertRaisesRegex(CatalogError, "duplicate JSON"):
             load_catalog(path)
+
+    def test_pinning_rejects_file_changed_before_pin(self):
+        catalog = self.make_ready_catalog(1)
+        path = self.model.resolve()
+        self.model.write_bytes(b"replacement before pin")
+        with self.assertRaisesRegex(CatalogError, "changed after the batch snapshot"):
+            catalog.pin_snapshot_hashes({str(path): self.model_hash})
+        self.assertIsNone(catalog._snapshot_file_hashes)
+
+    def test_pinning_rejects_file_changed_during_hash(self):
+        catalog = self.make_ready_catalog(1)
+        path = self.model.resolve()
+        def mutate_after_read(source):
+            digest = sha256_file(source)
+            Path(source).write_bytes(b"replacement while hashing")
+            return digest
+        with patch.object(catalog_module, "sha256_file", side_effect=mutate_after_read):
+            with self.assertRaisesRegex(CatalogError, "changed while hashing"):
+                catalog.pin_snapshot_hashes({str(path): self.model_hash})
+        self.assertIsNone(catalog._snapshot_file_hashes)
+
+    def test_pinning_rejects_stale_caller_stat_signature(self):
+        catalog = self.make_ready_catalog(1)
+        path = self.model.resolve()
+        digest, signature = AssetCatalog.stable_file_digest(path)
+        self.model.write_bytes(b"changed after caller hash")
+        with self.assertRaisesRegex(CatalogError, "changed after the batch snapshot"):
+            catalog.pin_snapshot_hashes({str(path): digest}, {str(path): signature})
+        self.assertIsNone(catalog._snapshot_file_hashes)
+
+    def test_force_rehashes_pinned_model_and_material(self):
+        catalog = self.make_ready_catalog(1)
+        material_id = catalog.assets["chair_01"]["material_variant_ids"][0]
+        paths = [self.model.resolve(), (self.root / "chair/textures/base.png").resolve()]
+        catalog.pin_snapshot_hashes({str(path): sha256_file(path) for path in paths})
+        with patch.object(catalog_module, "sha256_file", wraps=sha256_file) as digest:
+            catalog.verify_hash("chair_01", force=True)
+            catalog.verify_material_hashes(material_id, force=True)
+            catalog.verify_file_hash(paths[0], self.model_hash, force=True)
+            self.assertEqual(digest.call_count, 3)
+            catalog.verify_hash("chair_01")
+            catalog.verify_material_hashes(material_id)
+            self.assertEqual(digest.call_count, 3)
+
+    def test_snapshot_rejects_file_and_parent_symlinks(self):
+        catalog = self.make_ready_catalog(1)
+        root = self.root.resolve()
+        alias = root / "alias.fbx"
+        alias.symlink_to(self.model.resolve())
+        parent_alias = root / "alias_chair"
+        parent_alias.symlink_to(root / "chair", target_is_directory=True)
+        for path in (alias, parent_alias / "chair.fbx"):
+            with self.assertRaisesRegex(CatalogError, "symlink"):
+                catalog.pin_snapshot_hashes({str(path): self.model_hash})
+            with self.assertRaisesRegex(CatalogError, "symlink"):
+                catalog.verify_file_hash(path, self.model_hash)
+
+    def test_pinned_root_directory_substitution_is_rejected(self):
+        catalog = self.make_ready_catalog(1)
+        root = self.root.resolve()
+        model = self.model.resolve()
+        catalog.pin_snapshot_hashes({str(model): self.model_hash})
+        moved = root.with_name("moved-assets")
+        root.rename(moved)
+        root.symlink_to(moved, target_is_directory=True)
+        with self.assertRaisesRegex(CatalogError, "symlink"):
+            catalog.verify_hash("chair_01")
 
     def test_symlink_escape_windows_paths_and_source_overwrite_rejected(self):
         catalog = self.make_ready_catalog(1)

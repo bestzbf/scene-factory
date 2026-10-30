@@ -1,4 +1,5 @@
 """Offline request size guards and diagnostic preservation; no paid API calls."""
+import base64
 import json
 import os
 from pathlib import Path
@@ -85,7 +86,15 @@ class RequestLimitTests(unittest.TestCase):
         self.assertEqual(metrics, {
             'prompt_characters': 3, 'prompt_utf8_bytes': 10,
             'schema_utf8_bytes': len(json.dumps(schema, ensure_ascii=False, separators=(',', ':')).encode()),
-            'image_count': 1, 'max_output_tokens': 512})
+            'image_count': 1, 'max_output_tokens': 512,
+            'images': [{'media_type': 'image/png', 'source_bytes': len(PNG),
+                        'base64_bytes': len(base64.b64encode(PNG)),
+                        'width_px': 1, 'height_px': 1}],
+            'image_source_bytes_total': len(PNG),
+            'image_base64_bytes_total': len(base64.b64encode(PNG)),
+            'serialized_request_body_utf8_bytes': len(request.call_args.args[1])})
+        self.assertIn('Byte fields describe local payload sizes only',
+                      self.record()['request_metrics_semantics'])
         self.assertEqual(self.record()['transport_attempts'][0]['request_metrics'], metrics)
         # This is a local guard, never an unsupported provider API parameter.
         self.assertNotIn('max_prompt_characters', json.loads(request.call_args.args[1]))
@@ -134,6 +143,7 @@ class RequestLimitTests(unittest.TestCase):
         record = self.record()
         self.assertEqual(record['usage']['total_tokens'], 19)
         self.assertEqual(record['request_metrics']['max_output_tokens'], 512)
+        self.assertEqual(record['output_text_utf8_bytes'], len('{"wrong":1}'.encode('utf-8')))
         self.assertEqual(record['transport_attempts'][0]['request_metrics'], record['request_metrics'])
         self.assertFalse(self.output.with_name('analysis.raw.json').exists())
 

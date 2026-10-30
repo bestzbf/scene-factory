@@ -14,6 +14,8 @@ from unittest.mock import patch
 import model_api as api
 from test_model_api import PNG, RESULT, SCHEMA, chat
 from test_model_api_streaming import chunk, event, stream
+from batch_guard import batch_session, snapshot as batch_snapshot
+from provider_limits import provider_limit_session
 
 
 class ReplayHandler(BaseHTTPRequestHandler):
@@ -87,6 +89,34 @@ class ReplaySafetyTests(unittest.TestCase):
 
     def record(self):
         return json.loads(self.output.with_name('analysis.api.json').read_text())
+
+    def test_stop_during_connect_prevents_post_and_refunds_every_reservation(self):
+        stop = threading.Event()
+        config = {**self.config, 'max_retries': 0,
+                  'rate_limit': {'requests_per_minute': 1}}
+        real_connect = api.http.client.HTTPConnection.connect
+
+        def connect_then_stop(connection):
+            real_connect(connection)
+            stop.set()
+
+        with patch.dict(os.environ, {'REPLAY_TEST_KEY': 'fixture-key'}), \
+             batch_session(self.root, {'max_requests': 1}, stop_event=stop), \
+             provider_limit_session(self.root, [config], stop_event=stop) as limiter, \
+             patch.object(api.http.client.HTTPConnection, 'connect', connect_then_stop):
+            with self.assertRaises(api.ModelAPIError) as caught:
+                api.call_model('test', [self.image], SCHEMA, self.output, config=config)
+            self.assertEqual(caught.exception.code, 'batch_stopped')
+            self.assertEqual(self.server.posts, 0)
+            record = self.record()
+            transport = record['transport_attempts'][0]
+            self.assertEqual(transport['phase'], 'not_sent')
+            self.assertFalse(transport['request_started'])
+            self.assertEqual(batch_snapshot(self.root)['summary']['requests'], 0)
+            self.assertEqual(batch_snapshot(self.root)['summary']['pending_attempts'], 0)
+            state = limiter.snapshot()
+            self.assertEqual(state['pending_count'], 0)
+            self.assertEqual(state['scopes'][0]['requests'], 0)
 
     def assert_safe_failure(self, code):
         record = self.record()

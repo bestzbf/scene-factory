@@ -22,3 +22,15 @@ logs/
 *.blend1
 *.log
 *.api.json
+
+# Large or private local data: never committed
+assets/
+runs/
+wheel/
+production_local/
+*.whl
+*.pid
+*.key
+*.sqlite3
+*.sqlite3-*
+.pytest_cache/

@@ -9,9 +9,29 @@ import bmesh
 import math
 import random
 from mathutils import Vector
+from .material_roles import source_role
 
 _PREFIX = 'OfficeFurniture_'
 _MESH_CACHE = {}
+
+
+def _cached_mesh(key):
+    """Return a cached mesh only while Blender still owns its datablock.
+
+    Blender can invalidate datablock wrappers when a file is loaded or scene
+    data is cleared while this Python module remains imported. Accessing such
+    a stale wrapper raises ReferenceError; drop it and let the caller rebuild.
+    """
+    mesh = _MESH_CACHE.get(key)
+    if mesh is None:
+        return None
+    try:
+        if bpy.data.meshes.get(mesh.name) is mesh:
+            return mesh
+    except ReferenceError:
+        pass
+    _MESH_CACHE.pop(key, None)
+    return None
 
 
 def _material(key, color, roughness=0.5, metallic=0.0):
@@ -37,6 +57,13 @@ def _mats():
         'soil': _material('DarkPottingSoil', (.032, .022, .015), 1),
         'bark': _material('TreeBark', (.16, .115, .065), .9),
     }
+    # These fixed-purpose library materials have stable semantic roles. The
+    # helper copies before tagging so a reused source datablock cannot acquire
+    # a different role through another call path.
+    for name, role in {'fabric': 'fabric', 'plastic': 'body', 'chrome': 'metal',
+                       'rubber': 'body', 'wood': 'body', 'soil': 'body',
+                       'bark': 'body'}.items():
+        mats[name] = source_role(mats[name], role)
     mat = mats['fabric']
     nodes = mat.node_tree.nodes
     if 'FabricWeaveNoise' not in nodes:
@@ -50,7 +77,7 @@ def _mats():
         mat.node_tree.links.new(noise.outputs['Fac'], bump.inputs['Height'])
         mat.node_tree.links.new(bump.outputs['Normal'], next(node for node in nodes if node.type == 'BSDF_PRINCIPLED').inputs['Normal'])
     for i, col in enumerate(((.045,.115,.023), (.075,.19,.033), (.13,.255,.052), (.10,.155,.031))):
-        mats['leaf' + str(i)] = _material('Leaf' + str(i), col, .63)
+        mats['leaf' + str(i)] = source_role(_material('Leaf' + str(i), col, .63), 'body')
     return mats
 
 
@@ -81,8 +108,9 @@ def _mesh_object(name, mesh, parent, loc=(0,0,0), material=None):
 
 def _rounded_mesh(size, bevel):
     key = ('box', tuple(size), bevel)
-    if key in _MESH_CACHE:
-        return _MESH_CACHE[key]
+    mesh = _cached_mesh(key)
+    if mesh is not None:
+        return mesh
     bm = bmesh.new()
     bmesh.ops.create_cube(bm, size=1)
     for v in bm.verts:
@@ -108,8 +136,9 @@ def _box(name, root, loc, size, mat, bevel=.01):
 
 def _cylinder_mesh(vertices=12):
     key = ('cylinder', vertices)
-    if key in _MESH_CACHE:
-        return _MESH_CACHE[key]
+    mesh = _cached_mesh(key)
+    if mesh is not None:
+        return mesh
     verts = [(math.cos(i*math.tau/vertices), math.sin(i*math.tau/vertices), z)
              for z in (-.5,.5) for i in range(vertices)]
     faces = [tuple(reversed(range(vertices))), tuple(range(vertices, vertices*2))]
@@ -135,8 +164,9 @@ def _rod(name, root, a, b, radius, mat, vertices=12):
 
 def _back_mesh():
     key = ('back',)
-    if key in _MESH_CACHE:
-        return _MESH_CACHE[key]
+    mesh = _cached_mesh(key)
+    if mesh is not None:
+        return mesh
     verts, faces = [], []
     nx, nz = 10, 10
     for side in (-1, 1):

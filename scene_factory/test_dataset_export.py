@@ -1,5 +1,6 @@
 """Formal dataset boundaries with real runner/review provenance, mocked inference/render."""
 import copy
+import hashlib
 from contextlib import redirect_stdout
 import io
 import json
@@ -12,7 +13,7 @@ from unittest.mock import patch
 
 from PIL import Image
 
-from batch import atomic_json, file_sha256, read_json
+from batch import atomic_json, canonical_bytes, file_sha256, read_json
 import batch_multiview as runner
 from dataset_export import DatasetExportError, export_dataset
 import dataset_export
@@ -105,6 +106,124 @@ class DatasetExportTests(unittest.TestCase):
         result = read_json(folder / "result.json")
         result["artifacts"] = {name: file_sha256(folder / name) for name in result["artifacts"]}
         atomic_json(folder / "result.json", result)
+
+    def create_snapshot_jobs(self):
+        """Use real portable assets and attach a shared library snapshot."""
+        from asset_manifest import build_catalog
+        from test_asset_manifest import AssetManifestTests
+        fixture = AssetManifestTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        catalog_path = self.root / "library.json"
+        data = build_catalog(fixture.root.parent, catalog_path)
+        bindings_path = self.root / "bindings.json"
+        atomic_json(bindings_path, {"schema_version": 1, "instances": [{"object_id": "sofa",
+            "asset_id": data["assets"][0]["asset_id"],
+            "material_variant_id": next(iter(data["material_variants"]))}]})
+        self.args.asset_catalog = catalog_path
+        self.args.asset_bindings = bindings_path
+        self.args.asset_preview = False
+        folders = [self.create_job(identifier) for identifier in ("room_a", "room_b")]
+        extra = self.root / "unselected_library_asset.bin"
+        extra.write_bytes(b"immutable unused asset")
+        hashes = read_json(folders[0] / "job.json")["asset_library"]["input_sha256"]
+        hashes[str(extra)] = file_sha256(extra)
+        snapshot = {"schema_version": 1, "catalog": str(catalog_path),
+                    "catalog_sha256": file_sha256(catalog_path), "input_sha256": hashes}
+        snapshot["snapshot_sha256"] = hashlib.sha256(canonical_bytes(snapshot)).hexdigest()
+        snapshot_path = self.output / runner.ASSET_SNAPSHOT_FILE
+        atomic_json(snapshot_path, snapshot)
+        reference = {"path": str(snapshot_path), "sha256": file_sha256(snapshot_path)}
+        for folder in folders:
+            job = read_json(folder / "job.json")
+            del job["asset_library"]["input_sha256"]
+            job["asset_library"]["input_snapshot"] = reference
+            atomic_json(folder / "job.json", job)
+            iteration = folder / "iteration_00"
+            state = read_json(iteration / "render_state.json")
+            state["fingerprint"] = hashlib.sha256(canonical_bytes({
+                "bundle": read_json(iteration / "scene_bundle.json"),
+                "job": job, "asset_selection": {}})).hexdigest()
+            atomic_json(iteration / "render_state.json", state)
+            self.refresh_result_hashes(folder)
+        return snapshot_path, extra
+
+    def test_snapshot_export_hashes_library_once_per_pass_and_never_reuses_across_exports(self):
+        from asset_catalog import AssetCatalog
+        snapshot_path, extra = self.create_snapshot_jobs()
+        hashed_extra = 0
+        original_digest = AssetCatalog.stable_file_digest
+        def hashing(path):
+            nonlocal hashed_extra
+            if Path(path) == extra:
+                hashed_extra += 1
+            return original_digest(path)
+        with patch.object(AssetCatalog, "stable_file_digest", new=staticmethod(hashing)):
+            manifest = export_dataset(self.output, self.destination)
+        self.assertEqual(manifest["scene_count"], 2)
+        self.assertEqual(hashed_extra, 2)  # one complete check in each pass
+        extra.write_bytes(b"changed after the previous successful export")
+        second = self.root / "dataset_v2"
+        with self.assertRaisesRegex(DatasetExportError, "[Aa]sset library input changed"):
+            export_dataset(self.output, second)
+        self.assertFalse(second.exists())
+        self.assertFalse(list(self.root.glob(".dataset_v2.building-*")))
+
+    def test_shared_catalog_is_parsed_once_per_export_not_cached_across_exports(self):
+        import asset_catalog
+        self.create_snapshot_jobs()
+        with patch.object(asset_catalog, "load_catalog", wraps=asset_catalog.load_catalog) as load:
+            first = export_dataset(self.output, self.destination)
+            self.assertEqual(first["scene_count"], 2)
+            self.assertEqual(load.call_count, 1)
+            second = export_dataset(self.output, self.root / "dataset_v2")
+            self.assertEqual(second["scene_count"], 2)
+            self.assertEqual(load.call_count, 2)
+
+    def test_cached_catalog_change_after_scene_verification_prevents_publication(self):
+        self.create_snapshot_jobs()
+        original_export = dataset_export._export_scene
+        exported = []
+
+        def exporting(record, destination, **kwargs):
+            if exported:
+                # Both scenes passed source_check; mutate just before the
+                # second asset copy to exercise the parsed-catalog cache hit.
+                catalog = Path(record["job"]["asset_library"]["catalog"])
+                catalog.write_bytes(catalog.read_bytes() + b" ")
+            entry = original_export(record, destination, **kwargs)
+            exported.append(record["folder"].name)
+            return entry
+
+        with patch.object(dataset_export, "_export_scene", new=exporting):
+            with self.assertRaisesRegex(DatasetExportError, "Asset catalog changed"):
+                export_dataset(self.output, self.destination)
+        self.assertEqual(exported, ["room_a"])
+        self.assert_no_publication()
+
+    def test_fresh_final_snapshot_guard_rejects_unselected_asset_changed_during_copy(self):
+        snapshot_path, extra = self.create_snapshot_jobs()
+        original_export = dataset_export._export_scene
+        def exporting(record, destination, **kwargs):
+            entry = original_export(record, destination, **kwargs)
+            extra.write_bytes(b"changed while exporting selected assets")
+            return entry
+        with patch.object(dataset_export, "_export_scene", new=exporting):
+            with self.assertRaisesRegex(DatasetExportError, "[Aa]sset library input changed"):
+                export_dataset(self.output, self.destination)
+        self.assert_no_publication()
+
+    def test_snapshot_reference_changed_during_copy_prevents_publication(self):
+        snapshot_path, extra = self.create_snapshot_jobs()
+        original_export = dataset_export._export_scene
+        def exporting(record, destination, **kwargs):
+            entry = original_export(record, destination, **kwargs)
+            snapshot_path.write_bytes(snapshot_path.read_bytes() + b" ")
+            return entry
+        with patch.object(dataset_export, "_export_scene", new=exporting):
+            with self.assertRaisesRegex(DatasetExportError, "snapshot changed"):
+                export_dataset(self.output, self.destination)
+        self.assert_no_publication()
 
     def test_portable_multiview_package_excludes_raw_api_files_and_uses_all_accepted_jobs(self):
         first = self.create_job("room_a")
@@ -260,6 +379,84 @@ class DatasetExportTests(unittest.TestCase):
                 export_dataset(self.output, self.destination)
         self.assert_no_publication()
 
+    def test_large_export_holds_only_one_verified_scene_record_at_a_time(self):
+        output = self.root / "many_jobs"
+        output.mkdir()
+        identifiers = [f"room_{index:05d}" for index in range(10_000)]
+        for identifier in identifiers:
+            (output / identifier).mkdir()
+
+        class TrackedRecord(dict):
+            active = 0
+            peak = 0
+
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                type(self).active += 1
+                type(self).peak = max(type(self).peak, type(self).active)
+
+            def __del__(self):
+                type(self).active -= 1
+
+        calls, exported = [], set()
+
+        def verify(folder, *, snapshot_guard=None):
+            identifier = folder.name
+            calls.append(("verify", identifier))
+            return TrackedRecord(folder=folder, result_sha256=identifier * 64)
+
+        def export_scene(record, destination, **kwargs):
+            identifier = record["folder"].name
+            calls.append(("export", identifier))
+            exported.add(identifier)
+            destination.mkdir()
+            return {"scene_id": identifier, "views": [{"id": "view_01"}]}
+
+        destination = self.root / "many_dataset"
+        with patch.object(dataset_export, "_verified_job", new=verify), \
+                patch.object(dataset_export, "_export_scene", new=export_scene):
+            manifest = dataset_export._export_snapshot(output, destination, identifiers,
+                                                       include_scene_entries=False)
+
+        self.assertEqual(TrackedRecord.peak, 1)
+        self.assertEqual(TrackedRecord.active, 0)
+        self.assertEqual(exported, set(identifiers))
+        self.assertEqual(manifest["scene_count"], len(identifiers))
+        self.assertEqual(manifest["view_count"], len(identifiers))
+        self.assertNotIn("scenes", manifest)
+        self.assertEqual(manifest["manifest_path"], str(destination / "dataset_manifest.json"))
+        disk_manifest = read_json(destination / "dataset_manifest.json")
+        self.assertEqual([entry["scene_id"] for entry in disk_manifest["scenes"]], identifiers)
+        self.assertEqual(calls[:4], [("verify", identifiers[0]), ("export", identifiers[0]),
+                                     ("verify", identifiers[1]), ("export", identifiers[1])])
+        self.assertEqual(calls[2 * len(identifiers):], [("verify", identifier) for identifier in identifiers])
+
+    def test_export_revalidation_rejects_a_scene_commit_changed_mid_export(self):
+        output = self.root / "changed_job"
+        output.mkdir()
+        identifiers = ["room"]
+        folder = output / "room"
+        folder.mkdir()
+        result_path = folder / "result.json"
+        result_path.write_text("first", encoding="utf-8")
+
+        def verify(scene_folder, *, snapshot_guard=None):
+            return {"folder": scene_folder, "result_sha256": file_sha256(scene_folder / "result.json")}
+
+        def export_scene(record, destination, **kwargs):
+            destination.mkdir()
+            (record["folder"] / "result.json").write_text("changed", encoding="utf-8")
+            return {"scene_id": record["folder"].name, "views": []}
+
+        destination = self.root / "changed_dataset"
+        with patch.object(dataset_export, "_verified_job", new=verify), \
+                patch.object(dataset_export, "_export_scene", new=export_scene):
+            with self.assertRaisesRegex(DatasetExportError, "result changed during export"):
+                dataset_export._export_snapshot(output, destination, identifiers,
+                                                include_scene_entries=False)
+        self.assertFalse(destination.exists())
+        self.assertFalse(list(self.root.glob(".changed_dataset.building-*")))
+
     def test_active_batch_or_destination_lock_blocks_export(self):
         self.create_job()
         for lock_path in (self.output / ".batch.lock", self.root / ".dataset_v1.export.lock"):
@@ -289,6 +486,15 @@ class DatasetExportTests(unittest.TestCase):
         self.assertTrue((self.root / ".dataset_v1.export.lock").is_file())
         self.assertTrue((self.output / ".batch.lock").is_file())
         self.assert_locks_released()
+
+    def test_compact_export_return_keeps_full_manifest_on_disk(self):
+        self.create_job()
+        manifest = export_dataset(self.output, self.destination, include_scene_entries=False)
+        self.assertEqual(manifest["scene_count"], 1)
+        self.assertNotIn("scenes", manifest)
+        self.assertEqual(manifest["manifest_path"], str(self.destination / "dataset_manifest.json"))
+        saved = read_json(self.destination / "dataset_manifest.json")
+        self.assertEqual([entry["scene_id"] for entry in saved["scenes"]], ["room"])
 
     def test_destination_appearing_at_publication_cannot_be_overwritten(self):
         self.create_job()

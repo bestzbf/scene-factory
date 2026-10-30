@@ -10,6 +10,25 @@ from batch import file_sha256, read_json
 
 
 class ProductionVerificationTests(unittest.TestCase):
+    def test_sparse_detail_http_roundtrip_and_resume(self):
+        from compact_staged_detail import FORMAT
+        with tempfile.TemporaryDirectory() as temp, contextlib.redirect_stdout(io.StringIO()):
+            output = Path(temp) / 'sparse-fixture'
+            result = verify(output, mock_render=True, detail_wire_format=FORMAT)
+            self.assertEqual(result['status'], 'passed')
+            self.assertEqual(result['detail_wire_format'], FORMAT)
+            self.assertEqual(result['external_provider_calls'], 0)
+            self.assertEqual(result['api_requests_on_resume'], 0)
+            self.assertEqual(result['blender_build_invocations_on_resume'], 0)
+            self.assertTrue(result['rejected_scene_excluded'])
+            canonical = list((output / 'output').rglob('detail_*.canonical.json'))
+            self.assertEqual(len(canonical), 3)
+            for path in canonical:
+                raw = read_json(path.with_name(path.name.replace('.canonical.json', '.raw.json')))
+                self.assertEqual(raw['wire_format'], FORMAT)
+                self.assertEqual(raw['geometry'], [])
+                self.assertEqual(read_json(path)['parts'][0]['points'], [])
+
     def test_api_review_repair_final_gate_and_resume(self):
         with tempfile.TemporaryDirectory() as temp, contextlib.redirect_stdout(io.StringIO()):
             output = Path(temp) / 'new-fixture'

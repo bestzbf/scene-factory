@@ -1,7 +1,7 @@
 """Persistent, opt-in limits shared by every API attempt in one scene.
 
-Output capacity is reserved before transport and released only after a complete
-response supplies consistent input and output usage. Unknown usage is not free.
+Output capacity is reserved before transport and released after consistent full
+usage or durable proof that no POST began. Unknown usage is not free.
 Reported-token limits stop subsequent calls, not calls already in flight, and
 cannot bound unknown input/image costs. No provider or API adapter is imported.
 """
@@ -25,13 +25,25 @@ except ImportError:
 POLICY_FIELDS = ('max_requests', 'max_output_tokens', 'max_reported_tokens')
 LEDGER_NAME = 'scene_budget.json'
 LOCK_NAME = '.scene_budget.lock'
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
+LEGACY_SCHEMA_VERSION = 1
 _USAGE_FIELDS = ('prompt_tokens', 'completion_tokens', 'input_tokens',
                  'output_tokens', 'total_tokens', 'cache_creation_input_tokens',
                  'cache_read_input_tokens')
 _registry_lock = threading.RLock()
 _active = {}
 _file_locks = {}
+
+# Only transport facts needed to prove a request was never sent are persisted
+# in the scene ledger.  Request bodies, headers and provider payloads are never
+# copied into this file.  ``state`` distinguishes a durable reservation from a
+# settled transport proof and from a migrated v1 record with no proof.
+_TRANSPORT_FIELDS = ('phase', 'request_started', 'request_sent', 'http_status',
+                     'response_bytes', 'usage', 'automatic_replay_blocked',
+                     'usage_invalid', 'completion_marker_missing', 'usage_present')
+_TRANSPORT_PHASES = {'reserved', 'connecting', 'not_sent', 'sending_request',
+                     'waiting_response', 'receiving_response', 'response_complete',
+                     'legacy_unknown'}
 
 
 class BudgetError(RuntimeError):
@@ -152,14 +164,87 @@ def _usage(transport):
             'usage_complete': complete}
 
 
+def _proven_unsent(transport):
+    """Return true only when the transport proves that no POST began.
+
+    This intentionally mirrors the provider limiter's conservative predicate.
+    Missing or contradictory send evidence keeps the reservation accounted.
+    """
+    return (isinstance(transport, dict)
+            and transport.get('state') == 'settled'
+            and transport.get('phase') in ('not_sent', 'connecting')
+            and transport.get('request_started') is False
+            and transport.get('request_sent') in (None, False)
+            and transport.get('http_status') is None
+            and transport.get('response_bytes') in (None, 0)
+            and transport.get('usage') in (None, {})
+            and not transport.get('usage_present')
+            and not transport.get('automatic_replay_blocked')
+            and not transport.get('usage_invalid')
+            and not transport.get('completion_marker_missing'))
+
+
+def _transport_record(transport, state='settled'):
+    """Persist an allow-listed, JSON-safe transport proof/state."""
+    if not isinstance(transport, dict):
+        raise _invalid('Scene budget settlement requires transport metadata')
+    record = {'state': state}
+    invalid_usage = False
+    usage_present = False
+    for key in _TRANSPORT_FIELDS:
+        if key not in transport:
+            continue
+        value = transport[key]
+        if key == 'usage':
+            if value is None:
+                record[key] = None
+            elif not isinstance(value, dict):
+                record[key] = {}
+                invalid_usage = True
+                usage_present = True
+            else:
+                filtered = {}
+                invalid = False
+                for name, count in value.items():
+                    if name in _USAGE_FIELDS and type(count) is int and 0 <= count <= 10**12:
+                        filtered[name] = count
+                    elif name in _USAGE_FIELDS:
+                        invalid = True
+                record[key] = filtered
+                if value:
+                    usage_present = True
+                if invalid:
+                    invalid_usage = True
+        elif key in ('request_started', 'request_sent', 'automatic_replay_blocked',
+                     'usage_invalid', 'completion_marker_missing', 'usage_present'):
+            if value is not None and type(value) is not bool:
+                raise _invalid('Scene budget transport proof contains a non-boolean flag')
+            record[key] = value
+        elif key in ('http_status', 'response_bytes'):
+            if value is not None and (type(value) is not int or value < 0 or value > 10**12):
+                raise _invalid('Scene budget transport proof contains an invalid numeric field')
+            record[key] = value
+        elif key == 'phase':
+            if not isinstance(value, str) or value not in _TRANSPORT_PHASES:
+                raise _invalid('Scene budget transport proof contains an invalid phase')
+            record[key] = value
+    if invalid_usage:
+        record['usage_invalid'] = True
+    if usage_present:
+        record['usage_present'] = True
+    return record
+
+
 def _totals(attempts):
-    return {'requests': len(attempts),
+    refunded = lambda item: item.get('state') == 'settled' and _proven_unsent(item.get('transport'))
+    accounted = [item for item in attempts if not refunded(item)]
+    return {'requests': len(accounted),
             'output_tokens_accounted': sum(
                 item['reported_output_tokens'] if item['usage_complete'] else
                 max(item['reserved_output_tokens'], item['reported_output_tokens'] or 0)
-                for item in attempts),
-            'reported_tokens': sum(item['reported_tokens'] for item in attempts),
-            'unknown_usage_attempts': sum(not item['usage_complete'] for item in attempts),
+                for item in accounted),
+            'reported_tokens': sum(item['reported_tokens'] for item in accounted),
+            'unknown_usage_attempts': sum(not item['usage_complete'] for item in accounted),
             'pending_attempts': sum(item['state'] == 'reserved' for item in attempts)}
 
 
@@ -196,11 +281,14 @@ class _SceneBudget:
     def _load(self):
         if not self.ledger_path.is_file():
             raise _invalid('Scene budget ledger is missing; do not reset previous reservations')
-        ledger = _read(self.ledger_path)
+        return self._validate_ledger(_read(self.ledger_path))
+
+    def _validate_ledger(self, ledger):
+        """Validate one already-read ledger without fetching a newer version."""
         keys = {'schema_version', 'scene_root', 'policy', 'attempts', *_totals([])}
         if (not isinstance(ledger, dict) or set(ledger) != keys
                 or type(ledger.get('schema_version')) is not int
-                or ledger['schema_version'] != SCHEMA_VERSION
+                or ledger['schema_version'] not in (LEGACY_SCHEMA_VERSION, SCHEMA_VERSION)
                 or ledger.get('scene_root') != str(self.root)
                 or ledger.get('policy') != self.policy):
             raise _invalid('Scene budget schema, scene directory, or limits changed; use a new output directory')
@@ -212,6 +300,8 @@ class _SceneBudget:
             raise _invalid('Scene budget ledger attempts are invalid')
         entry_keys = {'request_id', 'output', 'state', 'reserved_output_tokens', 'usage',
                       'reported_input_tokens', 'reported_output_tokens', 'reported_tokens', 'usage_complete'}
+        if ledger['schema_version'] == SCHEMA_VERSION:
+            entry_keys.add('transport')
         identifiers = set()
         for item in attempts:
             if (not isinstance(item, dict) or set(item) != entry_keys
@@ -231,6 +321,20 @@ class _SceneBudget:
                     or any(not _integer(value) or value > 10**12 for value in item['usage'].values())):
                 raise _invalid('Scene budget ledger contains an invalid reservation')
             identifiers.add(item['request_id'])
+            if ledger['schema_version'] == SCHEMA_VERSION:
+                proof = item['transport']
+                if not isinstance(proof, dict) or proof.get('state') not in ('reserved', 'settled', 'legacy'):
+                    raise _invalid('Scene budget transport proof is invalid')
+                if proof['state'] == 'legacy':
+                    if proof != {'state': 'legacy', 'phase': 'legacy_unknown'}:
+                        raise _invalid('Scene budget legacy transport proof has been modified')
+                elif proof['state'] == 'reserved':
+                    if item['state'] != 'reserved' or proof != {'state': 'reserved', 'phase': 'reserved'}:
+                        raise _invalid('Scene budget pending transport proof has been modified')
+                elif item['state'] != 'settled' or set(proof)-{'state', *_TRANSPORT_FIELDS} or _transport_record(proof) != proof:
+                    raise _invalid('Scene budget settled transport proof has been modified')
+                if item['state'] == 'reserved' and proof['state'] != 'reserved':
+                    raise _invalid('Scene budget pending transport proof has been modified')
             possible = _usage({'usage': item['usage'], 'phase': 'response_complete', 'http_status': 200})
             if item['usage_complete'] and (item['state'] != 'settled' or not possible['usage_complete']):
                 raise _invalid('Scene budget ledger contains an invalid completed reservation')
@@ -241,6 +345,10 @@ class _SceneBudget:
             for field in ('reported_input_tokens', 'reported_output_tokens', 'reported_tokens'):
                 if item[field] != possible[field]:
                     raise _invalid('Scene budget usage counters are inconsistent')
+            if ledger['schema_version'] == SCHEMA_VERSION and item['transport']['state'] == 'settled':
+                proof_usage = _usage(item['transport'])
+                if any(item[field] != proof_usage[field] for field in proof_usage):
+                    raise _invalid('Scene budget usage differs from its transport proof')
         expected = _totals(attempts)
         if any(not _integer(ledger.get(key)) or ledger[key] != value for key, value in expected.items()):
             raise _invalid('Scene budget totals are inconsistent; do not reset the ledger')
@@ -258,6 +366,13 @@ class _SceneBudget:
                     raise BudgetError('ambiguous_previous_request',
                         'A previous scene request has an unfinished reservation and may already have consumed tokens; '
                         'automatic scene resume was blocked. Check provider records before explicitly retrying in a new output directory.')
+                if ledger['schema_version'] == LEGACY_SCHEMA_VERSION:
+                    # v1 had no send proof. Preserve every historical counter;
+                    # never infer a refund from a separately mutable API audit.
+                    for item in ledger['attempts']:
+                        item['transport'] = {'state': 'legacy', 'phase': 'legacy_unknown'}
+                    ledger['schema_version'] = SCHEMA_VERSION
+                    _write(self.ledger_path, ledger)
                 return
             if lock_existed:
                 raise _invalid('Scene budget ledger is missing beside an existing lock; do not reset it')
@@ -300,7 +415,8 @@ class _SceneBudget:
             ledger['attempts'].append({'request_id': request_id, 'output': output.relative_to(self.root).as_posix(),
                 'state': 'reserved', 'reserved_output_tokens': max_output_tokens,
                 'usage': {}, 'reported_input_tokens': None, 'reported_output_tokens': None,
-                'reported_tokens': 0, 'usage_complete': False})
+                'reported_tokens': 0, 'usage_complete': False,
+                'transport': {'state': 'reserved', 'phase': 'reserved'}})
             ledger.update(_totals(ledger['attempts']))
             _write(self.ledger_path, ledger)
         return _Ticket(self, request_id)
@@ -315,7 +431,8 @@ class _SceneBudget:
                 raise _invalid('Scene budget reservation is missing; no usage can be released')
             if item['state'] == 'settled':
                 return
-            item.update(_usage(transport))
+            item['transport'] = _transport_record(transport)
+            item.update(_usage(item['transport']))
             item['state'] = 'settled'
             ledger.update(_totals(ledger['attempts']))
             _write(self.ledger_path, ledger)
@@ -389,9 +506,9 @@ def budget_snapshot(root):
         raise _invalid('Scene budget ledger must not be a symbolic link')
     if not path.exists():
         return None
-    first = _read(path)
-    if not isinstance(first, dict) or 'policy' not in first:
+    ledger = _read(path)
+    if not isinstance(ledger, dict) or 'policy' not in ledger:
         raise _invalid('Scene budget ledger policy is missing')
-    budget = _SceneBudget(root, normalize_policy(first['policy']))
-    ledger = budget._load()
+    budget = _SceneBudget(root, normalize_policy(ledger['policy']))
+    ledger = budget._validate_ledger(ledger)
     return {'policy': ledger['policy'], 'summary': {key: ledger[key] for key in _totals([])}}

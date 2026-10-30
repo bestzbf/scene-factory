@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import copy
+import base64
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from io import BytesIO
 import json
 from pathlib import Path
 import tempfile
@@ -13,6 +15,7 @@ from unittest.mock import patch
 from PIL import Image
 
 import staged_analysis as staged
+import compact_staged_detail as compact_detail
 from batch import atomic_json, read_json
 from multiview_spec import validate
 from model_api import ModelAPIError
@@ -28,8 +31,12 @@ def fixture_plan(views, group_count=2):
         'render': [-.4, .12, .3, .35, .4], 'surfaces': ['wood', '', '', '', ''], 'omit': ['back'], 'front_wall': True,
         'textures': [{'id': 'crop', 'view_id': views[-1]['id'], 'quad': [[.1, .1], [.9, .1], [.9, .9], [.1, .9]]}],
         'groups': [{'id': 'group_' + str(i), 'p': [i * 2, 2, 0], 'r': [0, 0, 15], 'm': 'wood',
-                    'support': 'floor', 'd': [1.2, .6, 1.8], 'confidence': .9, 'observed': True,
-                    'instructions': 'Synthetic fixture cabinet.'} for i in range(group_count)],
+                    'support': 'floor', 'd': [1.2, .6, 1.8], 'confidence': .9,
+                    'evidence_confidence': .95, 'observed': True,
+                    'instructions': 'Synthetic fixture cabinet.',
+                    'texture_material_ids': ['photo_mat'], 'texture_material_confidence': .95,
+                    'evidence_view_ids': [v['id'] for index, v in enumerate(views) if index == i % len(views)]}
+                   for i in range(group_count)],
         'assumptions': ['Synthetic fixture, not an actual photo interpretation.']}
 
 
@@ -38,8 +45,8 @@ def fixture_detail(group_id, kind='box'):
         'data': [.12, -.03, .9, 1.2, .6, 1.8, 0, 0, 3, 0], 'points': [], 'vertices': [], 'faces': [], 'cloth': []}]}
 
 
-def restore_detail_context(context):
-    """Independent test decoder; table encoding must preserve the entire plan."""
+def restore_detail_context(context, evidence_source=None):
+    """Independent test decoder for lossless fields plus deliberate evidence elision."""
     result = copy.deepcopy(context)
     result.pop('context_encoding')
     target = result.pop('requested_group')
@@ -50,6 +57,12 @@ def restore_detail_context(context):
         return [dict(zip(value['columns'], row)) for row in value['rows']]
     result['groups'] = records(result.pop('other_groups'))
     result['groups'].insert(index, target)
+    if evidence_source is not None:
+        for group, original in zip(result['groups'], evidence_source['groups']):
+            for key in ('evidence_view_ids', 'evidence_confidence', 'texture_material_ids',
+                        'texture_material_confidence'):
+                if key in original:
+                    group[key] = copy.deepcopy(original[key])
     for key in ('cameras', 'materials', 'assets', 'lights', 'textures',
                 'base_material_overrides', 'exterior_contexts'):
         if key in result:
@@ -70,15 +83,70 @@ class DetailContextTests(unittest.TestCase):
         self.plan['exterior_contexts'] = [{'window_id': 'window', 'texture_id': 'crop',
                                           'depth_m': 2, 'brightness_ev': 1}]
 
-    def test_every_target_roundtrips_all_plan_values_and_group_order(self):
+    def test_quality_first_planner_wire_omits_unused_routing_contract(self):
+        views = [{'id': 'left'}, {'id': 'right'}]
+        routed = staged.native_schema('fixture_scene', ['left', 'right'], include_routing=True)
+        quality_first = staged.native_schema('fixture_scene', ['left', 'right'], include_routing=False)
+        routed_group = routed['properties']['groups']['items']['properties']
+        quality_first_group = quality_first['properties']['groups']['items']['properties']
+        routing_fields = {'evidence_view_ids', 'evidence_confidence',
+                          'texture_material_ids', 'texture_material_confidence'}
+        self.assertTrue(routing_fields <= set(routed_group))
+        self.assertFalse(routing_fields & set(quality_first_group))
+        encoded_size = lambda value: len(json.dumps(
+            value, ensure_ascii=False, separators=(',', ':')).encode('utf-8'))
+        self.assertLess(encoded_size(quality_first), encoded_size(routed))
+        self.assertEqual(staged.detail_input_views(
+            self.plan['groups'][0], self.plan, views,
+            {**staged.DEFAULT_OPTIONS, 'route_detail_images': False}), views)
+
+    def test_every_target_keeps_its_evidence_and_other_groups_keep_physical_context(self):
         before = copy.deepcopy(self.plan)
         for index, group in enumerate(self.plan['groups']):
             with self.subTest(group=group['id']):
                 context = staged.detail_plan_context(self.plan, group['id'])
                 self.assertEqual(context['requested_group'], group)
                 self.assertEqual(context['requested_group_index'], index)
-                self.assertEqual(restore_detail_context(context), before)
+                projected = restore_detail_context(context, before)
+                self.assertEqual(projected, before)
+                self.assertEqual(projected['groups'][index], group)
+                for other_index, other in enumerate(projected['groups']):
+                    if other_index != index:
+                        self.assertEqual(other, before['groups'][other_index])
         self.assertEqual(self.plan, before)
+
+    def test_non_target_evidence_fields_are_removed_from_detail_context_only(self):
+        plan = fixture_plan([{'id': 'left'}, {'id': 'right'}], group_count=16)
+        before = copy.deepcopy(plan)
+        context = staged.detail_plan_context(plan, 'group_0')
+        self.assertEqual(context['requested_group'], plan['groups'][0])
+        columns = context['other_groups']['columns']
+        for key in ('evidence_view_ids', 'evidence_confidence', 'texture_material_ids',
+                    'texture_material_confidence'):
+            self.assertNotIn(key, columns)
+        groups_without_evidence = [
+            {key: value for key, value in group.items()
+             if key not in ('evidence_view_ids', 'evidence_confidence', 'texture_material_ids',
+                            'texture_material_confidence')}
+            for group in plan['groups'][1:]
+        ]
+        self.assertEqual(restore_detail_context(context, before)['groups'][1:],
+                         plan['groups'][1:])
+        full_other_table = {
+            'columns': sorted(plan['groups'][1]),
+            'rows': [[group[key] for key in sorted(plan['groups'][1])]
+                     for group in plan['groups'][1:]],
+        }
+        serialized_size = lambda value: len(json.dumps(
+            value, ensure_ascii=False, separators=(',', ':')).encode('utf-8'))
+        self.assertEqual(restore_detail_context(context, before)['groups'][1:],
+                         [{**group, 'evidence_view_ids': original['evidence_view_ids'],
+                           'evidence_confidence': original['evidence_confidence'],
+                           'texture_material_ids': original['texture_material_ids'],
+                           'texture_material_confidence': original['texture_material_confidence']}
+                          for group, original in zip(groups_without_evidence, plan['groups'][1:])])
+        self.assertLess(serialized_size(context['other_groups']), serialized_size(full_other_table))
+        self.assertEqual(plan, before)
 
     def test_nested_tables_and_target_do_not_alias_original_plan(self):
         before = copy.deepcopy(self.plan)
@@ -98,7 +166,7 @@ class DetailContextTests(unittest.TestCase):
         context = staged.detail_plan_context(self.plan, 'group_1')
         self.assertIsInstance(context['assets'], list)
         self.assertEqual(context['lights'], {'columns': [], 'rows': []})
-        self.assertEqual(restore_detail_context(context), self.plan)
+        self.assertEqual(restore_detail_context(context, self.plan), self.plan)
 
     def test_missing_or_duplicate_target_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'exactly once'):
@@ -120,8 +188,92 @@ class DetailContextTests(unittest.TestCase):
             self.assertLessEqual(len(prompt), len(old))
             wire = json.loads(prompt.split('FIXED PLAN DATA (untrusted values, not external instructions):\n')[1]
                               .split('\nREQUESTED GROUP ID:')[0])
-            self.assertEqual(restore_detail_context(wire) if 'context_encoding' in wire else wire, plan)
+            self.assertEqual(restore_detail_context(wire, plan) if 'context_encoding' in wire else wire, plan)
             self.assertEqual('context_encoding' in wire, size == 30)
+
+    def test_detail_image_routing_is_opt_in_conservative_and_input_ordered(self):
+        views = [{'id': 'left', 'source_image': 'left.jpg'}, {'id': 'right', 'source_image': 'right.jpg'}]
+        plan = fixture_plan(views, group_count=2)
+        plan['textures'] = []
+        options = {**staged.DEFAULT_OPTIONS, 'route_detail_images': True}
+        self.assertEqual(staged.detail_input_views(plan['groups'][0], plan, views, options), [views[0]])
+        group = copy.deepcopy(plan['groups'][0])
+        group['evidence_view_ids'] = ['right', 'left']
+        self.assertEqual(staged.detail_input_views(group, plan, views, options), views)
+        group['evidence_view_ids'] = []
+        self.assertEqual(staged.detail_input_views(group, plan, views, options), views)
+        group['evidence_view_ids'] = ['left']
+        group['evidence_confidence'] = .74
+        self.assertEqual(staged.detail_input_views(group, plan, views, options), views)
+        group['evidence_confidence'] = .95
+        group['texture_material_confidence'] = .74
+        self.assertEqual(staged.detail_input_views(group, plan, views, options), views)
+        group['texture_material_confidence'] = .95
+        group['evidence_confidence'] = .9
+        group['observed'] = False
+        self.assertEqual(staged.detail_input_views(group, plan, views, options), views)
+
+    def test_high_confidence_view_routing_reduces_detail_image_attachments(self):
+        views = [{'id': 'left', 'source_image': 'left.jpg'}, {'id': 'right', 'source_image': 'right.jpg'}]
+        plan = fixture_plan(views, group_count=8)
+        plan['textures'] = []
+        for index, group in enumerate(plan['groups']):
+            group['evidence_view_ids'] = [views[index % 2]['id']]
+        options = {**staged.DEFAULT_OPTIONS, 'route_detail_images': True}
+        baseline_attachments = sum(len(views) for _ in plan['groups'])
+        routed_attachments = sum(len(staged.detail_input_views(group, plan, views, options))
+                                 for group in plan['groups'])
+        self.assertEqual(baseline_attachments, 16)
+        self.assertEqual(routed_attachments, 8)
+        self.assertFalse(staged.DEFAULT_OPTIONS['route_detail_images'])
+
+    def test_detail_image_routing_keeps_any_photo_texture_evidence(self):
+        views = [{'id': 'left', 'source_image': 'left.jpg'}, {'id': 'right', 'source_image': 'right.jpg'}]
+        plan = fixture_plan(views, group_count=2)
+        options = {**staged.DEFAULT_OPTIONS, 'route_detail_images': True}
+        self.assertEqual(staged.detail_input_views(plan['groups'][0], plan, views, options), views)
+
+    def test_texture_routing_is_per_group_and_detail_schema_restricts_omitted_materials(self):
+        views = [{'id': name, 'source_image': name + '.jpg'} for name in ('geometry', 'texture_a', 'texture_b')]
+        plan = fixture_plan(views, group_count=2)
+        plan['textures'] = [dict(plan['textures'][0], view_id='texture_a')]
+        plan['groups'][0]['evidence_view_ids'] = ['geometry']
+        plan['groups'][1]['evidence_view_ids'] = ['geometry']
+        plan['groups'][0]['texture_material_ids'] = ['photo_mat']
+        plan['groups'][1]['texture_material_ids'] = []
+        options = {**staged.DEFAULT_OPTIONS, 'route_detail_images': True, 'detail_view_min_confidence': .9}
+        self.assertEqual([view['id'] for view in staged.detail_input_views(plan['groups'][0], plan, views, options)],
+                         ['geometry', 'texture_a'])
+        self.assertEqual([view['id'] for view in staged.detail_input_views(plan['groups'][1], plan, views, options)],
+                         ['geometry'])
+        all_images_baseline = len(views) * len(plan['groups'])
+        routed = sum(len(staged.detail_input_views(group, plan, views, options)) for group in plan['groups'])
+        self.assertEqual((all_images_baseline, routed), (6, 3))
+        allowed = staged.detail_texture_scope(plan['groups'][1], plan, options)[1]
+        schema = staged.detail_schema('group_1', 60, allowed)
+        good = fixture_detail('group_1')
+        staged._validate_wire(good, schema)
+        bad = fixture_detail('group_1')
+        bad['parts'][0]['material_id'] = 'photo_mat'
+        with self.assertRaisesRegex(ValueError, 'unsupported value'):
+            staged._validate_wire(bad, schema)
+
+    def test_texture_scope_validation_rejects_dangling_duplicate_and_nontexture_ids(self):
+        views = [{'id': 'left', 'width': 64, 'height': 48, 'source_image': 'left.jpg'},
+                 {'id': 'right', 'width': 64, 'height': 48, 'source_image': 'right.jpg'}]
+        options = {**staged.DEFAULT_OPTIONS, 'route_detail_images': True}
+        for values, error in ((['missing'], 'photo-textured'),
+                              (['photo_mat', 'photo_mat'], 'unique'),
+                              (['wood'], 'photo-textured')):
+            plan = fixture_plan(views)
+            plan['groups'][0]['texture_material_ids'] = values
+            with self.subTest(values=values), self.assertRaisesRegex(ValueError, error):
+                staged.validate_plan(plan, views, 'fixture_scene', options)
+        plan = fixture_plan(views)
+        plan['groups'][0]['m'] = 'photo_mat'
+        plan['groups'][0]['texture_material_ids'] = []
+        with self.assertRaisesRegex(ValueError, 'include its textured default'):
+            staged.validate_plan(plan, views, 'fixture_scene', options)
 
 
 class StagedTests(unittest.TestCase):
@@ -150,6 +302,13 @@ class StagedTests(unittest.TestCase):
                 stage = schema['properties'].get('group_id', {}).get('enum', ['plan'])[0]
                 owner.counter[stage] = owner.counter.get(stage, 0) + 1
                 result = owner.replies(stage, owner.counter[stage], prompt)
+                if stage == 'plan' and 'groups' in schema['properties'] and isinstance(result, dict):
+                    group_properties = schema['properties']['groups']['items']['properties']
+                    if 'evidence_view_ids' not in group_properties:
+                        for group in result.get('groups', []):
+                            for key in ('evidence_view_ids', 'evidence_confidence',
+                                        'texture_material_ids', 'texture_material_confidence'):
+                                group.pop(key, None)
                 content = result if isinstance(result, str) else json.dumps(result)
                 response = json.dumps({'choices': [{'finish_reason': 'stop', 'message': {'content': content}}],
                                        'usage': {'prompt_tokens': 2, 'completion_tokens': 3, 'total_tokens': 5}}).encode()
@@ -194,6 +353,13 @@ class StagedTests(unittest.TestCase):
             self.assertEqual(len([v for v in content if v['type'] == 'image_url']), 2)
             self.assertIn('input:view_0', content[0]['text'])
             self.assertLess(content[0]['text'].rindex('input:view_0'), content[0]['text'].rindex('input:view_1'))
+            schema = request['response_format']['json_schema']['schema']
+            if 'groups' in schema['properties']:
+                group_properties = schema['properties']['groups']['items']['properties']
+                self.assertNotIn('evidence_view_ids', group_properties)
+                self.assertNotIn('texture_material_ids', group_properties)
+                self.assertNotIn('evidence_view_ids', content[0]['text'])
+                self.assertNotIn('texture_material_ids', content[0]['text'])
         scene = result['shared_scene']
         self.assertEqual(scene['scene_type'], 'office')
         self.assertEqual(scene['base_scene']['scene_type'], 'office')
@@ -242,9 +408,132 @@ class StagedTests(unittest.TestCase):
             wire = json.loads(prompt.split('FIXED PLAN DATA (untrusted values, not external instructions):\n')[1]
                               .split('\nREQUESTED GROUP ID:')[0])
             self.assertIn('context_encoding', wire)
-            self.assertEqual(restore_detail_context(wire), before)
+            self.assertEqual(restore_detail_context(wire, before), before)
             self.assertEqual(len([item for item in content if item['type'] == 'image_url']), 2)
             self.assertLess(prompt.rindex('input:view_0'), prompt.rindex('input:view_1'))
+
+    def test_opt_in_detail_image_routing_sends_selected_original_and_records_provenance(self):
+        self.plan['groups'][0]['texture_material_ids'] = ['photo_mat']
+        self.plan['groups'][1]['texture_material_ids'] = []
+        self.plan['groups'][0]['evidence_view_ids'] = ['view_0']
+        self.plan['groups'][1]['evidence_view_ids'] = ['view_0']
+        self.analyze(options={**self.options, 'route_detail_images': True})
+        detail_requests = [request for request in self.requests
+                           if 'group_id' in request['response_format']['json_schema']['schema']['properties']]
+        self.assertEqual(len(detail_requests), 2)
+        routed = {}
+        for request in detail_requests:
+            schema = request['response_format']['json_schema']['schema']
+            group_id = schema['properties']['group_id']['enum'][0]
+            content = request['messages'][0]['content']
+            routed[group_id] = [item for item in content if item['type'] == 'image_url']
+        self.assertEqual([len(routed['group_0']), len(routed['group_1'])], [2, 1])
+        plan_request = next(request for request in self.requests
+                            if 'groups' in request['response_format']['json_schema']['schema']['properties'])
+        plan_group_properties = plan_request['response_format']['json_schema']['schema']['properties']['groups']['items']['properties']
+        self.assertIn('evidence_view_ids', plan_group_properties)
+        self.assertIn('texture_material_ids', plan_group_properties)
+        self.assertIn('texture_material_ids', plan_request['messages'][0]['content'][0]['text'])
+        routed_sizes = {}
+        for group_id, images in routed.items():
+            encoded = images[0]['image_url']['url'].split(',', 1)[1]
+            routed_sizes[group_id] = Image.open(BytesIO(base64.b64decode(encoded))).size
+        self.assertEqual(routed_sizes, {'group_0': (64, 48), 'group_1': (64, 48)})
+        provenance = read_json(self.output.with_name('analysis_provenance.json'))
+        records = {item['stage']: item for item in provenance['stages']}
+        self.assertEqual(records['detail_group_0']['input_view_ids'], ['view_0', 'view_1'])
+        self.assertEqual(records['detail_group_1']['input_view_ids'], ['view_0'])
+
+    def test_opt_in_sparse_detail_wire_is_cached_as_validated_canonical_data(self):
+        def sparse_reply(stage, attempt, prompt):
+            data = self.default_reply(stage, attempt, prompt)
+            if stage != 'plan':
+                return compact_detail.compact_detail(data)
+            return data
+        self.replies = sparse_reply
+        self.plan['groups'][1]['texture_material_ids'] = []
+        options = {**self.options, 'route_detail_images': True,
+                   'detail_wire_format': compact_detail.FORMAT}
+        result = validate(self.analyze(options=options))
+        detail_requests = [request for request in self.requests
+                           if 'group_id' in request['response_format']['json_schema']['schema']['properties']]
+        self.assertEqual(len(detail_requests), 2)
+        for request in detail_requests:
+            content = request['messages'][0]['content']
+            schema = request['response_format']['json_schema']['schema']
+            prompt = content[0]['text']
+            self.assertEqual(schema['properties']['wire_format']['enum'], [compact_detail.FORMAT])
+            self.assertIn(compact_detail.FORMAT, prompt)
+            group_id = schema['properties']['group_id']['enum'][0]
+            material_enum = schema['properties']['parts']['items']['properties']['material_id']['enum']
+            if group_id == 'group_1':
+                self.assertEqual(material_enum, ['', 'wood'])
+                self.assertEqual(len([item for item in content if item['type'] == 'image_url']), 1)
+        stage_dir = self.output.with_name('initial_bundle_stages')
+        for stage in ('detail_group_0', 'detail_group_1'):
+            raw = read_json(stage_dir / f'{stage}_attempt_00.raw.json')
+            canonical = read_json(stage_dir / f'{stage}_attempt_00.canonical.json')
+            self.assertEqual(raw['wire_format'], compact_detail.FORMAT)
+            self.assertNotIn('wire_format', canonical)
+            self.assertEqual(canonical, fixture_detail(stage.removeprefix('detail_')))
+        self.assertEqual(result['shared_scene']['custom_objects'][0]['parts'][0]['type'], 'box')
+        provenance = read_json(self.output.with_name('analysis_provenance.json'))
+        self.assertTrue(all('detail_wire_encoding' in stage for stage in provenance['stages'][1:]))
+        # Recovery must validate and reuse both immutable wire and canonical
+        # artifacts instead of charging another request.
+        count = len(self.requests)
+        self.assertEqual(self.analyze(options=options), result)
+        self.assertEqual(len(self.requests), count)
+        canonical_path = stage_dir / 'detail_group_0_attempt_00.canonical.json'
+        tampered = read_json(canonical_path)
+        tampered['parts'][0]['data'][0] += .1
+        atomic_json(canonical_path, tampered)
+        with self.assertRaises(staged.StagedAnalysisError):
+            self.analyze(options=options)
+        self.assertEqual(len(self.requests), count)
+
+    def test_invalid_compact_detail_is_rejected_before_bundle_publication(self):
+        def bad_reply(stage, attempt, prompt):
+            data = self.default_reply(stage, attempt, prompt)
+            if stage != 'plan':
+                wire = compact_detail.compact_detail(data)
+                # Valid transport schema, but no topology for a declared mesh:
+                # the decoder must reject it before whole-scene assembly.
+                wire['parts'][0]['type'] = 'mesh'
+                return wire
+            return data
+        self.replies = bad_reply
+        with self.assertRaises(staged.StagedAnalysisError):
+            self.analyze(options={**self.options, 'detail_wire_format': compact_detail.FORMAT})
+        self.assertFalse(self.output.exists())
+
+    def test_staged_options_bound_detail_image_routing_and_threshold(self):
+        for value in (0, 1, .5):
+            options = staged.normalize_options({'route_detail_images': True,
+                                                'detail_view_min_confidence': value})
+            self.assertEqual(options['detail_view_min_confidence'], float(value))
+        for value in (-.01, 1.01, True, 'high'):
+            with self.assertRaises(ValueError):
+                staged.normalize_options({'detail_view_min_confidence': value})
+        with self.assertRaises(ValueError):
+            staged.normalize_options({'route_detail_images': 1})
+
+    def test_historic_plan_without_evidence_map_keeps_all_views_without_mutation(self):
+        for group in self.plan['groups']:
+            group.pop('evidence_view_ids')
+            group.pop('evidence_confidence')
+            group.pop('texture_material_ids')
+            group.pop('texture_material_confidence')
+        before = copy.deepcopy(self.plan)
+        for enabled in (False, True):
+            options = {**self.options, 'route_detail_images': enabled}
+            staged.validate_plan(self.plan, self.views, 'fixture_scene', options)
+            for group in self.plan['groups']:
+                self.assertEqual(staged.detail_input_views(group, self.plan, self.views, options), self.views)
+        self.assertEqual(self.plan, before)
+        # Local import compatibility must not weaken the fresh API contract.
+        with self.assertRaises(ValueError):
+            staged._validate_wire(self.plan, staged.native_schema('fixture_scene', ['view_0', 'view_1']))
 
     def test_context_implementation_hash_change_refuses_cached_job(self):
         self.analyze()
@@ -270,16 +559,24 @@ class StagedTests(unittest.TestCase):
         self.assertIn('camera order or identity', prompt)
 
     def test_identity_and_bounds_rejected_without_silent_normalization(self):
-        for mutation in ('duplicate_camera', 'camera_target', 'repeat_float', 'support_cycle', 'undefined_material'):
+        for mutation in ('duplicate_camera', 'camera_target', 'repeat_float', 'support_cycle', 'undefined_material',
+                         'duplicate_evidence_view', 'reverse_evidence_views', 'unknown_evidence_view'):
             plan = copy.deepcopy(self.plan)
             if mutation == 'duplicate_camera': plan['cameras'][1]['id'] = plan['cameras'][0]['id']
             elif mutation == 'camera_target': plan['cameras'][0]['d'][3:6] = plan['cameras'][0]['d'][:3]
             elif mutation == 'repeat_float': plan['assets'][0]['d'][10] = 1.0
             elif mutation == 'support_cycle':
                 plan['groups'][0]['support'] = 'group_1'; plan['groups'][1]['support'] = 'group_0'
+            elif mutation == 'duplicate_evidence_view':
+                plan['groups'][0]['evidence_view_ids'] = ['view_0', 'view_0']
+            elif mutation == 'reverse_evidence_views':
+                plan['groups'][0]['evidence_view_ids'] = ['view_1', 'view_0']
+            elif mutation == 'unknown_evidence_view':
+                plan['groups'][0]['evidence_view_ids'] = ['not_a_view']
             else: plan['groups'][0]['m'] = 'not_declared'
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                staged.validate_plan(plan, self.views, 'fixture_scene')
+                staged.validate_plan(plan, self.views, 'fixture_scene',
+                    {**staged.DEFAULT_OPTIONS, 'route_detail_images': True})
 
     def test_real_dorm_origin_regression_is_rejected_without_translation(self):
         # Reduced geometry from the failed GLM dorm plan: everything was placed
@@ -358,6 +655,164 @@ class StagedTests(unittest.TestCase):
         feedback = (self.output.parent / 'initial_bundle_stages/plan_attempt_01.prompt.txt').read_text()
         self.assertIn('Plan geometry invalid:', feedback)
         self.assertIn('room centre X=0', feedback)
+
+    def geometry_patch_reply(self, draft, value=-1, field='position.x'):
+        from plan_geometry_patch import build_request
+        # The loopback provider emulates the request schema by omitting
+        # optional routing metadata when routing is disabled. Geometry patch
+        # hashes must bind to that exact wire candidate, not the richer source
+        # fixture used to seed the provider response.
+        draft = self.wire_plan(draft)
+        _, schema = build_request(draft, ['desk'], 'fixture geometry error', 'fixture contract')
+        return {'base_sha256': schema['properties']['base_sha256']['enum'][0],
+                'edits': [{'asset_id': 'desk', 'field': field, 'value': value}]}
+
+    def wire_plan(self, plan):
+        result = copy.deepcopy(plan)
+        if not self.options.get('route_detail_images', False):
+            for group in result.get('groups', []):
+                for key in ('evidence_view_ids', 'evidence_confidence',
+                            'texture_material_ids', 'texture_material_confidence'):
+                    group.pop(key, None)
+        return result
+
+    def test_asset_geometry_retry_preserves_complete_plan_and_resumes_patch(self):
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        def reply(stage, attempt, prompt):
+            if stage == 'plan':
+                return draft if attempt == 1 else self.geometry_patch_reply(draft)
+            return self.default_reply(stage, attempt, prompt)
+        self.replies = reply
+        first = self.analyze()
+        self.assertEqual(self.counter['plan'], 2)
+        folder = self.output.with_name('initial_bundle_stages')
+        self.assertEqual(read_json(folder / 'plan_attempt_01.canonical.json'), self.wire_plan(self.plan))
+        correction = self.requests[1]
+        self.assertIn('base_sha256', correction['response_format']['json_schema']['schema']['properties'])
+        patch_prompt = correction['messages'][0]['content'][0]['text']
+        self.assertIn('desk', patch_prompt)
+        self.assertIn('native_plan', patch_prompt)
+        self.assertEqual(len([v for v in correction['messages'][0]['content'] if v['type'] == 'image_url']), 2)
+        state = read_json(folder / 'plan_attempt_01.validation.json')
+        self.assertEqual(state['request_kind'], 'asset_geometry_patch')
+        self.assertIn('patch_base', state['artifacts'])
+        count = len(self.requests)
+        self.assertEqual(self.analyze(), first)
+        self.assertEqual(len(self.requests), count)
+
+    def test_failed_geometry_candidate_resumes_with_patch_without_regeneration(self):
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        self.options['validation_retries'] = 0
+        self.replies = lambda stage, attempt, prompt: (draft if attempt == 1 else
+            self.geometry_patch_reply(draft)) if stage == 'plan' else fixture_detail(stage)
+        with self.assertRaises(staged.StagedAnalysisError):
+            self.analyze()
+        self.assertEqual(self.counter, {'plan': 1})
+        self.analyze()
+        self.assertEqual(self.counter['plan'], 2)
+        self.assertIn('base_sha256', self.requests[1]['response_format']['json_schema']['schema']['properties'])
+
+    def test_geometry_patch_still_outside_room_requires_another_validated_patch(self):
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        intermediate = copy.deepcopy(draft)
+        intermediate['assets'][0]['d'][0] = 2.7
+        self.options['validation_retries'] = 0
+        def reply(stage, attempt, prompt):
+            if stage == 'plan':
+                if attempt == 1: return draft
+                return self.geometry_patch_reply(draft, 2.7) if attempt == 2 else self.geometry_patch_reply(intermediate)
+            return fixture_detail(stage)
+        self.replies = reply
+        for _ in range(2):
+            with self.assertRaises(staged.StagedAnalysisError):
+                self.analyze()
+        self.assertEqual(self.counter, {'plan': 2})
+        self.analyze()
+        self.assertEqual(self.counter['plan'], 3)
+        self.assertEqual(read_json(self.output.with_name('initial_bundle_stages') / 'plan_attempt_02.canonical.json'), self.wire_plan(self.plan))
+
+    def test_invalid_patch_keeps_original_bound_base_for_retry(self):
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        self.options['validation_retries'] = 2
+        def reply(stage, attempt, prompt):
+            if stage == 'plan':
+                if attempt == 1: return draft
+                return self.geometry_patch_reply(draft, 2.8 if attempt == 2 else -1)
+            return fixture_detail(stage)
+        self.replies = reply
+        self.analyze()
+        self.assertEqual(self.counter['plan'], 3)
+        folder = self.output.with_name('initial_bundle_stages')
+        self.assertEqual(read_json(folder / 'plan_attempt_02.patch_base.json'), self.wire_plan(draft))
+        self.assertEqual(read_json(folder / 'plan_attempt_02.canonical.json'), self.wire_plan(self.plan))
+
+    def test_tampered_rejected_candidate_never_triggers_patch_call(self):
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        self.options['validation_retries'] = 0
+        self.replies = lambda stage, attempt, prompt: draft
+        with self.assertRaises(staged.StagedAnalysisError):
+            self.analyze()
+        path = self.output.with_name('initial_bundle_stages') / 'plan_attempt_00.raw.json'
+        changed = read_json(path)
+        changed['assets'][0]['d'][0] = 2.7
+        atomic_json(path, changed)
+        with self.assertRaisesRegex(staged.StagedAnalysisError, 'artifact changed'):
+            self.analyze()
+        self.assertEqual(self.counter, {'plan': 1})
+
+    def test_geometry_candidate_provenance_is_verified_before_retry(self):
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        self.replies = lambda stage, attempt, prompt: draft
+        original = staged.call_model
+        def wrong_provenance(prompt, images, schema, output, *args, **kwargs):
+            data = original(prompt, images, schema, output, *args, **kwargs)
+            path = Path(output).with_suffix('.api.json')
+            api = read_json(path)
+            api['prompt_sha256'] = '0' * 64
+            atomic_json(path, api)
+            return data
+        with patch.object(staged, 'call_model', side_effect=wrong_provenance):
+            with self.assertRaisesRegex(staged.StagedAnalysisError, 'provenance'):
+                self.analyze()
+        self.assertEqual(self.counter, {'plan': 1})
+
+    def test_invalid_patch_response_resume_keeps_bound_candidate(self):
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        def reply(stage, attempt, prompt):
+            if stage == 'plan':
+                if attempt == 1: return draft
+                if attempt == 2: return '{"edits":'
+                return self.geometry_patch_reply(draft)
+            return fixture_detail(stage)
+        self.replies = reply
+        with self.assertRaises(staged.StagedAnalysisError):
+            self.analyze()
+        self.assertEqual(self.counter, {'plan': 2})
+        self.analyze()
+        self.assertEqual(self.counter['plan'], 3)
+        self.assertIn('base_sha256', self.requests[2]['response_format']['json_schema']['schema']['properties'])
+        self.assertEqual(read_json(self.output.with_name('initial_bundle_stages') / 'plan_attempt_02.canonical.json'), self.wire_plan(self.plan))
+
+    def test_geometry_patch_respects_scene_budget_before_transport(self):
+        from scene_budget import scene_budget_session, budget_snapshot
+        draft = copy.deepcopy(self.plan)
+        draft['assets'][0]['d'][0] = 2.8
+        self.replies = lambda stage, attempt, prompt: draft
+        with scene_budget_session(self.output.parent, {'max_requests': 1}):
+            with self.assertRaises(ModelAPIError) as caught:
+                self.analyze()
+        self.assertEqual(caught.exception.code, 'scene_budget_exceeded')
+        self.assertEqual(self.counter, {'plan': 1})
+        state = read_json(self.output.with_name('initial_bundle_stages') / 'plan_attempt_01.validation.json')
+        self.assertEqual(state['request_kind'], 'asset_geometry_patch')
+        self.assertEqual(state['status'], 'failed')
 
     def test_invalid_plan_never_spends_detail_budget_after_retry_limit(self):
         self.plan['cameras'][0]['d'][0] = self.plan['room']['d'][0] / 2

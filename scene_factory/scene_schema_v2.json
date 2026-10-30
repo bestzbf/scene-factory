@@ -249,7 +249,8 @@
                   "maximum": 12
                 },
                 "minItems": 2,
-                "maxItems": 2
+                "maxItems": 2,
+                "description": "[count_X,count_Y]. The first count repeats along world X; the second along world Y, independent of object yaw."
               },
               "spacing": {
                 "type": "array",
@@ -259,7 +260,8 @@
                   "maximum": 10
                 },
                 "minItems": 2,
-                "maxItems": 2
+                "maxItems": 2,
+                "description": "[step_X,step_Y] world-space offsets before object yaw. If count_X or count_Y is greater than 1, its matching step must be nonzero; a singleton axis may use zero. Negative steps are valid."
               },
               "confidence": {
                 "type": "number",
@@ -608,6 +610,7 @@
                     "cylinder",
                     "sphere",
                     "curve",
+                    "polyline",
                     "mesh",
                     "image_plane",
                     "curtain"

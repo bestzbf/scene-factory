@@ -13,11 +13,14 @@ def build(entry, scene_type='other', seed=23):
     root.rotation_euler.z=math.radians(entry.get('rotation_z_deg',0))
     root['geometry_source']='dimension_aware_interior_v2'
     rgb=entry['color']
-    main=g.material('InteriorMain',rgb,.7 if kind in {'bed','sofa','chair'} else .45)
-    fabric=g.material('InteriorFabric',[min(.95,c*1.12+.05) for c in rgb],.87)
-    dark=g.material('InteriorFeet',[c*.25 for c in rgb],.43)
-    pale=g.material('InteriorLinen',[.76,.74,.68],.88)
-    metal=g.material('InteriorHardware',[.24,.26,.27],.28,.8)
+    # Tag isolated copies: generate_scene.material intentionally shares
+    # datablocks by shader parameters, which do not encode source semantics.
+    from assets_lib.material_roles import source_role
+    main=source_role(g.material('InteriorMain',rgb,.7 if kind in {'bed','sofa','chair'} else .45), 'body')
+    fabric=source_role(g.material('InteriorFabric',[min(.95,c*1.12+.05) for c in rgb],.87), 'fabric')
+    dark=source_role(g.material('InteriorFeet',[c*.25 for c in rgb],.43), 'body')
+    pale=source_role(g.material('InteriorLinen',[.76,.74,.68],.88), 'fabric')
+    metal=source_role(g.material('InteriorHardware',[.24,.26,.27],.28,.8), 'metal')
     def box(name,xyz,size,mat=main,r=.012):
         return g.box(root,entry['id']+'_'+name,xyz,size,mat,min(r,min(size)*.2))
     def legs(top,footprint=(.4,.4)):

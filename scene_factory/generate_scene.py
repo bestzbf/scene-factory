@@ -20,6 +20,10 @@ from pathlib import Path
 import bpy
 import bmesh
 from mathutils import Vector
+try:
+    from .assets_lib.material_roles import source_role
+except ImportError:
+    from assets_lib.material_roles import source_role
 
 
 MATERIALS = {}
@@ -164,13 +168,15 @@ def asset(entry):
     """Build in a unit bounding volume, then scale to requested dimensions."""
     root = root_object(entry['id'])
     kind = entry['kind']
-    base = material(kind + '_Surface', entry.get('color', [.5, .5, .5]),
-                    entry.get('roughness', .55))
-    black = material('Charcoal', (.022, .028, .033), .46)
-    metal = material('Steel', (.23, .26, .28), .29, .75)
-    pale = material('WarmWhite', (.83, .83, .79), .62)
-    darker = material(kind + '_Shade', [v * .68 for v in entry.get('color', [.5] * 3)], .65)
-    screen = material('Screen', (.035, .16, .27), .3, emission=.35)
+    # Tag isolated copies after parameter-cache lookup; source role is not a
+    # property of the shader tuple shared by MATERIALS.
+    base = source_role(material(kind + '_Surface', entry.get('color', [.5, .5, .5]),
+                                entry.get('roughness', .55)), 'body')
+    black = source_role(material('Charcoal', (.022, .028, .033), .46), 'body')
+    metal = source_role(material('Steel', (.23, .26, .28), .29, .75), 'metal')
+    pale = source_role(material('WarmWhite', (.83, .83, .79), .62), 'body')
+    darker = source_role(material(kind + '_Shade', [v * .68 for v in entry.get('color', [.5] * 3)], .65), 'body')
+    screen = source_role(material('Screen', (.035, .16, .27), .3, emission=.35), 'body')
     B = lambda name, pos, size, mat=base, bevel=.012: box(root, name, pos, size, mat, bevel)
     R = lambda name, a, b, radius, mat=metal: rod(root, name, a, b, radius, mat)
     S = lambda name, pos, size, mat=base: sphere(root, name, pos, size, mat)
@@ -243,12 +249,12 @@ def asset(entry):
             for index in range(12):
                 x = -.32 + (index % 4) * .2
                 z = .31 + (index // 4) * .24
-                bookmat = material('Book', ((index % 3 + 1) * .18, .19 + index % 2 * .2, .24), .7)
+                bookmat = source_role(material('Book', ((index % 3 + 1) * .18, .19 + index % 2 * .2, .24), .7), 'body')
                 B('Book', (x, .03, z + .06), (.10, .46, .18), bookmat, .002)
     elif kind == 'plant':
-        pot = material('Terracotta', (.37, .22, .12), .85)
-        soil = material('Soil', (.045, .03, .02), 1)
-        trunk = material('Bark', (.15, .09, .045), .85)
+        pot = source_role(material('Terracotta', (.37, .22, .12), .85), 'body')
+        soil = source_role(material('Soil', (.045, .03, .02), 1), 'body')
+        trunk = source_role(material('Bark', (.15, .09, .045), .85), 'body')
         R('Pot', (0, 0, .025), (0, 0, .27), .24, pot)
         R('Soil', (0, 0, .265), (0, 0, .275), .222, soil)
         R('Trunk', (0, 0, .25), (0, 0, .86), .025, trunk)
@@ -263,7 +269,7 @@ def asset(entry):
             leaf.rotation_euler.z = theta
     elif kind in ('window', 'door'):
         # Local -Y is the room-facing surface; panels need no wall booleans.
-        panel = window_glass_material() if kind == 'window' else base
+        panel = source_role(window_glass_material(), 'glass') if kind == 'window' else base
         B('Panel', (0, 0, .5), (.91, .6, .93), panel, 0)
         for x in (-.475, .475):
             B('FrameVertical', (x, -.03, .5), (.05, 1, 1), pale)
@@ -283,11 +289,11 @@ def asset(entry):
     elif kind == 'pendant_light':
         R('Cable', (0, 0, .64), (0, 0, 1), .012, black)
         R('Shade', (0, 0, .05), (0, 0, .66), .5, base)
-        glow = material('Luminaire', (1, .94, .82), .3, emission=5)
+        glow = source_role(material('Luminaire', (1, .94, .82), .3, emission=5), 'body')
         R('Diffuser', (0, 0, 0), (0, 0, .035), .465, glow)
     elif kind == 'linear_light':
         B('Housing', (0, 0, .56), (1, 1, .88), base)
-        glow = material('Luminaire', (1, .94, .82), .3, emission=5)
+        glow = source_role(material('Luminaire', (1, .94, .82), .3, emission=5), 'body')
         B('Diffuser', (0, 0, .06), (.97, .93, .12), glow)
     elif kind == 'rug':
         B('Rug', (0, 0, .5), (1, 1, 1), bevel=.01)
@@ -491,19 +497,19 @@ def main():
     started = time.monotonic()
     spec = json.loads(args.spec.read_text(encoding='utf-8'))
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from schema import validate
+    from schema import expand_repeat_positions, validate
     validate(spec)
     original_spec = spec
     expanded = []
     for entry in spec['objects']:
-        for i in range(entry['repeat'][0]):
-            for j in range(entry['repeat'][1]):
-                item = dict(entry)
-                item['id'] = entry['id'] + ('__%d_%d' % (i,j) if entry['repeat'] != [1,1] else '')
-                item['kind'] = entry['category']
-                item['position'] = [entry['position'][0]+i*entry['spacing'][0], entry['position'][1]+j*entry['spacing'][1], entry['position'][2]]
-                item['rotation_degrees'] = [0,0,entry['rotation_z_deg']]
-                expanded.append(item)
+        for i, j, position in expand_repeat_positions(
+                entry['position'], entry['repeat'], entry['spacing'], f"scene.objects[{entry['id']}]"):
+            item = dict(entry)
+            item['id'] = entry['id'] + ('__%d_%d' % (i,j) if entry['repeat'] != [1,1] else '')
+            item['kind'] = entry['category']
+            item['position'] = position
+            item['rotation_degrees'] = [0,0,entry['rotation_z_deg']]
+            expanded.append(item)
     spec = {**spec,'objects':expanded}
     out = args.output_dir.resolve()
     out.mkdir(parents=True, exist_ok=True)

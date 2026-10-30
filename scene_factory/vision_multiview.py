@@ -16,8 +16,10 @@ import time
 from batch import atomic_json, canonical_bytes, file_sha256, read_json
 from schema import obj, vector
 from spec_v2 import SCHEMA as V2_SCHEMA, _walk
-from multiview_spec import SAFE_ID, resolve_sources, validate
-from vision_v2 import CONTRACT as V2_CONTRACT, call_model, resolve_support_groups
+from multiview_spec import MAX_VIEWS, SAFE_ID, resolve_sources, validate
+from vision_v2 import (CONTRACT as V2_CONTRACT, call_model, resolve_support_groups,
+                       expand_repeated_base_material_overrides)
+from scene_type_normalization import normalize_scene_type_inventory
 from visual_review import DIMENSIONS
 from compact_context import (CONTEXT_VERSION, RECORD_TABLE_INSTRUCTION,
                              compact_review_metadata, encode_record_tables)
@@ -41,14 +43,14 @@ TEXT = {'type': 'string', 'maxLength': 12000}
 ID = {'type': 'string', 'pattern': r'^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$', 'minLength': 1, 'maxLength': 80}
 STRINGS = {'type': 'array', 'items': TEXT, 'maxItems': 30}
 CAMERA_SCHEMA = obj({'position': vector(3), 'target': vector(3),
-                     'lens_mm': {'type': 'number', 'minimum': 5, 'maximum': 500},
+                     'lens_mm': {'type': 'number', 'minimum': 12, 'maximum': 85},
                      'roll_degrees': {'type': 'number', 'minimum': -180, 'maximum': 180}})
 SCHEMA = obj({
     'schema_version': {'type': 'integer', 'enum': [3]}, 'scene_id': ID,
     'shared_scene': copy.deepcopy(V2_SCHEMA),
     'architecture': obj({'omit_surfaces': {'type': 'array', 'items': {'type': 'string', 'enum': ['floor','ceiling','left','right','back']}, 'maxItems': 5},
                          'front_wall': {'type': 'boolean'}}),
-    'views': {'type': 'array', 'minItems': 1, 'maxItems': 16, 'items': obj({
+    'views': {'type': 'array', 'minItems': 1, 'maxItems': MAX_VIEWS, 'items': obj({
         'id': ID, 'source_image': TEXT, 'width': {'type': 'integer', 'minimum': 1, 'maximum': 16384},
         'height': {'type': 'integer', 'minimum': 1, 'maximum': 16384}, 'camera': CAMERA_SCHEMA})},
     'texture_sources': {'type': 'array', 'maxItems': 32, 'items': obj({'texture_id': TEXT, 'view_id': ID})},
@@ -58,11 +60,11 @@ REVIEW_SCHEMA = obj({
     'schema_version': {'type': 'integer', 'enum': [3]},
     'verdict': {'type': 'string', 'enum': ['recommend_accept','repair','asset_limited','insufficient_information']},
     'summary': TEXT, 'scores': SCORES,
-    'per_view_scores': {'type': 'array', 'minItems': 1, 'maxItems': 16, 'items': obj({'view_id': ID, 'scores': SCORES, 'summary': TEXT})},
+    'per_view_scores': {'type': 'array', 'minItems': 1, 'maxItems': MAX_VIEWS, 'items': obj({'view_id': ID, 'scores': SCORES, 'summary': TEXT})},
     'issues': {'type': 'array', 'maxItems': 30, 'items': obj({
         'dimension': {'type': 'string', 'enum': list(DIMENSIONS)},
         'severity': {'type': 'string', 'enum': ['blocking','major','minor']},
-        'view_ids': {'type': 'array', 'items': ID, 'maxItems': 16},
+        'view_ids': {'type': 'array', 'items': ID, 'maxItems': MAX_VIEWS},
         'evidence': TEXT, 'action': TEXT, 'object_ids': STRINGS})},
     'asset_gaps': STRINGS, 'reference_limitations': STRINGS,
     'revised_bundle': SCHEMA,
@@ -70,9 +72,13 @@ REVIEW_SCHEMA = obj({
 
 CONTRACT = V2_CONTRACT + '''
 
-The REQUIRED OUTPUT is a version-3 MULTIVIEW WRAPPER with ONE shared_scene containing full V2 data. Every supplied photo is the SAME physical scene, not a separate room. Establish a common coordinate system from shared structural landmarks, reuse each physical object once, and estimate separate camera position/target/lens/roll per view. Do not concatenate independent reconstructions or duplicate furniture seen in both images. Multiple photos may look in opposite directions. Prioritize consistency and fidelity in ALL views. Shared scene geometry, materials and illumination cannot change when switching cameras. Only per-view camera is different. Version-3 views override shared_scene's legacy camera. Keep legacy camera equal to the first view, and shared_scene.image dimensions/source_id equal to the first input view.
+The REQUIRED OUTPUT is a version-3 MULTIVIEW WRAPPER with ONE shared_scene containing full V2 data. Every supplied photo is the SAME physical scene, not a separate room. Establish a common coordinate system from shared structural landmarks, reuse each physical object once, and estimate separate camera position/target/lens/roll per view. Do not concatenate independent reconstructions or duplicate furniture seen in both images. Multiple photos may look in opposite directions. Prioritize consistency and fidelity in ALL views. Shared scene geometry, materials and illumination cannot change when switching cameras. Only per-view camera is different. Every view lens_mm must be 12..85. Copy the first view's position/target/lens_mm exactly to shared_scene.base_scene.camera and its roll_degrees exactly to shared_scene.camera.roll_degrees. Keep shared_scene.image dimensions/source_id equal to the first input view.
+
+Choose shared_scene.scene_type from the dominant photographed use because it selects the stock furniture families and source material slots used during rendering. Rows of work desks, monitors/computers and task chairs indicate office even when storage shelves are visible; shop means retail display/checkout. Do not classify by an isolated shelf or counter. Office/classroom task chairs include body, fabric and metal source roles; ordinary visitor/dining chairs may expose only body and fabric. Request only selectors supported by the chosen asset family.
 
 Every output view MUST preserve the supplied id, source_image placeholder, width and height, in input order; only its camera is estimated. Source placeholders are opaque identities, not filesystem paths. texture_sources maps each shared_scene.textures texture_id to its actual source view_id. Unmapped textures default to the first photo, so explicitly map every crop from other photos. Normalized texture coordinates refer to the selected source image. Do not use the entire reference as a backdrop or project the complete scene as texture.
+
+For shared_scene.base_material_overrides, an object_id equal to an exact repeated base group ID applies the binding to every repeated instance; the program expands that group-level alias to exact id__i_j instance IDs. Preserve all other override fields. If you intend to bind only one instance, use its exact expanded ID.
 
 Architecture coordinates remain X +/-width/2, Y 0..depth, Z 0..height. The normal front is open; architecture.front_wall=true adds the front Y=0 wall if opposing views need it. architecture.omit_surfaces removes complete named base surfaces (floor,ceiling,left,right,back), allowing custom segmented walls to form REAL openings. For visible windows/door apertures that must transmit daylight, omit the relevant base wall and reconstruct surrounding wall segments with custom parts. An image plane in front of an opaque wall DOES NOT make an aperture. Avoid huge soft lights or ambient exposure washing out local contrast.
 
@@ -94,8 +100,8 @@ recommend_accept requires every score of every view >=85, realism>=90, no major/
 def _inputs(views, scene_id):
     if not isinstance(scene_id, str) or not SAFE_ID.fullmatch(scene_id):
         raise ValueError('Invalid scene_id')
-    if not isinstance(views, list) or not 1 <= len(views) <= 16:
-        raise ValueError('Expected 1..16 input views')
+    if not isinstance(views, list) or not 1 <= len(views) <= MAX_VIEWS:
+        raise ValueError(f'Expected 1..{MAX_VIEWS} input views')
     result, seen = [], set()
     for view in views:
         identifier = view['id']
@@ -130,7 +136,7 @@ def response_schema(views, scene_id):
 
 
 def normalize_response(raw, views, scene_id):
-    """Only restore trusted source paths and resolve repeated support IDs."""
+    """Restore trusted source paths and synchronize the duplicated first camera."""
     if raw.get('scene_id') != scene_id:
         raise ValueError('Model changed scene identity')
     if len(raw.get('views', [])) != len(views):
@@ -148,6 +154,20 @@ def normalize_response(raw, views, scene_id):
         source_changes.append({'view_id': expected['id'], 'from': placeholder,
                                'to': expected['source_image'], 'method': 'trusted input path restoration only'})
     result['shared_scene'], support_changes = resolve_support_groups(result['shared_scene'])
+    result['shared_scene'], material_override_changes = expand_repeated_base_material_overrides(result['shared_scene'])
+    result['shared_scene'], scene_type_change = normalize_scene_type_inventory(result['shared_scene'])
+    primary_camera = result['views'][0]['camera']
+    legacy_camera = result['shared_scene']['base_scene']['camera']
+    camera_fields = ('position', 'target', 'lens_mm')
+    changed_camera_fields = [field for field in camera_fields
+                             if primary_camera[field] != legacy_camera[field]]
+    if changed_camera_fields:
+        result['shared_scene']['base_scene']['camera'] = {
+            field: copy.deepcopy(primary_camera[field]) for field in camera_fields}
+    camera_roll_changed = (primary_camera['roll_degrees']
+                           != result['shared_scene']['camera']['roll_degrees'])
+    if camera_roll_changed:
+        result['shared_scene']['camera']['roll_degrees'] = primary_camera['roll_degrees']
     validate(result)
     first, primary = views[0], result['shared_scene']['image']
     # The same input identity has a path placeholder and an ID. Accept that
@@ -159,23 +179,201 @@ def normalize_response(raw, views, scene_id):
         primary['source_id'] = first['id']
     if (primary['width'], primary['height'], primary['source_id']) != (first['width'], first['height'], first['id']):
         raise ValueError('Model changed primary reference dimensions/identity')
-    return result, {'sources': source_changes, 'supports': support_changes, 'image_identity': image_changes}
+    return result, {'sources': source_changes, 'supports': support_changes,
+                    'base_material_overrides': material_override_changes,
+                    'scene_type': scene_type_change,
+                    'primary_camera': ({'fields': changed_camera_fields +
+                                        (['roll_degrees'] if camera_roll_changed else []),
+                                        'method': 'first version-3 view is authoritative for duplicated legacy camera fields'}
+                                       if changed_camera_fields or camera_roll_changed else []),
+                    'image_identity': image_changes}
 
 
 def _source_hashes(views):
     return {view['id']: file_sha256(view['source_image']) for view in views}
 
 
-def analyze(scene_id, views, output, timeout=900, effort='medium', raw_cache=None, model_config=None):
+def _analysis_attempts(output):
+    """Find only this analysis stage's reserved, immutable attempt stems."""
+    pattern = re.compile(re.escape(output.stem) +
+        r'(?:_retry_(\d+))?\.(?:json|api\.json|raw\.json|prompt\.txt|log)')
+    indices = set()
+    for path in output.parent.iterdir():
+        match = pattern.fullmatch(path.name)
+        if match:
+            indices.add(int(match.group(1) or 0))
+    return [(index, output if index == 0 else output.with_name(output.stem + f'_retry_{index}.json'))
+            for index in sorted(indices)]
+
+
+def _analysis_request(prompt, views, schema, output, timeout, effort, model_config):
+    """Reuse completed transport before semantic validation, never its bill."""
+    from model_api import (_request_identity, guard_ambiguous_model_resume,
+                           recover_completed_response)
+    images = [view['source_image'] for view in views]
+    receipt_path = output.with_name(output.stem + '.recovery.json')
+    if receipt_path.exists():
+        try:
+            receipt = read_json(receipt_path)
+            source_api = Path(receipt['source_api_path'])
+            source_raw = Path(receipt['source_raw_path'])
+            target_raw = output.with_name(output.stem + '.raw.json')
+            if (model_config is None or receipt.get('method') != 'verified_raw_cache_import'
+                    or receipt.get('request_identity') != _request_identity(prompt, images, schema, model_config)
+                    or file_sha256(source_api) != receipt.get('source_api_sha256')
+                    or file_sha256(source_raw) != receipt.get('source_raw_sha256')
+                    or file_sha256(target_raw) != receipt.get('target_raw_sha256')
+                    or output.with_suffix('.prompt.txt').read_text(encoding='utf-8') != prompt):
+                raise ValueError('receipt identity differs')
+            if source_api.name != source_raw.name.replace('.raw.json', '.api.json'):
+                raise ValueError('source attempt identity differs')
+            source_output = source_api.with_name(source_api.name[:-len('.api.json')] + '.json')
+            raw = recover_completed_response(prompt, images, schema, source_output, config=model_config)
+            if read_json(target_raw) != raw:
+                raise ValueError('local raw differs')
+        except (OSError, ValueError, TypeError, KeyError, UnicodeError, RecursionError):
+            raise ValueError('Saved raw-cache recovery receipt differs; automatic model replay was blocked') from None
+        return raw, {'method': 'same_stage_verified_raw_cache_receipt',
+            'raw_cache_receipt_path': str(receipt_path), 'raw_path': str(source_raw),
+            'raw_sha256': receipt['source_raw_sha256'], 'source_api_sha256': receipt['source_api_sha256']}
+    attempts = _analysis_attempts(output)
+    records = {}
+    for _, path in attempts:
+        api_path = path.with_name(path.stem + '.api.json')
+        if api_path.is_file():
+            try:
+                record = read_json(api_path)
+                if not isinstance(record, dict):
+                    raise ValueError('audit must be an object')
+            except (OSError, ValueError, UnicodeError, RecursionError):
+                raise ValueError('Saved analysis API audit is unreadable; automatic model replay was blocked') from None
+            records[path] = record
+    # A complete response is authoritative even when local normalization or
+    # provenance commit failed afterwards. Do not modify any old attempt file.
+    for _, path in reversed(attempts):
+        if records.get(path, {}).get('status') == 'completed':
+            if model_config is None:
+                raise ValueError('Saved analysis API model differs; automatic model replay was blocked')
+            raw = recover_completed_response(prompt, images, schema, path, config=model_config)
+            return raw, {'method': 'same_stage_completed_api_response',
+                'raw_path': str(path.with_name(path.stem + '.raw.json')),
+                'raw_sha256': file_sha256(path.with_name(path.stem + '.raw.json')),
+                'api_path': str(path.with_name(path.stem + '.api.json')),
+                'api_sha256': file_sha256(path.with_name(path.stem + '.api.json'))}
+    guard_ambiguous_model_resume([path.with_name(path.stem + '.api.json') for _, path in attempts])
+    if attempts:
+        if model_config is None:
+            raise ValueError('Uncommitted CLI analysis has no complete API evidence; automatic model replay was blocked')
+        identity = _request_identity(prompt, images, schema, model_config)
+        for _, path in attempts:
+            record = records.get(path)
+            try:
+                if (record is None or record.get('status') != 'failed' or not record.get('failure_code')
+                        or path.with_suffix('.prompt.txt').read_text(encoding='utf-8') != prompt
+                        or any(record.get(key) != identity[key]
+                               for key in ('config', 'prompt_sha256', 'schema_sha256'))):
+                    raise ValueError('request identity missing or differs')
+                transport = record.get('transport_attempts')
+                if (not isinstance(transport, list)
+                        or any(not isinstance(item, dict) for item in transport)
+                        or type(record.get('attempts')) is not int or record['attempts'] != len(transport)
+                        or (transport and record.get('image_sha256') != identity['image_sha256'])
+                        or any(key in record for key in ('usage', 'usage_invalid', 'usage_present',
+                            'response_status', 'finish_reason', 'incomplete_reason',
+                            'raw_response_sha256', 'output_text_utf8_bytes'))
+                        or path.with_name(path.stem + '.raw.json').exists() or path.exists()):
+                    raise ValueError('response or request evidence differs')
+                if not transport:
+                    # Only these audited paths fail before any transport is
+                    # created. A missing/emptied attempt list is not proof that
+                    # a schema/network failure was never sent.
+                    if (record['failure_code'] not in ('missing_credential', 'input_budget_exceeded',
+                            'batch_budget_exceeded', 'scene_budget_exceeded')
+                            or any(key in record for key in ('http_status', 'usage',
+                                'response_status', 'finish_reason', 'raw_response_sha256',
+                                'output_text_utf8_bytes', 'network_error_type'))
+                            or record.get('image_sha256') not in ([], identity['image_sha256'])):
+                        raise ValueError('no proven local preflight failure')
+                # Only an explicit rejection or proven-unsent request can
+                # start a fresh attempt. Missing audits and successful HTTP
+                # responses without reusable payloads cannot be replayed.
+                last_http_status = None
+                for number, item in enumerate(transport, 1):
+                    status = item.get('http_status')
+                    if type(item.get('attempt')) is not int or item['attempt'] != number:
+                        raise ValueError('transport attempt count differs')
+                    rejected = (type(status) is int and 300 <= status <= 599
+                                and item.get('request_started') is True
+                                and item.get('request_sent') is True
+                                and item.get('phase') == 'receiving_response'
+                                and not any(key in item for key in ('usage', 'usage_invalid',
+                                    'usage_present', 'response_status', 'finish_reason',
+                                    'incomplete_reason', 'raw_response_sha256',
+                                    'output_text_utf8_bytes', 'completion_marker_missing')))
+                    unsent = (item.get('request_started') is False
+                              and item.get('request_sent') is False
+                              and item.get('phase') in ('not_sent', 'connecting')
+                              and not any(key in item for key in ('http_status', 'usage',
+                                  'response_bytes', 'usage_invalid', 'usage_present',
+                                  'response_status', 'finish_reason', 'incomplete_reason',
+                                  'raw_response_sha256', 'output_text_utf8_bytes',
+                                  'completion_marker_missing')))
+                    if not (rejected or unsent):
+                        raise ValueError('previous request may have executed')
+                    if status is not None:
+                        last_http_status = status
+                if record.get('http_status') != last_http_status:
+                    raise ValueError('record and transport HTTP evidence differs')
+            except (OSError, ValueError, UnicodeError, RecursionError):
+                raise ValueError('Uncommitted analysis cannot be safely resumed; request evidence is missing '
+                                 'or differs. Inspect the saved attempt; automatic model replay was blocked.') from None
+    index = attempts[-1][0] + 1 if attempts else 0
+    attempt_path = output if index == 0 else output.with_name(output.stem + f'_retry_{index}.json')
+    attempt_path.with_suffix('.prompt.txt').write_text(prompt, encoding='utf-8')
+    return _invoke_model(prompt, images, schema, attempt_path, timeout, effort, model_config), None
+
+
+def analyze(scene_id, views, output, timeout=900, effort='medium', raw_cache=None, model_config=None,
+            wire_format='canonical'):
+    if wire_format not in ('canonical', 'typed_parts_v1', 'anchored_parts_v1', 'anchored_patterns_v1'):
+        raise ValueError('Unknown monolithic analysis wire_format')
+    codec = None
+    if wire_format == 'typed_parts_v1':
+        import compact_scene as codec
+    elif wire_format == 'anchored_parts_v1':
+        import anchored_scene as codec
+    elif wire_format == 'anchored_patterns_v1':
+        import pattern_scene as codec
     views = _inputs(views, scene_id)
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     hashes = _source_hashes(views)
-    prompt = ANALYZE_PROMPT + '\nTRUSTED INPUT IDENTITY (images in exactly this order):\n' + json.dumps({'scene_id': scene_id, 'views': _model_views(views)}, ensure_ascii=False)
-    output.with_suffix('.prompt.txt').write_text(prompt, encoding='utf-8')
+    instruction = ANALYZE_PROMPT
+    schema = response_schema(views, scene_id)
+    if codec is not None:
+        if wire_format == 'anchored_patterns_v1':
+            from pattern_prompt import analysis_instruction
+            instruction = analysis_instruction(codec.CONTRACT)
+        else:
+            instruction += '\n\n' + codec.CONTRACT
+        schema = codec.compact_response_schema(schema)
+    prompt = instruction + '\nTRUSTED INPUT IDENTITY (images in exactly this order):\n' + json.dumps({'scene_id': scene_id, 'views': _model_views(views)}, ensure_ascii=False)
     cache_provenance = None
     cached = Path(raw_cache)/scene_id if raw_cache else None
-    if cached and (cached/'initial_bundle.raw.json').is_file():
+    cached_scene_exists = False
+    if cached is not None:
+        cache_root = cached.parent
+        if (cache_root.exists() or cache_root.is_symlink()) and not cache_root.is_dir():
+            raise ValueError('Raw cache root must be a directory; automatic model replay was blocked')
+        # Only a wholly absent scene is a cache miss. An existing scene may
+        # already contain billed API/usage evidence even if its raw response
+        # was lost, so never silently replace that incomplete cache with a POST.
+        cached_scene_exists = cached.exists() or cached.is_symlink()
+        if (cached_scene_exists
+                and (not cached.is_dir() or not (cached/'initial_bundle.raw.json').is_file())):
+            raise ValueError('Existing raw cache scene is incomplete: initial_bundle.raw.json is missing '
+                             'or not a file; inspect the saved cache. Automatic model replay was blocked')
+    if cached_scene_exists:
         # Recovery reuses only the raw response from the identical photo-group
         # prompt. This is not a manually supplied geometry/scene seed.
         old_prompt = (cached/'initial_bundle.prompt.txt').read_text(encoding='utf-8')
@@ -190,26 +388,103 @@ def analyze(scene_id, views, output, timeout=900, effort='medium', raw_cache=Non
             raise ValueError('Cached analysis photos differ')
         if any(file_sha256(item['path']) != item['sha256'] for item in old_job['sources']):
             raise ValueError('Original cached source changed')
-        raw = read_json(cached/'initial_bundle.raw.json')
-        atomic_json(output.with_name(output.stem+'.raw.json'),raw)
+        from model_api import recover_completed_response
+        if model_config is None:
+            raise ValueError('Raw analysis recovery requires complete matching API evidence')
+        raw = recover_completed_response(prompt, [view['source_image'] for view in views], schema,
+                                         cached/'initial_bundle.json', config=model_config)
+        # Materialize a local receipt so a later resume can prove the same
+        # response without another POST or duplicate usage audit.
+        target_raw = output.with_name(output.stem + '.raw.json')
+        receipt_path = output.with_name(output.stem + '.recovery.json')
+        source_api = cached/'initial_bundle.api.json'
+        source_digest = file_sha256(cached/'initial_bundle.raw.json')
+        from model_api import _request_identity
+        identity = _request_identity(prompt, [view['source_image'] for view in views], schema, model_config)
+        expected_receipt = {
+            'method': 'verified_raw_cache_import',
+            'source_api_path': str(source_api.resolve()),
+            'source_api_sha256': file_sha256(source_api),
+            'source_raw_path': str((cached/'initial_bundle.raw.json').resolve()),
+            'source_raw_sha256': source_digest,
+            'target_raw_sha256': None,
+            'request_identity': identity,
+        }
+        if target_raw.exists() and file_sha256(target_raw) != source_digest:
+            # Same logical JSON may be encoded differently only if rewritten;
+            # source raw is copied byte-for-byte below, so any mismatch is tampering.
+            raise ValueError('Existing local cached analysis response differs; automatic replay was blocked')
+        if receipt_path.exists():
+            receipt = read_json(receipt_path)
+            if (not isinstance(receipt, dict) or not isinstance(receipt.get('target_raw_sha256'), str)
+                    or any(receipt.get(key) != value for key, value in expected_receipt.items()
+                           if key != 'target_raw_sha256')
+                    or not target_raw.is_file() or file_sha256(target_raw) != receipt['target_raw_sha256']
+                    or output.with_suffix('.prompt.txt').read_text(encoding='utf-8') != prompt):
+                raise ValueError('Existing local raw-cache recovery receipt differs; automatic replay was blocked')
+            raw = read_json(target_raw)
+        else:
+            if _analysis_attempts(output):
+                raise ValueError('Explicit raw cache cannot replace an existing local analysis attempt')
+            # Preserve exact source bytes; hash evidence remains byte-identical.
+            import shutil
+            target_raw.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(cached/'initial_bundle.raw.json', target_raw)
+            output.with_suffix('.prompt.txt').write_text(prompt, encoding='utf-8')
+            receipt = {**expected_receipt, 'target_raw_sha256': file_sha256(target_raw)}
+            atomic_json(receipt_path, receipt)
+            raw = read_json(target_raw)
+        target_digest = file_sha256(target_raw)
         cache_provenance = {'method':'recovery_of_raw_model_response_after_metadata_validation_failure',
             'raw_path':str(cached/'initial_bundle.raw.json'), 'raw_sha256':file_sha256(cached/'initial_bundle.raw.json'),
+            'raw_cache_receipt_path':str(receipt_path), 'source_api_sha256':file_sha256(source_api),
+            'local_raw_sha256':target_digest,
             'original_prompt_sha256':hashlib.sha256(old_prompt.encode()).hexdigest(),
             'original_pipeline':old_job['pipeline']}
     else:
-        raw = _invoke_model(prompt, [view['source_image'] for view in views], response_schema(views, scene_id), output, timeout, effort, model_config)
-    result, normalizations = normalize_response(raw, views, scene_id)
+        raw, cache_provenance = _analysis_request(prompt, views, schema, output, timeout, effort, model_config)
+    # Save the exact model wire response separately from canonical render data.
+    # The selected codec restores the canonical render representation. Original
+    # views and materials still pass trusted-identity/semantic validation.
+    expanded = codec.expand_response(raw) if codec is not None else raw
+    placements = codec.placement_report(raw, expanded) if wire_format in ('anchored_parts_v1', 'anchored_patterns_v1') else None
+    patterns = codec.pattern_report(raw, expanded) if wire_format == 'anchored_patterns_v1' else None
+    result, normalizations = normalize_response(expanded, views, scene_id)
     if hashes != _source_hashes(views):
         raise RuntimeError('Source image changed during analysis')
     atomic_json(output, result)
+    effective_effort = model_config.get('reasoning_effort') if model_config is not None else effort
     provenance = {
         'analyzer': ('configured model API' if model_config else 'configured Codex CLI') + ' with all original group images',
         'model': _model_description(model_config), 'manual_scene_seed': False,
         'scene_id': scene_id, 'schema_version': 3, 'sources': views, 'source_sha256': hashes,
-        'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest(), 'reasoning_effort': effort,
+        'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest(), 'reasoning_effort': effective_effort,
         'normalizations': normalizations, 'output_sha256': file_sha256(output), 'bundle_sha256': file_sha256(output),
         'raw_model_response_cache':cache_provenance,
         'scope': 'automated approximate photo-group interpretation; no calibrated metric scale or fidelity guarantee'}
+    if codec is not None:
+        def encoded_bytes(value):
+            return len(json.dumps(value, ensure_ascii=False, separators=(',', ':'), allow_nan=False).encode('utf-8'))
+        provenance['scene_wire_encoding'] = {
+            'format': codec.FORMAT_VERSION,
+            'implementation_sha256': file_sha256(Path(codec.__file__)),
+            'schema_sha256': hashlib.sha256(canonical_bytes(schema)).hexdigest(),
+            'wire_utf8_bytes': encoded_bytes(raw), 'expanded_utf8_bytes': encoded_bytes(expanded),
+            'size_measurement': 'serialized JSON bytes; not provider tokens or total request savings',
+            'expansion': 'restore only unused zero/empty per-part fields; no generated topology or geometry repair'}
+        if placements is not None:
+            provenance['scene_wire_encoding'].update({
+                'placement_report': placements,
+                'dependencies_sha256': {
+                    'compact_scene.py': file_sha256(Path(__file__).with_name('compact_scene.py'))},
+                'expansion': 'restore unused per-part fields and resolve explicitly declared floor/on_top/world placements; no inferred support or geometry repair'})
+        if patterns is not None:
+            provenance['scene_wire_encoding']['dependencies_sha256'].update({
+                name: file_sha256(Path(__file__).with_name(name))
+                for name in ('anchored_scene.py', 'pattern_prompt.py')})
+            provenance['scene_wire_encoding'].update({
+                'pattern_report': patterns,
+                'expansion': 'expand explicitly declared part arrays in group-local axes, restore unused per-part fields and resolve floor/on_top/world placements; no inferred geometry, materials or support'})
     atomic_json(output.with_name('analysis_provenance.json'), provenance)
     if output.stem != 'analysis':
         atomic_json(output.with_name(output.stem+'_provenance.json'), provenance)
