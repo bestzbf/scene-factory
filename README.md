@@ -207,6 +207,7 @@ python3 tools/batch/render_offline.py runs/full assets/NEW_LIBRARY/library/asset
 3. [第一次试点](docs/weidian/03_第一次试点.md)
 4. [零售资产与离线验证](docs/weidian/04_零售资产与离线验证.md)
 5. [新资产库试点与离线重跑](docs/weidian/05_新资产库试点与离线重跑.md)
+6. [项目全流程与实现思路](docs/weidian/06_项目全流程.md)
 
 ## 输出与验收
 

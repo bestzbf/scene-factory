@@ -30,8 +30,14 @@ for asset_id in sorted(catalog.assets):
 categories = collections.Counter(a.get('category') for a in catalog.assets.values())
 placements = collections.Counter(a.get('placement') for a in catalog.assets.values())
 with_surfaces = sum(1 for a in catalog.assets.values() if a.get('support_surfaces'))
-context = library_layout.catalog_context(catalog)
-hint_chars = len(json.dumps(context, ensure_ascii=False, separators=(',', ':')))
+context = None
+try:
+    context = library_layout.catalog_context(catalog)
+except ValueError as exc:                      # more categories than one model prompt may carry
+    context_error = str(exc)
+else:
+    context_error = None
+hint_chars = len(json.dumps(context, ensure_ascii=False, separators=(',', ':'))) if context else None
 
 result = {
     'catalog': str(library / 'asset_catalog.json'),
@@ -42,6 +48,7 @@ result = {
     'category_count': len(categories),
     'within_prompt_category_cap_256': len(categories) <= 256,
     'category_hint_chars': hint_chars,
+    'catalog_context_error': context_error,
     'placement': dict(placements),
     'assets_with_support_surfaces': with_surfaces,
     'categories': dict(sorted(categories.items(), key=lambda kv: (-kv[1], kv[0]))),
