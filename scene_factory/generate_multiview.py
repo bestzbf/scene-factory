@@ -185,7 +185,7 @@ def build_scene(bundle, texture_manifest=None, appearance_policy='photo_reconstr
             'material_binding': material_binding, 'exterior_context': exterior_context}
 
 
-def configure_render(scene, spec, samples, device):
+def configure_render(scene, spec, samples, device, view_transform=None, look=None):
     scene.render.engine = 'CYCLES'
     backend = v2.configure_device(scene, device)
     scene.cycles.samples = samples
@@ -202,8 +202,8 @@ def configure_render(scene, spec, samples, device):
     scene.render.image_settings.file_format = 'PNG'
     scene.render.image_settings.color_mode = 'RGB'
     scene.render.film_transparent = False
-    scene.view_settings.view_transform = 'AgX'
-    scene.view_settings.look = ('AgX - Medium High Contrast' if
+    scene.view_settings.view_transform = view_transform or 'AgX'
+    scene.view_settings.look = look or ('AgX - Medium High Contrast' if
         scene.get('appearance_policy') == 'photo_reconstruction' else 'None')
     scene.view_settings.exposure = spec['render']['exposure']
     for screen in bpy.data.screens:
@@ -527,6 +527,8 @@ def main():
     parser.add_argument('--no-render', action='store_true')
     parser.add_argument('--appearance-policy', choices=['photo_reconstruction', 'legacy'], default='photo_reconstruction')
     parser.add_argument('--tone-match', choices=['reference', 'off'], default='reference')
+    parser.add_argument('--view-transform', default=None, help='OCIO view transform; default AgX')
+    parser.add_argument('--agx-look', default=None, help="AgX look name, e.g. 'AgX - Punchy'")
     args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
     if bool(args.asset_catalog) != bool(args.asset_bindings):
         parser.error('--asset-catalog and --asset-bindings are required together')
@@ -561,7 +563,8 @@ def main():
     handles = build_scene(bundle, args.texture_manifest, args.appearance_policy, catalog, bindings, args.asset_preview)
     scene, base, spec = handles['scene'], handles['base'], bundle['shared_scene']
     scene['source_bundle'] = str(args.spec.resolve())
-    backend = configure_render(scene, spec, args.samples, args.device)
+    backend = configure_render(scene, spec, args.samples, args.device,
+                                view_transform=args.view_transform, look=args.agx_look)
     if spec_hash != file_sha256(args.spec):
         raise RuntimeError('Candidate spec changed during construction; no preflight report was published')
     geometry_gate = enforce_geometry_preflight(bundle, handles, out, spec_sha256=spec_hash)

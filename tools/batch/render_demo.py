@@ -32,6 +32,9 @@ REPO = HERE.parents[1]
 sys.path.insert(0, str(REPO / 'scene_factory'))
 sys.path.insert(0, str(REPO / 'tools' / 'asset_library' / 'retail'))
 import os  # noqa: E402
+
+import numpy as np  # noqa: E402
+from PIL import Image  # noqa: E402
 from asset_catalog import AssetCatalog  # noqa: E402
 from batch_multiview import prepare_textures  # noqa: E402
 from library_layout import expand_response  # noqa: E402
@@ -45,7 +48,6 @@ OPTIONS = {'seed': 0, 'dimension_tolerance': 0.25, 'min_uniform_scale': 0.8, 'ma
            'settle_max_shift_m': 0.5, 'settle_max_omitted_fraction': 0.1}
 # where each demo shop's paid layout lives
 SOURCES = {}
-# Runs the user points at explicitly; nothing is assumed about their location.
 for run in os.environ.get('RUNS', '').split(':'):
     if not run:
         continue
@@ -117,8 +119,30 @@ def render(shop, out_root, args, catalog):
     for view in bundle['views']:
         view['source_image'] = sources[view['id']]
     room = bundle['shared_scene']['base_scene']['room']
+    photo_of = {v['id']: Path(v['source_image']) for v in bundle['views']}
     record = {'variant': args.variant, 'shop': shop, 'source': str(source), 'room': room,
               'cameras': len(bundle['views']), 'overrides': {}}
+    if args.lens:
+        for view in bundle['views']:
+            view['camera']['lens_mm'] = args.lens
+        bundle['shared_scene']['base_scene'].setdefault('camera', {})['lens_mm'] = args.lens
+        record['overrides']['lens_mm'] = args.lens
+    if args.from_photo:
+        # The layout only estimates surface colours; the photograph has them. Median of a
+        # floor band / wall margin, so one stray product does not set the colour.
+        first = bundle['views'][0]
+        px = np.asarray(Image.open(photo_of[first['id']]).convert('RGB'), np.float32) / 255.0
+        h, w = px.shape[:2]
+        pick = lambda y0, y1, x0, x1: [round(float(v), 4) for v in np.median(
+            px[int(h * y0):int(h * y1), int(w * x0):int(w * x1)].reshape(-1, 3), axis=0)]
+        sampled = {}
+        if 'floor' in args.from_photo:
+            room['floor_color'] = pick(0.80, 0.95, 0.30, 0.70); sampled['floor'] = room['floor_color']
+        if 'wall' in args.from_photo:
+            room['wall_color'] = pick(0.25, 0.55, 0.02, 0.18); sampled['wall'] = room['wall_color']
+        if 'ceiling' in args.from_photo and 'ceiling_color' in room:
+            room['ceiling_color'] = pick(0.05, 0.12, 0.30, 0.70); sampled['ceiling'] = room['ceiling_color']
+        record['overrides']['sampled_surfaces'] = sampled
     if args.clamp_cameras:
         record['overrides']['clamped_cameras'] = clamp_cameras(bundle, room)
     if args.fix_far_planes:
@@ -143,6 +167,8 @@ def render(shop, out_root, args, catalog):
                '--max-edge', str(args.edge), '--samples', str(args.samples), '--device', 'AUTO',
                '--appearance-policy', 'photo_reconstruction', '--tone-match', args.tone_match,
                '--asset-catalog', str(CATALOG), '--asset-bindings', str(folder / 'asset_bindings.json')]
+    if args.look:
+        command += ['--agx-look', args.look]
     started = time.monotonic()
     with (folder / 'blender.log').open('w') as log:
         result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=7200)
@@ -166,6 +192,9 @@ def main():
     parser.add_argument('--clamp-cameras', action='store_true')
     parser.add_argument('--fix-far-planes', action='store_true')
     parser.add_argument('--tone-match', choices=['reference', 'off'], default='reference')
+    parser.add_argument('--lens', type=float, default=None)
+    parser.add_argument('--from-photo', default='')
+    parser.add_argument('--look', default=None)
     args = parser.parse_args()
     catalog = AssetCatalog(json.loads(CATALOG.read_text(encoding='utf-8')))
     shops = args.shops or sorted(SOURCES)
