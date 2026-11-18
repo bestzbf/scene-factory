@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "name": "Five-shop shared editable 3D demo, layout v3",
+  "source_root": "weidian_full_runs/demo_runs/demo_v3",
+  "source_overrides": {
+    "1646301141": "weidian_full_runs/demo_runs/demo_v5_geometry/1646301141"
+  },
+  "shops": [
+    "1630174803",
+    "1646301141",
+    "1649397835",
+    "1654871827",
+    "1660108397"
+  ],
+  "config": "configs/retail/demo_layout_v3.json",
+  "quality": {
+    "preview": {
+      "edge": 800,
+      "samples": 32
+    },
+    "final": {
+      "edge": 1920,
+      "samples": 256
+    }
+  },
+  "inputs": [
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1630174803/scene.blend",
+      "sha256": "e9e24db4220ffe89a05226e1fd58336e5bc191db1e7a69aba22a8ad019210d41",
+      "bytes": 21540645
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1630174803/scene_bundle.json",
+      "sha256": "7c590db42c7afcfa27816b3a0df3d8bdbe24f0e7a908b1dfea006d594f3cd3d4",
+      "bytes": 52501
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1649397835/scene.blend",
+      "sha256": "272f6f53dda64cad129467fe19901130d25dec62e791be4420c01c3d30de8115",
+      "bytes": 22166796
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1649397835/scene_bundle.json",
+      "sha256": "023d82a0a0c32092b20a49e1e18889cb032f86405ba0851729a7c8563bc176d9",
+      "bytes": 56486
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1654871827/scene.blend",
+      "sha256": "0433313f24d5a8d08f2af937c8bdc1ff77befc16696d645f93f06bb61f2b761b",
+      "bytes": 7120710
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1654871827/scene_bundle.json",
+      "sha256": "5f87289cabc5891424c7413428366e2dc1cbc4b43699ed466ea1fa00b88d1873",
+      "bytes": 32447
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1660108397/scene.blend",
+      "sha256": "df0da2ff257716fcecaef76b05fba7f6be99e6983563df0eafff7217e37c2535",
+      "bytes": 73425753
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v3/1660108397/scene_bundle.json",
+      "sha256": "c4db1b0265e9ea93ef7c73bae6225890ce9b27e0264eb11c406293af9c85f39b",
+      "bytes": 60480
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v5_geometry/1646301141/scene.blend",
+      "sha256": "295364f0b8c87f4c9a130306d059ace29a30795f24e4ac4176ddbede2574fdac",
+      "bytes": 34867706
+    },
+    {
+      "path": "weidian_full_runs/demo_runs/demo_v5_geometry/1646301141/scene_bundle.json",
+      "sha256": "30c8d5e4e1c548a2447f7ab06bfafb9cc5240e0c4392f62498fdde39278da243",
+      "bytes": 89884
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/initial_layout.json",
+      "sha256": "e23ba6f51829392359bc34955a561f5c0a4f2ddd79d3d8b6c2604c7325d6b888",
+      "bytes": 39236
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_01/reference.png",
+      "sha256": "46a827fadbec7ee8a88cad78450d87d5f932fdd7ddeee54ae6fce6b428009449",
+      "bytes": 1690856
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_02/reference.png",
+      "sha256": "8074094038e5e9e6d0f418e43d449bc3f644d03ff0e4dc0c6dd5e4aca34075b3",
+      "bytes": 1893088
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_03/reference.png",
+      "sha256": "0e942eab2837b86ad0ed1352ea0b79fb97257c92594ccd35222a5193d0cbb3db",
+      "bytes": 1953602
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_04/reference.png",
+      "sha256": "85661f38aaececbb453f5389f54de1a0a42d08f87c13f20c341b2812a13e57c4",
+      "bytes": 1655087
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_05/reference.png",
+      "sha256": "aa88af8a45f5c70baba5c9ff22b3fa23aee7824db2b9da2a5cb6adfce829d9e4",
+      "bytes": 1511644
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_06/reference.png",
+      "sha256": "dab07e288bce601dff5a0bb079ee4a48f4741d2ca4e599281f45f66a5d197ab5",
+      "bytes": 1786396
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_07/reference.png",
+      "sha256": "c76f61f019a557ad64420d5fc5acfcc9c0ee5b0030734da30641ccbe77cd4110",
+      "bytes": 1770676
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_08/reference.png",
+      "sha256": "a3b943ea927bb3676852da8054bddcbf9df395048c491005eeeb96bb27ea3ee8",
+      "bytes": 1794478
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_09/reference.png",
+      "sha256": "0c939af66c0519ad4ae533e5c71572d2c6b3b54362fdd844a8adc4ea8a61331d",
+      "bytes": 1974621
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1630174803/sources/view_10/reference.png",
+      "sha256": "c2fcc191f5a71b741ac724bb6b8c4ff2f471b0d31d0321e947f520bff4fe8036",
+      "bytes": 1662091
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/initial_layout.json",
+      "sha256": "313272170fa26b8033cd0881929146852f6f24561e9676a49a7cff6429809eaa",
+      "bytes": 50131
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+      "sha256": "62271500e1a68c4731b38220ad094b9acad64f36e0c0d4dd84878d3a4f6edd7d",
+      "bytes": 1466077
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_02/reference.png",
+      "sha256": "dbe77e22dc972f14c603f2e7a69db20d479c6e8fbf5e9162b85cd10169fc2f2a",
+      "bytes": 1661470
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_03/reference.png",
+      "sha256": "f72b21e80346a4264285132c495549df9889c4028d367480fb6359aeec999443",
+      "bytes": 1316654
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "sha256": "85a997b31595df31ef35d3cff89c1a707a04f05f7174191f0742756ac28fcee1",
+      "bytes": 1746476
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_05/reference.png",
+      "sha256": "8d6452705affa2c80c4f4bad1d027db1af53c274c37610e07cfadc57daed0f35",
+      "bytes": 1739210
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_06/reference.png",
+      "sha256": "3ed8f43a4153d5435d390b59f426255fec2a1c419154d1dc955fa8f96e6c4795",
+      "bytes": 1728553
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_07/reference.png",
+      "sha256": "1b19005af7e801a97952bb168aae250bf79e570e88bb8f3df5c36120ec12a31c",
+      "bytes": 1468376
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_08/reference.png",
+      "sha256": "d19e13267c717aa506f4750abbdf41835f15e1656a8cf075cb0917cbd52f9e76",
+      "bytes": 1645100
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/initial_layout.json",
+      "sha256": "4e49be2757ea274b2bcde3a41f8f7f3eda47b7c2caf63dd5874060688e6e8620",
+      "bytes": 43317
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_01/reference.png",
+      "sha256": "f4ebe0e49218390bcf795b6f080b6ba8b05776e4395e9a1adb9c23bd9faf290f",
+      "bytes": 1831929
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_02/reference.png",
+      "sha256": "3ad849fa99abd359fa61cefba5303a497bc99a06de4ac40e04791a2ab9874d55",
+      "bytes": 539741
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_03/reference.png",
+      "sha256": "443689bdb6076ecd077edc0e97afe82d6d0144fb9c648fcbf2bfee6be814d4b0",
+      "bytes": 542095
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_04/reference.png",
+      "sha256": "debb58f8beec1d3bca5035d59ebb364fa1b63d5325905ee691a62a3db612b895",
+      "bytes": 1638602
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_05/reference.png",
+      "sha256": "5e02b900c48661e6cc534da7795976fcca3faefd5c8b602526fab7c4ce814782",
+      "bytes": 1855643
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_06/reference.png",
+      "sha256": "726100767708e167a4d5d72855e3ce09d29b9de589e1fc97a01f98ac8b9a0354",
+      "bytes": 1674324
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_07/reference.png",
+      "sha256": "810915d6e6df75ebd62fc82464aa6bfe225c53bd92aea7496aba9a1016f15281",
+      "bytes": 1758163
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_08/reference.png",
+      "sha256": "13eceaed01a606014ee6bf924b031f81ca4882484adf132f850936da799ad998",
+      "bytes": 1926651
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_09/reference.png",
+      "sha256": "cc7e1c23329741199b5938c9c04128da3a9bc2c98c9a2e8a4c502d8095d79b26",
+      "bytes": 1528898
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_10/reference.png",
+      "sha256": "f239c8dc337869761d98fa9e29489c0176de48e88b7411a800cb696fc942da50",
+      "bytes": 1604193
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_11/reference.png",
+      "sha256": "cdacf64168d82ccae77ce9ae0eef17874d0d5e0953fcc0b013c9d2b4a868da8a",
+      "bytes": 1715919
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1649397835/sources/view_12/reference.png",
+      "sha256": "1fdacd3aa74f39710a24e59eb0751d686cfc6a3b9c4bd2faa46b6373b9af021e",
+      "bytes": 1477465
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1654871827/initial_layout.json",
+      "sha256": "fd45a018c5d9e98f0075fd94ba6e117c1a7742351ce2b679d7e900a710eb8b1e",
+      "bytes": 24662
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1654871827/sources/view_01/reference.png",
+      "sha256": "868f2b5eae6253aff5149afc5004e2980609728af18f225644dff2e10c4c64c2",
+      "bytes": 1544317
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1654871827/sources/view_02/reference.png",
+      "sha256": "eb2a7bd751d1b4d958067b74130f0ff6f67ab5f2168a85cf817d891821d9c07e",
+      "bytes": 1400340
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1654871827/sources/view_03/reference.png",
+      "sha256": "19ef740b12d8eda9e81b30a7e1d4dcaeb2314e7e6cf46d7a7725dc320abd28f3",
+      "bytes": 2049408
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/initial_layout.json",
+      "sha256": "aa4d10900a9be298ddb4c7ffa381cfbdcb36ea18ed5e58d24dcbe2f35933583d",
+      "bytes": 45393
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_01/reference.png",
+      "sha256": "8736d742a769e4356b17cecb385b8b97cbf0f82a28245b91785e26b1c544bba3",
+      "bytes": 1742985
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_02/reference.png",
+      "sha256": "7e1245f33d111836b725de327c556e057a12cc367c1ea767de56072266fbc87e",
+      "bytes": 1321192
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_03/reference.png",
+      "sha256": "644f82207240fbb955545479aee6af34407ac5726c69578aeb30b3765fce867d",
+      "bytes": 1491978
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_04/reference.png",
+      "sha256": "b3873b768d29eb3cee396e5d6dabaa72d4a173d85fdcc632f155c215bc378b06",
+      "bytes": 1278335
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_05/reference.png",
+      "sha256": "5b060d7845178f63078d4525d594daa0eba2d399764a8efdfe4a03b9be584445",
+      "bytes": 1630362
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_06/reference.png",
+      "sha256": "4fbf8b2457238a0908537e34051fb739e1d33fac2477e44fdaddff747470d0db",
+      "bytes": 1529164
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_07/reference.png",
+      "sha256": "f581b67a19a57f010c2a717460a27688ff5f41df12c55ce04f993070d15e56c1",
+      "bytes": 1750942
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_08/reference.png",
+      "sha256": "6dbdaecafa354cb3b688019b6366be79dd9f47fa668423f05a27c6a193750117",
+      "bytes": 1451969
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_09/reference.png",
+      "sha256": "3fa8dae4430ccdd96378f24d6b5250d7545bbb4bb1a29bb3357ec5747269c86d",
+      "bytes": 1164442
+    },
+    {
+      "path": "weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_10/reference.png",
+      "sha256": "9575217008593d992cead640fa4605e9e9eab229f01ec8e70244971a5bf80382",
+      "bytes": 1559620
+    }
+  ],
+  "limitations": [
+    "Original source_image absolute paths inside frozen bundles must be accessible. Relocation requires restoring the original mount or preparing a new reviewed manifest.",
+    "Saved-scene replay is offline. It does not rerun model photo interpretation or certify measured 3D geometry."
+  ]
+}

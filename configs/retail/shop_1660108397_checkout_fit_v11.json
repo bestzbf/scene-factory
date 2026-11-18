@@ -1,0 +1,52 @@
+{
+  "scope": "Manual tabletop corners only; approximate metric dimensions; validate other objects and cameras",
+  "view": "view_08",
+  "object_points_m": [
+    [
+      -3.9075,
+      5.5075,
+      0.895
+    ],
+    [
+      -3.1125,
+      5.5075,
+      0.895
+    ],
+    [
+      -3.1125,
+      4.8525,
+      0.895
+    ],
+    [
+      -3.9075,
+      4.8525,
+      0.895
+    ]
+  ],
+  "image_points_px": [
+    [
+      555.0,
+      366.0
+    ],
+    [
+      820.0,
+      500.0
+    ],
+    [
+      657.0,
+      694.0
+    ],
+    [
+      394.0,
+      515.0
+    ]
+  ],
+  "focal_px": 750,
+  "reprojection_residual_px": [
+    12.085757044448764,
+    12.426095031332501,
+    7.408311620748909,
+    6.2606918016077024
+  ],
+  "method": "OpenCV SOLVEPNP_ITERATIVE using one tabletop; provisional pose"
+}

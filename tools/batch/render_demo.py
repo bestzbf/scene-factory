@@ -167,6 +167,9 @@ def render(shop, out_root, args, catalog):
                '--max-edge', str(args.edge), '--samples', str(args.samples), '--device', 'AUTO',
                '--appearance-policy', 'photo_reconstruction', '--tone-match', args.tone_match,
                '--asset-catalog', str(CATALOG), '--asset-bindings', str(folder / 'asset_bindings.json')]
+    if args.retail_optimization:
+        command += ['--retail-optimization', str(args.retail_optimization.resolve()),
+                    '--retail-layout', str(source/'initial_layout.json')]
     if args.look:
         command += ['--agx-look', args.look]
     started = time.monotonic()
@@ -195,6 +198,7 @@ def main():
     parser.add_argument('--lens', type=float, default=None)
     parser.add_argument('--from-photo', default='')
     parser.add_argument('--look', default=None)
+    parser.add_argument('--retail-optimization', type=Path)
     args = parser.parse_args()
     catalog = AssetCatalog(json.loads(CATALOG.read_text(encoding='utf-8')))
     shops = args.shops or sorted(SOURCES)

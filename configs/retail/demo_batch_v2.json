@@ -1,0 +1,920 @@
+{
+  "schema_version": 1,
+  "seed": 17,
+  "defaults": {
+    "fixtures": {}
+  },
+  "scenes": {
+    "1630174803": {
+      "fixtures": {
+        "gondola_left_01": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "gondola_left_02": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "gondola_left_03": {
+          "kind": "household",
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "gondola_left_04": {
+          "kind": "household",
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "gondola_right_01": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "gondola_right_02": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "gondola_right_03": {
+          "kind": "mixed",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "gondola_right_04": {
+          "kind": "beverage",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "left_front_endcap": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "left_rear_endcap": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_front_endcap": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_rear_endcap": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_wall_01": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_wall_02": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_wall_03": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_wall_04": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_wall_05": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "right_wall_06": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "rear_shelf_01": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "rear_shelf_02": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "rear_shelf_03": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "rear_shelf_04": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "rear_shelf_05": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        },
+        "window_display": {
+          "shelf_edges": {
+            "color": [
+              0.065,
+              0.3,
+              0.08
+            ]
+          }
+        }
+      },
+      "moves": [
+        {
+          "id": "gondola_left_01",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_left_02",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_left_03",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_left_04",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "left_front_endcap",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "left_rear_endcap",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        }
+      ],
+      "floor_tiles": {
+        "color": [
+          0.44,
+          0.43,
+          0.36
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.29,
+        "grout_color": [
+          0.08,
+          0.085,
+          0.08
+        ]
+      },
+      "entrance": {
+        "width_m": 1.85,
+        "height_m": 2.35,
+        "center_x": 0
+      }
+    },
+    "1649397835": {
+      "fixtures": {
+        "snack_island_front": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "snack_island_middle": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "snack_island_rear": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "narrow_front_gondola": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "rear_central_gondola": {
+          "kind": "mixed",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "checkout_back_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "front_toy_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "front_left_wall_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "front_right_wall_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "rear_oil_wall_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "rear_household_wall_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "rear_sauce_wall_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "stockroom_left_rack": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "stockroom_right_rack": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        },
+        "stockroom_end_rack": {
+          "shelf_edges": {
+            "color": [
+              0.025,
+              0.48,
+              0.045
+            ]
+          }
+        }
+      },
+      "floor_tiles": {
+        "color": [
+          0.055,
+          0.065,
+          0.07
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.29,
+        "grout_color": [
+          0.08,
+          0.085,
+          0.08
+        ]
+      },
+      "entrance": {
+        "width_m": 1.8,
+        "height_m": 2.35,
+        "center_x": 0
+      }
+    },
+    "1654871827": {
+      "fixtures": {
+        "central_gondola": {
+          "kind": "mixed",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ],
+            "wire_frame": true
+          }
+        },
+        "gondola_front_end": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ],
+            "wire_frame": true
+          }
+        },
+        "gondola_rear_end": {
+          "kind": "beverage",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ],
+            "wire_frame": true
+          }
+        },
+        "back_wall_shelf": {
+          "kind": "beverage",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ]
+          }
+        },
+        "checkout_back_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ]
+          }
+        },
+        "entrance_water_rack": {
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ]
+          }
+        },
+        "left_wall_grocery_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ],
+            "wire_frame": true
+          },
+          "kind": "snack",
+          "top_stock": true
+        },
+        "right_household_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.015,
+              0.12,
+              0.6
+            ],
+            "wire_frame": true
+          }
+        }
+      },
+      "moves": [
+        {
+          "id": "central_gondola",
+          "translation_m": [
+            -0.25,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_front_end",
+          "translation_m": [
+            -0.25,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_rear_end",
+          "translation_m": [
+            -0.25,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        }
+      ],
+      "floor_tiles": {
+        "color": [
+          0.14,
+          0.16,
+          0.17
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.19,
+        "grout_color": [
+          0.08,
+          0.085,
+          0.08
+        ],
+        "terrazzo": true
+      },
+      "entrance": {
+        "width_m": 1.7,
+        "height_m": 2.35,
+        "center_x": 0
+      }
+    },
+    "1660108397": {
+      "fixtures": {
+        "left_front_shelf": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_middle_shelf": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_rear_shelf_01": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_rear_shelf_02": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_rear_shelf_03": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "right_rear_shelf_01": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "right_rear_shelf_02": {
+          "kind": "mixed",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "beverage_gondola_01": {
+          "kind": "beverage",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "beverage_gondola_02": {
+          "kind": "beverage",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "snack_gondola_left_01": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "snack_gondola_left_02": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "snack_gondola_right_01": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "snack_gondola_right_02": {
+          "kind": "snack",
+          "top_stock": true,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "front_liquor_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "front_tobacco_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "front_checkout_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "right_condiment_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "back_household_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "back_left_household_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "back_right_household_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        }
+      },
+      "moves": [
+        {
+          "id": "beverage_gondola_01",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "beverage_gondola_02",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "snack_gondola_left_01",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "snack_gondola_left_02",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        }
+      ],
+      "floor_tiles": {
+        "color": [
+          0.38,
+          0.44,
+          0.39
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.29,
+        "grout_color": [
+          0.08,
+          0.085,
+          0.08
+        ]
+      }
+    },
+    "1646301141": {
+      "fixtures": {},
+      "profile_note": "Use source override pointing at the reviewed v5 geometry scene to retain its bespoke layout and cameras.",
+      "floor_tiles": {
+        "color": [
+          0.44,
+          0.4,
+          0.3
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.29,
+        "grout_color": [
+          0.08,
+          0.085,
+          0.08
+        ]
+      }
+    }
+  },
+  "atlas": "../../docs/weidian/demo/batch/packaging_print.png"
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "seed": 17,
+  "defaults": {
+    "fixtures": {}
+  },
+  "scenes": {
+    "1660108397": {
+      "fixtures": {
+        "snack_gondola_left_01": {
+          "enabled": false
+        },
+        "snack_gondola_right_01": {
+          "enabled": false
+        },
+        "back_household_shelf": {
+          "enabled": false
+        },
+        "refrigerator_red": {
+          "enabled": false
+        },
+        "refrigerator_double": {
+          "enabled": false
+        }
+      },
+      "moves": [],
+      "floor_tiles": {
+        "color": [
+          0.38,
+          0.44,
+          0.39
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.29,
+        "grout_color": [
+          0.08,
+          0.085,
+          0.08
+        ]
+      },
+      "fixture_dimensions": []
+    }
+  },
+  "atlas": "../../docs/weidian/demo/batch/packaging_print.png"
+}

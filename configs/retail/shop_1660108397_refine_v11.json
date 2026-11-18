@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "seed": 17,
+  "atlas": "../../docs/weidian/demo/shop166_v11/package_faces.png",
+  "defaults": {
+    "fixtures": {}
+  },
+  "scenes": {
+    "1660108397": {
+      "fixtures": {
+        "snack_left": {
+          "enabled": false
+        },
+        "snack_right": {
+          "enabled": false
+        },
+        "left_wall": {
+          "enabled": false
+        },
+        "right_wall": {
+          "enabled": false
+        },
+        "back_wall": {
+          "enabled": false
+        },
+        "left_endcap": {
+          "enabled": false
+        },
+        "drinks_near": {
+          "enabled": false
+        },
+        "drinks_far": {
+          "enabled": false
+        },
+        "household_back": {
+          "enabled": false
+        },
+        "household_side": {
+          "enabled": false
+        },
+        "condiment_stools": {
+          "enabled": false
+        },
+        "checkout_wall_1": {
+          "enabled": false
+        },
+        "checkout_wall_2": {
+          "enabled": false
+        },
+        "fridge_red": {
+          "enabled": false
+        },
+        "fridge_double": {
+          "enabled": false
+        },
+        "front_north_shelf_a": {
+          "enabled": false
+        },
+        "front_north_shelf_b": {
+          "enabled": false
+        },
+        "checkout_side_cabinet": {
+          "enabled": false
+        }
+      },
+      "floor_tiles": {
+        "color": [
+          0.4,
+          0.45,
+          0.42
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.26,
+        "grout_color": [
+          0.14,
+          0.17,
+          0.14
+        ]
+      },
+      "moves": [],
+      "fixture_dimensions": []
+    }
+  }
+}

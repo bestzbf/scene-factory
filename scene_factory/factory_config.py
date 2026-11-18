@@ -19,7 +19,8 @@ RENDER_DEFAULTS = {'max_edge': 1280, 'samples': 96, 'device': 'AUTO',
                    'appearance_policy': 'photo_reconstruction', 'tone_match': 'reference'}
 PIPELINE_DEFAULTS = {'analysis_mode': 'monolithic', 'repair_mode': 'typed',
                      'validation_retries': 1, 'repair_stagnation_patience': 2, 'staged': {},
-                     'scene_wire_format': 'canonical'}
+                     'scene_wire_format': 'canonical', 'retail_optimization': None,
+                     'library_max_categories': 256, 'photo_retail_details': False}
 ASSET_LIBRARY_DEFAULTS = {'catalog': None, 'bindings': None, 'preview': False,
                           'auto_bind': False, 'selection': {}}
 
@@ -40,19 +41,27 @@ def _integer(value, label, low, high):
 
 def normalize_config(data):
     """Return a normalized independent config; never inspect environment values."""
-    _object(data, ('schema_version', 'models', 'batch', 'render', 'pipeline', 'asset_library', 'budget', 'batch_budget'), 'config')
+    _object(data, ('schema_version', 'models', 'local_codex', 'batch', 'render', 'pipeline', 'asset_library', 'budget', 'batch_budget'), 'config')
     if type(data.get('schema_version')) is not int or data['schema_version'] != 1:
         raise ValueError('config requires schema_version=1')
-    models = _object(data.get('models'), ('analysis', 'review', 'repair'), 'models')
-    if 'analysis' not in models:
-        raise ValueError('models.analysis is required')
-    normalized_models = {}
-    for role, value in models.items():
-        if not isinstance(value, dict) or not value.get('base_url'):
-            raise ValueError(f'models.{role}.base_url must be explicitly configured with your provider URL')
-        normalized_models[role] = normalize_model(value)
-    normalized_models.setdefault('review', copy.deepcopy(normalized_models['analysis']))
-    normalized_models.setdefault('repair', copy.deepcopy(normalized_models['review']))
+    local_codex = data.get('local_codex', False)
+    if type(local_codex) is not bool:
+        raise ValueError('local_codex must be true or false')
+    if local_codex:
+        if data.get('models') not in (None, {}, {'analysis': None, 'review': None, 'repair': None}):
+            raise ValueError('local_codex=true cannot be combined with API model configs')
+        normalized_models = {'analysis': None, 'review': None, 'repair': None}
+    else:
+        models = _object(data.get('models'), ('analysis', 'review', 'repair'), 'models')
+        if 'analysis' not in models:
+            raise ValueError('models.analysis is required')
+        normalized_models = {}
+        for role, value in models.items():
+            if not isinstance(value, dict) or not value.get('base_url'):
+                raise ValueError(f'models.{role}.base_url must be explicitly configured with your provider URL')
+            normalized_models[role] = normalize_model(value)
+        normalized_models.setdefault('review', copy.deepcopy(normalized_models['analysis']))
+        normalized_models.setdefault('repair', copy.deepcopy(normalized_models['review']))
     batch = {**BATCH_DEFAULTS, **_object(data.get('batch', {}), BATCH_DEFAULTS, 'batch')}
     for key, low, high in (('workers', 1, 8), ('api_workers', 1, 32), ('render_workers', 1, 8), ('max_repairs', 0, 5),
                            ('vision_timeout', 1, 7200), ('render_timeout', 1, 14400),
@@ -81,13 +90,23 @@ def normalize_config(data):
     pipeline = {**PIPELINE_DEFAULTS, **_object(data.get('pipeline', {}), PIPELINE_DEFAULTS, 'pipeline')}
     if pipeline['analysis_mode'] not in ('monolithic', 'staged'):
         raise ValueError('pipeline.analysis_mode must be monolithic or staged')
-    if pipeline['repair_mode'] not in ('typed', 'full_bundle'):
-        raise ValueError('pipeline.repair_mode must be typed or full_bundle')
+    if pipeline['repair_mode'] not in ('typed', 'full_bundle', 'library_layout'):
+        raise ValueError('pipeline.repair_mode must be typed, full_bundle or library_layout')
+    if pipeline['repair_mode'] == 'library_layout' and pipeline['scene_wire_format'] != 'library_layout_v1':
+        raise ValueError('library_layout repairs require library_layout_v1 analysis')
+    profile = pipeline['retail_optimization']
+    if profile is not None and (not isinstance(profile, str) or not profile.strip() or '\x00' in profile):
+        raise ValueError('pipeline.retail_optimization must be null or a nonempty shared profile path')
     if pipeline['scene_wire_format'] not in ('canonical', 'typed_parts_v1', 'anchored_parts_v1', 'anchored_patterns_v1', 'library_layout_v1'):
         raise ValueError('pipeline.scene_wire_format must be canonical, typed_parts_v1, anchored_parts_v1, anchored_patterns_v1 or library_layout_v1')
     if pipeline['analysis_mode'] != 'monolithic' and pipeline['scene_wire_format'] != 'canonical':
         raise ValueError('pipeline.scene_wire_format=' + pipeline['scene_wire_format'] + ' requires monolithic analysis')
     _integer(pipeline['validation_retries'], 'pipeline.validation_retries', 0, 3)
+    _integer(pipeline['library_max_categories'], 'pipeline.library_max_categories', 1, 2048)
+    if type(pipeline['photo_retail_details']) is not bool:
+        raise ValueError('pipeline.photo_retail_details must be boolean')
+    if pipeline['photo_retail_details'] and (pipeline['scene_wire_format'] != 'library_layout_v1' or not profile):
+        raise ValueError('Photo retail detail requires library_layout_v1 and a shared retail profile')
     _integer(pipeline['repair_stagnation_patience'], 'pipeline.repair_stagnation_patience', 0, 5)
     from staged_analysis import normalize_options
     pipeline['staged'] = normalize_options(pipeline['staged'], timeout=batch['vision_timeout'])
@@ -109,7 +128,7 @@ def normalize_config(data):
     if pipeline['scene_wire_format'] == 'library_layout_v1':
         if not asset_library['catalog'] or not asset_library['auto_bind'] or asset_library['preview']:
             raise ValueError('library_layout_v1 requires a catalog, auto_bind=true and preview=false')
-        if not batch['no_review'] or batch['max_repairs'] != 0:
+        if pipeline['repair_mode'] != 'library_layout' and (not batch['no_review'] or batch['max_repairs'] != 0):
             raise ValueError('library_layout_v1 currently requires no_review=true and max_repairs=0; canonical repairs cannot preserve library intent')
     if not isinstance(asset_library['selection'], dict):
         raise ValueError('asset_library.selection must be a JSON object')
@@ -118,7 +137,7 @@ def normalize_config(data):
         asset_library['selection'] = normalize_selection(asset_library['selection'])
     elif asset_library['selection']:
         raise ValueError('asset_library.selection requires auto_bind=true')
-    result = {'schema_version': 1, 'models': normalized_models, 'batch': batch, 'render': render, 'pipeline': pipeline,
+    result = {'schema_version': 1, 'models': normalized_models, 'local_codex': local_codex, 'batch': batch, 'render': render, 'pipeline': pipeline,
               'asset_library': asset_library}
     if 'budget' in data:
         from scene_budget import normalize_policy, BudgetError
@@ -128,10 +147,16 @@ def normalize_config(data):
         except BudgetError as exc:
             raise ValueError(str(exc)) from None
     if pipeline['scene_wire_format'] == 'library_layout_v1':
-        if (normalized_models['analysis']['max_retries'] != 0
+        if ((not local_codex and normalized_models['analysis']['max_retries'] != 0)
                 or pipeline['validation_retries'] != 0
-                or result.get('budget', {}).get('max_requests') != 1):
+                or (pipeline['repair_mode'] != 'library_layout' and result.get('budget', {}).get('max_requests') != 1)):
             raise ValueError('library_layout_v1 requires max_retries=0, validation_retries=0 and budget.max_requests=1')
+        if pipeline['repair_mode'] == 'library_layout':
+            required = 1 + int(not batch['no_review']) + batch['max_repairs'] * (1 + int(not batch['no_review']))
+            if result.get('budget', {}).get('max_requests', 0) < required:
+                raise ValueError(f'Semantic library repair requires budget.max_requests >= {required}')
+            if not local_codex and any(m['max_retries'] != 0 for m in normalized_models.values()):
+                raise ValueError('Semantic library repair requires max_retries=0 for every model role')
         if asset_library['selection'].get('category_map'):
             raise ValueError('library_layout_v1 uses exact library categories; category_map must be empty')
     if 'batch_budget' in data:
@@ -140,12 +165,17 @@ def normalize_config(data):
             result['batch_budget'] = normalize_policy(data['batch_budget'])
         except BatchBudgetError as exc:
             raise ValueError(str(exc)) from None
+    if local_codex:
+        if pipeline['scene_wire_format'] != 'library_layout_v1' or pipeline['repair_mode'] != 'library_layout':
+            raise ValueError('Configured local Codex production requires library_layout_v1 and library_layout repairs')
+        if any(result.get('budget', {}).get(k) for k in ('max_output_tokens', 'max_reported_tokens')) or result.get('batch_budget'):
+            raise ValueError('Local Codex supports per-scene request budgets only; API token/batch billing limits do not apply')
     return result
 
 
 def public_config(config):
     result = normalize_config(config)
-    result['models'] = {role: public_model(value) for role, value in result['models'].items()}
+    result['models'] = {role: (public_model(value) if value is not None else None) for role, value in result['models'].items()}
     return result
 
 

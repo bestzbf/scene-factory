@@ -26,6 +26,89 @@ class Catalog:
 class LibrarySelectionTests(unittest.TestCase):
     def solve(self,raw,catalog=None,options=None):
         return select_and_place(expand_response(raw),raw,catalog or Catalog(),options)
+    def test_frontage_builder_records_seed_as_distinct_from_final_geometry(self):
+        raw=fixture();raw['objects']=raw['objects'][1:]
+        raw['objects'][0].update(category='storefront_glazing',target_dimensions_m=[3,.12,2.6],xy=[0,.2])
+        raw['retail_details']={'fixtures':[],'structures':[],'floor_tiles':[]}
+        catalog=Catalog();seed=copy.deepcopy(catalog.assets['table'])
+        seed.update(asset_id='cabinet_seed',category='cabinet',geometry_variant_id='cabinet_seed',material_variant_ids=['cabinet_seed_mat'])
+        catalog.assets['cabinet_seed']=seed
+        bundle,_,report=self.solve(raw,catalog)
+        record=report['objects']['table']
+        self.assertEqual(record['category'],'storefront_glazing')
+        self.assertEqual(record['catalog_seed_category'],'cabinet')
+        self.assertEqual(record['geometry_source'],'shared_parametric_builder')
+        self.assertEqual(bundle['shared_scene']['base_scene']['objects'][0]['dimensions'],[3,.12,2.6])
+        for category in ('glazed_entrance_door','glass_entrance_door'):
+            raw['objects'][0]['category']=category
+            self.assertEqual(self.solve(raw,catalog)[2]['objects']['table']['category'],category)
+        del raw['retail_details']
+        with self.assertRaises(LibrarySelectionError):self.solve(raw,catalog)
+
+    def test_photo_structure_collision_is_checked_with_height(self):
+        raw=fixture()
+        raw['retail_details']={'fixtures':[],'floor_tiles':[],
+            'structures':[{'id':'wall','role':'wall_segment','center_m':[0,3,1.5],
+                           'size_m':[.12,1.8,3],'rotation_z_deg':0,'color':[.5,.5,.5]}]}
+        with self.assertRaises(LibrarySelectionError) as caught:self.solve(raw)
+        self.assertIn('asset_structure_overlap',[e['code'] for e in caught.exception.report['errors']])
+        raw['retail_details']['structures'][0].update(role='beam',center_m=[0,3,2.8],size_m=[.12,1.8,.2])
+        self.assertEqual(self.solve(raw)[2]['status'],'passed')
+    def test_long_photo_shelf_uses_parametric_detail_seed_only(self):
+        raw=fixture();raw['objects']=raw['objects'][1:];raw['room']['width']=10
+        raw['objects'][0].update(category='shelf',target_dimensions_m=[8.7,.5,2.2])
+        catalog=Catalog();shelf=copy.deepcopy(catalog.assets['table']);shelf.update(asset_id='shelf_seed',category='shelf',geometry_variant_id='shelf_seed',material_variant_ids=['shelf_seed_mat'])
+        catalog.assets['shelf_seed']=shelf
+        raw['retail_details']={'fixtures':[{'object_id':'table','mode':'shelf','kind':'mixed',
+            'levels':6,'frame_color':[.5,.5,.5],'rail_color':[.1,.2,.1],'back_panel':True,
+            'endcaps':True,'stock_cell_m':.3,'top_height_m':0}], 'structures':[], 'floor_tiles':[]}
+        bundle,bindings,report=self.solve(raw,catalog)
+        record=report['objects']['table']
+        self.assertEqual(record['dimension_policy'],'parametric_photo_detail')
+        self.assertEqual(bindings['instances'][0]['object_id'],'table')
+        self.assertEqual(record['dimensions_m'],[8.7,.5,2.2])
+        self.assertEqual(bundle['shared_scene']['base_scene']['objects'][0]['dimensions'],[8.7,.5,2.2])
+    def portable_fixture(self):
+        raw,catalog=fixture(),Catalog()
+        raw['objects'][0].update(category='nested_buckets',target_dimensions_m=[.3,.3,.5])
+        asset=catalog.assets.pop('remote_control')
+        asset.update(category='nested_buckets',placement='floor',dimensions_import_units=[.3,.3,.5],
+                     scale_source='measured',anchor={'type':'bottom_center','point':[0,0,0]})
+        catalog.assets['nested_buckets']=asset
+        return raw,catalog
+    def test_portable_floor_prop_requires_opt_in_and_measured_support(self):
+        raw,catalog=self.portable_fixture()
+        with self.assertRaises(LibrarySelectionError):self.solve(raw,catalog)
+        options={'allow_portable_floor_props_on_support':True}
+        bundle,_,report=self.solve(raw,catalog,options)
+        self.assertEqual(report['objects']['remote']['placement_policy'],
+                         'portable_floor_prop_on_measured_support')
+        parent=report['objects']['table']
+        child=report['objects']['remote']
+        self.assertAlmostEqual(child['position_m'][2],parent['dimensions_m'][2]+.001)
+        raw['objects'][0]['xy']=[.72,3]
+        with self.assertRaises(LibrarySelectionError) as caught:self.solve(raw,catalog,options)
+        self.assertEqual(caught.exception.report['errors'][0]['code'],'no_verified_support_surface')
+    def test_portable_policy_does_not_admit_furniture_unknown_anchors_or_scale(self):
+        options={'allow_portable_floor_props_on_support':True}
+        for changes in ({'anchor':{'type':'bottom_center','point':[0,0,.1]}},
+                        {'scale_source':'estimated'}, {'category':'cabinet'}):
+            with self.subTest(changes=changes):
+                raw,catalog=self.portable_fixture()
+                catalog.assets['nested_buckets'].update(changes)
+                if 'category' in changes:raw['objects'][0]['category']=changes['category']
+                with self.assertRaises(LibrarySelectionError):self.solve(raw,catalog,options)
+        raw,catalog=self.portable_fixture()
+        raw['objects'][0]['target_dimensions_m']=[.3,.3,1.3]
+        catalog.assets['nested_buckets']['dimensions_import_units']=[.3,.3,1.3]
+        with self.assertRaises(LibrarySelectionError):self.solve(raw,catalog,options)
+    def test_portable_policy_still_rejects_sibling_collisions(self):
+        raw,catalog=self.portable_fixture()
+        other=copy.deepcopy(raw['objects'][0]);other['id']='other_bucket'
+        raw['objects'].append(other)
+        with self.assertRaises(LibrarySelectionError) as caught:
+            self.solve(raw,catalog,{'allow_portable_floor_props_on_support':True})
+        self.assertIn('asset_bounds_overlap',[e['code'] for e in caught.exception.report['errors']])
     def test_changed_table_height_recomputes_child_contact_and_keeps_input(self):
         raw=fixture();before=copy.deepcopy(raw)
         bundle,bindings,report=self.solve(raw,options={'min_uniform_scale':1,'max_uniform_scale':1})

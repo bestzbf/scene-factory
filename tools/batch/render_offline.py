@@ -77,6 +77,9 @@ def main():
                    '--spec', str(spec), '--output-dir', str(folder), '--texture-manifest', str(manifest),
                    '--max-edge', '960', '--samples', '48', '--device', 'AUTO', '--appearance-policy', 'photo_reconstruction',
                    '--tone-match', 'reference', '--asset-catalog', str(catalog_path), '--asset-bindings', str(folder / 'asset_bindings.json')]
+        if os.environ.get('RETAIL_OPTIMIZATION'):
+            command += ['--retail-optimization', str(Path(os.environ['RETAIL_OPTIMIZATION']).resolve()),
+                        '--retail-layout', str(PILOT/shop/'initial_layout.json')]
         with (folder / 'blender.log').open('w') as log:
             result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=3600)
         renders = sorted(folder.glob('rgb_*.png'))

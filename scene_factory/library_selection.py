@@ -108,6 +108,35 @@ def _category_index(catalog):
 SUPPORT_COVERAGE = .6      # settle mode: share of a child's footprint that must rest on its support
 MIN_OBJECT_DIMENSION_M, MAX_OBJECT_DIMENSION_M = .01, 30.   # schema.py object 'dimensions' bounds
 
+# These movable retail articles can occur on a floor or a measured shelf. The
+# catalog's preferred floor placement does not mean that their base requires
+# the building floor. Furniture, wheeled stands and fixed appliances stay out.
+PORTABLE_FLOOR_CATEGORIES = frozenset({
+    'basket', 'bottle', 'bottled_drink_pack', 'bottled_soft_drink_pack',
+    'bottled_water_pack', 'boxed_toy', 'bucket', 'cardboard_box',
+    'cleaning_bottle', 'cooking_pot', 'detergent_bottle', 'electric_kettle',
+    'electric_rice_cooker', 'kettle', 'laundry_basket', 'lunch_box',
+    'medicine_box', 'nested_buckets', 'packaged_food_box', 'packaged_snack_box',
+    'plastic_crate', 'polystyrene_box', 'retail_gift_box', 'rice_cooker',
+    'shopping_basket', 'shopping_basket_stack', 'snack_box', 'stacked_stools',
+    'stool', 'stool_stack', 'teapot', 'tissue_box', 'toolbox', 'toy_box',
+    'wash_basin', 'wash_basin_stack', 'wire_basket', 'wooden_crate',
+})
+
+
+def _portable_floor_prop(asset, options):
+    if not options.get('allow_portable_floor_props_on_support', False):
+        return False
+    anchor = asset.get('anchor') or {}
+    point = anchor.get('point')
+    return (asset.get('placement') == 'floor'
+            and asset.get('category') in PORTABLE_FLOOR_CATEGORIES
+            and asset.get('scale_source') == 'measured'
+            and anchor.get('type') == 'bottom_center'
+            and isinstance(point, list) and len(point) == 3
+            and all(type(v) in (int, float) and math.isfinite(v) and abs(v) <= 1e-6
+                    for v in point))
+
 
 def _area(polygon):
     return sum(a[0]*b[1]-b[0]*a[1] for a, b in zip(polygon, polygon[1:]+polygon[:1]))/2
@@ -342,6 +371,7 @@ def select_and_place(bundle, layout, catalog, options=None):
               'appearance_match_verified':False,'visual_acceptance':False,
               'collision_method':'conservative oriented bounding boxes; parent/descendant pairs exempt'}
     selected, used = {},Counter()
+    from retail_photo_details import parametric_fixture_dimensions
     index = _category_index(catalog)
     # Readiness re-hashes the model and re-validates the intake receipt. Every
     # object of one category walks the same candidate list, so one scene would
@@ -366,11 +396,21 @@ def select_and_place(bundle, layout, catalog, options=None):
     settling = options.get('settle_max_shift_m', 0.) > 0
     for identifier,req in requests.items():
         intended = 'floor' if req['support_id']=='floor' else 'table'
+        parametric_dims = parametric_fixture_dimensions(layout,identifier)
         candidates, rejected = [],Counter()
-        for asset in index.get(req['category'],()):
+        pool=index.get(req['category'],())
+        from retail_photo_details import GLAZING_CATEGORIES
+        if parametric_dims is not None and req['category'] in GLAZING_CATEGORIES:
+            # The donor is only a verified import root. The physical frontage
+            # builder replaces all donor geometry before any view is rendered.
+            pool=[asset for category in ('glass_display_cabinet','cabinet') for asset in index.get(category,())]
+        for asset in pool:
             if any(child['support_id']==identifier for child in requests.values()) and not asset.get('support_surfaces'):
                 rejected['no_verified_support_surfaces']+=1;continue
-            if asset.get('scope') != 'single_prop' or asset.get('placement') not in ({'floor'} if intended=='floor' else {'table','surface','support'}):
+            portable = intended != 'floor' and _portable_floor_prop(asset, options)
+            if (asset.get('scope') != 'single_prop'
+                    or (asset.get('placement') not in ({'floor'} if intended=='floor' else {'table','surface','support'})
+                        and not portable)):
                 rejected['placement_or_scope']+=1;continue
             ready,reasons = candidate_readiness(asset)
             if not ready:
@@ -380,7 +420,9 @@ def select_and_place(bundle, layout, catalog, options=None):
             if req['rotation_z_deg'] and asset.get('placement_rules',{}).get('can_rotate_z') is False:
                 rejected['rotation_forbidden']+=1;continue
             scale,dims,error = _fit(asset,req['target_dimensions_m'],options,footprint=settling)
-            if error > options['dimension_tolerance']+1e-12:
+            if portable and (max(dims[:2]) > 1.0 or dims[2] > 1.25):
+                rejected['portable_prop_size_limit'] += 1;continue
+            if error > options['dimension_tolerance']+1e-12 and parametric_dims is None:
                 rejected['dimension_mismatch']+=1;continue
             # The scene contract bounds every placed box to 0.01..30 m per axis. A
             # thin asset (mat, cable, phone case) scaled down can fall below that;
@@ -394,7 +436,7 @@ def select_and_place(bundle, layout, catalog, options=None):
                 verify_material(material_id)
                 candidates.append((asset,material_id,scale,dims,error))
         obj_report = {'category':req['category'],'support_id':req['support_id'],
-                      'candidates_examined':len(index.get(req['category'],())),
+                      'candidates_examined':len(pool),
                       'rejection_counts':dict(rejected)}
         report['objects'][identifier]=obj_report
         if not candidates:
@@ -439,11 +481,23 @@ def select_and_place(bundle, layout, catalog, options=None):
                     bool(used[pair]) if options['diversity'] else False,round(error,12),tie)
         candidate=min(candidates,key=rank)
         asset,material_id,scale,dims,error=candidate
+        seed_dimensions=list(dims)
+        if parametric_dims is not None:
+            dims=parametric_dims
+            candidate=(asset,material_id,scale,dims,error)
+            obj_report.update(dimension_policy='parametric_photo_detail',
+                geometry_source='shared_parametric_builder',catalog_seed_dimensions_m=seed_dimensions,
+                catalog_seed_category=asset['category'],
+                requested_dimensions_m=parametric_dims)
         used[(asset['geometry_variant_id'],material_id)]+=1
         selected[identifier]=candidate
         obj_report.update(asset_id=asset['asset_id'],material_variant_id=material_id,
                           uniform_scale=scale,dimensions_m=dims,relative_size_error=error,
                           scale_source=asset.get('scale_source'),status='selected')
+        if obj_report.get('dimension_policy') == 'parametric_photo_detail':
+            obj_report['requested_dimensions_m']=req['target_dimensions_m']
+        if intended != 'floor' and asset.get('placement') == 'floor':
+            obj_report['placement_policy'] = 'portable_floor_prop_on_measured_support'
     if report['errors']:
         report['status']='blocked'
         raise LibrarySelectionError('Library has no compatible assets for some requested objects',report)
@@ -573,6 +627,15 @@ def select_and_place(bundle, layout, catalog, options=None):
             overlap=min(l['position'][2]+l['dimensions'][2],r['position'][2]+r['dimensions'][2])-max(l['position'][2],r['position'][2])
             if overlap>.002 and _overlap_xy(footprints[left],footprints[right]):
                 report['errors'].append({'code':'asset_bounds_overlap','object_ids':[left,right]})
+    for structure in layout.get('retail_details', {}).get('structures', []):
+        center=structure['center_m'];size=structure['size_m']
+        corners=_corners(center,size,structure['rotation_z_deg'])
+        bottom,top=center[2]-size[2]/2,center[2]+size[2]/2
+        for identifier,entry in entries.items():
+            overlap=min(top,entry['position'][2]+entry['dimensions'][2])-max(bottom,entry['position'][2])
+            if overlap>.02 and _overlap_xy(corners,footprints[identifier],tolerance=.02):
+                report['errors'].append({'code':'asset_structure_overlap','object_id':identifier,
+                                         'structure_id':structure['id']})
     if report['errors']:
         report['status']='blocked'
         raise LibrarySelectionError('Selected asset placement violates geometry constraints',report)
@@ -581,6 +644,9 @@ def select_and_place(bundle, layout, catalog, options=None):
         bindings['instances'].append({'object_id':identifier,'asset_id':asset['asset_id'],
              'material_variant_id':material_id,'uniform_scale':scale,
              'rotation_xyz_deg':[0,0,requests[identifier]['rotation_z_deg']]})
+    from camera_alignment import align
+    result,camera_report=align(result,layout)
+    if camera_report:report['camera_alignment']=camera_report
     validate(result)
     report.update(status='passed',bound_objects=len(selected),fallback_objects=0,
                   omitted_objects=len(report.get('settling',{}).get('omitted_objects',[])),

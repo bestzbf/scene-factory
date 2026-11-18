@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "seed": 17,
+  "atlas": "../../docs/weidian/demo/batch/packaging_print.png",
+  "defaults": {"fixtures": {}, "fixture_defaults": {"enabled": true, "top_stock": true}},
+  "scenes": {}
+}

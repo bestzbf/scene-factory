@@ -47,6 +47,7 @@ DEFAULT_OPTIONS = {
 # cannot place may be left out, with their descendants, when they make up at most
 # this share of the scene; each omission is listed in the selection report.
 OPTIONAL_OPTIONS = {"settle_max_shift_m": (0, 1.0), "settle_max_omitted_fraction": (0, 0.25)}
+OPTIONAL_BOOLEAN_OPTIONS = {"allow_portable_floor_props_on_support"}
 _FLOOR_CATEGORIES = {"desk", "table", "chair", "sofa", "bed", "cabinet", "shelf", "plant", "rug", "box", "column"}
 _OBJECT_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$")
 _CATALOG_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
@@ -70,9 +71,13 @@ def normalize_options(options=None):
     """Validate selector settings; no provider credentials or model calls exist."""
     if options is None:
         options = {}
-    if not isinstance(options, dict) or set(options) - set(DEFAULT_OPTIONS) - set(OPTIONAL_OPTIONS):
+    if (not isinstance(options, dict)
+            or set(options) - set(DEFAULT_OPTIONS) - set(OPTIONAL_OPTIONS) - OPTIONAL_BOOLEAN_OPTIONS):
         raise ValueError("Unknown automatic asset selection options")
     result = {**copy.deepcopy(DEFAULT_OPTIONS), **copy.deepcopy(options)}
+    for name in OPTIONAL_BOOLEAN_OPTIONS:
+        if name in result and type(result[name]) is not bool:
+            raise ValueError("selection." + name + " must be true or false")
     for name, (low, high) in OPTIONAL_OPTIONS.items():
         if name in result:
             result[name] = _number(result[name], low, high, "selection." + name)

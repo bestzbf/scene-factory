@@ -1,0 +1,251 @@
+{
+  "scene_id": "1660108397",
+  "atlas": "../../docs/weidian/demo/batch/packaging_print.png",
+  "evidence": "Rebuilt topology from ten photographs: two continuous central low shelf runs, perimeter shelves, front counter. Cameras remain the original estimated bundle cameras; no per-view camera fitting is applied.",
+  "cameras": {
+    "view_01": {
+      "position": [
+        -0.8,
+        0.65,
+        2.25
+      ],
+      "target": [
+        0.0,
+        7.8,
+        1.0
+      ],
+      "lens_mm": 20,
+      "roll_degrees": -2
+    },
+    "view_02": {
+      "lens_mm": 20,
+      "position": [
+        -2.18,
+        11.63,
+        2.52
+      ],
+      "roll_degrees": 1,
+      "target": [
+        -0.05,
+        4.8,
+        0.9
+      ]
+    },
+    "view_03": {
+      "lens_mm": 20,
+      "position": [
+        -2.36,
+        4.77,
+        2.53
+      ],
+      "roll_degrees": -5,
+      "target": [
+        -0.1,
+        1.7,
+        0.78
+      ]
+    },
+    "view_04": {
+      "lens_mm": 19,
+      "position": [
+        0.03,
+        10.02,
+        2.58
+      ],
+      "roll_degrees": 1,
+      "target": [
+        0.15,
+        12.45,
+        1.28
+      ]
+    },
+    "view_05": {
+      "lens_mm": 20,
+      "position": [
+        0.48,
+        4.51,
+        2.54
+      ],
+      "roll_degrees": -3,
+      "target": [
+        0.75,
+        0.95,
+        0.96
+      ]
+    },
+    "view_06": {
+      "lens_mm": 19,
+      "position": [
+        2.63,
+        2.98,
+        2.67
+      ],
+      "roll_degrees": -3,
+      "target": [
+        -0.85,
+        0.95,
+        1.02
+      ]
+    },
+    "view_07": {
+      "position": [
+        0.0,
+        0.75,
+        2.25
+      ],
+      "target": [
+        0.0,
+        7.8,
+        1.0
+      ],
+      "lens_mm": 20,
+      "roll_degrees": 0
+    },
+    "view_08": {
+      "lens_mm": 20,
+      "position": [
+        -2.15,
+        0.62,
+        2.2
+      ],
+      "roll_degrees": 1,
+      "target": [
+        0.15,
+        2.39,
+        0.43
+      ]
+    },
+    "view_09": {
+      "lens_mm": 20,
+      "position": [
+        1.92,
+        11.65,
+        2.58
+      ],
+      "roll_degrees": 0,
+      "target": [
+        -0.08,
+        4.65,
+        1.06
+      ]
+    },
+    "view_10": {
+      "position": [
+        1.8,
+        0.8,
+        2.25
+      ],
+      "target": [
+        0.0,
+        7.8,
+        1.0
+      ],
+      "lens_mm": 20,
+      "roll_degrees": -1
+    }
+  },
+  "remove_roots": [
+    "beverage_gondola_01",
+    "beverage_gondola_02",
+    "snack_gondola_left_02",
+    "snack_gondola_right_02"
+  ],
+  "replace_fixtures": [
+    {
+      "id": "snack_gondola_left_01",
+      "position": [
+        -0.83,
+        8.25,
+        0
+      ],
+      "dimensions_m": [
+        3.55,
+        0.8,
+        1.35
+      ],
+      "rotation_z_deg": 90,
+      "kind": "snack",
+      "endcaps": true,
+      "top_height": 0.18
+    },
+    {
+      "id": "snack_gondola_right_01",
+      "position": [
+        0.83,
+        8.25,
+        0
+      ],
+      "dimensions_m": [
+        3.55,
+        0.8,
+        1.35
+      ],
+      "rotation_z_deg": 90,
+      "kind": "snack",
+      "endcaps": true,
+      "top_height": 0.18
+    },
+    {
+      "id": "refrigerator_red",
+      "type": "fridge",
+      "position": [
+        2.53,
+        1.6,
+        0
+      ],
+      "dimensions_m": [
+        0.75,
+        0.7,
+        2.05
+      ],
+      "rotation_z_deg": 90
+    },
+    {
+      "id": "refrigerator_double",
+      "type": "fridge",
+      "position": [
+        2.51,
+        2.64,
+        0
+      ],
+      "dimensions_m": [
+        1.25,
+        0.75,
+        2.08
+      ],
+      "rotation_z_deg": 90
+    },
+    {
+      "id": "back_household_shelf",
+      "position": [
+        0,
+        12.25,
+        0
+      ],
+      "dimensions_m": [
+        2.45,
+        0.42,
+        1.83
+      ],
+      "rotation_z_deg": 180,
+      "kind": "household",
+      "endcaps": false,
+      "top_height": 0.1
+    }
+  ],
+  "architecture_boxes": [
+    {
+      "id": "rear_partition",
+      "position": [
+        2.25,
+        7.4,
+        1.25
+      ],
+      "dimensions": [
+        0.22,
+        1.0,
+        2.5
+      ]
+    }
+  ]
+}

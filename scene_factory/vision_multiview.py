@@ -35,6 +35,9 @@ def _model_description(model_config):
 
 def _invoke_model(prompt, images, schema, output, timeout, effort, model_config):
     if model_config is None:
+        from local_codex import call_model as local_call, active
+        if active():
+            return local_call(prompt, images, schema, output, timeout, effort, invoke=call_model)
         return call_model(prompt, images, schema, output, timeout, effort)
     from model_api import call_model as api_call
     return api_call(prompt, images, schema, output, timeout, effort, config=model_config)
@@ -208,6 +211,10 @@ def _analysis_attempts(output):
 
 def _analysis_request(prompt, views, schema, output, timeout, effort, model_config):
     """Reuse completed transport before semantic validation, never its bill."""
+    if model_config is None:
+        from local_codex import call_model as local_call, active
+        if active():
+            return local_call(prompt, [v['source_image'] for v in views], schema, output, timeout, effort, invoke=call_model), {'method': 'receipt_bound_local_codex'}
     from model_api import (_request_identity, guard_ambiguous_model_resume,
                            recover_completed_response)
     images = [view['source_image'] for view in views]
@@ -633,7 +640,10 @@ Use the minimum per-view score for each overall dimension. 90+ means convincing 
         from model_api import guard_ambiguous_model_resume
         guard_ambiguous_model_resume([path for path in output.parent.glob(output.stem + '*.api.json')
             if re.fullmatch(re.escape(output.stem) + r'(?:_retry_\d+)?\.api\.json', path.name)])
-    first_attempt = _next_review_attempt(output)
+    from local_codex import active as local_codex_active
+    # A configured local stage owns one receipt. A crash after model completion
+    # must consume that response again, not mint another CLI invocation.
+    first_attempt = 0 if model_config is None and local_codex_active() else _next_review_attempt(output)
     for attempt in range(validation_retries + 1):
         remaining = deadline - time.monotonic()
         if remaining < .1:

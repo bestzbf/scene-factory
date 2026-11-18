@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "seed": 17,
+  "defaults": {
+    "fixtures": {}
+  },
+  "scenes": {
+    "1660108397": {
+      "fixtures": {
+        "left_front_shelf": {
+          "kind": "snack",
+          "top_stock": false,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_middle_shelf": {
+          "kind": "snack",
+          "top_stock": false,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_rear_shelf_01": {
+          "kind": "snack",
+          "top_stock": false,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_rear_shelf_02": {
+          "kind": "snack",
+          "top_stock": false,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "left_rear_shelf_03": {
+          "kind": "snack",
+          "top_stock": false,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "right_rear_shelf_01": {
+          "kind": "snack",
+          "top_stock": false,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "right_rear_shelf_02": {
+          "kind": "mixed",
+          "top_stock": false,
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          }
+        },
+        "beverage_gondola_01": {
+          "enabled": false
+        },
+        "beverage_gondola_02": {
+          "enabled": false
+        },
+        "snack_gondola_left_01": {
+          "enabled": false
+        },
+        "snack_gondola_left_02": {
+          "enabled": false
+        },
+        "snack_gondola_right_01": {
+          "enabled": false
+        },
+        "snack_gondola_right_02": {
+          "enabled": false
+        },
+        "front_liquor_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          },
+          "top_stock": false
+        },
+        "front_tobacco_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          },
+          "top_stock": false
+        },
+        "front_checkout_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          },
+          "top_stock": false
+        },
+        "right_condiment_shelf": {
+          "shelf_edges": {
+            "color": [
+              0.055,
+              0.33,
+              0.08
+            ]
+          },
+          "top_stock": false
+        },
+        "back_household_shelf": {
+          "enabled": false
+        },
+        "back_left_household_shelf": {
+          "enabled": false
+        },
+        "back_right_household_shelf": {
+          "enabled": false
+        },
+        "refrigerator_red": {
+          "enabled": false
+        },
+        "refrigerator_double": {
+          "enabled": false
+        }
+      },
+      "moves": [],
+      "floor_tiles": {
+        "color": [
+          0.38,
+          0.44,
+          0.39
+        ],
+        "size_m": 0.6,
+        "grout_m": 0.003,
+        "roughness": 0.29,
+        "grout_color": [
+          0.08,
+          0.085,
+          0.08
+        ]
+      },
+      "fixture_dimensions": [
+        {
+          "id": "checkout_01",
+          "dimensions_m": [
+            1.2,
+            0.58,
+            0.87
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "checkout_02",
+          "dimensions_m": [
+            0.85,
+            0.58,
+            0.87
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "freezer_red",
+          "dimensions_m": [
+            1.03,
+            0.62,
+            0.86
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "front_liquor_shelf",
+          "dimensions_m": [
+            1.16,
+            0.4,
+            2.15
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "front_checkout_shelf",
+          "dimensions_m": [
+            0.83,
+            0.38,
+            2.13
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "left_front_shelf",
+          "dimensions_m": [
+            1.65,
+            0.42,
+            2.08
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "left_middle_shelf",
+          "dimensions_m": [
+            1.8,
+            0.43,
+            1.85
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "left_rear_shelf_01",
+          "dimensions_m": [
+            1.8,
+            0.43,
+            1.85
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "left_rear_shelf_02",
+          "dimensions_m": [
+            1.8,
+            0.43,
+            1.85
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "left_rear_shelf_03",
+          "dimensions_m": [
+            1.6,
+            0.43,
+            1.85
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "right_condiment_shelf",
+          "dimensions_m": [
+            1.8,
+            0.42,
+            1.85
+          ],
+          "evidence": "Shortened at front/rear transition to preserve clearance after reviewed front region correction."
+        },
+        {
+          "id": "right_rear_shelf_01",
+          "dimensions_m": [
+            1.75,
+            0.4,
+            1.85
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        },
+        {
+          "id": "right_rear_shelf_02",
+          "dimensions_m": [
+            1.75,
+            0.4,
+            1.85
+          ],
+          "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+        }
+      ]
+    }
+  },
+  "atlas": "../../docs/weidian/demo/batch/packaging_print.png"
+}

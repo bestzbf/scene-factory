@@ -288,6 +288,19 @@ def large_batch_budget_missing(policy):
     return [key for key in required if type(policy.get(key)) is not int or policy[key] <= 0]
 
 
+def require_execution_budget(scene_count, args):
+    if getattr(args, 'local_codex', False):
+        policy = getattr(args, 'scene_budget_policy', {}) or {}
+        if type(policy.get('max_requests')) is not int or policy['max_requests'] <= 0:
+            raise ValueError('Local Codex batches require a finite per-store request budget')
+        if policy.get('max_output_tokens') or policy.get('max_reported_tokens'):
+            raise ValueError('Local Codex does not enforce API token caps')
+        # Distinct store IDs and each store's durable request ledger bound
+        # total invocations by scene_count * max_requests, including resume.
+        return
+    require_large_batch_budget(scene_count, getattr(args, 'batch_budget_policy', None))
+
+
 def pipeline_hashes():
     names = ['batch_multiview.py', 'vision_multiview.py', 'multiview_spec.py', 'generate_multiview.py',
              'vision_v2.py', 'generate_v2.py', 'generate_scene.py', 'spec_v2.py', 'schema.py',
@@ -296,7 +309,10 @@ def pipeline_hashes():
              'model_api.py', 'factory_config.py', 'staged_analysis.py', 'automatic_repair.py',
              'cli.py', '__init__.py', '__main__.py', 'report_multiview.py',
              'asset_catalog.py', 'asset_manifest.py', 'external_assets.py', 'auto_asset_binding.py', 'asset_context.py',
-             'library_layout.py', 'library_selection.py', 'asset_intake.py', 'asset_intake_blender.py',
+             'library_layout.py', 'library_selection.py', 'library_repair.py', 'production_retail.py', 'local_codex.py',
+             'retail_refinement.py', 'retail_stock_geometry.py', 'retail_visual_detail.py',
+             'retail_photo_details.py', 'reviewed_retail_fixtures.py', 'camera_alignment.py',
+             'asset_intake.py', 'asset_intake_blender.py',
              'diagnostics.py', 'dataset_export.py', 'runtime_controls.py', 'candidate_selection.py',
              'lighting_fit.py', 'base_material_binding.py', 'procedural_cloth.py', 'exterior_context.py', 'part_projection.py', 'repair_material_validation.py',
              'compact_context.py', 'compact_scene.py', 'anchored_scene.py', 'pattern_scene.py', 'pattern_prompt.py', 'compact_staged_detail.py', 'plan_geometry_patch.py', 'repair_strategy.py', 'scene_budget.py', 'model_image_inputs.py', 'batch_index.py', 'batch_guard.py', 'provider_limits.py']
@@ -427,7 +443,7 @@ def prepare_best_repair_source(best, current_iteration, feedback):
     if destination != source:
         names = set(best['metadata']['outputs']) | {'metadata.json', 'scene_bundle.json'}
         names.update(name for name in ('asset_bindings.json', 'asset_selection.json', 'review.json',
-                                      'review_provenance.json') if (source/name).is_file())
+                                      'review_provenance.json', 'library_layout.json') if (source/name).is_file())
         hashes = artifact_hashes(source, names)
         manifest = {'selected_iteration': source.name, 'input_sha256': hashes}
         manifest_path = destination/'repair_source.json'
@@ -595,6 +611,9 @@ def source_check(job, snapshot_guard=None):
     for source in job['sources']:
         if file_sha256(source['path']) != source['sha256']:
             raise ValueError('Source photo changed during processing')
+    if job.get('retail_optimization'):
+        from production_retail import verify_inputs
+        verify_inputs(job['retail_optimization'])
     library = job.get('asset_library', {})
     reference = library.get('input_snapshot')
     if reference is not None:
@@ -762,6 +781,13 @@ def run_job(group, args, hashes):
 
 
 def _run_job_scoped(group, args, hashes):
+    from local_codex import session
+    from runtime_controls import request_cancellation
+    with session(getattr(args, 'local_codex', False)), request_cancellation(lambda: check_interrupted(args)):
+        return _run_job_implementation(group, args, hashes)
+
+
+def _run_job_implementation(group, args, hashes):
     import vision_multiview as vision
     started = time.monotonic()
     folder = args.output_dir/group['scene_id']
@@ -884,8 +910,14 @@ def _run_job_scoped(group, args, hashes):
         job['options'].update(appearance_policy=getattr(args,'appearance_policy','photo_reconstruction'),
                               tone_match=getattr(args,'tone_match','reference'))
         job['options']['pipeline'] = pipeline_options
+        if getattr(args, 'retail_optimization', None):
+            from production_retail import production_inputs
+            job['retail_optimization'] = production_inputs(args.retail_optimization)
         model_configs = getattr(args, 'model_configs', None)
         job['models'] = model_configs or {}
+        if getattr(args, 'local_codex', False):
+            from local_codex import identity
+            job['local_codex'] = identity()
         budget_policy = getattr(args, 'scene_budget_policy', None)
         if budget_policy is not None:
             from scene_budget import normalize_policy
@@ -956,11 +988,11 @@ def _run_job_scoped(group, args, hashes):
             if model_configs:
                 extra['model_config'] = model_configs['analysis']
             if pipeline_options.get('scene_wire_format') == 'library_layout_v1':
-                if extra.get('raw_cache'):
-                    raise ValueError('library_layout_v1 resumes its own committed analysis; cross-directory raw_cache is unsupported')
                 import library_layout
                 bundle = library_layout.analyze(group['scene_id'], views, initial, catalog=catalog,
-                    timeout=args.vision_timeout, effort=args.effort, model_config=model_configs['analysis'])
+                    timeout=args.vision_timeout, effort=args.effort, model_config=model_configs['analysis'],
+                    max_categories=pipeline_options.get('library_max_categories', 256),
+                    raw_cache=extra.get('raw_cache'), retail_details=pipeline_options.get('photo_retail_details', False))
             elif pipeline_options.get('analysis_mode') == 'staged':
                 if not model_configs:
                     raise ValueError('Staged analysis requires configured model APIs')
@@ -989,6 +1021,7 @@ def _run_job_scoped(group, args, hashes):
         if auto_bind and getattr(args, '_asset_standalone_scope', False):
             source_check(job, AssetSnapshotGuard())
         history, technical_history, attempted_bundles = [], [], []
+        attempted_layouts = []
         candidate_history = []
         consecutive_nonimproving = 0
         for index in range(args.max_repairs+1):
@@ -1000,6 +1033,11 @@ def _run_job_scoped(group, args, hashes):
             iteration.mkdir(exist_ok=True)
             library_selection_payloads = None
             if library_layout_data is not None:
+                attempted_layouts.append(library_layout_data)
+                layout_file = iteration/'library_layout.json'
+                if layout_file.exists() and read_json(layout_file) != library_layout_data:
+                    raise ValueError('Semantic library layout changed on resume')
+                atomic_json(layout_file, library_layout_data)
                 from library_selection import select_and_place, LibrarySelectionError
                 progress('automatic_asset_selection', iteration=index)
                 try:
@@ -1007,9 +1045,23 @@ def _run_job_scoped(group, args, hashes):
                         bundle, library_layout_data, catalog, options=selection_options)
                 except LibrarySelectionError as error:
                     atomic_json(iteration/'asset_selection.json', error.report)
-                    raise
+                    if (index == args.max_repairs or not model_configs
+                            or pipeline_options.get('repair_mode') != 'library_layout'):
+                        raise
+                    progress('automatic_library_selection_repair', iteration=index)
+                    from library_repair import repair as repair_library
+                    candidate, next_layout = repair_library(library_layout_data, bundle, iteration,
+                        {'asset_selection_failure': error.report}, catalog, model_configs['repair'],
+                        phase='selection', timeout=args.vision_timeout, effort=args.effort,
+                        max_categories=pipeline_options.get('library_max_categories', 256),
+                        retail_details=pipeline_options.get('photo_retail_details', False))
+                    if any(next_layout == old for old in attempted_layouts):
+                        raise RuntimeError('Library selection repair produced no new layout')
+                    bundle, library_layout_data = candidate, next_layout
+                    continue
                 library_selection_payloads = {'asset_bindings.json': library_bindings,
-                                              'asset_selection.json': library_report}
+                                              'asset_selection.json': library_report,
+                                              'library_layout.json': library_layout_data}
             spec_path = iteration/'scene_bundle.json'
             if spec_path.exists():
                 if read_json(spec_path) != bundle:
@@ -1036,16 +1088,28 @@ def _run_job_scoped(group, args, hashes):
             state_path = iteration/'render_state.json'
             def preflight_candidate(diagnostics):
                 """Consume this iteration's one shared repair opportunity."""
+                nonlocal library_layout_data
                 if (index == args.max_repairs or not model_configs
-                        or pipeline_options.get('repair_mode', 'typed') != 'typed'):
+                        or pipeline_options.get('repair_mode', 'typed') not in ('typed', 'library_layout')):
                     raise RuntimeError('Blocking preflight failed; no configured automatic repair budget remains')
                 check_interrupted(args)
                 progress('automatic_technical_repair', iteration=index)
-                import automatic_repair
-                candidate = automatic_repair.technical_repair(
-                    bundle, iteration, diagnostics, model_configs['repair'],
-                    timeout=args.vision_timeout, effort=args.effort,
-                    validation_retries=pipeline_options.get('validation_retries', 1))
+                if library_layout_data is not None and pipeline_options.get('repair_mode') == 'library_layout':
+                    from library_repair import repair as repair_library
+                    candidate, next_layout = repair_library(library_layout_data, bundle, iteration,
+                        {'blocking_preflight': diagnostics}, catalog, model_configs['repair'],
+                        phase='technical', timeout=args.vision_timeout, effort=args.effort,
+                        max_categories=pipeline_options.get('library_max_categories', 256),
+                        retail_details=pipeline_options.get('photo_retail_details', False))
+                    if any(next_layout == old for old in attempted_layouts):
+                        raise RuntimeError('Technical repair produced no new semantic layout')
+                    library_layout_data = next_layout
+                else:
+                    import automatic_repair
+                    candidate = automatic_repair.technical_repair(
+                        bundle, iteration, diagnostics, model_configs['repair'],
+                        timeout=args.vision_timeout, effort=args.effort,
+                        validation_retries=pipeline_options.get('validation_retries', 1))
                 if candidate == bundle:
                     raise RuntimeError('Technical repair produced no change for a blocking preflight error')
                 technical_history.append({'iteration': index, 'status': 'repaired_candidate',
@@ -1092,6 +1156,10 @@ def _run_job_scoped(group, args, hashes):
                                             '--asset-bindings',str(Path(iteration_bindings_path).resolve())])
                             if getattr(args, 'asset_preview', False):
                                 command.append('--asset-preview')
+                        if job.get('retail_optimization'):
+                            command.extend(['--retail-optimization', job['retail_optimization']['config']])
+                            if library_layout_data is not None:
+                                command.extend(['--retail-layout', str(iteration/'library_layout.json')])
                         check_interrupted(args)
                         run_stage(command,iteration/'blender.log',args.render_timeout)
                         verify_selected_asset_inputs(catalog, iteration_bindings_path)
@@ -1121,7 +1189,7 @@ def _run_job_scoped(group, args, hashes):
                 report = vision.load_review(iteration,bundle)
             else:
                 extra = {'model_config': model_configs['review']} if model_configs else {}
-                typed_repair = bool(model_configs and pipeline_options.get('repair_mode', 'typed') == 'typed')
+                typed_repair = bool(model_configs and pipeline_options.get('repair_mode', 'typed') in ('typed', 'library_layout'))
                 if typed_repair:
                     extra['validation_retries'] = pipeline_options.get('validation_retries', 1)
                 report = vision.review(bundle,iteration,timeout=args.vision_timeout,effort=args.effort,
@@ -1169,7 +1237,17 @@ def _run_job_scoped(group, args, hashes):
             if gate['accepted']:
                 result['status']='accepted'
                 break
-            if index == args.max_repairs or best_report['verdict'] != 'repair':
+            # An asset-limited assessment may still contain actionable camera
+            # and shared-layout errors. Fix those within the same finite
+            # budget instead of abandoning the first useful render solely
+            # because exact packaging or an omitted person is unavailable.
+            semantic_geometry_repair = (
+                pipeline_options.get('repair_mode') == 'library_layout'
+                and best_report['verdict'] == 'asset_limited'
+                and any(issue.get('dimension') in ('framing', 'layout')
+                        and issue.get('severity') in ('major', 'blocking')
+                        and issue.get('action') for issue in best_report.get('issues', [])))
+            if index == args.max_repairs or (best_report['verdict'] != 'repair' and not semantic_geometry_repair):
                 result['status']='needs_review'
                 break
             if stagnation_patience and consecutive_nonimproving >= stagnation_patience:
@@ -1179,7 +1257,23 @@ def _run_job_scoped(group, args, hashes):
                 result['status'] = 'needs_review'
                 result['stop_reason'] = 'repair_stagnation'
                 break
-            if model_configs and pipeline_options.get('repair_mode', 'typed') == 'typed':
+            if model_configs and pipeline_options.get('repair_mode') == 'library_layout':
+                check_interrupted(args)
+                progress('automatic_library_visual_repair', iteration=index)
+                repair_directory = prepare_best_repair_source(best_candidate, iteration, selection_record)
+                from library_repair import repair as repair_library
+                selected_layout = read_json(best_candidate['directory']/'library_layout.json')
+                revised, next_layout = repair_library(selected_layout, best_candidate['bundle'],
+                    repair_directory, best_report, catalog, model_configs['repair'],
+                    phase='visual', timeout=args.vision_timeout, effort=args.effort,
+                    max_categories=pipeline_options.get('library_max_categories', 256),
+                    retail_details=pipeline_options.get('photo_retail_details', False))
+                if any(next_layout == old for old in attempted_layouts):
+                    result['status'] = 'needs_review'
+                    result['stop_reason'] = 'repeated_semantic_layout'
+                    break
+                library_layout_data = next_layout
+            elif model_configs and pipeline_options.get('repair_mode', 'typed') == 'typed':
                 check_interrupted(args)
                 progress('automatic_visual_repair', iteration=index)
                 import automatic_repair
@@ -1208,6 +1302,12 @@ def _run_job_scoped(group, args, hashes):
             verify_selected_asset_inputs(catalog, final_bindings)
         result['elapsed_seconds']=round(time.monotonic()-started,2)
         result['method']='automatic grouped photo analysis; shared geometry; matched multiview review'
+        if job.get('retail_optimization'):
+            result['retail_optimization'] = job['retail_optimization']
+            result['automation'] = {'input': 'original_photo_groups',
+                'retail_policy': 'shared_rules_only', 'saved_scene_override': False,
+                'per_store_profile': False, 'analysis_provenance_sha256': file_sha256(folder/'analysis_provenance.json'),
+                'quality_passed': result.get('status') == 'accepted'}
         (folder/'last_error.json').unlink(missing_ok=True)
         result['artifacts']=artifact_hashes(folder,[str(p.relative_to(folder)) for p in folder.rglob('*') if p.is_file() and p.name not in JOB_CONTROL_FILES and p.suffix != '.log'])
         atomic_json(folder/'result.json',result)
@@ -1403,15 +1503,15 @@ def _coordinate(groups, args, hashes):
     guard = (batch_session(args._batch_ledger_root, getattr(args, 'batch_budget_policy', None),
                           resume=getattr(args, 'resume_batch', False), stop_event=args.stop_event,
                           shared=args._batch_ledger_root != args.output_dir)
-             if getattr(args, 'model_configs', None) else nullcontext())
+             if getattr(args, 'model_configs', None) and not getattr(args, 'local_codex', False) else nullcontext())
     from provider_limits import provider_limit_session
     models = getattr(args, 'model_configs', None)
-    active_models = [models['analysis']] if models else []
-    if models:
+    active_models = [models['analysis']] if models and not getattr(args, 'local_codex', False) else []
+    if active_models:
         if not getattr(args, 'no_review', True):
             active_models.append(models['review'])
         if (getattr(args, 'max_repairs', 0)
-                and getattr(args, 'pipeline_options', {}).get('repair_mode', 'typed') == 'typed'):
+                and getattr(args, 'pipeline_options', {}).get('repair_mode', 'typed') in ('typed', 'library_layout')):
             active_models.append(models['repair'])
     provider_guard = (provider_limit_session(args._batch_ledger_root, active_models, stop_event=args.stop_event)
                       if active_models else nullcontext())
@@ -1645,7 +1745,7 @@ def _coordinate(groups, args, hashes):
 
 
 def coordinate(groups, args, hashes):
-    require_large_batch_budget(len(groups), getattr(args, 'batch_budget_policy', None))
+    require_execution_budget(len(groups), args)
     from model_api import api_concurrency_limit
     with api_concurrency_limit(getattr(args, 'api_workers', 2)), \
             render_session(getattr(args, 'render_workers', 1)):
@@ -1667,6 +1767,8 @@ def main(argv=None):
     p.add_argument('--shared-ledger-dir',type=Path,
                    help='Shared local SQLite budget/rate ledger root; every output shard must be inside it')
     p.add_argument('--max-repairs',type=int,default=1)
+    p.add_argument('--retail-optimization', type=Path,
+                   help='Shared unattended retail profile; no store IDs or camera overrides')
     p.add_argument('--vision-timeout',type=int,default=900)
     p.add_argument('--render-timeout',type=int,default=1800)
     p.add_argument('--effort',choices=['low','medium','high'],default='medium')
@@ -1700,7 +1802,14 @@ def main(argv=None):
         p.set_defaults(no_review=False)
     args=p.parse_args(argv)
     args.model_configs=runtime['models'] if runtime else None
+    args.local_codex = bool(runtime and runtime.get('local_codex'))
     args.pipeline_options=runtime['pipeline'] if runtime else {}
+    if args.retail_optimization is not None:
+        args.retail_optimization = args.retail_optimization.expanduser().resolve()
+    elif runtime and runtime['pipeline'].get('retail_optimization'):
+        value = Path(runtime['pipeline']['retail_optimization']).expanduser()
+        args.retail_optimization = ((known.config.expanduser().resolve().parent / value).resolve()
+                                    if not value.is_absolute() else value.resolve())
     args.scene_budget_policy=runtime.get('budget') if runtime else None
     args.batch_budget_policy=runtime.get('batch_budget') if runtime else None
     args.shared_ledger_dir = None
@@ -1718,12 +1827,14 @@ def main(argv=None):
         def configured_asset_path(value):
             path = Path(value).expanduser()
             return path.resolve() if path.is_absolute() else (config_directory / path).resolve()
-        args.asset_catalog = configured_asset_path(runtime['asset_library']['catalog'])
+        args.asset_catalog = (args.asset_catalog.expanduser().resolve() if args.asset_catalog
+                              else configured_asset_path(runtime['asset_library']['catalog']))
         binding_value = runtime['asset_library']['bindings']
-        args.asset_bindings = configured_asset_path(binding_value) if binding_value else None
-        args.asset_auto_bind = runtime['asset_library']['auto_bind']
+        args.asset_bindings = (args.asset_bindings.expanduser().resolve() if args.asset_bindings
+                               else configured_asset_path(binding_value) if binding_value else None)
+        args.asset_auto_bind = args.asset_auto_bind or runtime['asset_library']['auto_bind']
         args.asset_selection_options = runtime['asset_library']['selection']
-        args.asset_preview = runtime['asset_library']['preview']
+        args.asset_preview = args.asset_preview or runtime['asset_library']['preview']
     if args.asset_auto_bind and (not args.asset_catalog or args.asset_bindings):
         p.error('--asset-auto-bind requires --asset-catalog and forbids --asset-bindings')
     if not args.asset_auto_bind and bool(args.asset_catalog) != bool(args.asset_bindings):
@@ -1757,16 +1868,19 @@ def main(argv=None):
                               for group in groups],indent=2))
         return 0
     try:
-        require_large_batch_budget(len(groups), args.batch_budget_policy)
+        require_execution_budget(len(groups), args)
     except ValueError as exc:
         p.error(str(exc))
-    if args.model_configs:
+    if args.local_codex:
+        from local_codex import identity
+        identity()
+    elif args.model_configs:
         from model_api import preflight
         try:
             preflight(args.model_configs['analysis'])
             if not args.no_review:
                 preflight(args.model_configs['review'])
-            if args.max_repairs and args.pipeline_options.get('repair_mode') == 'typed':
+            if args.max_repairs and args.pipeline_options.get('repair_mode') in ('typed', 'library_layout'):
                 preflight(args.model_configs['repair'])
         except (ValueError,RuntimeError) as exc:
             p.error(str(exc))

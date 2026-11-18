@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "seed": 17,
+  "defaults": {
+    "fixtures": {}
+  },
+  "scenes": {
+    "1630174803": {
+      "fixtures": {
+        "gondola_left_01": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "gondola_left_02": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "gondola_left_03": {
+          "kind": "household"
+        },
+        "gondola_left_04": {
+          "kind": "household"
+        },
+        "gondola_right_01": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "gondola_right_02": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "gondola_right_03": {
+          "kind": "mixed",
+          "top_stock": true
+        },
+        "gondola_right_04": {
+          "kind": "beverage",
+          "top_stock": true
+        },
+        "left_front_endcap": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "left_rear_endcap": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "right_front_endcap": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "right_rear_endcap": {
+          "kind": "snack",
+          "top_stock": true
+        }
+      },
+      "moves": [
+        {
+          "id": "gondola_left_01",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_left_02",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_left_03",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_left_04",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "left_front_endcap",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "left_rear_endcap",
+          "translation_m": [
+            -0.22,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        }
+      ]
+    },
+    "1649397835": {
+      "fixtures": {
+        "snack_island_front": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "snack_island_middle": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "snack_island_rear": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "narrow_front_gondola": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "rear_central_gondola": {
+          "kind": "mixed",
+          "top_stock": true
+        }
+      }
+    },
+    "1654871827": {
+      "fixtures": {
+        "central_gondola": {
+          "kind": "mixed",
+          "top_stock": true
+        },
+        "gondola_front_end": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "gondola_rear_end": {
+          "kind": "beverage",
+          "top_stock": true
+        },
+        "back_wall_shelf": {
+          "kind": "beverage",
+          "top_stock": true
+        }
+      },
+      "moves": [
+        {
+          "id": "central_gondola",
+          "translation_m": [
+            -0.25,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_front_end",
+          "translation_m": [
+            -0.25,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "gondola_rear_end",
+          "translation_m": [
+            -0.25,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        }
+      ]
+    },
+    "1660108397": {
+      "fixtures": {
+        "left_front_shelf": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "left_middle_shelf": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "left_rear_shelf_01": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "left_rear_shelf_02": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "left_rear_shelf_03": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "right_rear_shelf_01": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "right_rear_shelf_02": {
+          "kind": "mixed",
+          "top_stock": true
+        },
+        "beverage_gondola_01": {
+          "kind": "beverage",
+          "top_stock": true
+        },
+        "beverage_gondola_02": {
+          "kind": "beverage",
+          "top_stock": true
+        },
+        "snack_gondola_left_01": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "snack_gondola_left_02": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "snack_gondola_right_01": {
+          "kind": "snack",
+          "top_stock": true
+        },
+        "snack_gondola_right_02": {
+          "kind": "snack",
+          "top_stock": true
+        }
+      },
+      "moves": [
+        {
+          "id": "beverage_gondola_01",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "beverage_gondola_02",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "snack_gondola_left_01",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        },
+        {
+          "id": "snack_gondola_left_02",
+          "translation_m": [
+            -0.2,
+            0,
+            0
+          ],
+          "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+        }
+      ]
+    },
+    "1646301141": {
+      "fixtures": {},
+      "profile_note": "Use source override pointing at the reviewed v5 geometry scene to retain its bespoke layout and cameras."
+    }
+  },
+  "atlas": "../../docs/weidian/demo/batch/packaging_print.png"
+}

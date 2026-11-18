@@ -1,0 +1,93 @@
+{
+  "base_atlas": "../../docs/weidian/demo/shop166_v10/package_faces.png",
+  "faces": [
+    {
+      "tile": 48,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          568,
+          85
+        ],
+        [
+          635,
+          108
+        ],
+        [
+          639,
+          151
+        ],
+        [
+          573,
+          130
+        ]
+      ]
+    },
+    {
+      "tile": 49,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          643,
+          121
+        ],
+        [
+          713,
+          145
+        ],
+        [
+          714,
+          193
+        ],
+        [
+          646,
+          169
+        ]
+      ]
+    },
+    {
+      "tile": 50,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          724,
+          150
+        ],
+        [
+          810,
+          178
+        ],
+        [
+          807,
+          225
+        ],
+        [
+          724,
+          199
+        ]
+      ]
+    },
+    {
+      "tile": 51,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          824,
+          115
+        ],
+        [
+          940,
+          146
+        ],
+        [
+          936,
+          207
+        ],
+        [
+          821,
+          173
+        ]
+      ]
+    }
+  ]
+}
