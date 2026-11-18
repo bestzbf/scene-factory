@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "scene_id": "1654871827",
+  "config_sha256": "b07d0373f6688fefbc29eb18c2b05bb8d937de547e5d1125e109802bd1f6d642",
+  "geometry_build_count": 1,
+  "representation": "physical_meshes_with_fixed_object_uv",
+  "camera_dependent_geometry": false,
+  "visual_detail": {
+    "floor": {
+      "object": "Floor",
+      "color": [
+        0.14,
+        0.16,
+        0.17
+      ],
+      "size_m": 0.6,
+      "grout_m": 0.003,
+      "roughness": 0.19,
+      "grout_color": [
+        0.08,
+        0.085,
+        0.08
+      ],
+      "terrazzo": true,
+      "mapping": "world-space metric procedural tile joints"
+    },
+    "shelf_edges": [
+      {
+        "id": "central_gondola",
+        "levels": 5,
+        "segments": 10,
+        "wire_frame": true
+      },
+      {
+        "id": "gondola_front_end",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": true
+      },
+      {
+        "id": "gondola_rear_end",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": true
+      },
+      {
+        "id": "back_wall_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "checkout_back_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "entrance_water_rack",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": false
+      },
+      {
+        "id": "left_wall_grocery_shelf",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": true
+      },
+      {
+        "id": "right_household_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": true
+      }
+    ],
+    "entrance": {
+      "object": "RetailPhysicalEntrance",
+      "width_m": 1.7,
+      "height_m": 2.35,
+      "center_x": 0,
+      "dimensions_status": "estimated from reference; not surveyed"
+    }
+  },
+  "fixtures": [
+    {
+      "id": "bakery_01",
+      "kind": "snack",
+      "source_stock_components": 112,
+      "added_top_stock": 0,
+      "removed_faces": 2280,
+      "stock_units": 112,
+      "mesh": "RetailRefined_bakery_01"
+    },
+    {
+      "id": "checkout_back_shelf",
+      "kind": "mixed",
+      "source_stock_components": 261,
+      "added_top_stock": 0,
+      "removed_faces": 3548,
+      "stock_units": 261,
+      "mesh": "RetailRefined_checkout_back_shelf"
+    },
+    {
+      "id": "entrance_water_rack",
+      "kind": "mixed",
+      "source_stock_components": 27,
+      "added_top_stock": 0,
+      "removed_faces": 480,
+      "stock_units": 27,
+      "mesh": "RetailRefined_entrance_water_rack"
+    },
+    {
+      "id": "left_wall_grocery_shelf",
+      "kind": "snack",
+      "source_stock_components": 394,
+      "added_top_stock": 6,
+      "removed_faces": 5768,
+      "stock_units": 400,
+      "mesh": "RetailRefined_left_wall_grocery_shelf"
+    },
+    {
+      "id": "central_gondola",
+      "kind": "mixed",
+      "source_stock_components": 217,
+      "added_top_stock": 76,
+      "removed_faces": 4060,
+      "stock_units": 293,
+      "mesh": "RetailRefined_central_gondola"
+    },
+    {
+      "id": "gondola_front_end",
+      "kind": "snack",
+      "source_stock_components": 57,
+      "added_top_stock": 0,
+      "removed_faces": 814,
+      "stock_units": 57,
+      "mesh": "RetailRefined_gondola_front_end"
+    },
+    {
+      "id": "gondola_rear_end",
+      "kind": "beverage",
+      "source_stock_components": 66,
+      "added_top_stock": 0,
+      "removed_faces": 1026,
+      "stock_units": 90,
+      "mesh": "RetailRefined_gondola_rear_end"
+    },
+    {
+      "id": "drinks_refrigerator_01",
+      "kind": "beverage",
+      "source_stock_components": 188,
+      "added_top_stock": 0,
+      "removed_faces": 5168,
+      "stock_units": 216,
+      "mesh": "RetailRefined_drinks_refrigerator_01"
+    },
+    {
+      "id": "right_household_shelf",
+      "kind": "household",
+      "source_stock_components": 358,
+      "added_top_stock": 0,
+      "removed_faces": 5128,
+      "stock_units": 358,
+      "mesh": "RetailRefined_right_household_shelf"
+    },
+    {
+      "id": "back_wall_shelf",
+      "kind": "beverage",
+      "source_stock_components": 223,
+      "added_top_stock": 84,
+      "removed_faces": 3222,
+      "stock_units": 388,
+      "mesh": "RetailRefined_back_wall_shelf"
+    }
+  ],
+  "skipped": [],
+  "fixture_dimensions": [],
+  "moves": [
+    {
+      "id": "central_gondola",
+      "support_group": [
+        "central_gondola",
+        "noodle_cup_01",
+        "noodle_cup_02",
+        "noodle_cup_03",
+        "noodle_cup_04",
+        "noodle_cup_05",
+        "noodle_cup_06",
+        "noodle_cup_07",
+        "noodle_cup_08",
+        "noodle_cup_09",
+        "noodle_cup_10",
+        "noodle_cup_11",
+        "noodle_cup_12",
+        "noodle_cup_13",
+        "noodle_cup_14",
+        "noodle_cup_15",
+        "noodle_cup_16"
+      ],
+      "source_omitted_ids": [],
+      "translation_m": [
+        -0.25,
+        0.0,
+        0.0
+      ],
+      "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+    },
+    {
+      "id": "gondola_front_end",
+      "support_group": [
+        "gondola_front_end",
+        "front_end_packet_rack"
+      ],
+      "source_omitted_ids": [],
+      "translation_m": [
+        -0.25,
+        0.0,
+        0.0
+      ],
+      "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+    },
+    {
+      "id": "gondola_rear_end",
+      "support_group": [
+        "gondola_rear_end",
+        "beer_can_01",
+        "beer_can_02",
+        "beer_can_03",
+        "beer_can_04",
+        "beer_can_05",
+        "beer_can_06",
+        "beer_can_07",
+        "beer_can_08",
+        "beer_can_09",
+        "beer_can_10",
+        "beer_can_11",
+        "beer_can_12"
+      ],
+      "source_omitted_ids": [
+        "beer_can_02"
+      ],
+      "translation_m": [
+        -0.25,
+        0.0,
+        0.0
+      ],
+      "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+    }
+  ],
+  "layout_clearance": {
+    "status": "passed",
+    "tested_fixtures": [
+      "central_gondola",
+      "gondola_front_end",
+      "gondola_rear_end"
+    ],
+    "issues": [],
+    "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+  },
+  "stock_units": 2202,
+  "limitations": [
+    "Heuristic product categories and generic packaging; not recovered SKU identity.",
+    "Unreviewed layout and cameras remain estimates. No measured geometry accuracy claim."
+  ],
+  "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1654871827",
+  "device": "METAL",
+  "views": [
+    {
+      "id": "view_01",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1654871827/rgb_view_01.png",
+      "seconds": 37.712
+    },
+    {
+      "id": "view_02",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1654871827/rgb_view_02.png",
+      "seconds": 31.233
+    },
+    {
+      "id": "view_03",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1654871827/rgb_view_03.png",
+      "seconds": 32.812
+    }
+  ],
+  "settings": {
+    "edge": 1920,
+    "samples": 256
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "finite_mesh_coordinates": true,
+  "geometry_build_count": 1,
+  "camera_dependent_geometry": false,
+  "packed_file_images": 1,
+  "checked_cameras": [
+    "view_01",
+    "view_02",
+    "view_03",
+    "view_04",
+    "view_05",
+    "view_06",
+    "view_07",
+    "view_08",
+    "view_09",
+    "view_10"
+  ],
+  "stock_units": 0,
+  "geometry_sha256_before_views": "1f046ae8a6e347abf6395c7992476a241f2b37a39515c654d17b97a3d14f1950",
+  "geometry_sha256_after_views": "1f046ae8a6e347abf6395c7992476a241f2b37a39515c654d17b97a3d14f1950",
+  "shared_geometry_unchanged_across_views": true,
+  "source_cameras_preserved": true,
+  "layout_clearance": {
+    "status": "passed",
+    "tested_fixtures": [],
+    "issues": [],
+    "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+  },
+  "passed": true
+}

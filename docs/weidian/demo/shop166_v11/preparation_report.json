@@ -1,0 +1,289 @@
+{
+  "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1660108397",
+  "profile_sha256": "66b07696447dc2bf7a0fc0ee2ab4211e507f0c63b3f31d198e6c7b5084a9fe5c",
+  "atlas_sha256": "2eeaa2ca6704817b11a02cbe78a705657a2db3c7843ad5ed6559ccf1674e21da",
+  "replacements": [
+    {
+      "id": "snack_left",
+      "stock_units": 537,
+      "dimensions_m": [
+        3.0,
+        0.62,
+        1.32
+      ]
+    },
+    {
+      "id": "snack_right",
+      "stock_units": 555,
+      "dimensions_m": [
+        3.0,
+        0.6,
+        1.32
+      ]
+    },
+    {
+      "id": "left_wall",
+      "stock_units": 540,
+      "dimensions_m": [
+        3.45,
+        0.44,
+        1.76
+      ]
+    },
+    {
+      "id": "right_wall",
+      "stock_units": 255,
+      "dimensions_m": [
+        2.1,
+        0.36,
+        1.65
+      ]
+    },
+    {
+      "id": "back_wall",
+      "stock_units": 462,
+      "dimensions_m": [
+        3.7,
+        0.36,
+        1.7
+      ]
+    },
+    {
+      "id": "left_endcap",
+      "stock_units": 115,
+      "dimensions_m": [
+        1.0,
+        0.38,
+        1.72
+      ]
+    },
+    {
+      "id": "drinks_near",
+      "stock_units": 466,
+      "dimensions_m": [
+        2.4,
+        0.64,
+        1.42
+      ]
+    },
+    {
+      "id": "drinks_far",
+      "stock_units": 302,
+      "dimensions_m": [
+        1.5,
+        0.64,
+        1.42
+      ]
+    },
+    {
+      "id": "household_back",
+      "stock_units": 433,
+      "dimensions_m": [
+        3.5,
+        0.43,
+        1.75
+      ]
+    },
+    {
+      "id": "household_side",
+      "stock_units": 358,
+      "dimensions_m": [
+        2.05,
+        0.5,
+        1.65
+      ]
+    },
+    {
+      "id": "condiment_stools",
+      "stock_units": 145,
+      "dimensions_m": [
+        1.3,
+        0.4,
+        1.62
+      ]
+    },
+    {
+      "id": "checkout_wall_1",
+      "stock_units": 336,
+      "dimensions_m": [
+        1.24,
+        0.4,
+        2.08
+      ]
+    },
+    {
+      "id": "checkout_wall_2",
+      "stock_units": 336,
+      "dimensions_m": [
+        1.24,
+        0.4,
+        2.08
+      ]
+    },
+    {
+      "id": "fridge_red",
+      "stock_units": 80,
+      "dimensions_m": [
+        0.75,
+        0.7,
+        2.05
+      ]
+    },
+    {
+      "id": "fridge_double",
+      "stock_units": 150,
+      "dimensions_m": [
+        1.25,
+        0.7,
+        2.08
+      ]
+    },
+    {
+      "id": "front_north_shelf_a",
+      "stock_units": 235,
+      "dimensions_m": [
+        1.8,
+        0.4,
+        1.65
+      ]
+    },
+    {
+      "id": "front_north_shelf_b",
+      "stock_units": 235,
+      "dimensions_m": [
+        1.8,
+        0.4,
+        1.65
+      ]
+    },
+    {
+      "id": "checkout_side_cabinet",
+      "stock_units": 201,
+      "dimensions_m": [
+        1.3,
+        0.42,
+        2.07
+      ]
+    }
+  ],
+  "prepared_files_sha256": {
+    "scene.blend": "b7310e7c21cf28eb6257c6bb3724978c863e17db8c7e15ac28269f3bfc539c41",
+    "scene_bundle.json": "ff56283d2c39a68d284cd6173304c2e37d86d327f07e1f1625b3f4cc8cf02cb7",
+    "initial_layout.json": "441e8086dfef06bba443874b7b30de9ae0467648bd55bb86921a38bb73074d53"
+  },
+  "geometry_build_count": 1,
+  "camera_dependent_geometry": false,
+  "photo_background_planes": 0,
+  "fixture_clearance": {
+    "passed": true,
+    "issues": [],
+    "fixture_count": 18,
+    "scope": "Declared floor fixture rectangles in XY; excludes merchandise, props and architectural segments."
+  },
+  "fixed_furniture_clearance": {
+    "passed": true,
+    "issues": [],
+    "fixture_count": 22,
+    "scope": "Declared shelf/fridge and floor counter/desk rectangles in XY; excludes chairs, supported merchandise and architectural segments."
+  },
+  "limitations": [
+    "No measured floor plan or surveyed scale.",
+    "Package crops are fixed UV appearances, not an exact SKU inventory.",
+    "The two-track household alignment was rejected; the reverse-camera link uses five tracks and remains uncertain.",
+    "Rear group and checkout group are independently anchored; no trustworthy automatic bridge. View04, view05 anchor, metric scale and view08 tabletop dimensions are reviewed estimates."
+  ],
+  "calibration": {
+    "method": "SuperPoint + LightGlue / COLMAP sparse components, manually anchored metric frame",
+    "rear_registered_views": 4,
+    "rear_reprojection_error_px": 1.04388,
+    "component_links": [
+      {
+        "tag": "reverse",
+        "anchor": "view_02.png",
+        "common_tracks": 5,
+        "scale_samples": [
+          0.24322522530444762,
+          0.24145737462215586,
+          0.25175981304109707,
+          0.2426837163570446,
+          0.2356048912755047
+        ]
+      }
+    ],
+    "front_pose_assumption": "View03 uses a local sparse relative-pose candidate. View05 and view06 are independently reviewed poses. View08 uses four reviewed tabletop corners and assumed dimensions. Shared front geometry and front-to-rear placement remain manual.",
+    "metric_scale": "Rear endcap width 0.60m and top deck 1.32m are estimates",
+    "household_pose_note": "Sparse two-track alignment and fitted bucket-only cameras were rejected. The shared bin positions are constrained in view02; view04 is an explicitly reviewed pose. Fit failures retained in household_fit_v10.json.",
+    "accepted_sparse_views": [
+      "view_01",
+      "view_02",
+      "view_07",
+      "view_09",
+      "view_10"
+    ],
+    "rejected_component_links": [
+      {
+        "tag": "household",
+        "anchor": "view_10.png",
+        "common_tracks": 2,
+        "scale_samples": [
+          0.05908106308750366,
+          0.060206461893876136
+        ]
+      }
+    ],
+    "checkout_relative_pose": {
+      "method": "Local COLMAP component aligned to reviewed view05; similarity scale manually estimated",
+      "scale_m_per_sfm_unit": 0.27,
+      "anchor_view": "view_05",
+      "derived_views": [
+        "view_03"
+      ],
+      "rotation": [
+        [
+          -0.7526080113592615,
+          -0.4034636668594974,
+          0.5203827925307928
+        ],
+        [
+          -0.6517489088673047,
+          0.3438219373151178,
+          -0.6760250255805305
+        ],
+        [
+          0.09383251583611812,
+          -0.8479407673565222,
+          -0.5217201491476986
+        ]
+      ],
+      "anchor_sfm_center": [
+        -4.74985604318656,
+        -0.7047574494369279,
+        0.04407058540610609
+      ],
+      "world_anchor_center": [
+        -4.55,
+        7.8,
+        2.65
+      ],
+      "reprojection_error_px": 1.0761511577118519,
+      "anchor_reviewed_camera": {
+        "position": [
+          -4.55,
+          7.8,
+          2.65
+        ],
+        "target": [
+          -4.85,
+          4.95,
+          0.8
+        ],
+        "lens_mm": 21,
+        "roll_degrees": 3
+      },
+      "rejected_pose_views": [
+        "view_06"
+      ],
+      "note": "Only view03 relative-pose candidate retained; view05 and view06 keep independently reviewed poses after cross-view inspection."
+    }
+  }
+}

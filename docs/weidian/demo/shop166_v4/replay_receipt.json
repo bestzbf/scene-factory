@@ -1,0 +1,30 @@
+{
+  "files": {
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/demo_runs/demo_v3/1660108397/scene.blend": "df0da2ff257716fcecaef76b05fba7f6be99e6983563df0eafff7217e37c2535",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/demo_runs/demo_v3/1660108397/scene_bundle.json": "c4db1b0265e9ea93ef7c73bae6225890ce9b27e0264eb11c406293af9c85f39b",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/initial_layout.json": "aa4d10900a9be298ddb4c7ffa381cfbdcb36ea18ed5e58d24dcbe2f35933583d",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/configs/retail/shop_1660108397_review_v4.json": "bf2f9466564b174a2157d47ae4a651140b4f62f8a61ab1fbd890344dbf00eb62",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/configs/retail/shop_1660108397_refine_v4.json": "a9bfddf2de0c12ab6017787ea387c2241879b65f9412ab0b367dd6f6d557a80f",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/tools/batch/prepare_reviewed_scene.py": "80c8cf8824e5c6e7033e373aec1a0cbc9bc3b71a238796cae6d34ba05b822962",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/tools/batch/optimize_demo_batch.py": "b0105b37a62cc579ccc665d621e2b6eb073a030af7fd70d6d259e9af4c2af0d3",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/tools/batch/optimize_retail_scene.py": "a9d2c2183e8344278bee2ea4ee8361bb391ef2176a543dc00b2f6fa7285095d6",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/scene_factory/reviewed_retail_fixtures.py": "6b0118ae1a1ee06dcaf52bddc813f6922268606d62d79b14a45fa5c5a79c24c6",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/scene_factory/retail_stock_geometry.py": "763d786cde5f3e4326d0ba131b4fd0520c61493b95f439f77ff0ff0f6a5f0978",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/scene_factory/retail_refinement.py": "9146b7ac16acc702671f169d255a549e57a212025de3a15fe50b9eaf29d89b25",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/scene_factory/retail_visual_detail.py": "06549292a46e7077831d5b4c4fbc88dbf5ad35d8c40496b3eccb7295e85b7755",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/scene_factory/generate_scene.py": "5694be7917b483f476b4df5aec2443873d3ec934fe923bad408cf4e92bed9db5",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/github_upload/scene-factory/docs/weidian/demo/batch/packaging_print.png": "7949175531f8426f844a647f3e6f04403050aaf78277a1a511224f1320d1a86d",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_01/reference.png": "8736d742a769e4356b17cecb385b8b97cbf0f82a28245b91785e26b1c544bba3",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_02/reference.png": "7e1245f33d111836b725de327c556e057a12cc367c1ea767de56072266fbc87e",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_03/reference.png": "644f82207240fbb955545479aee6af34407ac5726c69578aeb30b3765fce867d",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_04/reference.png": "b3873b768d29eb3cee396e5d6dabaa72d4a173d85fdcc632f155c215bc378b06",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_05/reference.png": "5b060d7845178f63078d4525d594daa0eba2d399764a8efdfe4a03b9be584445",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_06/reference.png": "4fbf8b2457238a0908537e34051fb739e1d33fac2477e44fdaddff747470d0db",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_07/reference.png": "f581b67a19a57f010c2a717460a27688ff5f41df12c55ce04f993070d15e56c1",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_08/reference.png": "6dbdaecafa354cb3b688019b6366be79dd9f47fa668423f05a27c6a193750117",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_09/reference.png": "3fa8dae4430ccdd96378f24d6b5250d7545bbb4bb1a29bb3357ec5747269c86d",
+    "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1660108397/sources/view_10/reference.png": "9575217008593d992cead640fa4605e9e9eab229f01ec8e70244971a5bf80382"
+  },
+  "preview": false,
+  "blender": "Blender 5.2.0 LTS"
+}

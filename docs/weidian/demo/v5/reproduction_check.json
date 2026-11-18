@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "views": {
+    "01": {
+      "width": 640,
+      "height": 360,
+      "bytes": 414312
+    },
+    "08": {
+      "width": 640,
+      "height": 360,
+      "bytes": 359199
+    }
+  },
+  "samples": 32,
+  "configuration": "scene_config.json",
+  "relative_texture_paths": true
+}

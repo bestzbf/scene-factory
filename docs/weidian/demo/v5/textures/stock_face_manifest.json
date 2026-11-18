@@ -1,0 +1,272 @@
+{
+  "shop": "1646301141",
+  "view": "view_04",
+  "method": "manual individual package-face rectification",
+  "faces": [
+    {
+      "file": "stock_face_00.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          109,
+          113
+        ],
+        [
+          140,
+          96
+        ],
+        [
+          163,
+          142
+        ],
+        [
+          134,
+          160
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_01.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          204,
+          61
+        ],
+        [
+          232,
+          48
+        ],
+        [
+          247,
+          79
+        ],
+        [
+          224,
+          94
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_02.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          18,
+          151
+        ],
+        [
+          48,
+          136
+        ],
+        [
+          81,
+          186
+        ],
+        [
+          48,
+          207
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_03.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          134,
+          340
+        ],
+        [
+          159,
+          316
+        ],
+        [
+          193,
+          340
+        ],
+        [
+          164,
+          368
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_04.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          143,
+          412
+        ],
+        [
+          171,
+          387
+        ],
+        [
+          197,
+          410
+        ],
+        [
+          167,
+          443
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_05.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          8,
+          448
+        ],
+        [
+          44,
+          414
+        ],
+        [
+          75,
+          439
+        ],
+        [
+          30,
+          477
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_06.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          73,
+          594
+        ],
+        [
+          132,
+          551
+        ],
+        [
+          162,
+          582
+        ],
+        [
+          109,
+          625
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_07.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          58,
+          348
+        ],
+        [
+          88,
+          322
+        ],
+        [
+          118,
+          344
+        ],
+        [
+          88,
+          375
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_08.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          205,
+          265
+        ],
+        [
+          224,
+          246
+        ],
+        [
+          248,
+          266
+        ],
+        [
+          224,
+          292
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_09.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          216,
+          375
+        ],
+        [
+          245,
+          351
+        ],
+        [
+          267,
+          374
+        ],
+        [
+          239,
+          401
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_10.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          284,
+          189
+        ],
+        [
+          310,
+          170
+        ],
+        [
+          335,
+          188
+        ],
+        [
+          307,
+          213
+        ]
+      ]
+    },
+    {
+      "file": "stock_face_11.png",
+      "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_04/reference.png",
+      "quad_px": [
+        [
+          214,
+          468
+        ],
+        [
+          241,
+          442
+        ],
+        [
+          264,
+          459
+        ],
+        [
+          237,
+          490
+        ]
+      ]
+    }
+  ],
+  "limitations": "Original blur and baked illumination remain; crops do not prove exact SKU identity."
+}

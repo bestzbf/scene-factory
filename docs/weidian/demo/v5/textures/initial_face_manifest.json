@@ -1,0 +1,216 @@
+[
+  {
+    "id": "red_gift",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_quad_px": [
+      [
+        122,
+        161
+      ],
+      [
+        209,
+        138
+      ],
+      [
+        238,
+        220
+      ],
+      [
+        150,
+        257
+      ]
+    ]
+  },
+  {
+    "id": "red_pair",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_quad_px": [
+      [
+        171,
+        300
+      ],
+      [
+        238,
+        272
+      ],
+      [
+        266,
+        334
+      ],
+      [
+        197,
+        369
+      ]
+    ]
+  },
+  {
+    "id": "gold_gift",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_quad_px": [
+      [
+        256,
+        125
+      ],
+      [
+        300,
+        114
+      ],
+      [
+        319,
+        182
+      ],
+      [
+        273,
+        201
+      ]
+    ]
+  },
+  {
+    "id": "brown_gift",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_quad_px": [
+      [
+        221,
+        372
+      ],
+      [
+        257,
+        347
+      ],
+      [
+        278,
+        390
+      ],
+      [
+        241,
+        415
+      ]
+    ]
+  },
+  {
+    "id": "cream_gift",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_quad_px": [
+      [
+        335,
+        218
+      ],
+      [
+        363,
+        201
+      ],
+      [
+        383,
+        244
+      ],
+      [
+        351,
+        265
+      ]
+    ]
+  },
+  {
+    "id": "red_slim",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_quad_px": [
+      [
+        365,
+        280
+      ],
+      [
+        393,
+        263
+      ],
+      [
+        406,
+        306
+      ],
+      [
+        379,
+        326
+      ]
+    ]
+  },
+  {
+    "id": "white_gift",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_quad_px": [
+      [
+        440,
+        202
+      ],
+      [
+        459,
+        195
+      ],
+      [
+        472,
+        227
+      ],
+      [
+        452,
+        239
+      ]
+    ]
+  },
+  {
+    "id": "jar_red",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_box_px": [
+      627,
+      454,
+      648,
+      484
+    ]
+  },
+  {
+    "id": "bottle_red",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_box_px": [
+      758,
+      434,
+      773,
+      482
+    ]
+  },
+  {
+    "id": "bottle_dark",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_box_px": [
+      738,
+      433,
+      751,
+      478
+    ]
+  },
+  {
+    "id": "jar_gold",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_box_px": [
+      650,
+      456,
+      669,
+      485
+    ]
+  },
+  {
+    "id": "packet_green",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_box_px": [
+      729,
+      629,
+      760,
+      655
+    ]
+  },
+  {
+    "id": "packet_red",
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+    "source_box_px": [
+      674,
+      588,
+      708,
+      615
+    ]
+  }
+]

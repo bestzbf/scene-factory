@@ -1,0 +1,18 @@
+{
+  "source": "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_shop166_v4_20261105/replay_final/renders",
+  "files_sha256": {
+    "1660108397/all_views_review.jpg": "e51ba2a832f7cfd217c1b20da4ed384a19c625422947efc9e803409c3eb5a4bb",
+    "1660108397/previous_vs_current.jpg": "21ea8bdb6baa4fbb2ff1586b09d9d0d400593dd121c6f2d935874b3b7adf15c0",
+    "1660108397/retail_refinement.json": "772b21c8e665ee1e9ed6520dfa399f079af9d1670cb567ca2aae1351e664b22a",
+    "1660108397/verification.json": "4292f615786bf6fa4eb0f496f4a330926b6f5a52afb96237ddf1f055bf4f69e1",
+    "all_shops_review.jpg": "0e9ca6dd9d11adb853c443d17aaf740ab436aba1f1c3b210e5c3676672219163",
+    "comparison_metrics.json": "f2b9e0f9188404eeb1e51199ff6053d2583095f1b13cf8b85a51534f45247901",
+    "demo_showcase.jpg": "105640a286c2d53083609f57a822a695a95dd4adea39e29fb1b99664eb8a7277",
+    "initial_render_summary.json": "fabb94266e7d58d668db0a377c54d7b15f4c3bcb68830a7311eec17a3fa2e831",
+    "iteration_metrics.json": "c5fb54eb746753f83313eb49dd62ecd62d2423061591685597314921d22e2fb8",
+    "previous_vs_current.jpg": "06dea054a08f454b14f3e84df919e2f6ffcc6ede9fcb9d47c3df956d36da4d62",
+    "replay_receipt.json": "d2eba955bfd65ddd515e9196bf159f8502d14b1789727f28d67075d819498b56",
+    "replay_verification.json": "51c48e977b2e48377b3a25ccabbc0ef155ffb0b76bd9a6349c0df8112866d051",
+    "summary.json": "50ffa7d2052025ab50aaa51d4e43adb45601f139bc8a83c7335ba5fadb797b59"
+  }
+}

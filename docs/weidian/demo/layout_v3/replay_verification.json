@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "scope": "Independent-build shared mesh/world-transform digest; no PNG-byte or measured-geometry claim.",
+  "left": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final",
+  "right": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/replay_geometry_effective",
+  "shops": {
+    "1630174803": {
+      "passed": true,
+      "checks": {
+        "both_runs_passed": true,
+        "effective_settings_identical": true,
+        "source_identical": true,
+        "views_identical": true,
+        "geometry_identical": true,
+        "stock_count_identical": true
+      },
+      "geometry_sha256": "a25cecd7d7984d96d08fc4d4d2a025aa4e797cce7c997d84f8d3c45ccf18700c"
+    },
+    "1646301141": {
+      "passed": true,
+      "checks": {
+        "both_runs_passed": true,
+        "effective_settings_identical": true,
+        "source_identical": true,
+        "views_identical": true,
+        "geometry_identical": true,
+        "stock_count_identical": true
+      },
+      "geometry_sha256": "afe5fdbfb19941018c877e6f67fe196f09d3faf0a6797ef7261ee0cc81470c1c"
+    },
+    "1649397835": {
+      "passed": true,
+      "checks": {
+        "both_runs_passed": true,
+        "effective_settings_identical": true,
+        "source_identical": true,
+        "views_identical": true,
+        "geometry_identical": true,
+        "stock_count_identical": true
+      },
+      "geometry_sha256": "a7fef24defc0da48b53dbe0b8ceb2f5c91f1494da8b82f906f17dbcb9c1c505a"
+    },
+    "1654871827": {
+      "passed": true,
+      "checks": {
+        "both_runs_passed": true,
+        "effective_settings_identical": true,
+        "source_identical": true,
+        "views_identical": true,
+        "geometry_identical": true,
+        "stock_count_identical": true
+      },
+      "geometry_sha256": "1188d7e438072563633489a4b9228fe99f4884e4023129a01c79a19de7ae0a1d"
+    },
+    "1660108397": {
+      "passed": true,
+      "checks": {
+        "both_runs_passed": true,
+        "effective_settings_identical": true,
+        "source_identical": true,
+        "views_identical": true,
+        "geometry_identical": true,
+        "stock_count_identical": true
+      },
+      "geometry_sha256": "1c8370d97ab3249ff7e15e934a96d213490cc5b05f5179cf4d95162108846077"
+    }
+  }
+}

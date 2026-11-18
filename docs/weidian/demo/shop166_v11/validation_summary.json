@@ -1,0 +1,23 @@
+{
+  "png_views": 10,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "sample_limit": 256,
+  "render_seconds": 277.0,
+  "independent_rebuild": true,
+  "resume": true,
+  "physical_stock_units": 5834,
+  "fixed_furniture": {
+    "passed": true,
+    "issues": [],
+    "fixture_count": 22,
+    "scope": "Declared shelf/fridge and floor counter/desk rectangles in XY; excludes chairs, supported merchandise and architectural segments."
+  },
+  "atlas_rebuilt_identically": true,
+  "python_config_tests": 6,
+  "python_replay_tests": 3,
+  "blender_layout_test": "passed",
+  "blender_fixtures_test": "passed"
+}

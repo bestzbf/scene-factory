@@ -1,0 +1,23 @@
+{
+  "current": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_shop166_v11_20261106/validated_final/renders/1660108397",
+  "baseline": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_shop166_v4_20261105/replay_final/renders/1660108397",
+  "previous": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_shop166_v10_20261106/reproducible_final/renders/1660108397",
+  "images": {
+    "view_01.jpg": "85921164d16cbabb540f5cd234f4f510c40b84616a17bc73824fd9c597a615d2",
+    "view_02.jpg": "8a57dd8373344ccacbc6bb3aa0de24078e901cba93058b1a0b78d31c27959692",
+    "view_03.jpg": "392c55ac73d8890ed7af5e9ed164a1313e9670f62e76e77fb720346021c61362",
+    "view_04.jpg": "9f68dfd21abd6a39983158ef0e1bfb7cbabfbac970c10859242349045647b211",
+    "view_05.jpg": "8795ab578f0f3456ef5728c4045af3239b037bd75a542d2e1358bed54f5bcb0a",
+    "view_06.jpg": "0823c958762904a2e1fd86565e9de3843feb5b5b1cc7adb2501ccfbee129757d",
+    "view_07.jpg": "9e8f498cdd0db64fa30db74e91a82eb5c7123d388fc6592b71afa10f8fc4a2fd",
+    "view_08.jpg": "f176bb1bf0781c06b975fc7a857980f464095f0dd2b9fd8599cf3afc336e4014",
+    "view_09.jpg": "c23fd8921e24c36836d55d76a43b050513456d4f06db433e9cfa20cebdf2245c",
+    "view_10.jpg": "4631f065321a8d68534d2b4ca0202bf848bdf138c94562a0dc42a6a8290b80ae",
+    "all_10_comparison.jpg": "d2ed449b361ddde460ded223a0ee8bf171550d7c977d0d6c78fae208c130c0b3",
+    "key_comparison.jpg": "55f8d6d60b2db182e2e754ef518d066051e9b897cff01d2f24284f45a05669ba",
+    "checkout_comparison.jpg": "dac92032f78eb431ef9e64261bf814b01ba88aa706941bcc493b9b8a34849cd4",
+    "household_checkout.jpg": "299808bd9924f682bc7c302dfda0b12b2a4a964c375712dc58e944b87f127c27",
+    "previous_vs_current.jpg": "47e5b101e06457b65946e3f03448bb914f04820b4397f9a1a9460ce0888b07e8",
+    "result_preview.jpg": "10d4576dc855a31065ccdda15e5c1807ec68c83a673680a1308e3e99865c9d18"
+  }
+}

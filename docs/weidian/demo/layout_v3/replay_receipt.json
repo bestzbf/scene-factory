@@ -1,0 +1,31 @@
+{
+  "ready": true,
+  "manifest": "/Users/binfengzou/Documents/建模生成场景数据集/github_upload/scene-factory/configs/retail/demo_replay_v3.json",
+  "manifest_sha256": "feb96fe3d3a31fb8cd7d850737f5b9b91fb3ae7ee010300c37aa7df61a202746",
+  "config_sha256": "a1b526d7a652339ec4639318cca94575598623f4b3593345d39ae9867f466693",
+  "blender": "Blender 5.2.0 LTS",
+  "python": "3.12.14",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "quality": {
+    "edge": 1920,
+    "samples": 256
+  },
+  "shops": [
+    "1630174803",
+    "1646301141",
+    "1649397835",
+    "1654871827",
+    "1660108397"
+  ],
+  "input_files_verified": 58,
+  "atlas_sha256": "7949175531f8426f844a647f3e6f04403050aaf78277a1a511224f1320d1a86d",
+  "code_sha256": {
+    "tools/batch/reproduce_demo.py": "bd8426e4a007ecbcca2697e1a748b7788b5758a52a419b84233a7fefed927b49",
+    "tools/batch/optimize_demo_batch.py": "8a0509fc01b0aaaf0f42f7e7b1fe4a00cf08e8f7523f687187f6821a177d7c25",
+    "tools/batch/optimize_retail_scene.py": "a9d2c2183e8344278bee2ea4ee8361bb391ef2176a543dc00b2f6fa7285095d6",
+    "scene_factory/retail_refinement.py": "9146b7ac16acc702671f169d255a549e57a212025de3a15fe50b9eaf29d89b25",
+    "scene_factory/retail_visual_detail.py": "06549292a46e7077831d5b4c4fbc88dbf5ad35d8c40496b3eccb7295e85b7755",
+    "scene_factory/retail_stock_geometry.py": "763d786cde5f3e4326d0ba131b4fd0520c61493b95f439f77ff0ff0f6a5f0978",
+    "scene_factory/generate_multiview.py": "e1bc670b1a726a6b2bebd41526fc34c542e5fb47577a10232d1bbe66604d826c"
+  }
+}

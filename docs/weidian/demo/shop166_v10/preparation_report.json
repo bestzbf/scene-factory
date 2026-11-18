@@ -1,0 +1,220 @@
+{
+  "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1660108397",
+  "profile_sha256": "17d7f3ef714c55009dea1101c621665e22f141ae6ab3c61ba0df3c06f744c937",
+  "atlas_sha256": "85cc853e360bcd9cbe242c6e84a607f92926fb94414f0375dab2d34d71313d99",
+  "replacements": [
+    {
+      "id": "snack_left",
+      "stock_units": 537,
+      "dimensions_m": [
+        3.0,
+        0.62,
+        1.32
+      ]
+    },
+    {
+      "id": "snack_right",
+      "stock_units": 555,
+      "dimensions_m": [
+        3.0,
+        0.6,
+        1.32
+      ]
+    },
+    {
+      "id": "left_wall",
+      "stock_units": 540,
+      "dimensions_m": [
+        3.45,
+        0.44,
+        1.76
+      ]
+    },
+    {
+      "id": "right_wall",
+      "stock_units": 255,
+      "dimensions_m": [
+        2.1,
+        0.36,
+        1.65
+      ]
+    },
+    {
+      "id": "back_wall",
+      "stock_units": 462,
+      "dimensions_m": [
+        3.7,
+        0.36,
+        1.7
+      ]
+    },
+    {
+      "id": "left_endcap",
+      "stock_units": 115,
+      "dimensions_m": [
+        1.0,
+        0.38,
+        1.72
+      ]
+    },
+    {
+      "id": "drinks_near",
+      "stock_units": 466,
+      "dimensions_m": [
+        2.4,
+        0.64,
+        1.42
+      ]
+    },
+    {
+      "id": "drinks_far",
+      "stock_units": 302,
+      "dimensions_m": [
+        1.5,
+        0.64,
+        1.42
+      ]
+    },
+    {
+      "id": "household_back",
+      "stock_units": 433,
+      "dimensions_m": [
+        3.5,
+        0.43,
+        1.75
+      ]
+    },
+    {
+      "id": "household_side",
+      "stock_units": 358,
+      "dimensions_m": [
+        2.05,
+        0.5,
+        1.65
+      ]
+    },
+    {
+      "id": "condiment_stools",
+      "stock_units": 145,
+      "dimensions_m": [
+        1.3,
+        0.4,
+        1.62
+      ]
+    },
+    {
+      "id": "checkout_wall_0",
+      "stock_units": 174,
+      "dimensions_m": [
+        1.28,
+        0.4,
+        2.05
+      ]
+    },
+    {
+      "id": "checkout_wall_1",
+      "stock_units": 174,
+      "dimensions_m": [
+        1.28,
+        0.4,
+        2.05
+      ]
+    },
+    {
+      "id": "checkout_wall_2",
+      "stock_units": 174,
+      "dimensions_m": [
+        1.28,
+        0.4,
+        2.05
+      ]
+    },
+    {
+      "id": "fridge_red",
+      "stock_units": 80,
+      "dimensions_m": [
+        0.75,
+        0.7,
+        2.05
+      ]
+    },
+    {
+      "id": "fridge_double",
+      "stock_units": 150,
+      "dimensions_m": [
+        1.25,
+        0.7,
+        2.08
+      ]
+    },
+    {
+      "id": "front_north_shelf_a",
+      "stock_units": 235,
+      "dimensions_m": [
+        1.8,
+        0.4,
+        1.65
+      ]
+    },
+    {
+      "id": "front_north_shelf_b",
+      "stock_units": 235,
+      "dimensions_m": [
+        1.8,
+        0.4,
+        1.65
+      ]
+    }
+  ],
+  "prepared_files_sha256": {
+    "scene.blend": "1adc6b0ccade905db567939e888a27c6a30cf6e86b5829cb5793dd144079eec1",
+    "scene_bundle.json": "3795c487da4583c516c74431193eee09f4793d68df1f5e98e9a958721b321307",
+    "initial_layout.json": "3019076a27a4a5a4fcd17a241fe0ef581c25fa9e5ed9c9d3731fb0f88dffb47d"
+  },
+  "geometry_build_count": 1,
+  "camera_dependent_geometry": false,
+  "photo_background_planes": 0,
+  "fixture_clearance": {
+    "passed": true,
+    "issues": [],
+    "fixture_count": 18,
+    "scope": "Declared floor fixture rectangles in XY; excludes merchandise, props and architectural segments."
+  },
+  "limitations": [
+    "No measured floor plan or surveyed scale.",
+    "Only six cameras have connected geometry evidence; front component and view_08 require visual review.",
+    "Small component links have 5 and 2 common tracks; reprojection error is not a layout accuracy score.",
+    "Package crops are fixed UV appearances, not an exact SKU inventory."
+  ],
+  "calibration": {
+    "method": "SuperPoint + LightGlue / COLMAP sparse components, manually anchored metric frame",
+    "rear_registered_views": 4,
+    "rear_reprojection_error_px": 1.04388,
+    "component_links": [
+      {
+        "tag": "reverse",
+        "anchor": "view_02.png",
+        "common_tracks": 5,
+        "scale_samples": [
+          0.24322522530444762,
+          0.24145737462215586,
+          0.25175981304109707,
+          0.2426837163570446,
+          0.2356048912755047
+        ]
+      },
+      {
+        "tag": "household",
+        "anchor": "view_10.png",
+        "common_tracks": 2,
+        "scale_samples": [
+          0.05908106308750366,
+          0.060206461893876136
+        ]
+      }
+    ],
+    "front_pose_assumption": "Front camera orientations adjusted against the checkout reference images; separate from connected six-view estimate.",
+    "metric_scale": "Rear endcap width 0.60m and top deck 1.32m are estimates",
+    "household_pose_note": "Sparse two-track alignment and fitted bucket-only cameras were rejected. The shared bin positions are constrained in view02; view04 is an explicitly reviewed pose. Fit failures retained in household_fit_v10.json."
+  }
+}

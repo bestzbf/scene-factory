@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "scene_id": "1646301141",
+  "config_sha256": "b07d0373f6688fefbc29eb18c2b05bb8d937de547e5d1125e109802bd1f6d642",
+  "geometry_build_count": 1,
+  "representation": "physical_meshes_with_fixed_object_uv",
+  "camera_dependent_geometry": false,
+  "visual_detail": {
+    "floor": {
+      "object": "Floor",
+      "color": [
+        0.44,
+        0.4,
+        0.3
+      ],
+      "size_m": 0.6,
+      "grout_m": 0.003,
+      "roughness": 0.29,
+      "grout_color": [
+        0.08,
+        0.085,
+        0.08
+      ],
+      "mapping": "world-space metric procedural tile joints"
+    },
+    "shelf_edges": [],
+    "entrance": null
+  },
+  "fixtures": [
+    {
+      "id": "tobacco_cabinet",
+      "kind": "tobacco",
+      "source_stock_components": 135,
+      "added_top_stock": 0,
+      "removed_faces": 2504,
+      "stock_units": 135,
+      "mesh": "RetailRefined_tobacco_cabinet"
+    },
+    {
+      "id": "drink_refrigerator_01",
+      "kind": "beverage",
+      "source_stock_components": 48,
+      "added_top_stock": 0,
+      "removed_faces": 1278,
+      "stock_units": 56,
+      "mesh": "RetailRefined_drink_refrigerator_01"
+    },
+    {
+      "id": "drink_refrigerator_02",
+      "kind": "beverage",
+      "source_stock_components": 45,
+      "added_top_stock": 0,
+      "removed_faces": 1216,
+      "stock_units": 54,
+      "mesh": "RetailRefined_drink_refrigerator_02"
+    },
+    {
+      "id": "entrance_snack_shelf",
+      "kind": "snack",
+      "source_stock_components": 39,
+      "added_top_stock": 0,
+      "removed_faces": 494,
+      "stock_units": 39,
+      "mesh": "RetailRefined_entrance_snack_shelf"
+    },
+    {
+      "id": "right_wall_shelf_01",
+      "kind": "mixed",
+      "source_stock_components": 206,
+      "added_top_stock": 0,
+      "removed_faces": 3044,
+      "stock_units": 206,
+      "mesh": "RetailRefined_right_wall_shelf_01"
+    },
+    {
+      "id": "right_wall_shelf_02",
+      "kind": "mixed",
+      "source_stock_components": 100,
+      "added_top_stock": 0,
+      "removed_faces": 1330,
+      "stock_units": 100,
+      "mesh": "RetailRefined_right_wall_shelf_02"
+    },
+    {
+      "id": "rear_grocery_shelf",
+      "kind": "snack",
+      "source_stock_components": 213,
+      "added_top_stock": 0,
+      "removed_faces": 3154,
+      "stock_units": 213,
+      "mesh": "RetailRefined_rear_grocery_shelf"
+    },
+    {
+      "id": "grocery_island",
+      "kind": "snack",
+      "source_stock_components": 182,
+      "added_top_stock": 0,
+      "removed_faces": 2834,
+      "stock_units": 182,
+      "mesh": "RetailRefined_grocery_island"
+    },
+    {
+      "id": "grocery_island_gift_01",
+      "kind": "gift",
+      "source_stock_components": 1,
+      "added_top_stock": 0,
+      "removed_faces": 12,
+      "stock_units": 3,
+      "mesh": "RetailRefined_grocery_island_gift_01"
+    },
+    {
+      "id": "grocery_island_carton_02",
+      "kind": "snack",
+      "source_stock_components": 1,
+      "added_top_stock": 0,
+      "removed_faces": 12,
+      "stock_units": 4,
+      "mesh": "RetailRefined_grocery_island_carton_02"
+    },
+    {
+      "id": "grocery_island_gift_02",
+      "kind": "gift",
+      "source_stock_components": 1,
+      "added_top_stock": 0,
+      "removed_faces": 12,
+      "stock_units": 3,
+      "mesh": "RetailRefined_grocery_island_gift_02"
+    }
+  ],
+  "skipped": [
+    {
+      "id": "gift_shelf_01",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "gift_shelf_02",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "gift_shelf_03",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "gift_shelf_04",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_01",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_02",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "divider_grocery_shelf",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_household_shelf",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_storage_tree",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "orange_stem_vase",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_gift_01",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_gift_02",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_bottle_01",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_bottle_02",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_bottle_03",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_bottle_04",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_tissue_01",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_tissue_02",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_bottle_05",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_bottle_06",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "main_display_bottle_07",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_a1",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_a2",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_a3",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_a4",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_b1",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_b2",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_b3",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_blue_jug_01",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_c1",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_c2",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_blue_jug_02",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_d1",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_d2",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_d3",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_e1",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_e2",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_e3",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_f1",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_carton_f2",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_open_carton",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_loose_gift_box",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_floor_jug_01",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_floor_jug_02",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_floor_jug_03",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_low_crate",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    },
+    {
+      "id": "rear_cleaning_container",
+      "reason": "No matching Blender root; expanded instances require explicit IDs"
+    }
+  ],
+  "fixture_dimensions": [],
+  "moves": [],
+  "layout_clearance": {
+    "status": "passed",
+    "tested_fixtures": [],
+    "issues": [],
+    "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+  },
+  "stock_units": 995,
+  "limitations": [
+    "Heuristic product categories and generic packaging; not recovered SKU identity.",
+    "Unreviewed layout and cameras remain estimates. No measured geometry accuracy claim."
+  ],
+  "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v5_geometry/1646301141",
+  "device": "METAL",
+  "views": [
+    {
+      "id": "view_01",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_01.png",
+      "seconds": 32.182
+    },
+    {
+      "id": "view_02",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_02.png",
+      "seconds": 33.67
+    },
+    {
+      "id": "view_03",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_03.png",
+      "seconds": 38.981
+    },
+    {
+      "id": "view_04",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_04.png",
+      "seconds": 35.141
+    },
+    {
+      "id": "view_05",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_05.png",
+      "seconds": 33.439
+    },
+    {
+      "id": "view_06",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_06.png",
+      "seconds": 32.211
+    },
+    {
+      "id": "view_07",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_07.png",
+      "seconds": 39.516
+    },
+    {
+      "id": "view_08",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1646301141/rgb_view_08.png",
+      "seconds": 30.034
+    }
+  ],
+  "settings": {
+    "edge": 1920,
+    "samples": 256
+  }
+}

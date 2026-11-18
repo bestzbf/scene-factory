@@ -1,0 +1,7 @@
+{
+  "mode": "procedural_generic_shipping_print",
+  "seed": 17,
+  "kraft_faces": 5,
+  "coloured_case_faces": 4,
+  "limitations": "Generic carton print, not recovered photographed product packaging."
+}

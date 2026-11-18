@@ -1,0 +1,7 @@
+{
+  "file": "calligraphy.png",
+  "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+  "source_kind": "inherited reference header crop",
+  "exact_roi_recorded": false,
+  "limitation": "Earlier experiment did not retain exact crop coordinates."
+}

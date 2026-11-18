@@ -1,0 +1,104 @@
+{
+  "shop": "1646301141",
+  "geometry": {
+    "gift_front": -2.66,
+    "gift_end": 10.443665440761732,
+    "gift_height": 2.320573051085325,
+    "gift_mid": 7.3876523815403905,
+    "island_center": -0.8900000000000008,
+    "island_near": 5.99,
+    "island_end": 9.659348470333489,
+    "divider_front": 0.82,
+    "divider_near": 5.2,
+    "divider_end": 10.1,
+    "divider_height": 2.12,
+    "plant_position": [
+      -0.75,
+      10.65
+    ]
+  },
+  "cameras": {
+    "view_01": {
+      "position": [
+        -0.7596363358920912,
+        3.9951537099497187,
+        2.5434569193659695
+      ],
+      "target": [
+        -1.4785751385864758,
+        8.448364779804901,
+        0.38659851759277375
+      ],
+      "lens_mm": 20.686097095022646,
+      "roll_degrees": -4.591941940074524
+    },
+    "view_08": {
+      "position": [
+        -0.4,
+        12.45,
+        2.75
+      ],
+      "target": [
+        -3.2678821817552297,
+        8.35423977855504,
+        -1.1564281325335877
+      ],
+      "lens_mm": 18,
+      "roll_degrees": 3
+    }
+  },
+  "limitations": "Scene-specific manual correspondences, dimensions and surfaces; neither camera nor scale independently calibrated.",
+  "exposure_offset": 0,
+  "view_transform": "Standard",
+  "exposure": 0,
+  "illumination_factor": 0.25,
+  "surface_detail": false,
+  "detail_texture_dir": "textures",
+  "tea_table_y": 3.8,
+  "light_energy_factors": {
+    "ceiling_strip": 0.43,
+    "entrance_daylight": 0.25,
+    "rear_window_daylight": 0.08
+  },
+  "world_strength": 0.2,
+  "fill_lights": [
+    {
+      "position": [
+        -0.6,
+        4.6,
+        2.55
+      ],
+      "target": [
+        -1.4,
+        8.0,
+        1.1
+      ],
+      "energy": 42,
+      "size": 2.0,
+      "color": [
+        0.94,
+        0.97,
+        1.0
+      ]
+    },
+    {
+      "position": [
+        0.0,
+        12.18,
+        2.7
+      ],
+      "target": [
+        -1.9,
+        11.4,
+        1.1
+      ],
+      "energy": 45,
+      "size": 1.6,
+      "color": [
+        0.94,
+        0.97,
+        1.0
+      ]
+    }
+  ]
+}

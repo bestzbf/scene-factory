@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scope": "Independent-build shared mesh/world-transform digest; no PNG-byte or measured-geometry claim.",
+  "left": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_shop166_v4_20261105/replay_final/renders",
+  "right": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_shop166_v4_20261105/independent",
+  "shops": {
+    "1660108397": {
+      "passed": true,
+      "checks": {
+        "both_runs_passed": true,
+        "effective_settings_identical": true,
+        "source_identical": true,
+        "views_identical": true,
+        "geometry_identical": true,
+        "stock_count_identical": true
+      },
+      "geometry_sha256": "3fa22e7a5e0dc092bbc0442a30420f038d9f82440f1d693556b2d87ab24aa7f8"
+    }
+  }
+}

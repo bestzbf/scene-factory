@@ -1,0 +1,42 @@
+{
+  "source": "/Users/binfengzou/Documents/\u5efa\u6a21\u751f\u6210\u573a\u666f\u6570\u636e\u96c6/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+  "quads_px": {
+    "gold_gift": [
+      [
+        334,
+        127
+      ],
+      [
+        353,
+        121
+      ],
+      [
+        376,
+        185
+      ],
+      [
+        355,
+        195
+      ]
+    ],
+    "brown_gift": [
+      [
+        254,
+        354
+      ],
+      [
+        280,
+        335
+      ],
+      [
+        310,
+        379
+      ],
+      [
+        280,
+        399
+      ]
+    ]
+  },
+  "reason": "Replace old crops which sampled empty cabinet backing rather than product faces."
+}

@@ -1,0 +1,636 @@
+{
+  "scope": "Gradient correlation/direction against photographs; not a geometry-accuracy metric. Declines are retained.",
+  "scenes": {
+    "1630174803": {
+      "views": 10,
+      "structural_before": 0.042364761867775165,
+      "structural_after": 0.036385964272393725,
+      "improved_views": 4,
+      "stock_units": 2752,
+      "added_top_stock": 127,
+      "moved_groups": 6,
+      "verification": {
+        "finite_mesh_coordinates": true,
+        "geometry_build_count": 1,
+        "camera_dependent_geometry": false,
+        "packed_file_images": 84,
+        "checked_cameras": [
+          "view_01",
+          "view_02",
+          "view_03",
+          "view_04",
+          "view_05",
+          "view_06",
+          "view_07",
+          "view_08",
+          "view_09",
+          "view_10"
+        ],
+        "stock_units": 2752,
+        "geometry_sha256_before_views": "a25cecd7d7984d96d08fc4d4d2a025aa4e797cce7c997d84f8d3c45ccf18700c",
+        "geometry_sha256_after_views": "a25cecd7d7984d96d08fc4d4d2a025aa4e797cce7c997d84f8d3c45ccf18700c",
+        "shared_geometry_unchanged_across_views": true,
+        "source_cameras_preserved": true,
+        "layout_clearance": {
+          "status": "passed",
+          "tested_fixtures": [
+            "gondola_left_01",
+            "gondola_left_02",
+            "gondola_left_03",
+            "gondola_left_04",
+            "gondola_right_01",
+            "gondola_right_02",
+            "gondola_right_03",
+            "gondola_right_04",
+            "left_front_endcap",
+            "left_rear_endcap",
+            "rear_shelf_01",
+            "rear_shelf_02",
+            "rear_shelf_03",
+            "rear_shelf_04",
+            "rear_shelf_05",
+            "right_front_endcap",
+            "right_rear_endcap",
+            "right_wall_01",
+            "right_wall_02",
+            "right_wall_03",
+            "right_wall_04",
+            "right_wall_05",
+            "right_wall_06"
+          ],
+          "issues": [],
+          "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+        },
+        "passed": true
+      },
+      "appearance": {
+        "lum_err": {
+          "before": 11.321,
+          "after": 11.008
+        },
+        "sat_err": {
+          "before": 0.07443,
+          "after": 0.06335
+        },
+        "ssim": {
+          "before": 0.07153999999999999,
+          "after": 0.059789999999999996
+        }
+      }
+    },
+    "1646301141": {
+      "views": 8,
+      "structural_before": 0.0397803051026285,
+      "structural_after": 0.03978297156611896,
+      "improved_views": 4,
+      "stock_units": 995,
+      "added_top_stock": 0,
+      "moved_groups": 0,
+      "verification": {
+        "finite_mesh_coordinates": true,
+        "geometry_build_count": 1,
+        "camera_dependent_geometry": false,
+        "packed_file_images": 147,
+        "checked_cameras": [
+          "view_01",
+          "view_02",
+          "view_03",
+          "view_04",
+          "view_05",
+          "view_06",
+          "view_07",
+          "view_08"
+        ],
+        "stock_units": 995,
+        "geometry_sha256_before_views": "afe5fdbfb19941018c877e6f67fe196f09d3faf0a6797ef7261ee0cc81470c1c",
+        "geometry_sha256_after_views": "afe5fdbfb19941018c877e6f67fe196f09d3faf0a6797ef7261ee0cc81470c1c",
+        "shared_geometry_unchanged_across_views": true,
+        "source_cameras_preserved": true,
+        "layout_clearance": {
+          "status": "passed",
+          "tested_fixtures": [],
+          "issues": [],
+          "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+        },
+        "passed": true
+      },
+      "appearance": {
+        "lum_err": {
+          "before": 37.277499999999996,
+          "after": 37.277499999999996
+        },
+        "sat_err": {
+          "before": 0.07635,
+          "after": 0.07635
+        },
+        "ssim": {
+          "before": 0.1076,
+          "after": 0.1076
+        }
+      }
+    },
+    "1649397835": {
+      "views": 12,
+      "structural_before": 0.017220090717738657,
+      "structural_after": 0.02110184089716356,
+      "improved_views": 6,
+      "stock_units": 3400,
+      "added_top_stock": 92,
+      "moved_groups": 0,
+      "verification": {
+        "finite_mesh_coordinates": true,
+        "geometry_build_count": 1,
+        "camera_dependent_geometry": false,
+        "packed_file_images": 88,
+        "checked_cameras": [
+          "view_01",
+          "view_02",
+          "view_03",
+          "view_04",
+          "view_05",
+          "view_06",
+          "view_07",
+          "view_08",
+          "view_09",
+          "view_10",
+          "view_11",
+          "view_12"
+        ],
+        "stock_units": 3400,
+        "geometry_sha256_before_views": "a7fef24defc0da48b53dbe0b8ceb2f5c91f1494da8b82f906f17dbcb9c1c505a",
+        "geometry_sha256_after_views": "a7fef24defc0da48b53dbe0b8ceb2f5c91f1494da8b82f906f17dbcb9c1c505a",
+        "shared_geometry_unchanged_across_views": true,
+        "source_cameras_preserved": true,
+        "layout_clearance": {
+          "status": "passed",
+          "tested_fixtures": [
+            "checkout_01",
+            "checkout_back_shelf",
+            "freezer_left_02",
+            "freezer_right_02",
+            "freezer_right_03",
+            "front_left_wall_shelf",
+            "front_right_wall_shelf",
+            "front_toy_shelf",
+            "narrow_front_gondola",
+            "rear_household_wall_shelf",
+            "rear_sauce_wall_shelf",
+            "snack_island_front",
+            "snack_island_middle",
+            "snack_island_rear",
+            "stockroom_end_rack",
+            "stockroom_left_rack",
+            "stockroom_right_rack"
+          ],
+          "issues": [],
+          "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+        },
+        "passed": true
+      },
+      "appearance": {
+        "lum_err": {
+          "before": 19.411666666666665,
+          "after": 19.150833333333335
+        },
+        "sat_err": {
+          "before": 0.1004,
+          "after": 0.10301666666666666
+        },
+        "ssim": {
+          "before": 0.035008333333333336,
+          "after": 0.046125
+        }
+      }
+    },
+    "1654871827": {
+      "views": 3,
+      "structural_before": 0.10471812230550354,
+      "structural_after": 0.10471834975842582,
+      "improved_views": 1,
+      "stock_units": 2202,
+      "added_top_stock": 166,
+      "moved_groups": 3,
+      "verification": {
+        "finite_mesh_coordinates": true,
+        "geometry_build_count": 1,
+        "camera_dependent_geometry": false,
+        "packed_file_images": 31,
+        "checked_cameras": [
+          "view_01",
+          "view_02",
+          "view_03"
+        ],
+        "stock_units": 2202,
+        "geometry_sha256_before_views": "1188d7e438072563633489a4b9228fe99f4884e4023129a01c79a19de7ae0a1d",
+        "geometry_sha256_after_views": "1188d7e438072563633489a4b9228fe99f4884e4023129a01c79a19de7ae0a1d",
+        "shared_geometry_unchanged_across_views": true,
+        "source_cameras_preserved": true,
+        "layout_clearance": {
+          "status": "passed",
+          "tested_fixtures": [
+            "central_gondola",
+            "gondola_front_end",
+            "gondola_rear_end"
+          ],
+          "issues": [],
+          "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+        },
+        "passed": true
+      },
+      "appearance": {
+        "lum_err": {
+          "before": 23.57,
+          "after": 23.57
+        },
+        "sat_err": {
+          "before": 0.0078,
+          "after": 0.0078
+        },
+        "ssim": {
+          "before": 0.1745,
+          "after": 0.17446666666666666
+        }
+      }
+    },
+    "1660108397": {
+      "views": 10,
+      "structural_before": 0.022460219056643003,
+      "structural_after": 0.01466075427370722,
+      "improved_views": 4,
+      "stock_units": 3097,
+      "added_top_stock": 299,
+      "moved_groups": 4,
+      "verification": {
+        "finite_mesh_coordinates": true,
+        "geometry_build_count": 1,
+        "camera_dependent_geometry": false,
+        "packed_file_images": 98,
+        "checked_cameras": [
+          "view_01",
+          "view_02",
+          "view_03",
+          "view_04",
+          "view_05",
+          "view_06",
+          "view_07",
+          "view_08",
+          "view_09",
+          "view_10"
+        ],
+        "stock_units": 3097,
+        "geometry_sha256_before_views": "1c8370d97ab3249ff7e15e934a96d213490cc5b05f5179cf4d95162108846077",
+        "geometry_sha256_after_views": "1c8370d97ab3249ff7e15e934a96d213490cc5b05f5179cf4d95162108846077",
+        "shared_geometry_unchanged_across_views": true,
+        "source_cameras_preserved": true,
+        "layout_clearance": {
+          "status": "passed",
+          "tested_fixtures": [
+            "back_household_shelf",
+            "back_left_household_shelf",
+            "back_right_household_shelf",
+            "beverage_gondola_01",
+            "beverage_gondola_02",
+            "checkout_01",
+            "checkout_02",
+            "freezer_red",
+            "front_checkout_shelf",
+            "front_liquor_shelf",
+            "left_front_shelf",
+            "left_middle_shelf",
+            "left_rear_shelf_01",
+            "left_rear_shelf_02",
+            "left_rear_shelf_03",
+            "right_condiment_shelf",
+            "right_rear_shelf_01",
+            "right_rear_shelf_02",
+            "snack_gondola_left_01",
+            "snack_gondola_left_02",
+            "snack_gondola_right_01",
+            "snack_gondola_right_02"
+          ],
+          "issues": [],
+          "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+        },
+        "passed": true
+      },
+      "appearance": {
+        "lum_err": {
+          "before": 13.682,
+          "after": 14.643
+        },
+        "sat_err": {
+          "before": 0.05165,
+          "after": 0.05983
+        },
+        "ssim": {
+          "before": 0.00816,
+          "after": -0.0008300000000000002
+        }
+      }
+    }
+  },
+  "views": [
+    {
+      "scene_id": "1630174803",
+      "view": "view_01",
+      "before": 0.004291459697776532,
+      "after": 0.0017895963705600558,
+      "delta": -0.002501863327216476
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_02",
+      "before": 0.03740325783427982,
+      "after": 0.049797837522650656,
+      "delta": 0.012394579688370835
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_03",
+      "before": 0.08822956611937509,
+      "after": 0.0275064708845935,
+      "delta": -0.06072309523478159
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_04",
+      "before": -0.027375601725349783,
+      "after": -0.021698294411077602,
+      "delta": 0.005677307314272181
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_05",
+      "before": 0.1525562920588485,
+      "after": 0.15253404782252045,
+      "delta": -2.2244236328045064e-05
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_06",
+      "before": 0.02359272513752664,
+      "after": 0.00032561643260407835,
+      "delta": -0.023267108704922563
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_07",
+      "before": 0.009344942591407302,
+      "after": 0.026555775475664577,
+      "delta": 0.017210832884257274
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_08",
+      "before": 0.08415033894670793,
+      "after": 0.07528998073793305,
+      "delta": -0.008860358208774871
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_09",
+      "before": 0.047339751042403025,
+      "after": 0.039415265783186354,
+      "delta": -0.007924485259216671
+    },
+    {
+      "scene_id": "1630174803",
+      "view": "view_10",
+      "before": 0.00411488697477661,
+      "after": 0.012343346105302152,
+      "delta": 0.008228459130525542
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_01",
+      "before": 0.14911928936803776,
+      "after": 0.14911923704655533,
+      "delta": -5.2321482424400045e-08
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_02",
+      "before": -0.02586104257667826,
+      "after": -0.025862001307167103,
+      "delta": -9.587304888418469e-07
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_03",
+      "before": -0.014959708119016483,
+      "after": -0.014958636336327578,
+      "delta": 1.0717826889050652e-06
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_04",
+      "before": -0.03139661526949069,
+      "after": -0.03139444911871696,
+      "delta": 2.1661507737316676e-06
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_05",
+      "before": 0.05112320189977872,
+      "after": 0.051139489284851555,
+      "delta": 1.6287385072838445e-05
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_06",
+      "before": 0.06298848128186393,
+      "after": 0.06299859635356791,
+      "delta": 1.0115071703981071e-05
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_07",
+      "before": 0.048215911156225935,
+      "after": 0.048214574393430375,
+      "delta": -1.3367627955604422e-06
+    },
+    {
+      "scene_id": "1646301141",
+      "view": "view_08",
+      "before": 0.07901292308030705,
+      "after": 0.07900696221275812,
+      "delta": -5.960867548934767e-06
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_01",
+      "before": 0.016447028638914958,
+      "after": 0.03936252053639919,
+      "delta": 0.02291549189748423
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_02",
+      "before": 0.014818264481517893,
+      "after": 0.04459672487323675,
+      "delta": 0.02977846039171886
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_03",
+      "before": 0.04771285356471962,
+      "after": 0.04362297554607221,
+      "delta": -0.004089878018647408
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_04",
+      "before": -0.017911520347848785,
+      "after": -0.021522599812695248,
+      "delta": -0.003611079464846463
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_05",
+      "before": 0.010120471194510839,
+      "after": 0.027830468855857972,
+      "delta": 0.017709997661347135
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_06",
+      "before": 0.02851952912503392,
+      "after": 0.04067963697257533,
+      "delta": 0.012160107847541412
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_07",
+      "before": 0.014939791483425799,
+      "after": 0.008873699940926684,
+      "delta": -0.006066091542499114
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_08",
+      "before": 0.040030485086237966,
+      "after": 0.029482711956631776,
+      "delta": -0.01054777312960619
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_09",
+      "before": 0.005282199676295786,
+      "after": 0.01433765640325927,
+      "delta": 0.009055456726963484
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_10",
+      "before": 0.023939603925130434,
+      "after": 0.015412634805673349,
+      "delta": -0.008526969119457085
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_11",
+      "before": 0.0009490721946808466,
+      "after": 0.01101126852340963,
+      "delta": 0.010062196328728783
+    },
+    {
+      "scene_id": "1649397835",
+      "view": "view_12",
+      "before": 0.021793309590244603,
+      "after": -0.0004656078353842113,
+      "delta": -0.022258917425628813
+    },
+    {
+      "scene_id": "1654871827",
+      "view": "view_01",
+      "before": 0.13014745419679458,
+      "after": 0.13015363417231318,
+      "delta": 6.179975518605385e-06
+    },
+    {
+      "scene_id": "1654871827",
+      "view": "view_02",
+      "before": 0.05647860423685902,
+      "after": 0.056477773946608835,
+      "delta": -8.302902501852727e-07
+    },
+    {
+      "scene_id": "1654871827",
+      "view": "view_03",
+      "before": 0.127528308482857,
+      "after": 0.12752364115635545,
+      "delta": -4.667326501561764e-06
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_01",
+      "before": -0.000805601737109805,
+      "after": -0.013295807275893483,
+      "delta": -0.012490205538783678
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_02",
+      "before": 0.040151553565032555,
+      "after": 0.0026285106093204592,
+      "delta": -0.0375230429557121
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_03",
+      "before": -0.05267337766426063,
+      "after": -0.043607800878790424,
+      "delta": 0.009065576785470209
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_04",
+      "before": 0.09777031279777446,
+      "after": 0.06924937822398122,
+      "delta": -0.028520934573793233
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_05",
+      "before": -0.003015806635307508,
+      "after": 0.005897734659472925,
+      "delta": 0.008913541294780433
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_06",
+      "before": 0.061051946542689264,
+      "after": 0.05573578366338419,
+      "delta": -0.0053161628793050725
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_07",
+      "before": 0.009057214776145094,
+      "after": -0.01259221033788516,
+      "delta": -0.021649425114030254
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_08",
+      "before": 0.03673036519918167,
+      "after": 0.012138277727227777,
+      "delta": -0.024592087471953895
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_09",
+      "before": -0.026790985851045748,
+      "after": -0.016937180343340505,
+      "delta": 0.009853805507705243
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_10",
+      "before": 0.06312656957333067,
+      "after": 0.08739085668959519,
+      "delta": 0.02426428711626452
+    }
+  ],
+  "baseline": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_visual_v2_20261105/final_1920"
+}

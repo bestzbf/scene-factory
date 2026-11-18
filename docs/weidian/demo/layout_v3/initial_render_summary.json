@@ -1,0 +1,37 @@
+{
+  "1630174803": {
+    "status": "complete",
+    "resumed": false,
+    "views": 10,
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1630174803",
+    "seconds": 346.7
+  },
+  "1646301141": {
+    "status": "complete",
+    "resumed": false,
+    "views": 8,
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v5_geometry/1646301141",
+    "seconds": 276.9
+  },
+  "1649397835": {
+    "status": "complete",
+    "resumed": false,
+    "views": 12,
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1649397835",
+    "seconds": 459.2
+  },
+  "1654871827": {
+    "status": "complete",
+    "resumed": false,
+    "views": 3,
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1654871827",
+    "seconds": 105.6
+  },
+  "1660108397": {
+    "status": "complete",
+    "resumed": false,
+    "views": 10,
+    "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1660108397",
+    "seconds": 345.4
+  }
+}

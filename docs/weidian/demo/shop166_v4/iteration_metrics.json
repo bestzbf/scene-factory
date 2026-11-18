@@ -1,0 +1,145 @@
+{
+  "scope": "Gradient correlation/direction against photographs; not a geometry-accuracy metric. Declines are retained.",
+  "scenes": {
+    "1660108397": {
+      "views": 10,
+      "structural_before": 0.01466075427370722,
+      "structural_after": 0.013313655334025053,
+      "improved_views": 4,
+      "stock_units": 1321,
+      "added_top_stock": 0,
+      "moved_groups": 0,
+      "verification": {
+        "finite_mesh_coordinates": true,
+        "geometry_build_count": 1,
+        "camera_dependent_geometry": false,
+        "packed_file_images": 98,
+        "checked_cameras": [
+          "view_01",
+          "view_02",
+          "view_03",
+          "view_04",
+          "view_05",
+          "view_06",
+          "view_07",
+          "view_08",
+          "view_09",
+          "view_10"
+        ],
+        "stock_units": 1321,
+        "geometry_sha256_before_views": "3fa22e7a5e0dc092bbc0442a30420f038d9f82440f1d693556b2d87ab24aa7f8",
+        "geometry_sha256_after_views": "3fa22e7a5e0dc092bbc0442a30420f038d9f82440f1d693556b2d87ab24aa7f8",
+        "shared_geometry_unchanged_across_views": true,
+        "source_cameras_preserved": true,
+        "layout_clearance": {
+          "status": "passed",
+          "tested_fixtures": [
+            "checkout_01",
+            "checkout_02",
+            "freezer_red",
+            "front_checkout_shelf",
+            "front_liquor_shelf",
+            "left_front_shelf",
+            "left_middle_shelf",
+            "left_rear_shelf_01",
+            "left_rear_shelf_02",
+            "left_rear_shelf_03",
+            "right_condiment_shelf",
+            "right_rear_shelf_01",
+            "right_rear_shelf_02"
+          ],
+          "issues": [],
+          "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+        },
+        "passed": true
+      },
+      "appearance": {
+        "lum_err": {
+          "before": 14.643,
+          "after": 17.397
+        },
+        "sat_err": {
+          "before": 0.05983,
+          "after": 0.09731000000000001
+        },
+        "ssim": {
+          "before": -0.0008300000000000002,
+          "after": 0.027389999999999998
+        }
+      }
+    }
+  },
+  "views": [
+    {
+      "scene_id": "1660108397",
+      "view": "view_01",
+      "before": -0.013295807275893483,
+      "after": 0.024893415631501672,
+      "delta": 0.038189222907395154
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_02",
+      "before": 0.0026285106093204592,
+      "after": 0.0017130586119581343,
+      "delta": -0.000915451997362325
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_03",
+      "before": -0.043607800878790424,
+      "after": 0.04713092171038529,
+      "delta": 0.09073872258917572
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_04",
+      "before": 0.06924937822398122,
+      "after": 0.05528745495893859,
+      "delta": -0.013961923265042635
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_05",
+      "before": 0.005897734659472925,
+      "after": -0.039278601270338775,
+      "delta": -0.0451763359298117
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_06",
+      "before": 0.05573578366338419,
+      "after": -0.03624523992215275,
+      "delta": -0.09198102358553695
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_07",
+      "before": -0.01259221033788516,
+      "after": 0.05273044059315352,
+      "delta": 0.06532265093103869
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_08",
+      "before": 0.012138277727227777,
+      "after": 0.009827062244771485,
+      "delta": -0.002311215482456292
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_09",
+      "before": -0.016937180343340505,
+      "after": 0.04539801158701662,
+      "delta": 0.06233519193035712
+    },
+    {
+      "scene_id": "1660108397",
+      "view": "view_10",
+      "before": 0.08739085668959519,
+      "after": -0.028319970804983257,
+      "delta": -0.11571082749457845
+    }
+  ],
+  "baseline": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final"
+}

@@ -1,0 +1,42 @@
+{
+  "scene_id": "1660108397",
+  "status": "needs_review",
+  "components": [
+    {
+      "id": 0,
+      "views": [
+        "view_01",
+        "view_02",
+        "view_07",
+        "view_10"
+      ],
+      "points": 545,
+      "mean_reprojection_error_px": 1.042299395417786,
+      "mean_track_length": 2.638532110091743
+    },
+    {
+      "id": 1,
+      "views": [
+        "view_03",
+        "view_05",
+        "view_06"
+      ],
+      "points": 302,
+      "mean_reprojection_error_px": 1.4446326129918075,
+      "mean_track_length": 2.4735099337748343
+    }
+  ],
+  "unregistered_views": [
+    "view_04",
+    "view_08",
+    "view_09"
+  ],
+  "all_views_in_one_component": false,
+  "metric_scale_known": false,
+  "limits": [
+    "Reprojection residuals measure sparse fitting, not reference layout fidelity.",
+    "Disconnected components must not be treated as a shared scene without reviewed alignment.",
+    "Room dimensions, fixtures and scale require reviewed evidence."
+  ],
+  "pycolmap_version": "4.2.1"
+}

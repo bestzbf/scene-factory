@@ -208,6 +208,9 @@ python3 tools/batch/render_offline.py runs/full assets/NEW_LIBRARY/library/asset
 4. [零售资产与离线验证](docs/weidian/04_零售资产与离线验证.md)
 5. [新资产库试点与离线重跑](docs/weidian/05_新资产库试点与离线重跑.md)
 6. [项目全流程与实现思路](docs/weidian/06_项目全流程.md)
+7. [批量场景生产程序介绍与 5 店 Demo 复现](docs/weidian/11_批量场景生产程序介绍.md)
+8. [1660108397 转向布局与收银区重建、v11 批量复现](docs/weidian/15_1660108397转向布局重建与复现.md)
+9. [本地 Codex 自动批量生产架构与质量分流](docs/weidian/16_自动批量生产架构.md)
 
 ## 输出与验收
 

@@ -1,0 +1,77 @@
+{
+  "scope": "Blurred gradient correlation/direction against photographs; not measured geometry accuracy. All views retained.",
+  "labels": {
+    "baseline": "早期 v4",
+    "current": "本轮 v11",
+    "previous": "上一轮 v10"
+  },
+  "means": {
+    "baseline": 0.013313655334025053,
+    "current": 0.107664951083257,
+    "previous": 0.06768456100634469
+  },
+  "improved_vs_baseline": 10,
+  "views": [
+    {
+      "view": "view_01",
+      "baseline": 0.024893415631501672,
+      "current": 0.06032475651985427,
+      "previous": 0.059980920860461195
+    },
+    {
+      "view": "view_02",
+      "baseline": 0.0017130586119581343,
+      "current": 0.1538178594705038,
+      "previous": 0.1493738398810573
+    },
+    {
+      "view": "view_03",
+      "baseline": 0.04713092171038529,
+      "current": 0.14774977936299377,
+      "previous": 0.05128099588324673
+    },
+    {
+      "view": "view_04",
+      "baseline": 0.05528745495893859,
+      "current": 0.11494937262491353,
+      "previous": 0.11554656009840052
+    },
+    {
+      "view": "view_05",
+      "baseline": -0.039278601270338775,
+      "current": 0.03335363173492348,
+      "previous": 0.03456907871128062
+    },
+    {
+      "view": "view_06",
+      "baseline": -0.03624523992215275,
+      "current": 0.09114732897057726,
+      "previous": 0.04695978143110756
+    },
+    {
+      "view": "view_07",
+      "baseline": 0.05273044059315352,
+      "current": 0.08431255224068021,
+      "previous": 0.08428384522898953
+    },
+    {
+      "view": "view_08",
+      "baseline": 0.009827062244771485,
+      "current": 0.2326943020001187,
+      "previous": -0.014010248116670676
+    },
+    {
+      "view": "view_09",
+      "baseline": 0.04539801158701662,
+      "current": 0.08089826238655848,
+      "previous": 0.07246086094044883
+    },
+    {
+      "view": "view_10",
+      "baseline": -0.028319970804983257,
+      "current": 0.07740166552144648,
+      "previous": 0.07639997514512537
+    }
+  ],
+  "improved_vs_previous": 8
+}

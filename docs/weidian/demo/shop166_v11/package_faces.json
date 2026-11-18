@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "recipe_sha256": "a801c60c74062db4da97f0dea429d5a3e455abd8cf2e0eff02a1281bd48bfb96",
+  "base_atlas_sha256": "85cc853e360bcd9cbe242c6e84a607f92926fb94414f0375dab2d34d71313d99",
+  "output_sha256": "2eeaa2ca6704817b11a02cbe78a705657a2db3c7843ad5ed6559ccf1674e21da",
+  "faces": [
+    {
+      "tile": 48,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          568,
+          85
+        ],
+        [
+          635,
+          108
+        ],
+        [
+          639,
+          151
+        ],
+        [
+          573,
+          130
+        ]
+      ],
+      "image_sha256": "6dbdaecafa354cb3b688019b6366be79dd9f47fa668423f05a27c6a193750117"
+    },
+    {
+      "tile": 49,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          643,
+          121
+        ],
+        [
+          713,
+          145
+        ],
+        [
+          714,
+          193
+        ],
+        [
+          646,
+          169
+        ]
+      ],
+      "image_sha256": "6dbdaecafa354cb3b688019b6366be79dd9f47fa668423f05a27c6a193750117"
+    },
+    {
+      "tile": 50,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          724,
+          150
+        ],
+        [
+          810,
+          178
+        ],
+        [
+          807,
+          225
+        ],
+        [
+          724,
+          199
+        ]
+      ],
+      "image_sha256": "6dbdaecafa354cb3b688019b6366be79dd9f47fa668423f05a27c6a193750117"
+    },
+    {
+      "tile": 51,
+      "image": "view_08/reference.png",
+      "quad_px": [
+        [
+          824,
+          115
+        ],
+        [
+          940,
+          146
+        ],
+        [
+          936,
+          207
+        ],
+        [
+          821,
+          173
+        ]
+      ],
+      "image_sha256": "6dbdaecafa354cb3b688019b6366be79dd9f47fa668423f05a27c6a193750117"
+    }
+  ],
+  "usage": "Fixed UV texture of individual packages; no photo backgrounds",
+  "limitations": "Reviewed crop coordinates and approximate product dimensions; source blur and baked lighting remain."
+}

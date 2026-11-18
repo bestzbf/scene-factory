@@ -1,0 +1,27 @@
+{
+  "finite_mesh_coordinates": true,
+  "geometry_build_count": 1,
+  "camera_dependent_geometry": false,
+  "packed_file_images": 31,
+  "checked_cameras": [
+    "view_01",
+    "view_02",
+    "view_03"
+  ],
+  "stock_units": 2202,
+  "geometry_sha256_before_views": "1188d7e438072563633489a4b9228fe99f4884e4023129a01c79a19de7ae0a1d",
+  "geometry_sha256_after_views": "1188d7e438072563633489a4b9228fe99f4884e4023129a01c79a19de7ae0a1d",
+  "shared_geometry_unchanged_across_views": true,
+  "source_cameras_preserved": true,
+  "layout_clearance": {
+    "status": "passed",
+    "tested_fixtures": [
+      "central_gondola",
+      "gondola_front_end",
+      "gondola_rear_end"
+    ],
+    "issues": [],
+    "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+  },
+  "passed": true
+}

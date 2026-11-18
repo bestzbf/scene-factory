@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "shared_3d_scene": true,
+  "photo_projection_materials": 0,
+  "cameras_checked": [
+    "view_01",
+    "view_08"
+  ],
+  "meshes_with_finite_coordinates": 108,
+  "vertices": 300268,
+  "packed_file_images": 146,
+  "moved_table_support_group": [
+    "tea_cup_01",
+    "tea_cup_02",
+    "tea_cup_03",
+    "tea_kettle",
+    "tea_pitcher",
+    "tea_service_tray",
+    "tea_storage_jar_01",
+    "tea_storage_jar_02",
+    "tea_table",
+    "tea_water_bottle"
+  ]
+}

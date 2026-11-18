@@ -1,0 +1,722 @@
+{
+  "schema_version": 1,
+  "scene_id": "1660108397",
+  "config_sha256": "b07d0373f6688fefbc29eb18c2b05bb8d937de547e5d1125e109802bd1f6d642",
+  "geometry_build_count": 1,
+  "representation": "physical_meshes_with_fixed_object_uv",
+  "camera_dependent_geometry": false,
+  "visual_detail": {
+    "floor": {
+      "object": "Floor",
+      "color": [
+        0.38,
+        0.44,
+        0.39
+      ],
+      "size_m": 0.6,
+      "grout_m": 0.003,
+      "roughness": 0.29,
+      "grout_color": [
+        0.08,
+        0.085,
+        0.08
+      ],
+      "mapping": "world-space metric procedural tile joints"
+    },
+    "shelf_edges": [
+      {
+        "id": "left_front_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "left_middle_shelf",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": false
+      },
+      {
+        "id": "left_rear_shelf_01",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": false
+      },
+      {
+        "id": "left_rear_shelf_02",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "left_rear_shelf_03",
+        "levels": 5,
+        "segments": 10,
+        "wire_frame": false
+      },
+      {
+        "id": "right_rear_shelf_01",
+        "levels": 5,
+        "segments": 10,
+        "wire_frame": false
+      },
+      {
+        "id": "right_rear_shelf_02",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "beverage_gondola_01",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": false
+      },
+      {
+        "id": "beverage_gondola_02",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": false
+      },
+      {
+        "id": "snack_gondola_left_01",
+        "levels": 5,
+        "segments": 10,
+        "wire_frame": false
+      },
+      {
+        "id": "snack_gondola_left_02",
+        "levels": 5,
+        "segments": 10,
+        "wire_frame": false
+      },
+      {
+        "id": "snack_gondola_right_01",
+        "levels": 5,
+        "segments": 10,
+        "wire_frame": false
+      },
+      {
+        "id": "snack_gondola_right_02",
+        "levels": 5,
+        "segments": 10,
+        "wire_frame": false
+      },
+      {
+        "id": "front_liquor_shelf",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": false
+      },
+      {
+        "id": "front_tobacco_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "front_checkout_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "right_condiment_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "back_household_shelf",
+        "levels": 6,
+        "segments": 12,
+        "wire_frame": false
+      },
+      {
+        "id": "back_left_household_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      },
+      {
+        "id": "back_right_household_shelf",
+        "levels": 7,
+        "segments": 14,
+        "wire_frame": false
+      }
+    ],
+    "entrance": null
+  },
+  "fixtures": [
+    {
+      "id": "refrigerator_red",
+      "kind": "mixed",
+      "source_stock_components": 45,
+      "added_top_stock": 0,
+      "removed_faces": 1216,
+      "stock_units": 45,
+      "mesh": "RetailRefined_refrigerator_red"
+    },
+    {
+      "id": "refrigerator_double",
+      "kind": "mixed",
+      "source_stock_components": 83,
+      "added_top_stock": 0,
+      "removed_faces": 2218,
+      "stock_units": 83,
+      "mesh": "RetailRefined_refrigerator_double"
+    },
+    {
+      "id": "front_liquor_shelf",
+      "kind": "beverage",
+      "source_stock_components": 79,
+      "added_top_stock": 0,
+      "removed_faces": 1026,
+      "stock_units": 110,
+      "mesh": "RetailRefined_front_liquor_shelf"
+    },
+    {
+      "id": "front_tobacco_shelf",
+      "kind": "tobacco",
+      "source_stock_components": 65,
+      "added_top_stock": 0,
+      "removed_faces": 936,
+      "stock_units": 65,
+      "mesh": "RetailRefined_front_tobacco_shelf"
+    },
+    {
+      "id": "front_checkout_shelf",
+      "kind": "mixed",
+      "source_stock_components": 93,
+      "added_top_stock": 0,
+      "removed_faces": 1350,
+      "stock_units": 93,
+      "mesh": "RetailRefined_front_checkout_shelf"
+    },
+    {
+      "id": "left_front_shelf",
+      "kind": "snack",
+      "source_stock_components": 152,
+      "added_top_stock": 0,
+      "removed_faces": 2032,
+      "stock_units": 152,
+      "mesh": "RetailRefined_left_front_shelf"
+    },
+    {
+      "id": "left_middle_shelf",
+      "kind": "snack",
+      "source_stock_components": 100,
+      "added_top_stock": 15,
+      "removed_faces": 1382,
+      "stock_units": 115,
+      "mesh": "RetailRefined_left_middle_shelf"
+    },
+    {
+      "id": "left_rear_shelf_01",
+      "kind": "snack",
+      "source_stock_components": 125,
+      "added_top_stock": 0,
+      "removed_faces": 1734,
+      "stock_units": 125,
+      "mesh": "RetailRefined_left_rear_shelf_01"
+    },
+    {
+      "id": "left_rear_shelf_02",
+      "kind": "snack",
+      "source_stock_components": 169,
+      "added_top_stock": 48,
+      "removed_faces": 2548,
+      "stock_units": 217,
+      "mesh": "RetailRefined_left_rear_shelf_02"
+    },
+    {
+      "id": "left_rear_shelf_03",
+      "kind": "snack",
+      "source_stock_components": 58,
+      "added_top_stock": 9,
+      "removed_faces": 774,
+      "stock_units": 67,
+      "mesh": "RetailRefined_left_rear_shelf_03"
+    },
+    {
+      "id": "right_condiment_shelf",
+      "kind": "beverage",
+      "source_stock_components": 167,
+      "added_top_stock": 0,
+      "removed_faces": 2524,
+      "stock_units": 235,
+      "mesh": "RetailRefined_right_condiment_shelf"
+    },
+    {
+      "id": "right_rear_shelf_01",
+      "kind": "snack",
+      "source_stock_components": 82,
+      "added_top_stock": 0,
+      "removed_faces": 1244,
+      "stock_units": 82,
+      "mesh": "RetailRefined_right_rear_shelf_01"
+    },
+    {
+      "id": "right_rear_shelf_02",
+      "kind": "mixed",
+      "source_stock_components": 132,
+      "added_top_stock": 2,
+      "removed_faces": 1870,
+      "stock_units": 134,
+      "mesh": "RetailRefined_right_rear_shelf_02"
+    },
+    {
+      "id": "back_household_shelf",
+      "kind": "household",
+      "source_stock_components": 143,
+      "added_top_stock": 0,
+      "removed_faces": 2236,
+      "stock_units": 143,
+      "mesh": "RetailRefined_back_household_shelf"
+    },
+    {
+      "id": "back_left_household_shelf",
+      "kind": "household",
+      "source_stock_components": 125,
+      "added_top_stock": 0,
+      "removed_faces": 1994,
+      "stock_units": 125,
+      "mesh": "RetailRefined_back_left_household_shelf"
+    },
+    {
+      "id": "back_right_household_shelf",
+      "kind": "household",
+      "source_stock_components": 163,
+      "added_top_stock": 0,
+      "removed_faces": 2372,
+      "stock_units": 163,
+      "mesh": "RetailRefined_back_right_household_shelf"
+    },
+    {
+      "id": "beverage_gondola_01",
+      "kind": "beverage",
+      "source_stock_components": 198,
+      "added_top_stock": 42,
+      "removed_faces": 3546,
+      "stock_units": 303,
+      "mesh": "RetailRefined_beverage_gondola_01"
+    },
+    {
+      "id": "beverage_gondola_02",
+      "kind": "beverage",
+      "source_stock_components": 186,
+      "added_top_stock": 116,
+      "removed_faces": 3688,
+      "stock_units": 362,
+      "mesh": "RetailRefined_beverage_gondola_02"
+    },
+    {
+      "id": "snack_gondola_left_01",
+      "kind": "snack",
+      "source_stock_components": 117,
+      "added_top_stock": 4,
+      "removed_faces": 1820,
+      "stock_units": 121,
+      "mesh": "RetailRefined_snack_gondola_left_01"
+    },
+    {
+      "id": "snack_gondola_left_02",
+      "kind": "snack",
+      "source_stock_components": 93,
+      "added_top_stock": 24,
+      "removed_faces": 1766,
+      "stock_units": 117,
+      "mesh": "RetailRefined_snack_gondola_left_02"
+    },
+    {
+      "id": "snack_gondola_right_01",
+      "kind": "snack",
+      "source_stock_components": 117,
+      "added_top_stock": 0,
+      "removed_faces": 1820,
+      "stock_units": 117,
+      "mesh": "RetailRefined_snack_gondola_right_01"
+    },
+    {
+      "id": "snack_gondola_right_02",
+      "kind": "snack",
+      "source_stock_components": 84,
+      "added_top_stock": 39,
+      "removed_faces": 1502,
+      "stock_units": 123,
+      "mesh": "RetailRefined_snack_gondola_right_02"
+    }
+  ],
+  "skipped": [],
+  "fixture_dimensions": [
+    {
+      "id": "checkout_01",
+      "dimensions_m": [
+        1.2,
+        0.58,
+        0.87
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "checkout_02",
+      "dimensions_m": [
+        0.85,
+        0.58,
+        0.87
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "freezer_red",
+      "dimensions_m": [
+        1.03,
+        0.62,
+        0.86
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "front_liquor_shelf",
+      "dimensions_m": [
+        1.16,
+        0.4,
+        2.15
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "front_checkout_shelf",
+      "dimensions_m": [
+        0.83,
+        0.38,
+        2.13
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "left_front_shelf",
+      "dimensions_m": [
+        1.65,
+        0.42,
+        2.08
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "left_middle_shelf",
+      "dimensions_m": [
+        1.8,
+        0.43,
+        1.85
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "left_rear_shelf_01",
+      "dimensions_m": [
+        1.8,
+        0.43,
+        1.85
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "left_rear_shelf_02",
+      "dimensions_m": [
+        1.8,
+        0.43,
+        1.85
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "left_rear_shelf_03",
+      "dimensions_m": [
+        1.6,
+        0.43,
+        1.85
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "right_condiment_shelf",
+      "dimensions_m": [
+        2,
+        0.42,
+        1.85
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "right_rear_shelf_01",
+      "dimensions_m": [
+        1.75,
+        0.4,
+        1.85
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "right_rear_shelf_02",
+      "dimensions_m": [
+        1.75,
+        0.4,
+        1.85
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "back_household_shelf",
+      "dimensions_m": [
+        2.45,
+        0.42,
+        1.83
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "back_left_household_shelf",
+      "dimensions_m": [
+        1.5,
+        0.42,
+        1.83
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "back_right_household_shelf",
+      "dimensions_m": [
+        1.5,
+        0.42,
+        1.83
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "beverage_gondola_01",
+      "dimensions_m": [
+        1.8,
+        0.83,
+        1.3
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "beverage_gondola_02",
+      "dimensions_m": [
+        1.8,
+        0.83,
+        1.3
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "snack_gondola_left_01",
+      "dimensions_m": [
+        1.8,
+        0.78,
+        1.48
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "snack_gondola_left_02",
+      "dimensions_m": [
+        1.8,
+        0.78,
+        1.48
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "snack_gondola_right_01",
+      "dimensions_m": [
+        1.8,
+        0.76,
+        1.48
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    },
+    {
+      "id": "snack_gondola_right_02",
+      "dimensions_m": [
+        1.8,
+        0.76,
+        1.48
+      ],
+      "evidence": "Restore saved photo-interpretation target dimensions; asset selection introduced anisotropic dimension differences. Estimates, not survey measurements."
+    }
+  ],
+  "moves": [
+    {
+      "id": "beverage_gondola_01",
+      "support_group": [
+        "beverage_gondola_01",
+        "drink_bottle_01",
+        "drink_bottle_02",
+        "drink_bottle_03",
+        "drink_bottle_04",
+        "drink_bottle_05",
+        "drink_bottle_06",
+        "tissue_pack_01",
+        "tissue_pack_02"
+      ],
+      "source_omitted_ids": [],
+      "translation_m": [
+        -0.20000000298023224,
+        0.0,
+        0.0
+      ],
+      "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+    },
+    {
+      "id": "beverage_gondola_02",
+      "support_group": [
+        "beverage_gondola_02",
+        "drink_bottle_07",
+        "drink_bottle_08",
+        "drink_bottle_09",
+        "drink_can_01",
+        "drink_can_02",
+        "drink_can_03",
+        "drink_can_04",
+        "drink_can_05",
+        "drink_can_06",
+        "drink_can_07",
+        "drink_can_08"
+      ],
+      "source_omitted_ids": [],
+      "translation_m": [
+        -0.20000000298023224,
+        0.0,
+        0.0
+      ],
+      "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+    },
+    {
+      "id": "snack_gondola_left_01",
+      "support_group": [
+        "snack_gondola_left_01",
+        "snack_bag_01",
+        "snack_bag_02",
+        "snack_bag_03",
+        "snack_jar_01"
+      ],
+      "source_omitted_ids": [],
+      "translation_m": [
+        -0.20000000298023224,
+        0.0,
+        0.0
+      ],
+      "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+    },
+    {
+      "id": "snack_gondola_left_02",
+      "support_group": [
+        "snack_gondola_left_02",
+        "rear_bedding",
+        "snack_bag_04"
+      ],
+      "source_omitted_ids": [],
+      "translation_m": [
+        -0.20000000298023224,
+        0.0,
+        0.0
+      ],
+      "evidence": "Visual review of first and reverse references: left aisle is narrower than the baseline. Conservative estimated adjustment, not metric calibration."
+    }
+  ],
+  "layout_clearance": {
+    "status": "passed",
+    "tested_fixtures": [
+      "back_household_shelf",
+      "back_left_household_shelf",
+      "back_right_household_shelf",
+      "beverage_gondola_01",
+      "beverage_gondola_02",
+      "checkout_01",
+      "checkout_02",
+      "freezer_red",
+      "front_checkout_shelf",
+      "front_liquor_shelf",
+      "left_front_shelf",
+      "left_middle_shelf",
+      "left_rear_shelf_01",
+      "left_rear_shelf_02",
+      "left_rear_shelf_03",
+      "right_condiment_shelf",
+      "right_rear_shelf_01",
+      "right_rear_shelf_02",
+      "snack_gondola_left_01",
+      "snack_gondola_left_02",
+      "snack_gondola_right_01",
+      "snack_gondola_right_02"
+    ],
+    "issues": [],
+    "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+  },
+  "stock_units": 3097,
+  "limitations": [
+    "Heuristic product categories and generic packaging; not recovered SKU identity.",
+    "Unreviewed layout and cameras remain estimates. No measured geometry accuracy claim."
+  ],
+  "source": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v3/1660108397",
+  "device": "METAL",
+  "views": [
+    {
+      "id": "view_01",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_01.png",
+      "seconds": 34.077
+    },
+    {
+      "id": "view_02",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_02.png",
+      "seconds": 37.213
+    },
+    {
+      "id": "view_03",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_03.png",
+      "seconds": 31.483
+    },
+    {
+      "id": "view_04",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_04.png",
+      "seconds": 36.302
+    },
+    {
+      "id": "view_05",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_05.png",
+      "seconds": 29.104
+    },
+    {
+      "id": "view_06",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_06.png",
+      "seconds": 32.907
+    },
+    {
+      "id": "view_07",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_07.png",
+      "seconds": 35.22
+    },
+    {
+      "id": "view_08",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_08.png",
+      "seconds": 28.837
+    },
+    {
+      "id": "view_09",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_09.png",
+      "seconds": 38.186
+    },
+    {
+      "id": "view_10",
+      "file": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_layout_v3_20261105/validated_final/1660108397/rgb_view_10.png",
+      "seconds": 37.282
+    }
+  ],
+  "settings": {
+    "edge": 1920,
+    "samples": 256
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "shop": "1646301141",
+  "scope": "single-shop manual 3D refinement, two rendered views",
+  "camera_changed": true,
+  "texture_projection": false,
+  "views": [
+    {
+      "view": "view_01",
+      "photo": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_01/reference.png",
+      "before": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v4/1646301141/rgb_view_01.png",
+      "after": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v5_geometry/1646301141/rgb_view_01.png",
+      "metrics": {
+        "before": {
+          "lum_err": 8.69,
+          "sat_err": 0.021,
+          "ssim": 0.1779,
+          "render_lum": 133.2,
+          "photo_lum": 141.9,
+          "structural": 0.0375,
+          "size": [
+            1920,
+            1080
+          ]
+        },
+        "after": {
+          "lum_err": 1.43,
+          "sat_err": 0.1,
+          "ssim": 0.267,
+          "render_lum": 140.5,
+          "photo_lum": 141.9,
+          "structural": 0.1501,
+          "size": [
+            1920,
+            1080
+          ]
+        }
+      }
+    },
+    {
+      "view": "view_08",
+      "photo": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/weidian_gpt61sol_full_20261030/1646301141/sources/view_08/reference.png",
+      "before": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v4/1646301141/rgb_view_08.png",
+      "after": "/Users/binfengzou/Documents/建模生成场景数据集/production_local/weidian_full_runs/demo_runs/demo_v5_geometry/1646301141/rgb_view_08.png",
+      "metrics": {
+        "before": {
+          "lum_err": 6.02,
+          "sat_err": 0.0382,
+          "ssim": -0.0363,
+          "render_lum": 127.1,
+          "photo_lum": 133.2,
+          "structural": 0.057,
+          "size": [
+            1920,
+            1080
+          ]
+        },
+        "after": {
+          "lum_err": 3.02,
+          "sat_err": 0.0292,
+          "ssim": 0.1775,
+          "render_lum": 130.1,
+          "photo_lum": 133.2,
+          "structural": 0.0766,
+          "size": [
+            1920,
+            1080
+          ]
+        }
+      }
+    }
+  ],
+  "limitations": "Image similarity is affected by textures and lighting, not independently calibrated geometry."
+}

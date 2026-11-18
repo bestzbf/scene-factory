@@ -1,0 +1,53 @@
+{
+  "finite_mesh_coordinates": true,
+  "geometry_build_count": 1,
+  "camera_dependent_geometry": false,
+  "packed_file_images": 98,
+  "checked_cameras": [
+    "view_01",
+    "view_02",
+    "view_03",
+    "view_04",
+    "view_05",
+    "view_06",
+    "view_07",
+    "view_08",
+    "view_09",
+    "view_10"
+  ],
+  "stock_units": 3097,
+  "geometry_sha256_before_views": "1c8370d97ab3249ff7e15e934a96d213490cc5b05f5179cf4d95162108846077",
+  "geometry_sha256_after_views": "1c8370d97ab3249ff7e15e934a96d213490cc5b05f5179cf4d95162108846077",
+  "shared_geometry_unchanged_across_views": true,
+  "source_cameras_preserved": true,
+  "layout_clearance": {
+    "status": "passed",
+    "tested_fixtures": [
+      "back_household_shelf",
+      "back_left_household_shelf",
+      "back_right_household_shelf",
+      "beverage_gondola_01",
+      "beverage_gondola_02",
+      "checkout_01",
+      "checkout_02",
+      "freezer_red",
+      "front_checkout_shelf",
+      "front_liquor_shelf",
+      "left_front_shelf",
+      "left_middle_shelf",
+      "left_rear_shelf_01",
+      "left_rear_shelf_02",
+      "left_rear_shelf_03",
+      "right_condiment_shelf",
+      "right_rear_shelf_01",
+      "right_rear_shelf_02",
+      "snack_gondola_left_01",
+      "snack_gondola_left_02",
+      "snack_gondola_right_01",
+      "snack_gondola_right_02"
+    ],
+    "issues": [],
+    "scope": "New AABB fixture overlaps and increased room-boundary violations only. Existing overlaps, support contacts and full mesh collisions are not certified."
+  },
+  "passed": true
+}
