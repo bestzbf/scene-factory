@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
+from contextvars import ContextVar
 import threading
 import time
 
@@ -10,6 +11,17 @@ _active = None
 _render_condition = threading.Condition()
 _render_session_limit = None
 _render_running = 0
+_request_cancellation = ContextVar('model_request_cancellation', default=None)
+
+
+@contextmanager
+def request_cancellation(check_cancelled):
+    """Carry a job's stop check through local CLI/model adapter calls."""
+    token = _request_cancellation.set(check_cancelled)
+    try:
+        yield
+    finally:
+        _request_cancellation.reset(token)
 
 
 @contextmanager
@@ -33,6 +45,8 @@ def api_session(max_concurrency=2):
 @contextmanager
 def api_slot(timeout, check_cancelled=None):
     """Queue interruptibly within the caller's total request timeout."""
+    if check_cancelled is None:
+        check_cancelled = _request_cancellation.get()
     with _state_lock:
         semaphore = _active
     started = time.monotonic()

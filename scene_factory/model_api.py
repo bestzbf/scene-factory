@@ -547,8 +547,11 @@ def _schema_validation_diagnostic(value, schema):
 def _image_payloads(images):
     encoded, hashes, metrics = [], [], []
     total = 0
-    if not isinstance(images, (list, tuple)) or not 1 <= len(images) <= 100:
-        raise ValueError('images must contain between 1 and 100 ordered image paths')
+    # Zero images is a valid text-only request: the same transport, budget
+    # ledger and replay guard serve a written brief with no photographs. The
+    # payload builder already omits the image block when nothing is supplied.
+    if not isinstance(images, (list, tuple)) or not 0 <= len(images) <= 100:
+        raise ValueError('images must contain between 0 and 100 ordered image paths')
     for path in images:
         path = Path(path)
         if path.stat().st_size > MAX_IMAGE_BYTES:

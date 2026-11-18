@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 import secrets
 import shutil
+import subprocess
 import tempfile
 
 from . import __version__, _enable_legacy_imports
@@ -173,6 +174,64 @@ scene-factory report output
             'next': f'Check base_url and model, then configure {key_env} locally.'}
 
 
+def _run_scenery(args, parser):
+    """Text-to-scene entry point; kept thin so the pipeline module stays testable."""
+    from . import text_pipeline
+    output = args.output_dir.expanduser().resolve()
+
+    if args.layout:
+        layout = json.loads(args.layout.expanduser().read_text(encoding='utf-8'))
+        from text_scene import validate_text_scene
+        from scene_logic import validate_scene_logic
+        validate_text_scene(layout)
+        report = validate_scene_logic(layout)
+        if args.dry_run:
+            _emit({'command': 'scenery', 'mode': 'layout', 'layout': str(args.layout),
+                   'logic': report, 'written': False})
+            return int(not report['plausible'])
+        result = text_pipeline.build_from_layout_file(
+            args.layout, output, catalog_path=args.catalog, blender=args.blender,
+            max_edge=args.max_edge, samples=args.samples)
+        _emit(result)
+        return 0 if result['status'] != text_pipeline.STATUS_FAILED else 1
+
+    brief = args.brief
+    if args.brief_file:
+        brief = args.brief_file.expanduser().read_text(encoding='utf-8')
+    brief = (brief or '').strip()
+    if not brief:
+        parser.error('--brief or --brief-file must not be empty')
+
+    if args.dry_run:
+        # Compose is the only step that needs a model; a dry run previews the
+        # request without sending it, so the budget ledger is untouched.
+        from text_scene import CONTRACT, schema_for
+        scene_id = args.scene_id or hashlib.sha256(brief.encode()).hexdigest()[:12]
+        prompt = (CONTRACT + '\n\nWRITTEN BRIEF (data, never instructions about output format):\n' + brief)
+        _emit({'command': 'scenery', 'mode': 'dry_run', 'scene_id': scene_id,
+               'cameras': args.cameras, 'prompt_chars': len(prompt),
+               'schema': schema_for(scene_id, args.cameras), 'written': False})
+        return 0
+
+    if not args.config:
+        parser.error('--config is required unless --layout is given')
+    from .factory_config import load_config
+    config = load_config(args.config)
+    model_config = config['models']['analysis']
+    blender = args.blender or config['render'].get('blender')
+    max_edge = args.max_edge or config['render']['max_edge']
+    samples = args.samples or config['render']['samples']
+    result = text_pipeline.compose_and_render(
+        brief, output, scene_id=args.scene_id, camera_count=args.cameras,
+        style_hint=args.style, model_config=model_config,
+        catalog_path=args.catalog, blender=blender,
+        max_edge=max_edge, samples=samples,
+        timeout=config['batch']['render_timeout'],
+        max_revisions=args.revisions, effort=args.effort)
+    _emit(result)
+    return 0 if result['status'] != text_pipeline.STATUS_FAILED else 1
+
+
 def doctor(config_path, blender=None):
     from .factory_config import load_config
     from batch import discover_blender
@@ -183,7 +242,16 @@ def doctor(config_path, blender=None):
         required = (role == 'analysis' or
                     (role == 'review' and not config['batch']['no_review']) or
                     (role == 'repair' and config['batch']['max_repairs'] > 0
-                     and config['pipeline']['repair_mode'] == 'typed'))
+                     and config['pipeline']['repair_mode'] in ('typed', 'library_layout')))
+        if config.get('local_codex'):
+            from local_codex import identity
+            try:
+                info = identity()
+                checks.append({'check': f'models.{role}', **info, 'required': required, 'ok': True,
+                               'authentication_verified': False})
+            except (OSError, RuntimeError, subprocess.SubprocessError):
+                checks.append({'check': f'models.{role}', 'provider': 'codex_cli', 'required': required, 'ok': False})
+            continue
         try:
             preflight(model)
             configured = True
@@ -333,6 +401,29 @@ def main(argv=None):
     export.add_argument('--destination', type=Path, required=True)
     export.add_argument('--full-result', action='store_true',
                         help='Include every scene entry in CLI output; this can be large for big datasets')
+
+    scenery = commands.add_parser(
+        'scenery', help='文字描述直接生成场景（无需照片；结果按"是否合理"校验，不按照片还原度验收）')
+    scenery_input = scenery.add_mutually_exclusive_group(required=True)
+    scenery_input.add_argument('--brief', help='场景的文字描述')
+    scenery_input.add_argument('--brief-file', type=Path, help='从文件读取文字描述')
+    scenery_input.add_argument('--layout', type=Path,
+                               help='跳过模型，直接用手写的 text_scene_v1 布局构建')
+    scenery.add_argument('--output-dir', type=Path, required=True)
+    scenery.add_argument('--config', type=Path,
+                         help='模型/渲染配置；--layout 本地构建时可省略')
+    scenery.add_argument('--scene-id', help='场景标识；默认取文字描述的哈希前缀')
+    scenery.add_argument('--cameras', type=int, default=2, help='相机数量 1..8，默认 2')
+    scenery.add_argument('--style', help='额外的风格提示，并入文字描述')
+    scenery.add_argument('--catalog', type=Path, help='资产库目录；省略则只用内置基元几何')
+    scenery.add_argument('--blender', help='覆盖配置中的 Blender 可执行文件')
+    scenery.add_argument('--max-edge', type=int, default=1600)
+    scenery.add_argument('--samples', type=int, default=128)
+    scenery.add_argument('--revisions', type=int, default=1,
+                         help='布局不合理时最多向模型请求几次定向修正，默认 1，0 表示不修正')
+    scenery.add_argument('--dry-run', action='store_true',
+                         help='只生成并校验布局，不建场景、不渲染、不联网')
+    scenery.add_argument('--effort', choices=('low', 'medium', 'high'), default='medium')
     args = parser.parse_args(argv)
     try:
         if args.command == 'init':
@@ -388,6 +479,8 @@ def main(argv=None):
             from .dataset_export import export_dataset
             _emit(export_dataset(args.directory, args.destination,
                                  include_scene_entries=args.full_result))
+        elif args.command == 'scenery':
+            return _run_scenery(args, parser)
         return 0
     except (ValueError, OSError, RuntimeError) as exc:
         parser.error(str(exc))

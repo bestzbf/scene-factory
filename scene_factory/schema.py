@@ -1,7 +1,18 @@
 """Shared, bounded scene-description contract; units are metres, Z is up."""
 import json, math
 from pathlib import Path
-CATEGORIES=['desk','table','chair','sofa','bed','cabinet','shelf','monitor','computer','plant','window','door','column','beam','linear_light','pendant_light','rug','box']
+CATEGORIES=['desk','table','chair','sofa','bed','cabinet','shelf','monitor','computer','plant','window','door','column','beam','linear_light','pendant_light','rug','box',
+            # Interior props with a modelled silhouette. Without these a
+            # television, lamp or book stack falls back to a bare box, which
+            # makes an otherwise correct layout read as unbuilt.
+            'tv','lamp','book','decor',
+            # Soft furnishing and wall dressing. Without these a cushion, a tray
+            # or a framed picture renders as a bare box, which is what made a
+            # correctly laid-out room still read as unbuilt.
+            'book_row', 'painting','cushion','tray','vase',
+            # Tableware and shelf dressing, modelled rather than boxed.
+            'bowl','plate','mug','pitcher','basket','candlestick','sculpture',
+            'ottoman','planter_box','radio','board_game']
 def obj(properties):
     return {'type':'object','properties':properties,'required':list(properties),'additionalProperties':False}
 number={'type':'number'}
