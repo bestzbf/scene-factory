@@ -8,7 +8,7 @@ version = "0.3.43"
 description = "Batch photo-to-Blender reconstruction with configurable multimodal model APIs"
 readme = "scene_factory/API_BATCH.md"
 requires-python = ">=3.10"
-dependencies = ["Pillow>=10,<13", "numpy>=1.24,<3"]
+dependencies = ["Pillow>=10,<13", "numpy>=1.24,<3", "scipy>=1.10,<2"]
 
 [project.scripts]
 scene-factory = "scene_factory.cli:main"

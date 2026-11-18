@@ -1,0 +1,5 @@
+# Optional photo calibration only. Rendering a reviewed profile does not need these.
+pycolmap==4.2.1
+torch==2.15.0
+torchvision==0.29.2
+lightglue @ git+https://github.com/cvg/LightGlue.git@5a650c444718caffc2669dc0094cde908f42dd73
