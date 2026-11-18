@@ -108,6 +108,8 @@ def build_scene(bundle, texture_manifest=None, appearance_policy='photo_reconstr
     scene = bpy.context.scene
     scene.unit_settings.system = 'METRIC'
     scene.unit_settings.scale_length = 1
+    if 'retail_refinement_applied' in scene:
+        del scene['retail_refinement_applied']
     scene['scene_id'] = bundle['scene_id']
     scene['reconstruction_method'] = 'one shared scene from supplied photo interpretations; multiple estimated cameras'
     images = v2.load_texture_manifest(texture_manifest)
@@ -513,6 +515,14 @@ def enforce_geometry_preflight(bundle, handles, output, *, spec_sha256):
     return report
 
 
+def visual_mesh_bounds(obj):
+    """Generated detail objects are meshes, rather than catalog EMPTY roots."""
+    evaluated=obj.evaluated_get(bpy.context.evaluated_depsgraph_get())
+    points=[evaluated.matrix_world @ Vector(corner) for corner in evaluated.bound_box]
+    return {'min':[min(p[i] for p in points) for i in range(3)],
+            'max':[max(p[i] for p in points) for i in range(3)]}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--spec', type=Path, required=True)
@@ -524,6 +534,8 @@ def main():
     parser.add_argument('--max-edge', type=int, default=1280)
     parser.add_argument('--samples', type=int, default=64)
     parser.add_argument('--device', choices=['CPU', 'AUTO'], default='AUTO')
+    parser.add_argument('--retail-optimization', type=Path, help='Optional shared 3D retail refinement configuration')
+    parser.add_argument('--retail-layout', type=Path, help='Semantic layout with support graph for reviewed fixture moves')
     parser.add_argument('--no-render', action='store_true')
     parser.add_argument('--appearance-policy', choices=['photo_reconstruction', 'legacy'], default='photo_reconstruction')
     parser.add_argument('--tone-match', choices=['reference', 'off'], default='reference')
@@ -567,7 +579,26 @@ def main():
                                 view_transform=args.view_transform, look=args.agx_look)
     if spec_hash != file_sha256(args.spec):
         raise RuntimeError('Candidate spec changed during construction; no preflight report was published')
+    retail_report = None
+    if args.retail_optimization:
+        from retail_refinement import apply_refinement, read_config
+        retail_layout = json.loads(args.retail_layout.read_text()) if args.retail_layout else None
+        retail_report = apply_refinement(bundle, read_config(args.retail_optimization), retail_layout)
+        # Geometry refinement mutates the bundle; synchronize the annotation copy.
+        refined_entries = {o['id']: o for o in bundle['shared_scene']['base_scene']['objects']}
+        for entry in base['objects']:
+            refined = refined_entries.get(entry['id'])
+            if refined:
+                for field in ('position', 'dimensions', 'rotation_z_deg'):
+                    if field in refined: entry[field] = copy.deepcopy(refined[field])
+        write_json(out/'retail_refinement.json', retail_report)
+        write_json(out/'optimized_bundle.json', bundle)
+        if retail_layout:
+            write_json(out/'refined_layout.json', retail_layout)
     geometry_gate = enforce_geometry_preflight(bundle, handles, out, spec_sha256=spec_hash)
+    if retail_report:
+        geometry_gate['retail_config_sha256'] = retail_report['config_sha256']
+        write_json(out/'geometry_preflight.json', geometry_gate)
     tone = {'status': 'disabled', 'mode': args.tone_match}
     if args.tone_match == 'reference' and not args.no_render:
         from calibrate_reference import calibrate
@@ -594,6 +625,8 @@ def main():
                   'source_images': [{'view_id': key, 'path': str(path), 'sha256': source_hashes[key]} for key, path in sources.items()],
                   'texture_sources': texture_view_map(bundle), 'spec_sha256': spec_hash,
                   'appearance_policy': args.appearance_policy, 'tone_calibration': tone}
+    if retail_report:
+        provenance['retail_optimization'] = retail_report
     provenance['external_assets'] = handles['external_assets']
     provenance['external_asset_inputs_sha256'] = asset_inputs
     provenance['asset_preview_only'] = args.asset_preview
@@ -603,6 +636,9 @@ def main():
         block = bpy.data.texts.new(name)
         block.write(json.dumps(value, indent=2, ensure_ascii=False))
     outputs, view_records = ['scene.blend', 'source_provenance.json', 'tone_calibration.json', 'geometry_preflight.json', 'material_binding.json', 'exterior_context.json'], []
+    if retail_report:
+        outputs += ['retail_refinement.json', 'optimized_bundle.json']
+        if args.retail_layout: outputs.append('refined_layout.json')
     write_json(out/'material_binding.json', handles['material_binding'])
     write_json(out/'exterior_context.json', handles['exterior_context'])
     write_json(out/'tone_calibration.json', tone)
@@ -619,6 +655,20 @@ def main():
         viewspec = copy.deepcopy(spec)
         viewspec['image'] = {'width': view['width'], 'height': view['height'], 'source_id': view['id']}
         annotation = v2.make_annotations(scene, viewspec, viewbase, handles['roots'], handles['custom_roots'])
+        if retail_report:
+            semantic_records={item['id']:item for item in (retail_layout or {}).get('objects',[])}
+            for annotated in annotation.get('objects',[]):
+                semantic=semantic_records.get(annotated.get('id'))
+                if semantic:
+                    annotated['semantic_category']=semantic['category']
+                    annotated['support_id']=semantic['support_id']
+            annotation['retail_optimization'] = {
+                'config_sha256': retail_report['config_sha256'],
+                'visual_detail': retail_report.get('visual_detail', {}),
+                'generated_geometry': [
+                    {'id': obj.name, 'world_aabb_m': visual_mesh_bounds(obj),
+                     'representation': obj.get('representation')}
+                    for obj in scene.objects if obj.name.startswith(('RetailPhysicalEntrance','RetailShelfEdges_'))]}
         annotation['view_id'] = view['id']
         annotation['scene_id'] = bundle['scene_id']
         annotation['camera']['roll_degrees'] = view['camera']['roll_degrees']

@@ -164,6 +164,310 @@ def root_object(name):
     return root
 
 
+# Flat props lose all relief when authored in a unit cube and scaled down; these
+# are built directly in metres instead, with an identity root scale.
+METRIC_KINDS = frozenset({'rug', 'painting', 'book', 'book_row', 'tray',
+                          'cushion', 'lamp', 'vase', 'pendant_light',
+                          'bowl', 'plate', 'mug', 'pitcher', 'basket',
+                          'candlestick', 'sculpture', 'ottoman', 'planter_box',
+                          'radio', 'board_game'})
+
+
+def _metric_details(root, kind, entry, box, rod, sphere, *, base, darker, pale, metal, black):
+    """Real-size detail for flat or small objects, in metres, origin at bottom-centre."""
+    w, d, h = (max(0.001, float(v)) for v in entry['dimensions'])
+
+    if kind == 'rug':
+        # A woven rug: the field slightly proud of the floor, a contrasting border
+        # laid on top of it (not buried inside), and a fringe at both short ends.
+        thickness = max(0.006, h)
+        box(root, 'RugField', (0, 0, thickness / 2), (w, d, thickness), base, bevel=0.002)
+        inset = min(0.05, min(w, d) * 0.06)
+        for name, pos, size in (
+                ('BorderN', (0, d / 2 - inset / 2, thickness + 0.0006), (w, inset, 0.0012)),
+                ('BorderS', (0, -d / 2 + inset / 2, thickness + 0.0006), (w, inset, 0.0012)),
+                ('BorderW', (-w / 2 + inset / 2, 0, thickness + 0.0006), (inset, d - 2 * inset, 0.0012)),
+                ('BorderE', (w / 2 - inset / 2, 0, thickness + 0.0006), (inset, d - 2 * inset, 0.0012))):
+            box(root, name, pos, size, darker, bevel=0.0)
+        fringe = min(0.03, d * 0.03)
+        for index in range(12):
+            x = -w / 2 + (index + 0.5) * (w / 12)
+            for y in (-d / 2 - fringe / 2, d / 2 + fringe / 2):
+                rod(root, 'Fringe', (x, y, 0.001), (x, y, thickness * 0.6), 0.0012, pale)
+
+    elif kind == 'painting':
+        # Four moulding bars, a mat and a recessed canvas. A single bar across the
+        # middle was what turned framed art into three white sticks on the wall.
+        frame = min(0.045, min(w, h) * 0.08)
+        depth = max(0.02, d)
+        box(root, 'FrameTop', (0, -depth / 2, h - frame / 2), (w, depth, frame), darker, bevel=0.003)
+        box(root, 'FrameBottom', (0, -depth / 2, frame / 2), (w, depth, frame), darker, bevel=0.003)
+        box(root, 'FrameLeft', (-w / 2 + frame / 2, -depth / 2, h / 2),
+            (frame, depth, h - 2 * frame), darker, bevel=0.003)
+        box(root, 'FrameRight', (w / 2 - frame / 2, -depth / 2, h / 2),
+            (frame, depth, h - 2 * frame), darker, bevel=0.003)
+        # The frame's front face is at -depth/2, and more negative Y is closer to
+        # the room. The mat must sit BEHIND the canvas, otherwise the pale mat
+        # sheet covers the picture and the frame reads as an empty white panel.
+        box(root, 'Mat', (0, -depth / 2 + 0.008, h / 2),
+            (w - 2 * frame, 0.003, h - 2 * frame), pale, bevel=0.0)
+        cw = max(0.05, w - 2 * frame - 0.06)
+        ch = max(0.05, h - 2 * frame - 0.06)
+        box(root, 'Canvas', (0, -depth / 2 + 0.004, h / 2), (cw, 0.003, ch), base, bevel=0.0)
+        # A single flat field reads as a blank panel from across the room. Two
+        # blocks in the frame's own two tones give the canvas a composition, so
+        # it reads as art at the distance the stills are taken from.
+        box(root, 'CanvasBand', (0, -depth / 2 + 0.0022, h * 0.36),
+            (cw * 0.82, 0.002, ch * 0.26), darker, bevel=0.0)
+        box(root, 'CanvasBlock', (cw * 0.16, -depth / 2 + 0.0014, h * 0.66),
+            (cw * 0.30, 0.002, ch * 0.22), pale, bevel=0.0)
+
+    elif kind == 'book':
+        # Orientation matters: a shelf book stands upright (tall and thin) while a
+        # coffee-table book lies flat. Building every book as a flat one turned a
+        # bookshelf into a row of white slabs, because only the page block showed.
+        if h > 1.8 * w:
+            # Upright: two vertical covers, a page block between them, a spine on
+            # one side and a visible head of pages at the top.
+            board = max(0.003, w * 0.06)
+            box(root, 'CoverFront', (0, -d / 2 + board / 2, h / 2), (w, board, h), base, bevel=0.001)
+            box(root, 'CoverBack', (0, d / 2 - board / 2, h / 2), (w, board, h), base, bevel=0.001)
+            box(root, 'Pages', (0, 0, h / 2), (w * 0.9, d - 2 * board, h * 0.94), pale, bevel=0.001)
+            box(root, 'Spine', (-w / 2 + board / 2, 0, h / 2), (board * 2, d, h), darker, bevel=0.0015)
+        else:
+            pages = max(0.001, h * 0.7)
+            box(root, 'Pages', (0, 0, h * 0.15 + pages / 2), (w * 0.96, d * 0.96, pages), pale, bevel=0.001)
+            box(root, 'CoverTop', (0, 0, h - 0.0015), (w, d, 0.003), base, bevel=0.0015)
+            box(root, 'CoverBottom', (0, 0, h * 0.15 - 0.0015), (w, d, 0.003), base, bevel=0.0015)
+            box(root, 'Spine', (-w / 2 + 0.004, 0, h * 0.5), (0.008, d, h * 0.62), darker, bevel=0.002)
+
+    elif kind == 'book_row':
+        # A written brief says "a row of books", which the library can only offer
+        # as one solid block. Built here it is what it claims to be: separate
+        # volumes of varied width, height and colour, leaning against each other
+        # along the board, with a couple that lean out of true.
+        spines = ((0.42, 0.13, 0.11), (0.12, 0.20, 0.31), (0.52, 0.44, 0.27),
+                  (0.16, 0.26, 0.20), (0.31, 0.16, 0.25), (0.10, 0.10, 0.11),
+                  (0.62, 0.55, 0.42), (0.66, 0.35, 0.14), (0.34, 0.37, 0.40))
+        thickness = 0.042
+        count = max(3, min(26, int(w / thickness)))
+        gap = 0.0015
+        pitch = (w - gap) / count
+        seed = int(abs(entry.get('dimensions', [1])[0] * 1000)) % 97
+        cursor = -w / 2 + gap
+        for index in range(count):
+            wobble = ((seed + index * 37) % 11) / 10.0          # 0.0 .. 1.0
+            spine_w = pitch * (0.78 + 0.2 * wobble) - gap
+            tall = h * (0.84 + 0.16 * (((seed + index * 53) % 7) / 6.0))
+            depth = d * (0.86 + 0.12 * (((seed + index * 29) % 5) / 4.0))
+            tone = spines[(seed + index * 3) % len(spines)]
+            cover = source_role(material('BookCover_%d' % index, tone, 0.52), 'body')
+            pages = source_role(material('BookPages_%d' % index,
+                                         (0.88, 0.86, 0.80), 0.74), 'body')
+            centre_x = cursor + spine_w / 2
+            board = max(0.0025, spine_w * 0.1)
+            box(root, 'BookCoverA_%d' % index,
+                (centre_x - spine_w / 2 + board / 2, 0, tall / 2),
+                (board, depth, tall), cover, bevel=0.0012)
+            box(root, 'BookCoverB_%d' % index,
+                (centre_x + spine_w / 2 - board / 2, 0, tall / 2),
+                (board, depth, tall), cover, bevel=0.0012)
+            box(root, 'BookPages_%d' % index, (centre_x, 0, tall / 2),
+                (max(0.004, spine_w - 2 * board), depth * 0.94, tall * 0.95),
+                pages, bevel=0.0008)
+            box(root, 'BookSpine_%d' % index,
+                (centre_x, -depth / 2 + board / 2, tall / 2),
+                (spine_w, board, tall * 0.995), cover, bevel=0.0012)
+            cursor += pitch
+
+    elif kind == 'bowl':
+        # A bowl is a wall and a floor, not a solid lump: without the inner
+        # surface it reads as a dome and a fruit bowl looks like a paperweight.
+        radius = min(w, d) / 2
+        rod(root, 'BowlFoot', (0, 0, 0), (0, 0, h * 0.10), radius * 0.46, darker)
+        rod(root, 'BowlBody', (0, 0, h * 0.06), (0, 0, h), radius, base)
+        rod(root, 'BowlWell', (0, 0, h * 0.26), (0, 0, h * 1.02), radius * 0.86, pale)
+
+    elif kind == 'plate':
+        radius = min(w, d) / 2
+        rod(root, 'PlateFoot', (0, 0, 0), (0, 0, h * 0.22), radius * 0.52, darker)
+        rod(root, 'PlateBody', (0, 0, h * 0.18), (0, 0, h), radius, base)
+        rod(root, 'PlateWell', (0, 0, h * 0.62), (0, 0, h * 1.02), radius * 0.72, pale)
+
+    elif kind == 'mug':
+        radius = min(w, d) / 2
+        rod(root, 'MugBody', (0, 0, 0), (0, 0, h), radius * 0.82, base)
+        rod(root, 'MugWell', (0, 0, h * 0.14), (0, 0, h * 1.02), radius * 0.68, pale)
+        # A handle: two stubs and a bar, which is enough at this size.
+        for z in (h * 0.34, h * 0.72):
+            box(root, 'MugHandleArm', (radius * 0.95, 0, z),
+                (radius * 0.5, radius * 0.22, h * 0.1), base, bevel=0.002)
+        box(root, 'MugHandleBar', (radius * 1.18, 0, h * 0.53),
+            (radius * 0.2, radius * 0.22, h * 0.42), base, bevel=0.002)
+
+    elif kind == 'pitcher':
+        radius = min(w, d) / 2
+        rod(root, 'PitcherBody', (0, 0, 0), (0, 0, h * 0.68), radius * 0.92, base)
+        rod(root, 'PitcherShoulder', (0, 0, h * 0.62), (0, 0, h * 0.86), radius * 0.66, base)
+        rod(root, 'PitcherNeck', (0, 0, h * 0.84), (0, 0, h), radius * 0.52, base)
+        rod(root, 'PitcherRim', (0, 0, h * 0.96), (0, 0, h * 1.02), radius * 0.58, darker)
+        box(root, 'PitcherSpout', (-radius * 0.72, 0, h * 0.94),
+            (radius * 0.4, radius * 0.4, h * 0.1), base, bevel=0.004)
+        box(root, 'PitcherHandle', (radius * 0.98, 0, h * 0.6),
+            (radius * 0.22, radius * 0.26, h * 0.5), darker, bevel=0.006)
+
+    elif kind == 'basket':
+        # A closed vessel with the weave suggested by two inset bands. Separate
+        # staves let daylight through and read as a slatted bin; bands that stood
+        # proud of the body fought with its surface and lit up white.
+        radius = min(w, d) / 2
+        rod(root, 'BasketBody', (0, 0, 0), (0, 0, h * 0.96), radius, base)
+        rod(root, 'BasketLowerBand', (0, 0, h * 0.14), (0, 0, h * 0.2), radius * 0.995, darker)
+        rod(root, 'BasketUpperBand', (0, 0, h * 0.72), (0, 0, h * 0.78), radius * 0.995, darker)
+        rod(root, 'BasketRim', (0, 0, h * 0.96), (0, 0, h), radius * 1.03, darker)
+        # The mouth: a shallow recess so it does not read as a solid drum.
+        rod(root, 'BasketMouth', (0, 0, h * 0.86), (0, 0, h * 0.965), radius * 0.9, black)
+
+    elif kind == 'ottoman':
+        # An upholstered pouf: a plump cushion body on short feet, not a crate.
+        foot = min(0.06, h * 0.14)
+        for sx in (-1, 1):
+            for sy in (-1, 1):
+                rod(root, 'OttomanFoot', (sx * w * 0.36, sy * d * 0.36, 0),
+                    (sx * w * 0.36, sy * d * 0.36, foot), 0.018, black)
+        body = box(root, 'OttomanBody', (0, 0, foot + (h - foot) / 2),
+                   (w * 0.97, d * 0.97, h - foot), base, bevel=min(w, d, h) * 0.3)
+        box(root, 'OttomanSeam', (0, 0, foot + (h - foot) * 0.55),
+            (w * 0.99, d * 0.99, (h - foot) * 0.05), darker, bevel=0.005)
+
+    elif kind == 'planter_box':
+        # A trough with soil and a shrub in it. Left as a box it read as a grey
+        # crate standing against the wall.
+        lip = min(0.03, h * 0.1)
+        box(root, 'PlanterBody', (0, 0, (h - lip) * 0.5), (w, d, h - lip), base,
+            bevel=min(w, d) * 0.06)
+        box(root, 'PlanterLip', (0, 0, h - lip * 0.5), (w * 1.04, d * 1.04, lip),
+            darker, bevel=0.006)
+        box(root, 'PlanterSoil', (0, 0, h - lip * 0.55),
+            (w * 0.9, d * 0.9, lip * 0.35), black, bevel=0)
+        leaf = source_role(material('PlanterLeaf', (.11, .26, .09), .72), 'body')
+        # A low dense shrub. Each clump is a sphere of one radius in all three
+        # axes; scaling the axes independently is what flattened them into a row
+        # of green pucks sitting on the soil.
+        clump = min(w, d) * 0.16
+        tiers = ((0.30, 0.10), (0.62, 0.16), (0.88, 0.10))
+        for tier, (lift, shrink) in enumerate(tiers):
+            radius = clump * (1.0 - 0.18 * tier)
+            count = max(4, int(w / (radius * 1.7)))
+            for index in range(count):
+                u = (index + 0.5) / count
+                fx = -w * 0.42 + w * 0.84 * u
+                fy = d * 0.18 * math.sin(index * 2.3 + tier * 1.1)
+                fz = h * lift + radius * (0.7 + shrink)
+                sphere(root, 'PlanterLeaf_%d_%d' % (tier, index), (fx, fy, fz),
+                       (radius * 2.0, radius * 1.7, radius * 1.5), leaf)
+
+    elif kind == 'radio':
+        # A small table radio: cabinet, dial and speaker grille.
+        box(root, 'RadioBody', (0, 0, h / 2), (w, d, h), base, bevel=min(w, h) * 0.08)
+        box(root, 'RadioDial', (0, -d / 2 + 0.003, h * 0.66),
+            (w * 0.5, 0.005, h * 0.16), pale, bevel=0)
+        box(root, 'RadioGrille', (0, -d / 2 + 0.003, h * 0.34),
+            (w * 0.62, 0.005, h * 0.34), darker, bevel=0)
+        for side in (-1, 1):
+            rod(root, 'RadioKnob', (side * w * 0.34, -d / 2, h * 0.18),
+                (side * w * 0.34, -d / 2 - 0.012, h * 0.18), min(0.012, h * 0.09), black)
+
+    elif kind == 'board_game':
+        # A boxed game lying flat with pieces stacked on the lid.
+        box(root, 'GameBox', (0, 0, h * 0.42), (w, d, h * 0.84), base,
+            bevel=min(w, d) * 0.03)
+        box(root, 'GameLid', (0, 0, h * 0.92), (w * 0.98, d * 0.98, h * 0.12),
+            darker, bevel=0.002)
+        for index in range(5):
+            px = -w * 0.3 + w * 0.15 * index
+            rod(root, 'GamePiece_%d' % index, (px, d * 0.1, h * 0.98),
+                (px, d * 0.1, h * 1.06), min(0.016, w * 0.06), pale)
+
+    elif kind == 'candlestick':
+        radius = min(w, d) / 2
+        rod(root, 'CandleFoot', (0, 0, 0), (0, 0, h * 0.06), radius, metal)
+        rod(root, 'CandleStem', (0, 0, h * 0.05), (0, 0, h * 0.52), radius * 0.26, metal)
+        rod(root, 'CandleKnop', (0, 0, h * 0.3), (0, 0, h * 0.38), radius * 0.44, metal)
+        rod(root, 'CandleCup', (0, 0, h * 0.5), (0, 0, h * 0.58), radius * 0.5, metal)
+        rod(root, 'Candle', (0, 0, h * 0.56), (0, 0, h * 0.96), radius * 0.3, pale)
+        flame = source_role(material('CandleFlame', (1, .78, .42), .3, emission=14), 'body')
+        sphere(root, 'CandleFlame', (0, 0, h * 0.99), (radius * 0.2, radius * 0.2, h * 0.08), flame)
+
+    elif kind == 'sculpture':
+        # An abstract piece: a plinth and two offset masses. Deliberately not a
+        # figure — a box labelled "sculpture" is honest, a bad human is not.
+        box(root, 'SculpturePlinth', (0, 0, h * 0.06), (w * 0.72, d * 0.72, h * 0.12),
+            darker, bevel=0.004)
+        sphere(root, 'SculptureMass', (0, 0, h * 0.44),
+               (w * 0.66, d * 0.66, h * 0.52), base)
+        box(root, 'SculptureBlade', (w * 0.1, 0, h * 0.76),
+            (w * 0.22, d * 0.3, h * 0.44), base, bevel=0.01)
+
+    elif kind == 'tray':
+        box(root, 'TrayFloor', (0, 0, h / 2), (w, d, h), darker, bevel=0.003)
+        rim = min(0.014, w * 0.05)
+        for name, pos, size in (
+                ('RimX0', (-w / 2 + rim / 2, 0, h * 0.75), (rim, d, h * 0.5)),
+                ('RimX1', (w / 2 - rim / 2, 0, h * 0.75), (rim, d, h * 0.5)),
+                ('RimY0', (0, -d / 2 + rim / 2, h * 0.75), (w, rim, h * 0.5)),
+                ('RimY1', (0, d / 2 - rim / 2, h * 0.75), (w, rim, h * 0.5))):
+            box(root, name, pos, size, base, bevel=0.002)
+
+    elif kind == 'cushion':
+        # A cushion is a rounded rectangle that leans. A box is right in
+        # silhouette but the helper clamps its bevel to a fraction of the
+        # smallest side, so it reads sharp; an ellipsoid is soft but becomes a
+        # ball at these proportions. Two boxes of different depth, the inner one
+        # narrower and proud, give the squashed silhouette with a soft shoulder.
+        lean = math.radians(13.0)
+        thick = min(max(d, 0.10), w * 0.44)
+        outer = box(root, 'CushionBody', (0, 0, h * 0.5), (w, thick, h), base,
+                    bevel=min(w, h) * 0.14)
+        outer.rotation_euler.x = -lean
+        inner = box(root, 'CushionSwell', (0, -thick * 0.42, h * 0.5),
+                    (w * 0.90, thick * 0.62, h * 0.88), base,
+                    bevel=min(w, h) * 0.13)
+        inner.rotation_euler.x = -lean
+        seam = box(root, 'CushionSeam', (0, 0, h * 0.5),
+                   (w * 1.004, thick * 1.02, h * 0.035), darker, bevel=0.004)
+        seam.rotation_euler.x = -lean
+
+    elif kind == 'lamp':
+        # A shade with a real profile: base disc, slim stem, tapered drum. The
+        # unit-cube version put a table-lamp shade on a 1.6 m floor lamp.
+        radius = min(w, d) / 2
+        if h > 1.0:
+            rod(root, 'LampBase', (0, 0, 0.0), (0, 0, 0.03), radius, black)
+            rod(root, 'LampStem', (0, 0, 0.03), (0, 0, h * 0.72), radius * 0.09, metal)
+            shade_h = h * 0.28
+            rod(root, 'LampShade', (0, 0, h - shade_h), (0, 0, h), radius * 0.62, base)
+            rod(root, 'LampShadeFoot', (0, 0, h - shade_h), (0, 0, h - shade_h + 0.006),
+                radius * 0.64, darker)
+        else:
+            rod(root, 'LampBase', (0, 0, 0.0), (0, 0, h * 0.06), radius, darker)
+            rod(root, 'LampStem', (0, 0, h * 0.06), (0, 0, h * 0.52), radius * 0.10, metal)
+            rod(root, 'LampShade', (0, 0, h * 0.5), (0, 0, h), radius * 0.75, base)
+
+    elif kind == 'vase':
+        radius = min(w, d) / 2
+        rod(root, 'VaseBody', (0, 0, 0.02), (0, 0, h * 0.62), radius * 0.85, base)
+        rod(root, 'VaseBelly', (0, 0, h * 0.28), (0, 0, h * 0.44), radius, base)
+        rod(root, 'VaseNeck', (0, 0, h * 0.62), (0, 0, h * 0.94), radius * 0.42, base)
+        rod(root, 'VaseRim', (0, 0, h * 0.94), (0, 0, h), radius * 0.5, darker)
+
+    elif kind == 'pendant_light':
+        rod(root, 'PendantCable', (0, 0, h), (0, 0, h * 0.55), 0.004, black)
+        radius = min(w, d) / 2
+        rod(root, 'PendantDrum', (0, 0, h * 0.20), (0, 0, h * 0.55), radius, base)
+        rod(root, 'PendantDiffuser', (0, 0, h * 0.18), (0, 0, h * 0.20), radius * 0.9, pale)
+
+
 def asset(entry):
     """Build in a unit bounding volume, then scale to requested dimensions."""
     root = root_object(entry['id'])
@@ -258,15 +562,22 @@ def asset(entry):
         R('Pot', (0, 0, .025), (0, 0, .27), .24, pot)
         R('Soil', (0, 0, .265), (0, 0, .275), .222, soil)
         R('Trunk', (0, 0, .25), (0, 0, .86), .025, trunk)
+        # Foliage as many small clusters in tiers, not a few flat plates. The
+        # plates sat in one plane and read as a stack of green discs from any
+        # camera near eye height, which is exactly where the stills are taken.
         rng = random.Random(entry['id'])
-        for i in range(36):
+        for i in range(54):
             theta = i * 2.39996
-            z = .48 + (i % 9) * .052
-            radius = .10 + rng.random() * .24
-            x, y = math.cos(theta) * radius, math.sin(theta) * radius
-            R('Branch', (0, 0, z - .13), (x, y, z), .008, trunk)
-            leaf = S('Foliage', (x, y, z), (.24, .22, .16), base if i % 3 else darker)
-            leaf.rotation_euler.z = theta
+            tier = i % 12
+            z = .40 + tier * .040 + rng.random() * .022
+            # wider low down, tighter at the crown
+            spread = (.30 - .016 * tier) * (0.55 + 0.45 * rng.random())
+            x, y = math.cos(theta) * spread, math.sin(theta) * spread
+            if spread > .09:
+                R('Branch', (0, 0, max(.30, z - .10)), (x * .72, y * .72, z), .006, trunk)
+            size = .085 + rng.random() * .045
+            S('Foliage', (x, y, z), (size, size, size * 0.82),
+              base if i % 3 else darker)
     elif kind in ('window', 'door'):
         # Local -Y is the room-facing surface; panels need no wall booleans.
         panel = source_role(window_glass_material(), 'glass') if kind == 'window' else base
@@ -299,6 +610,57 @@ def asset(entry):
         B('Rug', (0, 0, .5), (1, 1, 1), bevel=.01)
         for x in (-.46, .46):
             B('WovenBorder', (x, 0, .995), (.025, .94, .006), darker, 0)
+    elif kind == 'lamp':
+        # A readable lamp silhouette matters more than its exact fitting: the
+        # shade is an emissive diffuser so the object reads as a light source
+        # in the render, not as another grey block.
+        shade = source_role(material('LampShade', [min(1, v * 1.55 + .18) for v in entry.get('color', [.8, .74, .6])], .62, emission=.55), 'body')
+        B('LampBase', (0, 0, .025), (.44, .44, .05), darker, .012)
+        R('LampStem', (0, 0, .04), (0, 0, .58), .022, metal)
+        if entry.get('is_floor_lamp'):
+            pass
+        B('ShadeBody', (0, 0, .74), (.86, .86, .38), shade, .02)
+        S('ShadeTop', (0, 0, .92), (.5, .5, .06), shade)
+        B('ShadeBottom', (0, 0, .56), (.8, .8, .02), shade, .01)
+    elif kind == 'tv':
+        B('TvPanel', (0, 0, .56), (.96, .07, .56), black, .006)
+        B('TvScreen', (0, -.04, .56), (.93, .004, .52), screen, 0)
+        B('TvNeck', (0, .02, .25), (.16, .1, .2), black)
+        B('TvFoot', (0, 0, .05), (.42, .26, .045), black, .008)
+        B('TvBadge', (0, -.045, .31), (.06, .003, .012), metal, 0)
+    elif kind == 'book':
+        # A short stacked pile reads as books at any angle, unlike a single slab.
+        for index in range(3):
+            shade = source_role(material('BookSpine' + str(index),
+                                         [.18 + index * .10, .16 + index * .05, .22], .72), 'body')
+            B('Book' + str(index), (0, 0, .18 + index * .26), (.94, .62 + index * .08, .24),
+              shade, .004)
+    elif kind == 'painting':
+        # A framed picture, not a slab: a thin canvas set into a raised frame,
+        # with a mat border so it reads as art from a few metres away.
+        B('Canvas', (0, .012, .5), (.90, .016, .86), bevel=.002)
+        mat = source_role(material('PictureMat', (.93, .92, .89), .8), 'body')
+        B('MatBorder', (0, -.002, .5), (.94, .012, .90), mat, .002)
+        for x in (-.478, .478):
+            B('FrameSide', (x, -.02, .5), (.044, .05, 1), darker, .004)
+        for z in (.022, .978):
+            B('FrameBar', (0, -.02, z), (.956, .05, .044), darker, .004)
+    elif kind == 'cushion':
+        # Two stacked soft boxes with a rounded edge and a slight tilt is enough
+        # for a throw pillow; a single bevel box reads as a plank.
+        B('CushionBody', (0, 0, .5), (.96, .30, .88), base, .10)
+        B('CushionSeam', (0, 0, .5), (.90, .32, .06), darker, .02)
+        B('CushionFold', (0, 0, .74), (.84, .33, .05), darker, .02)
+    elif kind == 'tray':
+        B('TrayFloor', (0, 0, .18), (.94, .94, .07), darker, .012)
+        for x in (-.46, .46):
+            B('TrayRimX', (x, 0, .5), (.075, 1, .96), base, .012)
+        for y in (-.46, .46):
+            B('TrayRimY', (0, y, .5), (.95, .075, .96), base, .012)
+    elif kind == 'vase':
+        R('VaseBody', (0, 0, .04), (0, 0, .58), .26, base)
+        R('VaseNeck', (0, 0, .58), (0, 0, .82), .12, base)
+        B('VaseRim', (0, 0, .84), (.3, .3, .05), darker, .012)
     elif kind == 'decor':
         S('Decor', (0, 0, .5), (1, 1, 1))
     else:  # column, beam, box (and forward-compatible fallback categories)
@@ -306,6 +668,16 @@ def asset(entry):
 
     root.location = entry['position']
     root.scale = entry['dimensions']
+    if kind in METRIC_KINDS:
+        # These were being authored inside a unit cube and then scaled by the
+        # object's real dimensions, so every small detail was multiplied by a
+        # very small number: a 6 mm rug border on a 12 mm rug became 0.07 mm and
+        # vanished. They are rebuilt below in metres with an identity scale.
+        for child in list(root.children):
+            bpy.data.objects.remove(child, do_unlink=True)
+        root.scale = (1.0, 1.0, 1.0)
+        _metric_details(root, kind, entry, box, rod, sphere,
+                        base=base, darker=darker, pale=pale, metal=metal, black=black)
     root.rotation_euler = [math.radians(v) for v in entry.get('rotation_degrees', [0, 0, 0])]
     for key in ('id', 'kind', 'observed', 'confidence', 'notes'):
         root[key] = entry.get(key, {'observed': True, 'confidence': .5, 'notes': ''}.get(key, ''))
